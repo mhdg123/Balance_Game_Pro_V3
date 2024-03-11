@@ -15,4 +15,7 @@ public class AnswerDTO {
     private String loginId; // 로그인 FK
     private String answer; // 선택한 답변
     private Date answerDate; //답변 등록시간
+    
+    // java
+    private String searchCondition;
 }
