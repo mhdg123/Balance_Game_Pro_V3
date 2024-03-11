@@ -1,7 +1,13 @@
 package com.jarvis.BalanceGame.model.dto;
 
-public class TotalDTO {
-	  //private TOTAL_AMOUNT_ID INT PRIMARY KEY AUTO_INCREMENT, -- 총계 ID PK
-	    //TOTAL_AMOUNT INT -- 총금액
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
+public class TotalDTO {
+	  private int totalAmountID; // 총계 ID PK
+	  private int totalAmount; // 총금액
 }

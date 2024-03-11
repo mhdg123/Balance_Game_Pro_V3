@@ -10,9 +10,9 @@ import lombok.ToString;
 @Setter
 @ToString 
 public class CommentDTO {
-	private int comment_id; // 댓글 ID
-	private int question_id; // 질문 FK
-	private String login_id; // 로그인 FK
+	private int commentId; // 댓글 ID
+	private int questionId; // 질문 FK
+	private String loginId; // 로그인 FK
 	private String comments; // 댓글
-	private Date comment_date; // 댓글 등록시간
+	private Date commentDate; // 댓글 등록시간
 }

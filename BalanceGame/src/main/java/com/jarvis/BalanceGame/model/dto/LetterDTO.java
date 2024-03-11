@@ -10,11 +10,11 @@ import lombok.ToString;
 @Setter
 @ToString 
 public class LetterDTO {
-	  private int letter_id; // 쪽지 PK
-	  private String login_id; // 쪽지받을 유저ID FK
+	  private int letterId; // 쪽지 PK
+	  private String loginId; // 쪽지받을 유저ID FK
 	  private String title; // 제목
-	  private String letter_contents; // 쪽지내용
-	  private String letter_status; // 읽음 유무
-	  private Date letter_date; // 쪽지 보낸시간
+	  private String letterContents; // 쪽지내용
+	  private String letterStatus; // 읽음 유무
+	  private Date letterDate; // 쪽지 보낸시간
 
 }

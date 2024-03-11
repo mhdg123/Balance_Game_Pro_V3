@@ -10,8 +10,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PaymentDTO {
-	  private int payment_id; // PK
-	  private String login_id; // 로그인 FK
+	  private int paymentId; // PK
+	  private String loginId; // 로그인 FK
 	  private int amount; // 결제금액
-	  private Date payment_date; // 결제 시간
+	  private Date paymentDate; // 결제 시간
 }
