@@ -1,5 +1,139 @@
 package com.jarvis.BalanceGame.model.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import com.jarvis.BalanceGame.model.dto.MemberDTO;
+
 public class MemberDAO {
-	
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	// 회원가입 SQL
+	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MPW, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE) VALUES((SELECT NVL(MAX(MID),0) + 1 FROM MEMBER),?,?,?,?,?,?,?)";
+	// 아이디 중복 체크 SQL
+	private static final String SELECT_LOGIN_ID = "SELECT LOGIN_ID FROM MEMBER WHERE LOGIN_ID = ? ";
+	// 로그인 SQL
+	private static final String LOGIN = "SELECT LOGIN_ID, ROLE FROM MEMBER WHERE LOGIN_ID = ? AND MPW = ? ";
+	// 마이페이지 SQL
+	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, GENDER, EMAIL, ADDRESS FROM MEMBER WHERE LOGIN_ID = ? AND MEMBER_PASSWORD = ?";
+	// 내정보 변경하기 SQL
+	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
+	// 유저 전체 조회
+	private static final String SELECTALL_USER = "SELECT MID, LOGIN_ID, MPW, NAME, EMAIL, ADDRESS, GENDER, AGE, GRADE FROM MEMBER";
+	// 유저 상세 조회
+	private static final String SELECTONE_USER = "SELECT MID, LOGIN_ID, MPW, NAME, EMAIL, ADDRESS, GENDER, AGE, GRADE FROM MEMBER WHERE LOGIN_ID = ?";
+	// 유저 삭제
+	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
+
+	// 회원 전체 검색
+	public List<MemberDTO> selectAll(MemberDTO mDTO) {
+		if (mDTO.getSearchCondition().equals("viewAll")) {
+			return (List<MemberDTO>) jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
+		}
+		return null;
+	}
+
+	// 회원 단일 검색
+	public MemberDTO selectOne(MemberDTO mDTO) {
+		// 회원 전체 검색
+		if (mDTO.getSearchCondition().equals("viewOne")) {
+			Object[] args = { mDTO.getLoginId() };
+			return jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapper());
+		}
+		// 로그인
+		else if (mDTO.getSearchCondition().equals("login")) {
+			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
+			return jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
+		}
+		// 아이디 중복확인
+		else if (mDTO.getSearchCondition().equals("duplitcateCheck")) {
+			Object[] args = { mDTO.getLoginId() };
+			return jdbcTemplate.queryForObject(SELECT_LOGIN_ID, args, new MemberRowMapperIdCheck());
+		}
+		// 마이페이지 비밀번호 확인
+		else if (mDTO.getSearchCondition().equals("myInfo")) {
+			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
+			return jdbcTemplate.queryForObject(MY_INFO, args, new MemberRowMapper());
+		}
+		return null;
+	}
+
+	// 회원가입
+	public boolean insert(MemberDTO mDTO) {
+		int result = jdbcTemplate.update(INSERT, mDTO.getLoginId(), mDTO.getMemberPassword(), mDTO.getName(),
+				mDTO.getEmail(), mDTO.getAddress(), mDTO.getGender(), mDTO.getCellPhone(), mDTO.getAge());
+		if (result <= 0) {
+			return false;
+		}
+		return true;
+	}
+
+	// 개인정보 변경
+	public boolean update(MemberDTO mDTO) {
+		int result = jdbcTemplate.update(MY_INFO_UPDATE, mDTO.getName(), mDTO.getEmail(), mDTO.getLoginId());
+		if (result <= 0) {
+			return false;
+		}
+		return true;
+	}
+
+	// 회원탈퇴
+	public boolean delete(MemberDTO mDTO) {
+		int result = jdbcTemplate.update(DELETE, mDTO.getLoginId());
+		if (result <= 0) {
+			return false;
+		}
+		return true;
+	}
+}
+
+class MemberRowMapper implements RowMapper<MemberDTO> {
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getString("LOGIN_ID "));
+		member.setMemberPassword(rs.getString("MEMBER_PASSWORD "));
+		member.setName(rs.getString("NAME"));
+		member.setNickName(rs.getString("NICKNAME"));
+		member.setAge(rs.getDate("AGE"));
+		member.setCellPhone(rs.getString("CELL_PHONE"));
+		member.setGender(rs.getString("GENDER"));
+		member.setEmail(rs.getString("EMAIL"));
+		member.setAddress(rs.getString("ADDRESS"));
+		member.setGrade(rs.getInt("GRADE"));
+		member.setCoin(rs.getInt("COIN"));
+		member.setWarningCount(rs.getInt("WARNING_COUNT"));
+		member.setAdvertisementStatus(rs.getString("ADVERTISEMENT_STATUS"));
+		return member;
+	}
+
+}
+
+class MemberRowMapperLogin implements RowMapper<MemberDTO> {
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getString("LOGIN_ID"));
+		member.setRole(rs.getString("ROLE"));
+		return member;
+	}
+}
+
+class MemberRowMapperIdCheck implements RowMapper<MemberDTO> {
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getNString("LOGIN_ID"));
+		return member;
+	}
 }

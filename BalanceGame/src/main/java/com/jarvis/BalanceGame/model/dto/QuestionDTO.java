@@ -20,4 +20,8 @@ public class QuestionDTO {
     private String explanation; // 문제 설명
     private String questionAccess; // 문제 승인여부
     private Date questionDate; // 질문 등록시간
+    
+    //---------------------------------------
+    private String searchCondition;
+    private int questionLikeID;
 }

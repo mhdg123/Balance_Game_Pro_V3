@@ -15,4 +15,7 @@ public class CommentDTO {
 	private String loginId; // 로그인 FK
 	private String comments; // 댓글
 	private Date commentDate; // 댓글 등록시간
+	
+	//------------------------------
+	private String searchCondition;
 }
