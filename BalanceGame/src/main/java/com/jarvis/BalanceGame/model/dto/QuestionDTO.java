@@ -24,4 +24,6 @@ public class QuestionDTO {
     //---------------------------------------
     private String searchCondition;
     private int questionLikeID;
+    private int answerACount;
+    private int answerBCount;
 }

@@ -16,7 +16,7 @@ public class QuestionDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT Q.QID, Q.TITLE, COALESCE(S.SID, 0) AS QUESTIONLISTWISHID FROM QUESTION Q LEFT OUTER JOIN "
+	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT Q.QID, Q.TITLE, COALESCE(S.SID, 0) AS QUESTIONLIKEID FROM QUESTION Q LEFT OUTER JOIN "
 			+ "SAVE S ON S.QID = Q.QID AND S.LOGIN_ID = ? WHERE Q.Q_ACCESS = 'T' ";
 	
 	private static final String SELECTALL_FALSE = "SELECT Q.QID,Q.TITLE,C.CATEGORY \r\n" + "FROM QUESTIONS Q\r\n"
@@ -45,13 +45,12 @@ public class QuestionDAO {
 			+ "    SAVE S ON S.QID = Q.QID AND S.LOGIN_ID = ?\r\n"
 			+ "WHERE ROWNUM = 1 AND  Q.Q_ACCESS = 'T'";
 
-	private static final String SELECT_ONE_DETAIL = "SELECT Q.QID,Q.TITLE,Q.ANSWER_A,Q.ANSWER_B,Q.EXPLANATION,C.CATEGORY,\r\n"
-			+ "COUNT(CASE WHEN A.ANSWER = 'A' THEN 1 END) AS COUNT_A, \r\n"
-			+ "COUNT(CASE WHEN A.ANSWER = 'B' THEN 1 END) AS COUNT_B,\r\n" + "NVL(S.SID, 0) AS SAVE_SID\r\n"
-			+ "FROM QUESTIONS Q\r\n" + "JOIN ANSWERS A ON A.QID=Q.QID\r\n"
-			+ "JOIN CATEGORY C ON Q.CATEGORY = C.CGID\r\n" + "LEFT JOIN\r\n"
-			+ "    SAVE S ON S.QID = Q.QID AND S.LOGIN_ID = ?\r\n" + "WHERE Q.QID=?\r\n"
-			+ "GROUP BY Q.QID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, C.CATEGORY,S.SID";
+	private static final String SELECT_ONE_DETAIL = "SELECT Q.QID,Q.TITLE,Q.ANSWER_A,Q.ANSWER_B,Q.EXPLANATION, "
+			+ "COUNT(CASE WHEN A.ANSWER = 'A' THEN 1 END) AS COUNT_A, "
+			+ "COUNT(CASE WHEN A.ANSWER = 'B' THEN 1 END) AS COUNT_B, NVL(S.SID, 0) AS SAVE_SID "
+			+ "FROM QUESTIONS Q JOIN ANSWERS A ON A.QID=Q.QID "
+			+ "LEFT JOIN SAVE S ON S.QID = Q.QID AND S.LOGIN_ID = ? WHERE Q.QID=? "
+			+ "GROUP BY Q.QID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, S.SID";
 
 	 private static final String SELECT_ONE_ADMIN = "SELECT QID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, CATEGORY, REG_DATE, Q_ACCESS FROM QUESTIONS Q WHERE Qid = ? ";
 
@@ -75,9 +74,11 @@ public class QuestionDAO {
 	            System.out.println("로그 qDAO: 크롤링");
 	            return jdbcTemplate.query(SELECTALL_CRAWLLING, new QuestionRowMapper());
 	        }
+			// 관리자가 승인한 문제조회
 			else if(qDTO.getSearchCondition().equals("adminViewAllOfApprovedQuestions")) {
 				return jdbcTemplate.query(SELECTALL_ADMIN_APPROVED_QUESTIONS, new QuestionRowMapper());
 	        }
+			// 관리자가 승인하지 않은 문제조회 
 			else if(qDTO.getSearchCondition().equals("adminViewAllOfUnapprovedQuestions")) {
 				return jdbcTemplate.query(SELECTALL_ADMIN_UNAPPROVED_QUESTIONS, new QuestionRowMapper());
 			}
@@ -86,80 +87,19 @@ public class QuestionDAO {
 
 	// 가져올 문제테이블의 정보를 무작위로 정렬해서 가져와서 맨위에 있는 한개의 행의 데이터만 조회
 	public QuestionDTO selectOne(QuestionDTO qDTO) {
-		QuestionDTO data = null;
-		conn = JDBCUtil.connect();
-		try {
-			if (qDTO.getSearchCondition().equals("문제상세조회")) {
-				// 박현구
-				pstmt = conn.prepareStatement(SELECT_ONE_DETAIL);
-				pstmt.setString(1, qDTO.getWriter());
-				pstmt.setInt(2, qDTO.getqId());
-				ResultSet rs = pstmt.executeQuery();
-				if (rs.next()) {
-					data = new QuestionDTO();
-					data.setqId(rs.getInt("QID"));
-					data.setTitle(rs.getString("TITLE"));
-
-					// data.setWriter(rs.getString("WRITER"));
-
-					data.setAnswer_A(rs.getString("ANSWER_A"));
-					data.setAnswer_B(rs.getString("ANSWER_B"));
-
-					data.setExplanation(rs.getString("EXPLANATION"));
-					data.setS_category(rs.getString("CATEGORY"));
-
-					data.setAnswerCntA(rs.getInt("COUNT_A"));
-					data.setAnswerCntB(rs.getInt("COUNT_B"));
-					data.setSave(rs.getInt("SAVE_SID"));
-
-				}
-				rs.close();
-
-			} else if (qDTO.getSearchCondition().equals("질문랜덤생성")) {
-				// 박현구
-
-				pstmt = conn.prepareStatement(SELECT_ONE_RANDOM);
-				pstmt.setString(1, qDTO.getWriter());
-				ResultSet rs = pstmt.executeQuery();
-				if (rs.next()) {
-					data = new QuestionDTO();
-					data.setqId(rs.getInt("QID"));
-					data.setWriter(rs.getString("WRITER"));
-					data.setTitle(rs.getString("TITLE"));
-
-					data.setAnswer_A(rs.getString("ANSWER_A"));
-					data.setAnswer_B(rs.getString("ANSWER_B"));
-
-					data.setExplanation(rs.getString("EXPLANATION"));
-
-					data.setSave(rs.getInt("SAVE_SID"));
-
-				}
-				rs.close();
-			}else if(qDTO.getSearchCondition().equals("관리자문제상세조회")) {
-	            pstmt = conn.prepareStatement(SELECT_ONE_ADMIN);
-	            pstmt.setInt(1, qDTO.getqId());
-	            ResultSet rs = pstmt.executeQuery();
-	            if (rs.next()) {
-	               data = new QuestionDTO();
-	               data.setqId(rs.getInt("QID"));
-	               data.setWriter(rs.getString("WRITER"));
-	               data.setTitle(rs.getString("TITLE"));
-	               data.setAnswer_A(rs.getString("ANSWER_A"));
-	               data.setAnswer_B(rs.getString("ANSWER_B"));
-	               data.setExplanation(rs.getString("EXPLANATION"));
-	               data.setCategory(rs.getInt("CATEGORY"));
-	               data.setqAccess(rs.getString("Q_ACCESS"));
-	            }
-	         }
-
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JDBCUtil.disconnect(pstmt, conn);
-		}
-		return data;
+			if (qDTO.getSearchCondition().equals("questionDetail")) {
+				Object[] args = {qDTO.getLoginId(), qDTO.getQuestionId()};
+				return jdbcTemplate.queryForObject(SELECT_ONE_DETAIL, args, new QuestionRowMapperDetail());
+			}
+			else if (qDTO.getSearchCondition().equals("showRandomQuestion")) {
+				Object[] args = {qDTO.getLoginId()};
+				return jdbcTemplate.queryForObject(SELECT_ONE_RANDOM, args, new QuestionRowMapperShowToUser());
+			}
+			else if(qDTO.getSearchCondition().equals("adminQuestionDetail")) {
+				Object[] args = {qDTO.getQuestionId()};
+				return jdbcTemplate.queryForObject(SELECT_ONE_ADMIN, args, new QuestionRowMapper());
+			}
+			return null;
 	}
 
 	public boolean insert(QuestionDTO qDTO) {
@@ -266,7 +206,7 @@ class QuestionRowMapperList implements RowMapper<QuestionDTO>{
 		QuestionDTO data = new QuestionDTO();
 		data.setQuestionId(rs.getInt("QUESTION_ID"));
 		data.setTitle(rs.getString("TITLE"));
-		data.setQuestionListWishId(rs.getInt("QUESTIONLISTWISHID"));
+		data.setQuestionLikeID(rs.getInt("QUESTIONLIKEID"));
 		return data;
 	}
 }
@@ -286,5 +226,34 @@ class QuestionRowMapper implements RowMapper<QuestionDTO>{
 	}
 }
 
+class QuestionRowMapperDetail implements RowMapper<QuestionDTO>{
 
+	@Override
+	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		QuestionDTO data = new QuestionDTO();
+		data.setQuestionId(rs.getInt("QUESTION_ID"));
+		data.setTitle(rs.getString("TITLE"));
+		data.setAnswerA(rs.getString("ANSWER_A"));
+		data.setAnswerB(rs.getString("ANSWER_B"));
+		data.setExplanation(rs.getString("EXPLANATION"));
+		data.setAnswerACount(rs.getInt("COUNT_A"));
+		data.setAnswerBCount(rs.getInt("COUNT_B"));
+		data.setQuestionLikeID(rs.getInt("QUESTIONLIKEID"));
+	}
+}
+
+class QuestionRowMapperShowToUser implements RowMapper<QuestionDTO>{
+
+	@Override
+	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		QuestionDTO data = new QuestionDTO();
+		data.setQuestionId(rs.getInt("QUESTION_ID"));
+		data.setLoginId(rs.getString("LOGIN_ID"));
+		data.setTitle(rs.getString("TITLE"));
+		data.setAnswerA(rs.getString("ANSWER_A"));
+		data.setAnswerB(rs.getString("ANSWER_B"));
+		data.setExplanation(rs.getString("EXPLANATION"));
+		data.setQuestionLikeID(rs.getInt("QUESTIONLIKEID"));
+	}
+}
 
