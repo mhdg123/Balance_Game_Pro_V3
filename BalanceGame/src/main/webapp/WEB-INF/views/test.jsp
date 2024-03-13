@@ -9,7 +9,7 @@
 <body>
 
    <%
-      out.println("<h1>TEST 표지페이지입니다.</h1>");
+      out.println("<h1>TEST 표지페이지입니다..</h1>");
    %>
 
 </body>
