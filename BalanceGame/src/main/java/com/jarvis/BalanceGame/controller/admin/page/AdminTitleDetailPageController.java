@@ -11,13 +11,13 @@ import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 import com.jarvis.BalanceGame.service.QuestionService;
 
 @Controller
-public class AdminTitleDetaileAccessPageController {
+public class AdminTitleDetailPageController {
 
 	@Autowired
 	private QuestionService questionService;
 	
-	@RequestMapping("/adminTitleDetaileAccessPage")
-	public String AdminTitleDetaileAccessPageController(QuestionDTO qDTO, Model model) {
+	@RequestMapping("/adminTitleDetailPage")
+	public String AdminTitleDetailPageController(QuestionDTO qDTO, Model model) {
 		
 		int qid = Integer.parseInt(request.getParameter("qid"));
 		qDTO.setqId(qid);
@@ -28,10 +28,11 @@ public class AdminTitleDetaileAccessPageController {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
 			model.addAttribute("redirect", "adminTitleAccessPage.do");
-			return "alret";
+			return "alert";
+			
 		}
 		model.addAttribute("qDTO", qDTO);
-		return "adminTitleDetailAccess";
+		return "adminTitleDetail";
 	}
 	
 }
