@@ -18,7 +18,7 @@ public class TitleListPageController {
 	@Autowired
 	private QuestionService questionService;
 	
-	@RequestMapping("/")
+	@RequestMapping("/titleListPage")
 	public String TitleLisgtPageControllter(QuestionDTO qDTO, Model model, HttpSession session) {
 		
 		qDTO.setSearchCondition("문제전체조회");
