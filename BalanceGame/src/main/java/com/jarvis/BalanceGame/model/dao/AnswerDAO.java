@@ -1,14 +1,14 @@
 package com.jarvis.BalanceGame.model.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.jarvis.BalanceGame.model.dto.AnswerDTO;
 
+@Repository
 public class AnswerDAO {
 
 	@Autowired
@@ -28,9 +28,9 @@ public class AnswerDAO {
 		return null;
 	}
 
-	private int result = 0;
-
 	public boolean insert(AnswerDTO aDTO) { // INSERT : 문제를 풀때 유저의 정보와 문제번호, 문제의 답변을 저장
+
+		int result = 0;
 
 		if (aDTO.getSearchCondition().equals("saveAnswer")) {
 			result = jdbcTemplate.update(INSERT, aDTO.getQuestionId(), aDTO.getLoginId(), aDTO.getAnswer());
@@ -43,6 +43,8 @@ public class AnswerDAO {
 
 	public boolean update(AnswerDTO aDTO) { // 업데이트 (이용자가 풀었던 문제값 null로 변환)
 
+		int result = 0;
+
 		if (aDTO.getSearchCondition().equals("answer_null")) {
 			result = jdbcTemplate.update(AS_UPDATE, aDTO.getLoginId());
 		}
@@ -52,7 +54,6 @@ public class AnswerDAO {
 		return true;
 	}
 
-	// 댓글 삭제하기 TODO 추후 구현 예정
 	private boolean delete(AnswerDTO aDTO) {
 		return false;
 	}

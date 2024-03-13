@@ -13,5 +13,5 @@ public class WishDTO {
 	 private String loginId; // 찜한 사용자의 로그인 ID
 	 
 	 //---------------------------------------------
-	 
+	 private String questionTitle; // 찜한 질문 제목
 }

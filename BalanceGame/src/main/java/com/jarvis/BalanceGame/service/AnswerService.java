@@ -5,9 +5,7 @@ import java.util.List;
 import com.jarvis.BalanceGame.model.dto.AnswerDTO;
 
 public interface AnswerService {
-	public boolean insert();
-	public boolean update();
-	public boolean delete();
-	public List<AnswerDTO> selectAll();
-	public AnswerDTO selectOne();
+	public boolean insert(AnswerDTO aDTO);
+	public boolean update(AnswerDTO aDTO);
+	//public boolean delete(AnswerDTO aDTO);
 }

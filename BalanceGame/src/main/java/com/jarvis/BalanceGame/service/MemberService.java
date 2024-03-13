@@ -5,9 +5,9 @@ import java.util.List;
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
 
 public interface MemberService {
-	public boolean insert();
-	public boolean update();
-	public boolean delete();
-	public List<MemberDTO> selectAll();
-	public MemberDTO selectOne();
+	public boolean insert(MemberDTO mDTO);
+	public boolean update(MemberDTO mDTO);
+	public boolean delete(MemberDTO mDTO);
+	public List<MemberDTO> selectAll(MemberDTO mDTO);
+	public MemberDTO selectOne(MemberDTO mDTO);
 }
