@@ -14,4 +14,34 @@ public class AdvertisementServiceImpl implements AdvertisementService{
 	@Autowired
 	AdvertisementDAO advertisementDAO;
 
+	@Override
+	public boolean insert(AdvertisementDTO aDTO) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(AdvertisementDTO aDTO) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(AdvertisementDTO aDTO) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<AdvertisementDTO> selectAll(AdvertisementDTO aDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AdvertisementDTO selectOne(AdvertisementDTO aDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

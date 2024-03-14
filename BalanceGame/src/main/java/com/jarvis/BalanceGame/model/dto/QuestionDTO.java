@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class QuestionDTO {
     private int questionId; // 질문 ID
-    private String loginId; // 작성자 ID
+    private String writer; // 작성자 ID
     private String title; // 제목
     private String answerA; // 답변 A
     private String answerAImg; // 답변 A 이미지 
