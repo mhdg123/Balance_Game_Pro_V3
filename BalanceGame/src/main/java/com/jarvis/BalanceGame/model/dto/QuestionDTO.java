@@ -23,8 +23,9 @@ public class QuestionDTO {
     
     //---------------------------------------
     private String searchCondition;
-    private int questionLikeID;
+    private int likeID;
     private int answerACount;
     private int answerBCount;
     private int likeCount;
+    private int questionCount;
 }

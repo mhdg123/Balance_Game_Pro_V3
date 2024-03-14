@@ -18,17 +18,21 @@ public class QuestionDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 승인된 전체 문제 조회
-	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT Q.QUESTION_ID, Q.TITLE, IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_DATE FROM QUESTION Q LEFT OUTER JOIN "
-			+ "WISH W ON W.QUESTION_ID = Q.QUESTION_ID AND W.LOGIN_ID = ? WHERE Q.Q_ACCESS = 'T' ";
+	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE, COUNT(DISTINCT W.LOGIN_ID) AS LIKE_COUNT,\r\n"
+			+ "IFNULL(W.WISH_ID, 0) AS USER_LIKED FROM QUESTION Q LEFT JOIN WISH W ON W.QUESTION_ID = Q.QUESTION_ID AND W.LOGIN_ID = ?\r\n"
+			+ "WHERE Q.QUESTION_ACCESS = 'T' GROUP BY Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE";
 
 	// 크롤링한 문제 조회
 	private static final String SELECTALL_CRAWLLING = "SELECT Q.QID, Q.TITLE, Q.WRITER, Q.ANSWER_A, Q.ANSWER_B , EXPLANATION FROM QUESTIONS Q";
 
 	// 관리자가 사용하는 승인한 전체 문제 조회
-	private static final String SELECTALL_ADMIN_APPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER FROM QUESTIONS Q WHERE Q_ACCESS = 'T' ";
+	private static final String SELECTALL_ADMIN_APPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER Q.EXPLANATION Q.QUESTION_DATE FROM QUESTIONS Q WHERE QUESTION_ACCESS = 'T' ";
 
 	// 관리자가 사용하는 승인하지 않은 전체 문제 조회
-	private static final String SELECTALL_ADMIN_UNAPPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER, Q.ANSWER_A, Q.ANSWER_B, EXPLANATION, QUESTION_DATE FROM QUESTIONS Q WHERE Q_ACCESS = 'F' ";
+	private static final String SELECTALL_ADMIN_UNAPPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER, Q.EXPLANATION, Q.QUESTION_DATE FROM QUESTIONS Q WHERE QUESTION_ACCESS = 'F' ";
+
+	// 문제 개수
+	private static final String SELECT_CNT = "SELECT COUNT(1) AS CNT FROM QUESTIONS WHERE QUESTION_ACCESS=?";
 	
 	// 사용자가 풀 문제를 랜덤으로 조회
 	private static final String SELECT_ONE_RANDOM = "SELECT IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.WRITER, Q.EXPLANATION, QUESTION_DATE FROM \r\n"
@@ -160,7 +164,9 @@ class QuestionRowMapperList implements RowMapper<QuestionDTO> {
 		QuestionDTO data = new QuestionDTO();
 		data.setQuestionId(rs.getInt("QUESTION_ID"));
 		data.setTitle(rs.getString("TITLE"));
-		data.setQuestionLikeID(rs.getInt("LIKE_ID"));
+		data.setLikeCount(rs.getInt("LIKE_COUNT"));
+		data.setLikeID(rs.getInt("LIKE_ID"));
+		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}
 }
@@ -173,8 +179,6 @@ class QuestionRowMapper implements RowMapper<QuestionDTO> {
 		data.setQuestionId(rs.getInt("QUESTION_ID "));
 		data.setTitle(rs.getString("TITLE"));
 		data.setWriter(rs.getString("WRITER"));
-		data.setAnswerA(rs.getString("ANSWER_A"));
-		data.setAnswerB(rs.getString("ANSWER_B"));
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
@@ -194,7 +198,7 @@ class QuestionRowMapperDetail implements RowMapper<QuestionDTO> {
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setAnswerACount(rs.getInt("COUNT_A"));
 		data.setAnswerBCount(rs.getInt("COUNT_B"));
-		data.setQuestionLikeID(rs.getInt("LIKE_ID"));
+		data.setLikeID(rs.getInt("LIKE_ID"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}
@@ -211,7 +215,7 @@ class QuestionRowMapperShowToUser implements RowMapper<QuestionDTO> {
 		data.setAnswerA(rs.getString("ANSWER_A"));
 		data.setAnswerB(rs.getString("ANSWER_B"));
 		data.setExplanation(rs.getString("EXPLANATION"));
-		data.setQuestionLikeID(rs.getInt("LIKE_ID"));
+		data.setLikeID(rs.getInt("LIKE_ID"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}
