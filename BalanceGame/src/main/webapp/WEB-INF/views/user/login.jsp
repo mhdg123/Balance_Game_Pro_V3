@@ -2,68 +2,17 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
-<!-- 헤더 고정 스타일 공통 모음 -->
-<%@ include file="../layout/header-fix.jsp"%>
-<!-- 헤더 고정 스타일 공통 모음 -->
+ <head>
+   <!-- css -->
+    <%@ include file="../layout/header-fix.jsp"%>
+    <title>Watch shop | eCommers</title>
+<!-- css -->
+  </head>
 <body>
-    <!--? Preloader Start -->
-    <!-- 페이지 로딩 -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-          <div class="preloader-inner position-relative">
-            <div class="preloader-circle"></div>
-            <div class="preloader-img pere-text">
-              <img src="assets/img/jarvis/jarvisLogo.png" alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Preloader Start -->
-    <header>
-        <!-- Header Start -->
-        <div class="header-area">
-            <div class="main-header header-sticky">
-                <div class="container-fluid">
-                    <div class="menu-wrapper">
-                        <!-- Logo -->
-                        <div class="logo">
-                            <a href="index.html"><img src="assets/img/jarvis/logo2.png" alt=""></a>
-                        </div>
-                        <!-- Main-menu -->
-                        <div class="main-menu d-none d-lg-block">
-                            <nav>                                                
-                                <ul id="navigation">  
-                                     <!-- 비로그인 시 -->
-                                     <li><a href="game.html">게임하기</a></li>
-                                     <li><a href="titleList.html">문제목록</a></li>
-                                     <li><a href="itemStroe.html">상점</a></li>
-                                     <!-- 비로그인 시 -->
-                                     <!-- 로그인 시 -->
-                                     <li><a href="game.html">게임하기(로그인시)</a></li>
-                                     <li><a href="titleList.html">문제목록(로그인시)</a></li>
-                                     <li><a href="#">000(로그인시)</a></li>
-                                     <li><a href="itemStore.html">상점(로그인시)</a></li>
-                                     <!-- 로그인 시 -->
-                                </ul>
-                            </nav>
-                        </div>
-                        <!-- Header Right -->
-                        <div class="header-right">
-                            <ul>
-                                <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
-                                <li><a href="cart.html"><span class="flaticon-shopping-cart"></span></a> </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Mobile Menu -->
-                    <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Header End -->
-    </header>
+
+    <!-- 헤너 네비 바 -->
+    <%@ include file="../layout/header.jsp"%>
+    <!-- 헤너 네비 바 -->
     <main>
         <!-- Hero Area Start-->
         <div class="slider-area ">
@@ -127,16 +76,10 @@
         </section>
         <!--================login_part end =================-->
     </main>
-   
-    <!--? Search model Begin -->
-    <div class="search-model-box">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-btn">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Searching key.....">
-            </form>
-        </div>
-    </div>
+<!-- 메인 페이지 푸터 -->
+    <%@ include file="../layout/index-footer.jsp"%>
+	<!-- 메인 페이지 푸터 -->
+
 
 
 
