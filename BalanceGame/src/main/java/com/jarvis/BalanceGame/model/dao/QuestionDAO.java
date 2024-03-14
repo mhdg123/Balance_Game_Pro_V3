@@ -18,44 +18,49 @@ public class QuestionDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 승인된 전체 문제 조회
-	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT Q.QUESTION_ID, Q.TITLE, IFNULL(W.WISH_ID, 0) AS LIKE_ID FROM QUESTION Q LEFT OUTER JOIN "
+	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT Q.QUESTION_ID, Q.TITLE, IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_DATE FROM QUESTION Q LEFT OUTER JOIN "
 			+ "WISH W ON W.QUESTION_ID = Q.QUESTION_ID AND W.LOGIN_ID = ? WHERE Q.Q_ACCESS = 'T' ";
 
 	// 크롤링한 문제 조회
 	private static final String SELECTALL_CRAWLLING = "SELECT Q.QID, Q.TITLE, Q.WRITER, Q.ANSWER_A, Q.ANSWER_B , EXPLANATION FROM QUESTIONS Q";
 
-	// 관리자가 보는 승인한 전체 문제 조회
-	private static final String SELECTALL_ADMIN_APPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER, Q.ANSWER_A, Q.ANSWER_B, EXPLANATION, QUESTION_DATE FROM QUESTIONS Q WHERE Q_ACCESS = 'T' ";
+	// 관리자가 사용하는 승인한 전체 문제 조회
+	private static final String SELECTALL_ADMIN_APPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER FROM QUESTIONS Q WHERE Q_ACCESS = 'T' ";
 
-	// 관리자가 보는 승인하지 않은 전체 문제 조회
+	// 관리자가 사용하는 승인하지 않은 전체 문제 조회
 	private static final String SELECTALL_ADMIN_UNAPPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER, Q.ANSWER_A, Q.ANSWER_B, EXPLANATION, QUESTION_DATE FROM QUESTIONS Q WHERE Q_ACCESS = 'F' ";
-
-	// 사용자가 질문 생성
-	private static final String INSERT = "INSERT INTO QUESTIONS (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION) VALUES(?,?,?,?,?)";
-
-	// 관리자가 질문 생성
-	private static final String INSERT_ADMIN = "INSERT INTO QUESTIONS (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_ACCESS) VALUES(?,?,?,?,?,'T')";
-
+	
 	// 사용자가 풀 문제를 랜덤으로 조회
-	private static final String SELECT_ONE_RANDOM = "SELECT IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.WRITER, Q.EXPLANATION FROM \r\n"
-			+ " (SELECT QUESTION_ID, TITLE, ANSWER_A, ANSWER_B, WRITER, EXPLANATION, QUESTION_ACCESS FROM QUESTIONS WHERE Q.QUESTION_ACCESS = 'T' ORDER BY RAND()) Q\r\n"
+	private static final String SELECT_ONE_RANDOM = "SELECT IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.WRITER, Q.EXPLANATION, QUESTION_DATE FROM \r\n"
+			+ " (SELECT QUESTION_ID, TITLE, ANSWER_A, ANSWER_B, WRITER, EXPLANATION, QUESTION_DATE FROM QUESTIONS WHERE Q.QUESTION_ACCESS = 'T' ORDER BY RAND()) Q\r\n"
 			+ " LEFT OUTER JOIN WISH W ON Q.QUESTION_ID = W.QUESTION_ID AND W.LOGIN_ID = ? LIMIT = 1 ";
 
+
 	// 문제 상세보기 
-	private static final String SELECT_ONE_DETAIL = "SELECT Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, Q.WRITER "
+	private static final String SELECT_ONE_DETAIL = "SELECT Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, Q.WRITER Q.QUESTION_DATE "
 			+ "COUNT(CASE WHEN A.ANSWER = 'A' THEN 1 END) AS COUNT_A, "
 			+ "COUNT(CASE WHEN A.ANSWER = 'B' THEN 1 END) AS COUNT_B, "
 			+ "IFNULL(W.WISH_ID, 0) AS LIKE_ID "
-			+ "FROM QUESTIONS Q JOIN ANSWERS A ON A.QUESTION_ID = Q.QUESTION_ID "
-			+ "LEFT JOIN WISH W ON S.QUESTION_ID = Q.QUESTION_ID AND W.LOGIN_ID = ? WHERE Q.QID=? "
-			+ "GROUP BY Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, W.WISH_ID";
+			+ "FROM QUESTIONS Q JOIN ANSWERS A ON Q.QUESTION_ID = A.QUESTION_ID "
+			+ "LEFT JOIN WISH W ON Q.QUESTION_ID = W.QUESTION_ID AND W.LOGIN_ID = ? WHERE Q.QUESTION_ID=? "
+			+ "GROUP BY Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, W.WISH_ID, Q.QUESTION_DATE";
 
-	private static final String SELECT_ONE_ADMIN = "SELECT QID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, CATEGORY, REG_DATE, Q_ACCESS FROM QUESTIONS Q WHERE Qid = ? ";
+	// 관리자가 사용하는 문제 상세보기 
+	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_DATE, FROM QUESTIONS Q WHERE QUESTION_ID = ? ";
+	
+	// 사용자가 질문 생성
+	private static final String INSERT = "INSERT INTO QUESTIONS (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION) VALUES(?,?,?,?,?)";
+	
+	// 관리자가 질문 생성
+	private static final String INSERT_ADMIN = "INSERT INTO QUESTIONS (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_ACCESS) VALUES(?,?,?,?,?,'T')";
 
-	private static final String UPDATE = "UPDATE QUESTIONS \r\n"
-			+ "SET TITLE=?,ANSWER_A=?,ANSWER_B=?,EXPLANATION=?,CATEGORY=?,Q_ACCESS=? \r\n" + "WHERE QID=?";
+	// 관리자가 문제 수정
+	private static final String UPDATE = "UPDATE QUESTIONS SET TITLE=?,ANSWER_A=?,ANSWER_B=?,EXPLANATION=?, Q_ACCESS=? WHERE QID=?";
 
+	// 관리자가 문제 승인
 	private static final String UPDATE_ACCESS = "UPDATE QUESTIONS SET Q_ACCESS='T' WHERE QID=?";
+	
+	// 관리자가 문제 삭제 
 	private static final String DELETE = "DELETE FROM QUESTIONS WHERE QID=?";
 
 	public List<QuestionDTO> selectAll(QuestionDTO qDTO) {
@@ -155,7 +160,7 @@ class QuestionRowMapperList implements RowMapper<QuestionDTO> {
 		QuestionDTO data = new QuestionDTO();
 		data.setQuestionId(rs.getInt("QUESTION_ID"));
 		data.setTitle(rs.getString("TITLE"));
-		data.setQuestionLikeID(rs.getInt("QUESTIONLIKEID"));
+		data.setQuestionLikeID(rs.getInt("LIKE_ID"));
 		return data;
 	}
 }
@@ -165,11 +170,11 @@ class QuestionRowMapper implements RowMapper<QuestionDTO> {
 	@Override
 	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		QuestionDTO data = new QuestionDTO();
-		data.setAnswerA(rs.getString("ANSWER_A"));
-		data.setAnswerB(rs.getString("ANSWER_B"));
 		data.setQuestionId(rs.getInt("QUESTION_ID "));
 		data.setTitle(rs.getString("TITLE"));
-		data.setWriter(rs.getString("LOGIN_ID"));
+		data.setWriter(rs.getString("WRITER"));
+		data.setAnswerA(rs.getString("ANSWER_A"));
+		data.setAnswerB(rs.getString("ANSWER_B"));
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
@@ -182,13 +187,15 @@ class QuestionRowMapperDetail implements RowMapper<QuestionDTO> {
 	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		QuestionDTO data = new QuestionDTO();
 		data.setQuestionId(rs.getInt("QUESTION_ID"));
+		data.setWriter(rs.getString("WRITER"));
 		data.setTitle(rs.getString("TITLE"));
 		data.setAnswerA(rs.getString("ANSWER_A"));
 		data.setAnswerB(rs.getString("ANSWER_B"));
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setAnswerACount(rs.getInt("COUNT_A"));
 		data.setAnswerBCount(rs.getInt("COUNT_B"));
-		data.setQuestionLikeID(rs.getInt("QUESTIONLIKEID"));
+		data.setQuestionLikeID(rs.getInt("LIKE_ID"));
+		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}
 }
@@ -199,12 +206,13 @@ class QuestionRowMapperShowToUser implements RowMapper<QuestionDTO> {
 	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		QuestionDTO data = new QuestionDTO();
 		data.setQuestionId(rs.getInt("QUESTION_ID"));
-		data.setWriter(rs.getString("LOGIN_ID"));
 		data.setTitle(rs.getString("TITLE"));
+		data.setWriter(rs.getString("WRITER"));
 		data.setAnswerA(rs.getString("ANSWER_A"));
 		data.setAnswerB(rs.getString("ANSWER_B"));
 		data.setExplanation(rs.getString("EXPLANATION"));
-		data.setQuestionLikeID(rs.getInt("QUESTIONLIKEID"));
+		data.setQuestionLikeID(rs.getInt("LIKE_ID"));
+		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}
 }

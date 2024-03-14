@@ -26,4 +26,5 @@ public class QuestionDTO {
     private int questionLikeID;
     private int answerACount;
     private int answerBCount;
+    private int likeCount;
 }

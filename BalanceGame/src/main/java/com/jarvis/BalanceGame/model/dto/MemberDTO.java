@@ -2,6 +2,8 @@ package com.jarvis.BalanceGame.model.dto;
 
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,10 +20,10 @@ public class MemberDTO {
 	  private String email; // 이메일
 	  private String address; // 주소
 	  private String gender; // 성별
+	  @DateTimeFormat(pattern="yyyy-MM-dd")
 	  private Date age; // 생년월일
 	  private int coin; // 포인트
 	  private int grade; // 등급
-	  private int warningCount; // 경고 횟수
 	  private String advertisementStatus; // 광고 상태(제거인지 아닌지) 
 	  private String role; // 관리자 유무
 	  private Date memberDate; // 유저 등록시간
