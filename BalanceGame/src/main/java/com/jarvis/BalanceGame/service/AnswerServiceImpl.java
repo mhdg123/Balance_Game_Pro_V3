@@ -18,15 +18,4 @@ public class AnswerServiceImpl implements AnswerService{
 	public boolean insert(AnswerDTO aDTO) {
 		return answerDAO.insert(aDTO);
 	}
-
-	@Override
-	public boolean update(AnswerDTO aDTO) {
-		return answerDAO.update(aDTO);
-	}
-
-//	@Override
-//	public boolean delete(AnswerDTO aDTO) {
-//		return false;
-//	}
-
 }
