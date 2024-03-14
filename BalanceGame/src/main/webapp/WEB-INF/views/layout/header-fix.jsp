@@ -56,13 +56,17 @@
         display: none;
         position: absolute;
         overflow: auto;
-        background-color: #dddddd;
+        background-color: #fff; 
         border-radius: 5px;
         z-index: 1;
         width: 350px;
         padding: 10px;
         left: auto;
         right: 0;
+      }
+      .dropdown-options letter-group{
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		padding-top: 5px;
       }
 
       .dropdown-options .letter-box {
@@ -75,7 +79,7 @@
 
       .dropdown-options .letter-box:hover {
         color: #0a0a23;
-        background-color: #ffffff;
+        background-color: #d8d8d8;
         border-radius: 5px;
       }
       
