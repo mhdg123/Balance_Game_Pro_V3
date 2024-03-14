@@ -9721,14 +9721,14 @@ input:focus {
 @media screen and (max-width: 786px) and (min-width: 600px) {
   .logo a img {
     width: 30%;
-    content: url("/RefactoringHtml/timezone-master/assets/img/jarvis/logo_text_small.png");
+    content: url("/resources/assets/img/jarvis/logo_text_small.png");
   }
 }
 
 @media screen and (max-width: 600px) and (min-width: 0px) {
   .logo a img {
     width: 30%;
-    content: url("/RefactoringHtml/timezone-master/assets/img/jarvis/logo_text_small.png");
+    content: url("/resources/assets/img/jarvis/logo_text_small.png");
   }
   .header-right {
     display: none;
