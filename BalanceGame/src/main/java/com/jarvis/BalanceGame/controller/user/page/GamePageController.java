@@ -38,18 +38,18 @@ public class GamePageController {
 		qDTO.setSearchCondition("총문제수");
 		qDTO.setQuestionAccess("T");
 		
-		if(questionService.selectOne(qDTO).getCnt()>list.size()) {
+		if(questionService.selectOne(qDTO).getQuestionCount()>list.size()) {
 			while (true) {
 				int i=0;
 				qDTO.setSearchCondition("질문랜덤생성");
 				
 				// System.out.println(loginId);
-				qDTO.setLoginId(loginId);
+				qDTO.setWriter(loginId);
 				qDTO = questionService.selectOne(qDTO);
 				for (i=0; i < list.size(); i++) {
-					if (list.get(i) == qDTO.getqId()) {
+					if (list.get(i) == qDTO.getQuestionId()) {
 						
-						System.out.println("중복 아이디 : "+qDTO.getqId());
+						System.out.println("중복 아이디 : "+qDTO.getQuestionId());
 						break;
 					}
 				}
@@ -58,7 +58,7 @@ public class GamePageController {
 					break;
 				}
 			}
-			list.add(qDTO.getqId());
+			list.add(qDTO.getQuestionId());
 			session.setAttribute("qList", list);
 			model.addAttribute("data", qDTO);
 			return "game";
@@ -68,7 +68,7 @@ public class GamePageController {
 			}
 		
 		
-		return "redirect:main";
+		return "/";
 	}
 	
 	

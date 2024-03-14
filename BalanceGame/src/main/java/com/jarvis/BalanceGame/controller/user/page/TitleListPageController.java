@@ -24,7 +24,7 @@ public class TitleListPageController {
 	public String titleLisgtPageControllter(QuestionDTO qDTO, Model model, HttpSession session) {
 		
 		qDTO.setSearchCondition("문제전체조회");
-		qDTO.setLoginId((String)session.getAttribute("loginId"));
+		qDTO.setWriter((String)session.getAttribute("loginId"));
 		List<QuestionDTO> datas = questionService.selectAll(qDTO);
 		
 		System.out.println(datas);

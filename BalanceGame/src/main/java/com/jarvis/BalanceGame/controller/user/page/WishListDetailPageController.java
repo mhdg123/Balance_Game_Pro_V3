@@ -1,7 +1,5 @@
 package com.jarvis.BalanceGame.controller.user.page;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +21,12 @@ public class WishListDetailPageController {
 	@GetMapping("/wishListDetailPage")
 	public String wishListDetailPageController(QuestionDTO qDTO, Model model, HttpSession session) {
 		String loginId = (String)session.getAttribute("loginId");
-		int qId = Integer.parseInt(request.getParameter("qId"));
 		
-		qDTO.setqId(qId);
-		qDTO.setLoginId(loginId);
+		
+		qDTO.setWriter((String)session.getAttribute("Writer"));
+		
 		qDTO.setSearchCondition("문제상세조회");
-		System.out.println("qId: " + qId);
-		System.out.println("loginId" + loginId);
+		System.out.println("Writer" + loginId);
 		qDTO = questionService.selectOne(qDTO);
 		
 		if (qDTO == null) {
