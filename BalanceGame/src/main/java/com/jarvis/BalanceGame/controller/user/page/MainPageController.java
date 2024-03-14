@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/user")
 public class MainPageController {
 
-	@GetMapping("/main")
+	@GetMapping("/")
 	public String mainPageController() {
 	System.out.println("메인페이지 이동");
 		return "/user/index";
