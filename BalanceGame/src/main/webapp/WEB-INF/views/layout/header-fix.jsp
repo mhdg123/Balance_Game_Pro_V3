@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Watch shop | eCommers</title>
@@ -64,7 +65,7 @@
         right: 0;
       }
 
-      .dropdown-options a {
+      .dropdown-options .letter-box {
         display: block;
         color: #000000;
         padding: 5px;
@@ -72,19 +73,21 @@
         padding: 0px 5px;
       }
 
-      .dropdown-options a:hover {
+      .dropdown-options .letter-box:hover {
         color: #0a0a23;
         background-color: #ffffff;
         border-radius: 5px;
       }
       
-      .dropdown-options a div{
+      .dropdown-options .letter-box div{
         margin-bottom: 5px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
       }
-      
+      .dropdown-options hr {
+        margin: 5px
+      }
       .cnt {
         position: relative;
       }
