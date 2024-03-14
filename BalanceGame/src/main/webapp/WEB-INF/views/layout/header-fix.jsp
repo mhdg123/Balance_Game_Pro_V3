@@ -64,7 +64,7 @@
         left: auto;
         right: 0;
       }
-      .dropdown-options letter-group{
+      .dropdown-options .letter-group{
 		border: 1px solid rgba(0, 0, 0, 0.1);
 		padding-top: 5px;
       }
