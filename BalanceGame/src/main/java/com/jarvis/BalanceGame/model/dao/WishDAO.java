@@ -17,14 +17,13 @@ public class WishDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private final String SELECTALL = "SELECT Q.TITLE FROM SAVE S JOIN QUESTIONS Q ON S.QID = Q.QID WHERE S.LOGIN_ID = ?";
+	private static final String SELECTALL = "SELECT Q.TITLE FROM WISH W JOIN QUESTIONS Q ON S.QUESIONT_ID = Q.QUESIONT_ID WHERE W.LOGIN_ID = ?";
 
 	private static final String SELECTONE = "SELECT QUESIONT_ID, LOGIN_ID FROM SAVE WHERE LOGIN_ID=? AND QUESIONT_ID=?";
 
-	private static final String INSERT = "INSERT INTO SAVE (SID, QID,LOGIN_ID) \r\n"
-			+ "VALUES((SELECT NVL(MAX(SID),0) + 1 FROM SAVE),?,?)";
+	private static final String INSERT = "INSERT INTO WISH (QUESIONT_ID, LOGIN_ID) VALUES(?,?)";
 
-	private static final String DELETE = "DELETE FROM SAVE WHERE SID=?";
+	private static final String DELETE = "DELETE FROM SAVE WHERE WISH_ID=?";
 
 	// 사용자가 찜한 문제 전체 조회
 	public List<WishDTO> selectAll(WishDTO wDTO) {
