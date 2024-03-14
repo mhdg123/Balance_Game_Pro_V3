@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Watch shop | eCommers</title>
@@ -23,7 +24,8 @@
     <link rel="stylesheet" href="/resources/assets/css/slick.css" />
     <link rel="stylesheet" href="/resources/assets/css/nice-select.css" />
     <link rel="stylesheet" href="/resources/assets/css/style.css" />
-
+    
+<!-- 우편함 css -->
    <style type="text/css">
 
       .dropdown {
@@ -75,6 +77,14 @@
         background-color: #ffffff;
         border-radius: 5px;
       }
+      
+      .dropdown-options a div{
+        margin-bottom: 5px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      
       .cnt {
         position: relative;
       }
