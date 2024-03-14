@@ -37,7 +37,7 @@ public class AnswerAsync {
 		}
 		
 		qDTO.setSearchCondition("문제상세조회");
-		qDTO.setLoginId((String)session.getAttribute("loginId"));
+		qDTO.setWriter((String)session.getAttribute("loginId"));
 		
 		return gson.toJson(questionService.selectOne(qDTO));
 	}

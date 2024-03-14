@@ -23,14 +23,14 @@ public class JoinController {
 			
 			model.addAttribute("status", "sussess");
 			model.addAttribute("msg", mDTO.getName() + "님 환영합니다");
-			model.addAttribute("redirect","main");
+			model.addAttribute("redirect","/");
 			model.addAttribute("msg",  "오류 발생");
 			
 			return "alert";
 		}
 		
 		model.addAttribute("status", "fail");
-		model.addAttribute("redirect","joinPage");
+		model.addAttribute("redirect","/join");
 		model.addAttribute("msg",  "오류가 발생하였습니다.");
 		return "alert";
 		

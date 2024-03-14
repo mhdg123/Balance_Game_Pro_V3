@@ -18,15 +18,17 @@
 //	@Autowired
 //	private PaymentService paymentService;
 //	
-//	@GetMapping("/sponsorPage")
+//	@GetMapping("/shopPage")
 //	public String sponsorPageController(PaymentDTO pDTO, Model model) {
 //		
-////		pDTO.setSearchCondition("후원목록");
+//		pDTO.setSearchCondition("후원목록");
 //		
 //		List<PaymentDTO> supportDatas =  paymentService.selectAll(pDTO);
 //		
 //			model.addAttribute("datas", supportDatas);
 //
-//		return "/user/sponsor";
+//		return "/user/shop";
 //	}
 //}
+
+

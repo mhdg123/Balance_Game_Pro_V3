@@ -24,6 +24,6 @@ public class LogoutController {
 		model.addAttribute("status", "success");
 		session.removeAttribute("loginId");
 		
-		return "alert";
+		return "/";
 	}
 }

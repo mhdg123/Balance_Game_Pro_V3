@@ -35,8 +35,8 @@ public class WishListPageController {
 		if(datas == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
-			model.addAttribute("redirect", "main.do");
-			return "alert";
+			model.addAttribute("redirect", "/");
+			return "/alert";
 		}
 		
 		model.addAttribute("sdatas", datas);

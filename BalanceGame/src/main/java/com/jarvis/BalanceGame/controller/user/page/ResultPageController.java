@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class ResultPageController {
 
-	@GetMapping("/resultPage")
+	@GetMapping("/gameResultPage")
 	public String resultPageController() {
 		
-		return "/user/gameResult";
+		return "/user/gameReuslt";
 	}
 }

@@ -9,9 +9,9 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
-public class UserSuggestionPageController {
+public class UserLetterPageController {
 
-	@GetMapping("/userSuggestionPageAction")
+	@GetMapping("/letterPage")
 	public String userSuggestionPageController(Model model, HttpSession session) {
 		String loginId = (String)session.getAttribute("loginId");
 		model.addAttribute("loginId", loginId);

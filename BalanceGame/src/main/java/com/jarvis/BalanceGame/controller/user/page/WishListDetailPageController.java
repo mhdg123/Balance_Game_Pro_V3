@@ -32,8 +32,8 @@ public class WishListDetailPageController {
 		if (qDTO == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
-			model.addAttribute("redirect", "wishListPage.do");
-			return "alert";
+			model.addAttribute("redirect", "/user/wishListPage");
+			return "/alert";
 		}
 
 		model.addAttribute("qDTO", qDTO);

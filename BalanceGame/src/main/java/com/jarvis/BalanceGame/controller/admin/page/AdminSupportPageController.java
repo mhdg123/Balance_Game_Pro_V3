@@ -7,26 +7,30 @@
 //import org.springframework.ui.Model;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //
+//import com.jarvis.BalanceGame.model.dto.PaymentDTO;
+//import com.jarvis.BalanceGame.service.PaymentService;
+//
 //@Controller
+//@RequestMapping("/admin")
 //public class AdminSupportPageController {
 //
 //	@Autowired
-//	private SupportService supportService;
+//	private PaymentService paymentService;
 //	
-//	@RequestMapping("/adminSponsor")
-//	public String AdminSupportPageController(SupportDTO sDTO, Model model) {
+//	@GetMapping("/adminSponsor")
+//	public String AdminSupportPageController(PaymentDTO pDTO, Model model) {
 //		
-//		sDTO.setSearchCondition("후원순");
-//		List<SupportDTO> sdatas = supportService.selectAll(sDTO);
+//		pDTO.setSearchCondition("후원순");
+//		List<PaymentDTO> sdatas = paymentService.selectAll(pDTO);
 //		
 //		sDTO.setSearchCondition("총후원금액");
-//		SupportDTO totalAmount = supportService.selectOne(sDTO);
+//		PaymentDTO totalAmount = paymentService.selectOne(pDTO);
 //		
 //		if(sdatas == null) {
 //
 //			model.addAttribute("status", "fail");
 //			model.addAttribute("msg", "해당 데이터가 없습니다");
-//			model.addAttribute("redirect", "adminPage.do");
+//			model.addAttribute("redirect", "adminPage");
 //			return "alert";
 //		}
 //		
@@ -39,3 +43,6 @@
 //	
 //	
 //}
+
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;

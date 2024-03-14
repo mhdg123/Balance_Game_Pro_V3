@@ -15,12 +15,12 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
-public class TitleListPageController {
+public class QuestionListPageController {
 
 	@Autowired
 	private QuestionService questionService;
 	
-	@GetMapping("/titleListPage")
+	@GetMapping("/questionListPage")
 	public String titleLisgtPageControllter(QuestionDTO qDTO, Model model, HttpSession session) {
 		
 		qDTO.setSearchCondition("문제전체조회");
@@ -34,10 +34,10 @@ public class TitleListPageController {
 		}else {
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "등록된 문제가 없습니다.");
-			model.addAttribute("redirect", "main.do");
+			model.addAttribute("redirect", "/");
 			return "alert";
 		}
 		
-		return "/user/titleList";
+		return "/user/questionList";
 	}
 }

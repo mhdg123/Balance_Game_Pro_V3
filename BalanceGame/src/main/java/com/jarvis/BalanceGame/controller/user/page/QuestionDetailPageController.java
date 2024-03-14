@@ -22,7 +22,7 @@
 //	@Autowired
 //	private CommentService commentService;
 //	
-//	@GetMapping("/titleDetailPage")
+//	@GetMapping("/questionDetailPage")
 //	public String titleDetailPageController(QuestionDTO qDTO, CommentDTO cDTO, Model model) {
 //		
 //		qDTO.setSearchCondition("문제상세조회");
@@ -39,7 +39,9 @@
 //			model.addAttribute("qData", questionService);
 //			model.addAttribute("cDatas", commentDatas);
 //		}
-//		return "/user/titleDetail";
+//		return "/user/aminquestionDetail";
 //	}
 //}
 //
+
+

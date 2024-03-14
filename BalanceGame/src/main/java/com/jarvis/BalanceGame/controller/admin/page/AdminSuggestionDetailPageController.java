@@ -7,27 +7,33 @@
 //import org.springframework.ui.Model;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //
+//import com.jarvis.BalanceGame.model.dto.LetterDTO;
+//import com.jarvis.BalanceGame.service.LetterService;
+//
 //@Controller
+//@RequestMapping("/admin")
 //public class AdminSuggestionDetailPageController {
 //
 //	@Autowired
-//	private SuggestionService suggestionService;
+//	private LetterService letterService;
 //	
-//	@RequestMapping("/adminSuggestionDetailPageAction")
-//	public String AdminSuggestionDetailPageController(SuggestionDTO sugDTO, Model model) {
+//	@GetMapping("/adminSuggestionDetailPageAction")
+//	public String AdminSuggestionDetailPageController(LetterDTO lDTO, Model model) {
 //		
-//		sugDTO.setSugId(Integer.parseInt(request.getParameter("sugId")));
-//		sugDTO = suggestionService.selectOne(sugDTO);
+//		lDTO = letterService.selectOne(lDTO);
 //		
-//		if(sugDTO == null) {
+//		if(lDTO == null) {
 //			model.addAttribute("status", "fail");
 //			model.addAttribute("msg", "해당 데이터가 없습니다");
-//			model.addAttribute("redirect", "adminSuggestionDetail.jsp");
+//			model.addAttribute("redirect", "adminSuggestionDetail");
 //			return "alert";
 //		}
 //		
-//		model.addAttribute("sugDTO", sugDTO);
+//		model.addAttribute("lDTO", lDTO);
 //
 //		return "adminSuggestionDetail";
 //	}
 //}
+
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;

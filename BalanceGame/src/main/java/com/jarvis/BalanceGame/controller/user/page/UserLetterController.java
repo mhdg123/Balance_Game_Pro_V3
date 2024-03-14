@@ -18,7 +18,7 @@
 //	@Autowired
 //	private LetterService letterService;
 //	
-//	@GetMapping("/userSuggestionAction")
+//	@GetMapping("/sendSuggestion")
 //	public String userSuggertionController(LetterDTO lDTO, Model model, HttpSession session) {
 //		
 //		String loginId = (String) session.getAttribute("loginId");
@@ -35,6 +35,9 @@
 //		
 //		model.addAttribute("status", "close");
 //		model.addAttribute("msg", "건의사항이 발송되었습니다.");
-//		return "/user/alert";
+//		return "/";
 //	}
 //}
+package com;
+
+

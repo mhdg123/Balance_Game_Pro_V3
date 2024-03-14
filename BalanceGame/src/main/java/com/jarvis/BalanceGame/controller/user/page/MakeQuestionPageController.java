@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user")
-public class MakeTitlePageController {
+public class MakeQuestionPageController {
 
-	@GetMapping("/makeTitlePage")
+	@GetMapping("/makeQuestionPage")
 	public String makeTitlePageController() {
 		
-		return "/user/makeTitle";
+		return "/user/makeQuestion";
 	}
 }

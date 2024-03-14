@@ -29,7 +29,7 @@ public class LoginController {
 				session.setAttribute("loginId", mDTO.getLoginId());
 				// memberService.getLoginId()
 				model.addAttribute("msg", mDTO.getLoginId() + " 관리자님 로그인 하셨습니다.");
-				model.addAttribute("redirect", "adminPage");
+				model.addAttribute("redirect", "/adminPage");
 				return "alert";
 				
 			} else {
@@ -37,14 +37,14 @@ public class LoginController {
 				model.addAttribute("status", "success");
 				session.setAttribute("loginId", mDTO.getLoginId());
 				model.addAttribute("msg", mDTO.getLoginId() + "님 로그인 하셨습니다.");
-				model.addAttribute("redirect", "main");
+				model.addAttribute("redirect", "/");
 				return "alert";
 			}
 		}
 			// 로그인 실패
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "로그인 정보가 틀렸습니다 다시 확인해주세요");
-			model.addAttribute("redirect", "loginPage");
+			model.addAttribute("redirect", "/login");
 			return "alert";
 
 	}

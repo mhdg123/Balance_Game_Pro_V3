@@ -18,7 +18,7 @@ public class MyPageController {
 	@Autowired
 	private MemberService memberService;
 	
-	@GetMapping("/myPage")
+	@GetMapping("/myInfoPage")
 	public String myPageController(MemberDTO mDTO, Model model, HttpSession session) {
 		
 		mDTO.setLoginId((String)session.getAttribute("loginId"));
@@ -27,6 +27,6 @@ public class MyPageController {
 		System.out.println(memberService.selectOne(mDTO).getLoginId());
 		model.addAttribute("myPageData", memberService);
 		
-		return "/user/myPage";
+		return "/user/myInfo";
 	}
 }
