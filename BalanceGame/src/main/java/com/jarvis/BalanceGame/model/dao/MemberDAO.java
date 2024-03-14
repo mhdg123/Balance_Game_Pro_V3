@@ -112,7 +112,6 @@ class MemberRowMapper implements RowMapper<MemberDTO> {
 		member.setAddress(rs.getString("ADDRESS"));
 		member.setGrade(rs.getInt("GRADE"));
 		member.setCoin(rs.getInt("COIN"));
-		member.setWarningCount(rs.getInt("WARNING_COUNT"));
 		member.setAdvertisementStatus(rs.getString("ADVERTISEMENT_STATUS"));
 		return member;
 	}
