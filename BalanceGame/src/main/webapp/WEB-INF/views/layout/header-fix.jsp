@@ -105,7 +105,7 @@
 
       .cnt::before {
         position: absolute;
-        content: "999";
+        content: "${cnt}";
         background: #ff003c;
         color: #fff;
         text-align: center;

@@ -30,10 +30,10 @@
                 <div class="footer-tittle">
                   <h4>Quick Blog Links</h4>
                   <ul>
-                    <li><a href="#">📗 박찬우 Blog</a></li>
-                    <li><a href="#">📘 박현구 Blog</a></li>
-                    <li><a href="#">📙 전은주 Blog</a></li>
-                    <li><a href="#">📕 조지훈 Blog</a></li>
+                    <li><a href="http://blog.naver.com/hm7593" target="_blank">📗 박찬우 Blog</a></li>
+                    <li><a href="http://phg1088.tistory.com" target="_blank">📘 박현구 Blog</a></li>
+                    <li><a href="http://blog.naver.com/mhdg123" target="_blank">📙 전은주 Blog</a></li>
+                    <li><a href="https://zico8282.tistory.com" target="_blank">📕 조지훈 Blog</a></li>
                   </ul>
                 </div>
               </div>
@@ -44,7 +44,7 @@
                   <h4>Cooperation</h4>
                   <ul>
                     <li>
-                      <a href="#"
+                      <a href="#" 
                         ><img
                           src="/resources/assets/img/jarvis/notion_logo.png"
                           style="width: 5%"
@@ -53,7 +53,7 @@
                       >
                     </li>
                     <li>
-                      <a href="#"
+                      <a href="https://github.com/mhdg123/Balance_Game_Pro_V3" target="_blank"
                         ><img
                           src="/resources/assets/img/jarvis/github_logo.png"
                           style="width: 5%"
