@@ -5,7 +5,7 @@
  <head>
    <!-- css -->
     <%@ include file="../layout/header-fix.jsp"%>
-    <title>Watch shop | eCommers</title>
+    <title>로그인</title>
 <!-- css -->
   </head>
 <body>
@@ -38,7 +38,7 @@
                             <div class="login_part_text_iner">
                                 <h2>처음 오셨나요?</h2>
                                 <p>회원가입부터 해주세요</p>
-                                <a href="join.html" class="btn_3">회원가입</a>
+                                <a href="/user/joinPage" class="btn_3">회원가입</a>
                             </div>
                         </div>
                     </div>

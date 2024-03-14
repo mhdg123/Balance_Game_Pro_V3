@@ -3,6 +3,7 @@
 
 <!--? Preloader Start -->
 <!-- 페이지 로딩 -->
+<%@ include file="../layout/header-fix.jsp"%>
 <div id="preloader-active">
 	<div class="preloader d-flex align-items-center justify-content-center">
 		<div class="preloader-inner position-relative">
@@ -44,19 +45,23 @@
 					<!-- Header Right -->
 					<div class="header-right">
 						<ul>
-							<!-- 비로그인 시 -->
+							<!-- 포인트 금액 -->
+							<c:if test="${loginId != null }">
 							<li> <span style="font-size: small">100p</span>
 							</li>
+							<!-- 포인트 금액 -->
 
+							<!-- 메세지 아이콘  -->
+							
 							<li>
 								<div class="dropdown" id="dropdown">
 									<button class="letter cnt" id="dropdown-btn">
 										<img src="/resources/assets/img/jarvis/messageiconCut.png" />
 										<span style="font-size: small" class="window_min_text">메시지</span>
 									</button>
-									<div class="dropdown-options" id="dropdown-options">
+									<div class="dropdown-options shadow p-3 mb-5 bg-body rounded" id="dropdown-options">
 										<div>우편함</div>
-										<div style="border: 1px solid rgba(0, 0, 0, 0.1)">
+										<div class="letter-group">
 											<div class="letter-box" onclick="javascript:test();">
 												<div>보낸사람 : 관리자</div>
 												<div>제목 : 안녕하세요</div>
@@ -76,6 +81,8 @@
 									</div>
 								</div>
 							</li>
+							</c:if>
+							<!-- 메세지 아이콘  -->
 							<li>
 								<!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 --> <a
 								href="/shopPage"><span
@@ -84,16 +91,25 @@
 								</span></a> <!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 -->
 							</li>
 							<!-- 비로그인 시 -->
-							<li><a href="/myInfoPage"><span
-									class="flaticon-user"><span
-										style="font-size: small" class="window_min_text">마이페이지</span></span></a>
+							<c:if test="${loginId == null }">
+							<li>
+								<a href="/user/loginPage"><span
+									class="flaticon-arrow"><span
+										class="window_min_text" style="font-size: small">로그인</span></span></a>
 							</li>
+							</c:if>
 							<!-- 로그인 시 -->
-							<li><a href="/logout"><span
+							<c:if test="${loginId != null }">
+							<li>
+							<a href="/myInfoPage"><span
+									class="flaticon-user"><span
+										style="font-size: small" class="window_min_text">마이페이지</span></span>
+								</a>
+							<a href="/logout"><span
 									class="flaticon-arrow"><span
 										class="window_min_text" style="font-size: small">로그아웃</span></span></a>
 							</li>
-
+							</c:if>
 							<!-- 로그인 시 -->
 						</ul>
 					</div>
