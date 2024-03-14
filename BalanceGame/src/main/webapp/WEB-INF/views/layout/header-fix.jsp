@@ -68,6 +68,13 @@
 		border: 1px solid rgba(0, 0, 0, 0.1);
 		padding-top: 5px;
       }
+      html *::-webkit-scrollbar{
+		width: 5px;
+      }
+  	html *::-webkit-scrollbar-thumb {
+    	background-color: grey;
+  	}
+
 
       .dropdown-options .letter-box {
         display: block;

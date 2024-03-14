@@ -4,6 +4,7 @@
 <!--? Preloader Start -->
 <!-- 페이지 로딩 -->
 <%@ include file="../layout/header-fix.jsp"%>
+
 <div id="preloader-active">
 	<div class="preloader d-flex align-items-center justify-content-center">
 		<div class="preloader-inner position-relative">
@@ -22,7 +23,7 @@
 				<div class="menu-wrapper">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.html"><img
+						<a href="/"><img
 							src="/resources/assets/img/jarvis/logotext.png" alt="" /></a>
 					</div>
 					<!-- Main-menu -->
@@ -30,15 +31,21 @@
 						<nav>
 							<ul id="navigation">
 								<!-- 비로그인 시 -->
-								<li><a href="/gamePage">게임하기</a></li>
+								<li><a href="/user/gamePage">게임하기</a></li>
 								<li><a href="/user/questionListPage">문제목록</a></li>
-								<li><a href="/rankListPage">포인트 랭킹</a></li>
-								<li><a href="/userSuggestionPage">건의하기</a></li>
-								<!-- 비로그인 시 -->
+								<li><a href="/user/rankListPage">포인트 랭킹</a></li>
+								<li><a href="/user/shopPage" class="hiddenText">상점</a></li>
 								<!-- 로그인 시 -->
-								<li><a href="/myInfoPage" class="hiddenText">마이페이지</a></li>
-								<li><a href="/shopPage" class="hiddenText">상점</a></li>
+								<c:if test="${loginId != null }">
+								<li><a href="/user/letterPage">건의하기</a></li>
+								<li><a href="/user/myInfoPage" class="hiddenText">마이페이지</a></li>
+
 								<li><a href="/logout" class="hiddenText">로그아웃</a></li>
+								</c:if>
+								<c:if test="${loginId == null }">
+								<li><a href="/user/loginPage">건의하기</a></li>
+								<li><a href="/user/loginPage" class="hiddenText">로그인</a></li>
+								</c:if>
 							</ul>
 						</nav>
 					</div>
@@ -61,7 +68,7 @@
 									</button>
 									<div class="dropdown-options shadow p-3 mb-5 bg-body rounded" id="dropdown-options">
 										<div>우편함</div>
-										<div class="letter-group">
+										<div class="letter-group" style="overflow-y: auto; height: 200px;">
 											<div class="letter-box" onclick="javascript:test();">
 												<div>보낸사람 : 관리자</div>
 												<div>제목 : 안녕하세요</div>
@@ -77,40 +84,56 @@
 												<div>제목 : 안녕하세요 박현구 입니다 집에 보내주세요</div>
 											</div>
 											<hr />
+											<div class="letter-box" onclick="javascript:test();">
+												<div>보낸사람 : 관리자</div>
+												<div>제목 : 안녕하세요 박현구 입니다 집에 보내주세요</div>
+											</div>
+											<hr />
+											<div class="letter-box" onclick="javascript:test();">
+												<div>보낸사람 : 관리자</div>
+												<div>제목 : 안녕하세요 박현구 입니다 집에 보내주세요</div>
+											</div>
+											<hr />
 										</div>
 									</div>
 								</div>
 							</li>
-							</c:if>
-							<!-- 메세지 아이콘  -->
+														<!-- 메세지 아이콘  -->
 							<li>
 								<!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 --> <a
-								href="/shopPage"><span
+								href="/user/shopPage"><span
 									class="flaticon-shopping-cart"><span
 										style="font-size: small" class="window_min_text">상점</span>
 								</span></a> <!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 -->
 							</li>
+							<li>
+							<a href="/user/myInfoPage"><span
+									class="flaticon-user"><span
+										style="font-size: small" class="window_min_text">마이페이지</span></span>
+								</a>
+								</li>
+								<li>
+							<a href="/logout"><span
+									class="flaticon-arrow"><span
+										class="window_min_text" style="font-size: small">로그아웃</span></span></a>
+							</li>
+							</c:if>
+
 							<!-- 비로그인 시 -->
 							<c:if test="${loginId == null }">
+														<li>
+								<!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 --> <a
+								href="/user/shopPage"><span
+									class="flaticon-shopping-cart"><span
+										style="font-size: small" class="window_min_text">상점</span>
+								</span></a> <!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 -->
+							</li>
 							<li>
 								<a href="/user/loginPage"><span
 									class="flaticon-arrow"><span
 										class="window_min_text" style="font-size: small">로그인</span></span></a>
 							</li>
 							</c:if>
-							<!-- 로그인 시 -->
-							<c:if test="${loginId != null }">
-							<li>
-							<a href="/myInfoPage"><span
-									class="flaticon-user"><span
-										style="font-size: small" class="window_min_text">마이페이지</span></span>
-								</a>
-							<a href="/logout"><span
-									class="flaticon-arrow"><span
-										class="window_min_text" style="font-size: small">로그아웃</span></span></a>
-							</li>
-							</c:if>
-							<!-- 로그인 시 -->
 						</ul>
 					</div>
 				</div>
