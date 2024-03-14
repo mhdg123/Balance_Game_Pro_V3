@@ -54,7 +54,7 @@
 						<ul>
 							<!-- 포인트 금액 -->
 							<c:if test="${loginId != null }">
-							<li> <span style="font-size: small">100p</span>
+							<li> <span style="font-size: small">${point}</span>
 							</li>
 							<!-- 포인트 금액 -->
 
@@ -64,7 +64,7 @@
 								<div class="dropdown" id="dropdown">
 									<button class="letter cnt" id="dropdown-btn">
 										<img src="/resources/assets/img/jarvis/messageiconCut.png" />
-										<span style="font-size: small" class="window_min_text">메시지</span>
+										<span style="font-size: small" class="window_min_text">우편함</span>
 									</button>
 									<div class="dropdown-options shadow p-3 mb-5 bg-body rounded" id="dropdown-options">
 										<div>우편함</div>

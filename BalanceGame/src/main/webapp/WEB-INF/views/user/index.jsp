@@ -48,8 +48,8 @@
                       data-delay=".8s"
                       data-duration="2000ms"
                     >
-                      <a href="game.html" class="btn hero-btn">게임하기</a>
-                      <a href="login.html" class="btn hero-btn">로그인하기</a>
+                      <a href="/user/gamePage" class="btn hero-btn">게임하기</a>
+                      <a href="/user/loginPage" class="btn hero-btn">로그인</a>
                     </div>
                   </div>
                 </div>
