@@ -12,7 +12,8 @@
       type="image/x-icon"
       href="/resources/assets/img/favicon.ico"
     />
-
+    <!-- 제이쿼리  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- CSS here -->
     <link rel="stylesheet" href="/resources/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/resources/assets/css/owl.carousel.min.css" />
