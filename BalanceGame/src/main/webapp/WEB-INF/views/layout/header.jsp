@@ -31,7 +31,7 @@
 							<ul id="navigation">
 								<!-- 비로그인 시 -->
 								<li><a href="/gamePage">게임하기</a></li>
-								<li><a href="/questionListPage">문제목록</a></li>
+								<li><a href="/user/questionListPage">문제목록</a></li>
 								<li><a href="/rankListPage">포인트 랭킹</a></li>
 								<li><a href="/userSuggestionPage">건의하기</a></li>
 								<!-- 비로그인 시 -->
