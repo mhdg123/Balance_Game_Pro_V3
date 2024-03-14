@@ -13,63 +13,7 @@
    <!-- 헤너 네비 바 -->
     <%@ include file="../layout/header.jsp"%>
     <!-- 헤너 네비 바 -->
-    <header>
-      <!-- Header Start -->
-      <div class="header-area">
-        <div class="main-header header-sticky">
-          <div class="container-fluid">
-            <div class="menu-wrapper">
-              <!-- Logo -->
-              <div class="logo">
-                <a href="index.html"
-                  ><img src="assets/img/logo/logo.png" alt=""
-                /></a>
-              </div>
-              <!-- Main-menu -->
-              <div class="main-menu d-none d-lg-block">
-                <nav>
-                  <ul id="navigation">
-                    <!-- 비로그인 시 -->
-                    <li class="hot"><a href="game.html">게임하기</a></li>
-                    <li><a href="titleList.html">문제목록</a></li>
-                    <li><a href="titleList.html">건의</a></li>
-                    <!-- 비로그인 시 -->
-                    <!-- 로그인 시 -->
-                    <li><a href="game.html">게임하기(로그인시)</a></li>
-                    <li><a href="titleList.html">문제목록(로그인시)</a></li>
-                    <li><a href="#">000(로그인시)</a></li>
-                    <!-- 로그인 시 -->
-                  </ul>
-                </nav>
-              </div>
-              <!-- Header Right -->
-              <div class="header-right">
-                <ul>
-                  <li>
-                    <div class="nav-search search-switch">
-                      <span class="flaticon-search"></span>
-                    </div>
-                  </li>
-                  <li>
-                    <a href="login.html"><span class="flaticon-user"></span></a>
-                  </li>
-                  <li>
-                    <a href="cart.html"
-                      ><span class="flaticon-shopping-cart"></span
-                    ></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- Mobile Menu -->
-            <div class="col-12">
-              <div class="mobile_menu d-block d-lg-none"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Header End -->
-    </header>
+   
     <main>
       <!-- Hero Area Start-->
       <div class="slider-area">
@@ -94,9 +38,10 @@
                 <h2>회원가입</h2>
                 <form
                   class="row contact_form"
-                  action="#"
-                  method="post"
-                  novalidate="novalidate"
+                  action="/join"
+                  method="POST"
+                  onsubmit="return joinForm()"
+                  
                 >
                   <!-- <div class="col-md-6 form-group p_star">
                       <input type="text" class="form-control" id="first" name="name" />
@@ -107,6 +52,8 @@
                       <span class="placeholder" data-placeholder="Last name"></span>
                     </div> -->
 
+				  <input id="role" type="hidden" name="role" value="USER">
+				  <input id="advertisementStatus" type="hidden" name="advertisementStatus" value="T">
                   <!----------------------------------------이름 입력창---------------------------------------->
                   <div>&nbsp&nbsp&nbsp&nbsp이름</div>
                   <div class="col-md-12 form-group p_star">
@@ -116,18 +63,20 @@
                       id="name"
                       name="name"
                       placeholder="이름 입력해주세요"
+                      value="테스트"
                     />
                   </div>
                   <!----------------------------------------이름 입력창---------------------------------------->
                   <!----------------------------------------나이 입력창---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp나이</div>
+                  <div>&nbsp&nbsp&nbsp&nbsp생년월일</div>
                   <div class="col-md-12 form-group p_star">
                     <input
-                      type="text"
+                      type="date"
                       class="form-control"
                       id="age"
                       name="age"
                       placeholder="나이 입력해주세요"
+                      
                     />
                   </div>
                   <!----------------------------------------나이 입력창---------------------------------------->
@@ -140,9 +89,24 @@
                       id="loginId"
                       name="loginId"
                       placeholder="아이디 입력"
+                      value="testId"
                     />
+                     <div><font id="id_feedback" size="2"></font></div>
                   </div>
                   <!----------------------------------------아이디 입력창---------------------------------------->
+                    <!----------------------------------------닉네임 입력창---------------------------------------->
+                  <div>&nbsp&nbsp&nbsp&nbsp닉네임</div>
+                  <div class="col-md-12 form-group p_star">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nickName"
+                      name="nickName"
+                      placeholder="닉에미 입력"
+                      value="자비스"
+                    />
+                  </div>
+                  <!----------------------------------------닉네임 입력창---------------------------------------->
                   <!----------------------------------------비밀번호 입력창---------------------------------------->
                   <div>&nbsp&nbsp&nbsp&nbsp비밀번호</div>
                   <div class="col-md-12 form-group p_star">
@@ -152,11 +116,14 @@
                       id="memberPassword"
                       name="memberPassword"
                       placeholder="비밀번호 입력"
+                      value="test1234"
+                      onkeyup="checkPassword()"
                     />
                   </div>
                   <!----------------------------------------비밀번호 입력창---------------------------------------->
                   <!----------------------------------------비밀번호 확인 입력창---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp비밀번호 확인</div>
+                  <div>&nbsp&nbsp&nbsp&nbsp비밀번호 확인&nbsp&nbsp&nbsp&nbsp</div>
+                  <div  id="passwordError"></div>
                   <div class="col-md-12 form-group p_star">
                     <input
                       type="password"
@@ -164,11 +131,14 @@
                       id="passwordCheck"
                       name="passwordCheck"
                       placeholder="비밀번호 확인 입력"
+                      value="test1234"
+                      onkeyup="checkPassword()"
                     />
                   </div>
+                  
                   <!----------------------------------------비밀번호 확인 입력창---------------------------------------->
                   <!----------------------------------------폰번호 입력창---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp휴대폰 번호</div>
+    			<span>&nbsp;&nbsp;&nbsp;휴대폰 번호</span>
                   <div class="col-md-12 form-group1 p_star">
                     <input
                       type="tel"
@@ -176,6 +146,7 @@
                       id="cellPhone"
                       name="cellPhone"
                       placeholder="폰번호 입력"
+                      value="01012345678"
                     />
                   </div>
                   <!----------------------------------------폰번호 입력창---------------------------------------->
@@ -188,6 +159,7 @@
                       id="certification"
                       name="certification"
                       placeholder="인증번호 입력"
+                      value="1234"
                     />
                   </div>
                   <!----------------------------------------인증번호 입력창---------------------------------------->
@@ -228,18 +200,19 @@
                     <input
                       type="email"
                       class="form-control"
-                      id="company"
-                      name="company"
+                      id="email"
+                      name="email"
                       placeholder="이메일 입력해주세요"
+                      value="test@naver.com"
                     />
                   </div>
                   <!----------------------------------------이메일 입력창---------------------------------------->
                   <!----------------------------------------성별 선택---------------------------------------->
                   <div>&nbsp&nbsp&nbsp&nbsp성별</div>
                   <div class="col-md-12 form-group p_star">
-                    <select class="country_select">
-                      <option value="1">남자</option>
-                      <option value="2">여자</option>
+                    <select id="gender" name="gender" class="country_select">
+                      <option value="남자">남자</option>
+                      <option value="여자">여자</option>
                     </select>
                   </div>
                   <!----------------------------------------성별 선택---------------------------------------->
@@ -249,9 +222,11 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="add1"
-                      name="add1"
+                      id="address"
+                      name="address"
                       placeholder="주소"
+                      value="서울특별시 강남구 역삼동 736-7"
+                      onClick="addressSearch();"
                     />
                   </div>
                   <div>
@@ -289,7 +264,7 @@
     </main>
 
     <!----------------------------------------푸터---------------------------------------->
-    </main>
+   
 	<!-- 메인 페이지 푸터 -->
     <%@ include file="../layout/index-footer.jsp"%>
 	<!-- 메인 페이지 푸터 -->
@@ -299,5 +274,7 @@
     <!-- 푸터 고정 스크립트 공통 모음 -->    
     <%@ include file="../layout/footer-fix.jsp"%>
     <!-- 푸터 고정 스크립트 공통 모음 -->  
+    <script>
+    </script>
   </body>
 </html>
