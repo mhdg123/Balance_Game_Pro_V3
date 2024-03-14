@@ -17,16 +17,16 @@ public class CommentDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private int result = 0;
+	// 해당 문제에 대한 댓글 전체출력 
 	private static final String SELECTALL_QUESTION = "SELECT C.COMMENT_ID, C.QUESTION_ID, M.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME\r\n"
-			+ "FROM COMMENTS C\r\n" + "LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID\r\n"
-			+ "WHERE C.QUESTION_ID=?";
+			+ "FROM COMMENTS C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID = M.LOGIN_ID WHERE C.QUESTION_ID=?";
 
-	private static final String SELECTALL_MEMBER = "SELECT C.CID,C.QID,C.LOGIN_ID,C.CONTENT,M.NAME\r\n"
-			+ "FROM COMMENTS C\r\n" + "LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID\r\n" + "WHERE C.LOGIN_ID=?";
+	// 회원이 작성한 모든 댓글 출력 
+	private static final String SELECTALL_MEMBER = "SELECT C.COMMENT_ID, C.QUESTION_ID, C.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME\r\n"
+			+ "FROM COMMENTS C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=?";
 
-	private static final String INSERT = "INSERT INTO COMMENTS(CID,QID,LOGIN_ID,CONTENT)\r\n"
-			+ "VALUES ((SELECT NVL(MAX(CID),0) + 1 FROM COMMENTS),?,?,?)";
+	// 댓글 작성 
+	private static final String INSERT = "INSERT INTO COMMENTS(QUESTION_ID, LOGIN_ID, COMMENTS) VALUES (?,?,?)";
 
 	// 댓글 전체 출력하기
 	public List<CommentDTO> selectAll(CommentDTO cDTO) {
