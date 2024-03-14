@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.WishDTO;
@@ -13,13 +14,14 @@ import com.jarvis.BalanceGame.service.WishService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/user")
 public class WishListPageController {
 
 	@Autowired
 	private WishService WishService;
 	
-	@RequestMapping("/wishListPage")
-	public String WishListPageController(WishDTO wDTO, Model model, HttpSession session) {
+	@GetMapping("/wishListPage")
+	public String wishListPageController(WishDTO wDTO, Model model, HttpSession session) {
 		String loginId = (String)session.getAttribute("loginId");
 		wDTO.setLoginId(loginId);
 		
@@ -38,6 +40,6 @@ public class WishListPageController {
 		}
 		
 		model.addAttribute("sdatas", datas);
-		return "wishList";
+		return "/user/wishList";
 	}
 }
