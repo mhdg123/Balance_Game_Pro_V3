@@ -1,6 +1,6 @@
 package com.jarvis.BalanceGame.controller.user.page;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class TitleListPageController {
 		
 		qDTO.setSearchCondition("문제전체조회");
 		qDTO.setLoginId((String)session.getAttribute("loginId"));
-		ArrayList<QuestionDTO> datas = questionService.selectAll(qDTO);
+		List<QuestionDTO> datas = questionService.selectAll(qDTO);
 		
 		System.out.println(datas);
 		

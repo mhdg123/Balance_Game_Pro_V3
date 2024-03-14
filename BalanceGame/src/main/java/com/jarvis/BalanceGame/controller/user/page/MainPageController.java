@@ -8,9 +8,9 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainPageController {
 
-	@RequestMapping("/myPage")
-	public String MainPageController(HttpSession session) {
-		session.removeAttribute("qList");
-		return "redirect:main";
+	@RequestMapping("/")
+	public String mainPageController() {
+	System.out.println("메인페이지 이동");
+		return "/user/index";
 	}
 }

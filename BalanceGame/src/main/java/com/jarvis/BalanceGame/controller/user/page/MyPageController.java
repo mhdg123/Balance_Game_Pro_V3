@@ -22,7 +22,7 @@ public class MyPageController {
 		mDTO.setLoginId((String)session.getAttribute("loginId"));
 		mDTO.setSearchCondition("유저조회");
 		memberService.selectOne(mDTO);
-		System.out.println(memberService.getLoginId());
+		System.out.println(memberService.selectOne(mDTO).getLoginId());
 		model.addAttribute("myPageData", memberService);
 		
 		return "myPage";

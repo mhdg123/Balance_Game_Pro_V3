@@ -30,7 +30,7 @@ public class PwCheckController {
 			// 인증 성공
 			model.addAttribute("status", "success");
 			model.addAttribute("redirect", "myPage.do");
-			model.addAttribute("msg", memberService.getLoginId() + "님 인증 성공하였습니다.");
+			model.addAttribute("msg", memberService.selectOne(mDTO).getName() + "님 인증 성공하였습니다.");
 			
 			return "alert";	
 		}

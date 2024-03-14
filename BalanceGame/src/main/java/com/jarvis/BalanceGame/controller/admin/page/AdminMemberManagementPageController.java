@@ -1,6 +1,6 @@
 package com.jarvis.BalanceGame.controller.admin.page;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class AdminMemberManagementPageController {
 	public String AdminMemberManagementPageController(MemberDTO mDTO, Model model) {
 		
 		mDTO.setSearchCondition("전체조회");
-		ArrayList<MemberDTO> mdatas = memberService.selectAll(mDTO);
+		List<MemberDTO> mdatas = memberService.selectAll(mDTO);
 		System.out.println("member" + mdatas);
 		
 		if (mdatas == null) {

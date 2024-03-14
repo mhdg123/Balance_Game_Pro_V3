@@ -7,21 +7,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 import com.jarvis.BalanceGame.service.MemberService;
+import com.jarvis.BalanceGame.service.QuestionService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MakeTitleController {
 	@Autowired
-	private MemberService memberService;
+	private QuestionService questionService;
 
 	@RequestMapping("/makeTitle")
 	public String MakeTitleController(QuestionDTO qDTO, Model model,HttpSession session) {
 		qDTO.setSearchCondition("문제생성");
 		qDTO.setLoginId((String) session.getAttribute("loginId")); // 로그인 아이디
-		memberService.insert(qDTO);
+		questionService.insert(qDTO);
 		
-		if (!memberService.insert(qDTO)) {
+		if (!questionService.insert(qDTO)) {
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "실패");
 			model.addAttribute("redirect", "main.do");

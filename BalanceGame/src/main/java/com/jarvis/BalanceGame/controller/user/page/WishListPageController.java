@@ -1,11 +1,14 @@
 package com.jarvis.BalanceGame.controller.user.page;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.jarvis.BalanceGame.model.dto.WishDTO;
+import com.jarvis.BalanceGame.service.WishService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -13,19 +16,19 @@ import jakarta.servlet.http.HttpSession;
 public class WishListPageController {
 
 	@Autowired
-	private SaveService saveService;
+	private WishService WishService;
 	
 	@RequestMapping("/wishListPage")
-	public String WishListPageController(SaveDTO sDTO, Model model, HttpSession session) {
+	public String WishListPageController(WishDTO wDTO, Model model, HttpSession session) {
 		String loginId = (String)session.getAttribute("loginId");
-		sDTO.setLoginId(loginId);
+		wDTO.setLoginId(loginId);
 		
-		ArrayList<SaveDTO> datas = saveService.selectAll(sDTO);
+		List<WishDTO> datas = WishService.selectAll(wDTO);
 		
-		sDTO = saveService.selectOne(sDTO);
+		wDTO = WishService.selectOne(wDTO);
 		
 		System.out.println("SLECTALL datas: " + datas);
-		System.out.println("sDTO" + sDTO);
+		System.out.println("wDTO" + wDTO);
 		
 		if(datas == null) {
 			model.addAttribute("status", "fail");
