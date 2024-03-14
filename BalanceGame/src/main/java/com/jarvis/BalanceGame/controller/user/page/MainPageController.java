@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainPageController {
 
-	@RequestMapping("/")
+	@RequestMapping("/main")
 	public String mainPageController() {
 	System.out.println("메인페이지 이동");
 		return "/user/index";
