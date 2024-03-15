@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <script src="/resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
 <script src="/resources/assets/js/vendor/jquery-1.12.4.min.js"></script>
@@ -55,6 +56,7 @@
 <script>
       document.addEventListener("click", function (event) {
         var dropdown = document.getElementById("dropdown");
+        if (dropdown) {
         var dropdownOptions = document.getElementById("dropdown-options");
         var targetElement = event.target; // 클릭된 요소
 
@@ -62,17 +64,23 @@
         if (!dropdown.contains(targetElement)) {
           dropdownOptions.style.display = "none";
         }
+        }
       });
+     
+      var dropdownBtn = document.getElementById("dropdown-btn");
 
-      document
-        .getElementById("dropdown-btn")
-        .addEventListener("click", function (event) {
-          event.stopPropagation(); // 클릭 이벤트가 부모로 전파되는 것을 막습니다.
-          var dropdownOptions = document.getElementById("dropdown-options");
-          if (dropdownOptions.style.display === "block") {
-            dropdownOptions.style.display = "none";
-          } else {
-            dropdownOptions.style.display = "block";
-          }
-        });
+   // dropdown-btn 요소가 존재하는지 확인합니다.
+   if (dropdownBtn) {
+       // dropdown-btn 요소가 존재하면 클릭 이벤트 핸들러를 추가합니다.
+       dropdownBtn.addEventListener("click", function(event) {
+           event.stopPropagation(); // 클릭 이벤트가 부모로 전파되는 것을 막습니다.
+           var dropdownOptions = document.getElementById("dropdown-options");
+           if (dropdownOptions.style.display === "block") {
+               dropdownOptions.style.display = "none";
+           } else {
+               dropdownOptions.style.display = "block";
+           }
+       });
+   }
+      
     </script>

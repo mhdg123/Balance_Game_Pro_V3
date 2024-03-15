@@ -20,41 +20,49 @@
         <div class="slider-active">
           <!-- Single Slider -->
           <div class="single-slider align-items-center slide-bg">
-            <div class="container">
+            <div class="container" >
               <div
                 style="
                   text-align: center;
                   padding-top: 10vh;
                   padding-bottom: 10vh;
                 "
+                id="play"
               >
                 <div>
                   <div class="hero__caption">
                     <!-- 메인페이지 헤드라인 -->
+                    <div id="title">
                     <h1>뭐 드실?</h1>
+                    </div>
                     <!-- Hero-btn -->
                     <div class="button-container">
                       <br />
                       <br />
-                      <a
-                        href="#"
-                        class="genric-btn primary-border radius e-large game-button"
-                        ><span>찹쌀떡</span></a
+                      <div id="answer_A">
+                      <button
+                        class="genric-btn primary-border radius e-large game-button answer"
+                        type="button"
+                        ><span>찹쌀떡</span></button
                       >
-                      <a
-                        href="#"
-                        class="genric-btn primary-border radius e-large game-button"
-                        ><span>메밀묵</span></a
+                      </div>
+                      <div id="answer_B">
+                      <button
+                        class="genric-btn primary-border radius e-large game-button answer"
+                        type="button"
+                        ><span>메밀묵</span></button
                       >
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="container">
+              <div class="container click">
                 <button
                   class="genric-btn default f-right large"
                   style="font-size: 30px"
+                  id ="next"
                 >
                   Next >
                 </button>
@@ -66,7 +74,7 @@
       </div>
 
       <!-- Comments -->
-      <div class="container">
+      <div class="container click" >
         <div class="comments-area">
           <!-- 댓글 입력 Start -->
           <div class="col-12">
@@ -209,7 +217,6 @@
         </div>
       </div>
     </main>
-    </main>
 	<!-- 메인 페이지 푸터 -->
     <%@ include file="../layout/index-footer.jsp"%>
 	<!-- 메인 페이지 푸터 -->
@@ -220,5 +227,104 @@
     <!-- 푸터 고정 스크립트 공통 모음 -->    
     <%@ include file="../layout/footer-fix.jsp"%>
     <!-- 푸터 고정 스크립트 공통 모음 -->  
+    
+    
+    <!-- 게임 세팅 -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	$(".click").hide();
+
+    	$("#next").on("click", function() {
+    		location.href = 'gamePage.do';
+    	});
+    });
+    
+    </script>
+    
+    
+    <!-- 버튼 클릭 -->
+    <script type="text/javascript">
+    
+    $(".answer").on("click", function() {
+    	
+/*     	var qId = document.getElementById('qId').value;
+    	var loginId = document.getElementById('loginId').value;
+    	var answerValue = $(this).prop('value'); */
+    	//로그인 아이디,질문 pk 로그
+    	/*console.log($(this).prop("value"));
+    	console.log(loginId);
+    	console.log(qId);*/
+    	
+    	//totalAnswer(qId, loginId, answerValue);
+
+    	
+    	
+    	//$('#play').html('<h2 class="col-12"><br />뭐 드실?</h2><div class="comments-area"><div class="col-12"><div><div><div class="serial">메밀묵</div><div class="percentage" style="width: 80%; display: inline-block"><div class="progress"><div class="progress-bar color-1" role="progressbar" style="width: 20%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div></div><div style="display: inline-block">20%</div></div><div style="display: block"><br /></div><div><div class="serial">찹쌀떡</div><div class="percentage" style="width: 80%; display: inline-block"><div class="progress"><div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div></div><div style="display: inline-block">80%</div></div></div></div></div>');
+    	
+    	// #play 요소를 찾습니다.
+var playElement = document.getElementById("play");
+
+// 내용을 변경합니다.
+playElement.innerHTML = `
+    <h1 class="col-12"><br />뭐 드실?</h1>
+    <div class="comments-area">
+        <div class="col-12">
+            <div>
+                <div>
+                    
+                    <div class="percentage" style="width: 80%; display: inline-block">
+                    <h4 class="serial" style="text-align: left;">메밀묵</h4>
+                        <div class="progress">
+                            <div class="progress-bar color-1" id="answer_A" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div id="answer_A_percent" style="display: inline-block">0%</div>
+                </div>
+                <div style="display: block"><br /></div>
+                <!-- 답변B -->
+                <div>
+                    
+                    <div class="percentage" style="width: 80%; display: inline-block">
+                    <h4 class="serial" style="text-align: left;">찹쌀떡</h4>
+                        <div class="progress">
+                            <div class="progress-bar color-1" id="answer_B" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div id="answer_B_percent" style="display: inline-block">0%</div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+    
+	setTimeout(function() {
+    $("#answer_A").css("width","20%");
+    $("#answer_B").css("width","80%");
+    
+    $("#answer_A_percent").text("20%");
+    $("#answer_B_percent").text("80%");
+    
+}, 100); // 100ms 후에 실행됩니다.
+
+    	//commentAll(qId);
+
+    	
+    	/* $(".answer").css("height", "100px");
+    	$(".answer").css("line-height", "100px");
+    	$(".answer").css("font-size", "30px");
+    	$(".answer").css("transition", "1000ms");
+    	$(".answer").attr("disabled", true);
+
+    	$("#title h1").css("font-size", "30px");
+    	$("#title h1").css("transition", "1000ms");
+
+    	$(".save").css("width", "30px");
+    	$(".save").css("height", "30px");
+    	$(".save").css("transition", "1000ms");
+
+ */
+	$(".click").show();
+    });
+    </script>
+    
   </body>
 </html>
