@@ -41,6 +41,7 @@
                   action="/join"
                   method="POST"
                   onsubmit="return joinForm()"
+                  name = "joinForm"
                   
                 >
                   <!-- <div class="col-md-6 form-group p_star">
@@ -226,13 +227,13 @@
                       name="address"
                       placeholder="주소"
                       value="서울특별시 강남구 역삼동 736-7"
-                      onClick="addressSearch();"
                     />
                   </div>
                   <div>
                     &nbsp&nbsp&nbsp&nbsp<a
                       href="#"
                       class="genric-btn info circle"
+                      onClick="addressSearch();"
                       >주소 찾기</a
                     >
                     <div><br /></div>

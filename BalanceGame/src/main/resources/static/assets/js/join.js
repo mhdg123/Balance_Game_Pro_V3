@@ -191,7 +191,9 @@
 	}
 	
 
-	var passwordCheckResult;
+    // 패스워드 확인 성공 = true
+	var passwordCheckResult; 
+	
 	// 비밀번호 확인 하는 함수	
 	function checkPassword() {
     var password1 = document.getElementById('memberPassword').value;
@@ -215,7 +217,7 @@
 /* 주소 API */
 
 function addressSearch(){
-   var pop = window.open("addressPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+   var pop = window.open("addressSearchApi","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 }
 
 function jusoCallBack(roadAddrPart1,addrDetail){
