@@ -11,6 +11,6 @@ public class LoginPageController {
    @GetMapping("/loginPage")
    public String loginPageController() {
       System.out.println("로그인 페이지 이동");
-      return "/user/login";
+      return "user/login";
    }
 }

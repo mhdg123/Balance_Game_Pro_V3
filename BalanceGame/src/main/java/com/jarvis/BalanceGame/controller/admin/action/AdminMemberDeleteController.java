@@ -32,13 +32,13 @@ public class AdminMemberDeleteController {
 		      System.out.println("삭제 실패");
 		      model.addAttribute("status", "fail");
 		      model.addAttribute("msg", "잘못된 요청입니다.");
-		      model.addAttribute("redirect", "/adminMain");
-		      return "/alert";
+		      model.addAttribute("redirect", "adminMain");
+		      return "alert";
 		   }
 		   System.out.println("삭제 성공");
 		   model.addAttribute("status", "success");
 		   model.addAttribute("msg", "삭제되었습니다");
-		   model.addAttribute("redirect", "/adminMain");
-		return "/alert";
+		   model.addAttribute("redirect", "adminMain");
+		return "alert";
 	}
 }

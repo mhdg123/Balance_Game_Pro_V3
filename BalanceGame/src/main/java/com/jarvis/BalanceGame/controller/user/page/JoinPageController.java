@@ -11,6 +11,6 @@ public class JoinPageController {
 	@GetMapping("/joinPage")
    public String joinPageController() {
       System.out.println("회원가입 페이지 이동");
-      return "/user/join";
+      return "user/join";
    }
 }

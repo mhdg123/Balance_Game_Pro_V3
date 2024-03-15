@@ -34,10 +34,10 @@ public class QuestionListPageController {
 		}else {
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "등록된 문제가 없습니다.");
-			model.addAttribute("redirect", "/");
+			model.addAttribute("redirect", "");
 			return "alert";
 		}
 		
-		return "/user/questionList";
+		return "user/questionList";
 	}
 }

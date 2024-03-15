@@ -39,7 +39,7 @@
 //			model.addAttribute("qData", questionService);
 //			model.addAttribute("cDatas", commentDatas);
 //		}
-//		return "/user/aminquestionDetail";
+//		return "user/aminquestionDetail";
 //	}
 //}
 //

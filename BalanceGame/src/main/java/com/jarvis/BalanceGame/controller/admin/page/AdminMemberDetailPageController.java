@@ -37,8 +37,8 @@ public class AdminMemberDetailPageController {
 		if (member == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("fail", "회원이 존재하지 않습니다.");
-			model.addAttribute("redirect", "/adminPage");
-			return "/alert";
+			model.addAttribute("redirect", "adminPage");
+			return "alert";
 		}
 
 		model.addAttribute("member", member);
@@ -46,6 +46,6 @@ public class AdminMemberDetailPageController {
 		System.out.println("로그 cdatas[" + cdatas + "]");
 		System.out.println("로그 member[" + member + "]");
 
-		return "/admin/adminMemberDetail";
+		return "admin/adminMemberDetail";
 	}
 }

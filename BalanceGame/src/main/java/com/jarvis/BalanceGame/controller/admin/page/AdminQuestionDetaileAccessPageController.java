@@ -25,11 +25,11 @@ public class AdminQuestionDetaileAccessPageController {
 		if(qDTO == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
-			model.addAttribute("redirect", "/adminQuestionDetaileAccess");
-			return "/alret";
+			model.addAttribute("redirect", "adminQuestionDetaileAccess");
+			return "alret";
 		}
 		model.addAttribute("qDTO", qDTO);
-		return "/admin/adminQuestionDetaileAccess";
+		return "admin/adminQuestionDetaileAccess";
 	}
 	
 }

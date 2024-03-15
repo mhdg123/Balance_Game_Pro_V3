@@ -61,14 +61,14 @@ public class GamePageController {
 			list.add(qDTO.getQuestionId());
 			session.setAttribute("qList", list);
 			model.addAttribute("data", qDTO);
-			return "/user/game";
+			return "user/game";
 			}
 			else {
 				session.removeAttribute("qList");
 			}
 		
 		
-		return "/user/index";
+		return "user/index";
 	}
 	
 	

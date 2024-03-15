@@ -31,12 +31,12 @@ public class AdminQuestionManagementPageController {
 		if(qdatas_t == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
-			model.addAttribute("redirect", "/adminPage");
-			return "/alert";
+			model.addAttribute("redirect", "adminPage");
+			return "alert";
 		}
 		model.addAttribute("qdatas_t", qdatas_t);
 		System.out.println("qdatas_t" + qdatas_t);
-		return "/admin/adminquestionManagement";
+		return "admin/adminquestionManagement";
 	}
 }
 

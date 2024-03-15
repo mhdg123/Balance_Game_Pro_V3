@@ -11,6 +11,6 @@ public class ResultPageController {
 	@GetMapping("/gameResultPage")
 	public String resultPageController() {
 		
-		return "/user/gameReuslt";
+		return "user/gameReuslt";
 	}
 }

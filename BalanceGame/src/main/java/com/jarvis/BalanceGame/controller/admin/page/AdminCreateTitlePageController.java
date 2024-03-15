@@ -11,7 +11,7 @@ public class AdminCreateTitlePageController {
 	@GetMapping("/adminCreateTitlePage")
 	public String adminCreateTitlePageController() {
 		
-		return "/admin/adminMakeTitle";
+		return "admin/adminMakeTitle";
 	}
 	
 }

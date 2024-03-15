@@ -30,16 +30,16 @@ public class ResignController {
 		if (memberService.delete(mDTO)) {
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "밸런스를 이용해주셔서 감사합니다");
-			model.addAttribute("redirect", "/");
+			model.addAttribute("redirect", "");
 			session.invalidate();
-			return "/alert";
+			return "alert";
 
 		}
 		model.addAttribute("status", "fail");
 		model.addAttribute("msg", "회원탈퇴가 취소되었습니다");
-		model.addAttribute("redirect", "/");
+		model.addAttribute("redirect", "");
 		
-		return "/alert";
+		return "alert";
 	}
 
 }

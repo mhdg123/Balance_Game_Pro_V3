@@ -27,6 +27,6 @@ public class MyPageController {
 		System.out.println(memberService.selectOne(mDTO).getLoginId());
 		model.addAttribute("myPageData", memberService);
 		
-		return "/user/myInfo";
+		return "user/myInfo";
 	}
 }

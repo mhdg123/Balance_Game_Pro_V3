@@ -18,7 +18,7 @@
 //	@Autowired
 //	private LetterService letterService;
 //	
-//	@GetMapping("/sendSuggestion")
+//	@GetMapping("/sendLetter")
 //	public String userSuggertionController(LetterDTO lDTO, Model model, HttpSession session) {
 //		
 //		String loginId = (String) session.getAttribute("loginId");
@@ -30,12 +30,12 @@
 //		if (!flag) {
 //			model.addAttribute("msg", "전송에 실패했습니다");
 //			model.addAttribute("status", "failClose");
-//			return "/user/alert";
+//			return "alert";
 //		}
 //		
 //		model.addAttribute("status", "close");
 //		model.addAttribute("msg", "건의사항이 발송되었습니다.");
-//		return "/user/index";
+//		return "user/index";
 //	}
 //}
 

@@ -5,6 +5,7 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Controller;
 //import org.springframework.ui.Model;
+//import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //
 //import com.jarvis.BalanceGame.model.dto.LetterDTO;
@@ -49,22 +50,21 @@
 //		pDTO = paymentService.selectOne(pDTO);
 //		
 //		lDTO.setSearchCondition("전체조회");
-//		List<SuggestionDTO> sugDatas = letterService.selectAll(lDTO);
-//		System.out.println(sugDatas + "sugDatas <<<<<<<<");
+//		List<SuggestionDTO> lDatas = letterService.selectAll(lDTO);
+//		System.out.println(lDatas + "sugDatas <<<<<<<<");
 //
-//		if (sugDatas.size() <= 0) {
+//		if (lDatas.size() <= 0) {
 //			System.out.println("건의사항 : null");
 //		}
 //		System.out.println("건의사항 데이터는 있음");
-//		System.out.println("sugDatas"+sugDatas);
+//		System.out.println("sugDatas"+lDatas);
 //		model.addAttribute("qDTOApproveCnt", qDTOApproveCnt);
 //		model.addAttribute("qDTOTotalCnt", qDTOTotalCnt);
 //		model.addAttribute("mDTO", mDTO);
 //		model.addAttribute("pDTO", pDTO);
 //
-//		return "/admin/adminMain";
+//		return "admin/adminMain";
 //	}
 //}
 //
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
+//

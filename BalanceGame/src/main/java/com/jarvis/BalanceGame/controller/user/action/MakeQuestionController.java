@@ -27,15 +27,15 @@ public class MakeQuestionController {
 		if (!questionService.insert(qDTO)) {
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "실패");
-			model.addAttribute("redirect", "/");
-			return "/alert";
+			model.addAttribute("redirect", "");
+			return "alert";
 			
 		}
 		// 문제 출제 하기 성공
 		model.addAttribute("status", "fail");
 		model.addAttribute("msg", "실패");
-		model.addAttribute("redirect", "/makeQuestion");
-		return "/alert";
+		model.addAttribute("redirect", "makeQuestion");
+		return "alert";
 
 	}
 }

@@ -27,7 +27,7 @@
 //		
 //			model.addAttribute("datas", supportDatas);
 //
-//		return "/user/shop";
+//		return "user/shop";
 //	}
 //}
 

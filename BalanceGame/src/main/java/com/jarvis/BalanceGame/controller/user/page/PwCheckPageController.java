@@ -10,6 +10,6 @@
 //	@GetMapping("/pwCheck")
 //	public String pwCheckPageController() {
 //		
-//		return "/user/PwCheckAcion";
+//		return "user/PwCheckAcion";
 //	}
 //}

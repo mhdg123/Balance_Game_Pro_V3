@@ -34,14 +34,14 @@ public class PwCheckController {
 			model.addAttribute("redirect", "/myPage");
 			model.addAttribute("msg", memberService.selectOne(mDTO).getName() + "님 인증 성공하였습니다.");
 			
-			return "/alert";	
+			return "alert";	
 		}
 		
 			// 인증실패	
 		model.addAttribute("status", "fail");
-		model.addAttribute("redirect", "/PwCheckAcion");
+		model.addAttribute("redirect", "PwCheckAcion");
 		model.addAttribute("msg","비밀번호가 맞지 않습니다 다시 확인해주세요");
 
-		return "/alert";	
+		return "alert";	
 }
 }

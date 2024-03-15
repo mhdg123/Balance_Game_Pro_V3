@@ -28,13 +28,13 @@ public class AdminQuestionRefuseController {
 		if(!flag) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "실패했습니다");
-			model.addAttribute("redirect", "/adminMain");
-			return "/alert";
+			model.addAttribute("redirect", "adminMain");
+			return "alert";
 		}
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", "거절했습니다");
-		model.addAttribute("redirect", "/adminMain");
-		return "/alert";
+		model.addAttribute("redirect", "adminMain");
+		return "alert";
 	}
 	
 }

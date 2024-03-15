@@ -11,6 +11,6 @@ public class MakeQuestionPageController {
 	@GetMapping("/makeQuestionPage")
 	public String makeTitlePageController() {
 		
-		return "/user/makeQuestion";
+		return "user/makeQuestion";
 	}
 }

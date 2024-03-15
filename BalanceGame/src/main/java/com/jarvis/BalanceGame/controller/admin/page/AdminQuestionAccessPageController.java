@@ -33,13 +33,13 @@ public class AdminQuestionAccessPageController {
 		if(qdatas_f == null) {	
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
-			model.addAttribute("redirect", "/adminQuestionAccess");
-			return "/alert";
+			model.addAttribute("redirect", "adminQuestionAccess");
+			return "alert";
 		}
 		
 		model.addAttribute("qdatas_f", qdatas_f);
 
-		return "/admin/adminQuestionAccess";
+		return "admin/adminQuestionAccess";
 	}
 }
 
