@@ -15,63 +15,51 @@
     <!-- 헤너 네비 바 -->
 
     <main>
-      <!--? slider Area Start -->
-      <div class="slider-area">
-        <div class="slider-active">
-          <!-- Single Slider -->
-          <div class="single-slider align-items-center slide-bg">
-            <div class="container" >
-              <div
-                style="
-                  text-align: center;
-                  padding-top: 10vh;
-                  padding-bottom: 10vh;
-                "
-                id="play"
-              >
-                <div>
-                  <div class="hero__caption">
-                    <!-- 메인페이지 헤드라인 -->
-                    <div id="title">
-                    <h1>뭐 드실?</h1>
+<div class="slider-area">
+    <div class="slider-active">
+        <!-- Single Slider -->
+        <div class="single-slider align-items-center slide-bg">
+            <div class="container">
+            
+                <div id="play" style="text-align: center; padding-top: 10vh; padding-bottom: 10vh;">
+                    <div>
+                        <div class="hero__caption">
+                            <!-- 메인페이지 헤드라인 -->
+                            <div id="title">
+                                <h1 style="display: inline-block; margin-right: 10px;">뭐 드실?</h1>
+                                
+                            </div>
+                            
+                            <!-- Hero-btn -->
+                            <div class="button-container">
+                                <br />
+                                <br />
+                                <div id="answer_A">
+                                    <button class="genric-btn primary-border radius e-large game-button answer" type="button">
+                                        <span>찹쌀떡</span>
+                                    </button>
+                                </div>
+                                <div id="answer_B">
+                                    <button class="genric-btn primary-border radius e-large game-button answer" type="button">
+                                        <span>메밀묵</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Hero-btn -->
-                    <div class="button-container">
-                      <br />
-                      <br />
-                      <div id="answer_A">
-                      <button
-                        class="genric-btn primary-border radius e-large game-button answer"
-                        type="button"
-                        ><span>찹쌀떡</span></button
-                      >
-                      </div>
-                      <div id="answer_B">
-                      <button
-                        class="genric-btn primary-border radius e-large game-button answer"
-                        type="button"
-                        ><span>메밀묵</span></button
-                      >
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
 
-              <div class="container click">
-                <button
-                  class="genric-btn default f-right large"
-                  style="font-size: 30px"
-                  id ="next"
-                >
-                  Next >
-                </button>
-              </div>
+                <div class="container click">
+                <h2 style="color: #ff2020;" class="fa ti-heart" id="save"></h2> <!-- fa-heart 꽉 찬 하트 -->
+                    <button class="genric-btn default f-right large" style="font-size: 30px;" id="next">
+                        Next >
+                    </button>
+                </div>
             </div>
-          </div>
-          <!-- Single Slider -->
         </div>
-      </div>
+        <!-- Single Slider -->
+    </div>
+</div>
 
       <!-- Comments -->
       <div class="container click" >
@@ -122,7 +110,8 @@
                   <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center"></div>
                     <div class="reply-btn">
-                      <a href="#" class="btn-reply text-uppercase">삭제</a>
+                      <div class="btn-reply text-uppercase" style="display: inline-block;">신고</div>
+                      <div class="btn-reply text-uppercase" style="display: inline-block;">삭제</div>
                     </div>
                   </div>
                 </div>
@@ -154,7 +143,8 @@
                   <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center"></div>
                     <div class="reply-btn">
-                      <a href="#" class="btn-reply text-uppercase">삭제</a>
+                      <div class="btn-reply text-uppercase" style="display: inline-block;">신고</div>
+                      <div class="btn-reply text-uppercase" style="display: inline-block;">삭제</div>
                     </div>
                   </div>
                 </div>
@@ -186,7 +176,8 @@
                   <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center"></div>
                     <div class="reply-btn">
-                      <a href="#" class="btn-reply text-uppercase">삭제</a>
+                      <div class="btn-reply text-uppercase" style="display: inline-block;">신고</div>
+                      <div class="btn-reply text-uppercase" style="display: inline-block;">삭제</div>
                     </div>
                   </div>
                 </div>
@@ -235,7 +226,7 @@
     	$(".click").hide();
 
     	$("#next").on("click", function() {
-    		location.href = 'gamePage.do';
+    		location.href = '/user/gamePage';
     	});
     });
     
@@ -266,7 +257,7 @@ var playElement = document.getElementById("play");
 
 // 내용을 변경합니다.
 playElement.innerHTML = `
-    <h1 class="col-12"><br />뭐 드실?</h1>
+    <h1 class="col-12"><br />뭐 드실? </h1>
     <div class="comments-area">
         <div class="col-12">
             <div>
