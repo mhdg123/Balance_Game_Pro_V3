@@ -3,6 +3,7 @@ package com.jarvis.BalanceGame.controller.admin.action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
@@ -13,12 +14,13 @@ import com.jarvis.BalanceGame.service.QuestionService;
 	//이 거절을 하는 action이 필요가 있나?
 
 @Controller
-public class AdminTitleRefuseController {
+@RequestMapping("/admin")
+public class AdminQuestionRefuseController {
 
 	@Autowired
 	private QuestionService questionService;
 	
-	@RequestMapping("/")
+	@GetMapping("/TitleRefuse")
 	public String adminTitleRefuseController(QuestionDTO qDTO, Model model) {
 		
 		
@@ -26,13 +28,13 @@ public class AdminTitleRefuseController {
 		if(!flag) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "실패했습니다");
-			model.addAttribute("redirect", "adminTitleManagementPage");
-			return "alert";
+			model.addAttribute("redirect", "/adminMain");
+			return "/alert";
 		}
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", "거절했습니다");
-		model.addAttribute("redirect", "adminTitleManagementPage");
-		return "alert";
+		model.addAttribute("redirect", "/adminMain");
+		return "/alert";
 	}
 	
 }

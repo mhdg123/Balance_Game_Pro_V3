@@ -3,6 +3,7 @@ package com.jarvis.BalanceGame.controller.user.action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
@@ -12,11 +13,12 @@ import com.jarvis.BalanceGame.service.QuestionService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class MakeTitleController {
+@RequestMapping("/user")
+public class MakeQuestionController {
 	@Autowired
 	private QuestionService questionService;
 
-	@RequestMapping("/makeQuestion")
+	@GetMapping("/makeQuestion")
 	public String MakeTitleController(QuestionDTO qDTO, Model model,HttpSession session) {
 		qDTO.setSearchCondition("문제생성");
 		qDTO.setWriter((String) session.getAttribute("loginId")); // 로그인 아이디

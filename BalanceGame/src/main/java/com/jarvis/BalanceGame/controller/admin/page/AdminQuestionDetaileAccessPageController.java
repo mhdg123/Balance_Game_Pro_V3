@@ -1,7 +1,5 @@
 package com.jarvis.BalanceGame.controller.admin.page;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,33 +11,25 @@ import com.jarvis.BalanceGame.service.QuestionService;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminTitleAccessPageController {
+public class AdminQuestionDetaileAccessPageController {
 
 	@Autowired
 	private QuestionService questionService;
 	
-	
-	@GetMapping
-	public String AdminTitleAccessPageController(QuestionDTO qDTO, Model model) {
+	@GetMapping("/questionDetaileAccessPage")
+	public String adminTitleDetaileAccessPageController(QuestionDTO qDTO, Model model) {
 		
-		qDTO.setSearchCondition("관리자문제조회");
+		qDTO.setSearchCondition("관리자문제상세조회");
+		qDTO = questionService.selectOne(qDTO);
 		
-		qDTO.setQuestionAccess("F");
-		
-		List<QuestionDTO> qdatas_f = questionService.selectAll(qDTO);
-		
-		System.out.println("qdatas_f"+qdatas_f);
-		
-		if(qdatas_f == null) {	
+		if(qDTO == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
-			model.addAttribute("redirect", "adminPage");
-			return "alert";
+			model.addAttribute("redirect", "/adminQuestionDetaileAccess");
+			return "/alret";
 		}
-		
-		model.addAttribute("qdatas_f", qdatas_f);
-
-		return "adminTitleAccess";
+		model.addAttribute("qDTO", qDTO);
+		return "/admin/adminQuestionDetaileAccess";
 	}
+	
 }
-

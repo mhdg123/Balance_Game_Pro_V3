@@ -6,22 +6,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jarvis.BalanceGame.model.dto.QuestionDTO;
-import com.jarvis.BalanceGame.service.QuestionService;
+import com.jarvis.BalanceGame.model.dto.LetterDTO;
+import com.jarvis.BalanceGame.service.LetterService;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminTitleUpdateController {
+public class AdminSuggestionDeleteController {
 
 	@Autowired
-	private QuestionService questionService;
+	private LetterService letterService;
 	
-	@GetMapping("/TitleUpdate")
-	public String adminTitleUpdateController(QuestionDTO qDTO, Model model) {
+	
+	@GetMapping("/LetterDelete")
+	public String adminSuggestionDeleteController(LetterDTO lDTO, Model model) {
 		
-		qDTO.setSearchCondition("문제수정");
+		boolean flag = letterService.delete(lDTO);
 		
-		boolean flag = questionService.update(qDTO);
 		if(!flag) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "실패했습니다");
@@ -29,9 +29,10 @@ public class AdminTitleUpdateController {
 			return "/alert";
 		}
 		model.addAttribute("status", "success");
-		model.addAttribute("msg", "수정되었습니다");
+		model.addAttribute("msg", "삭제했습니다");
 		model.addAttribute("redirect", "/adminMain");
 		return "/alert";
-
 	}
 }
+
+

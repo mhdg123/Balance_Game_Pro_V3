@@ -18,8 +18,8 @@ public class AdminMemberManagementPageController {
 	@Autowired
 	private MemberService memberService;
 	
-	@GetMapping("/adminMemberManagementPage")
-	public String AdminMemberManagementPageController(MemberDTO mDTO, Model model) {
+	@GetMapping("/memberManagementPage")
+	public String adminMemberManagementPageController(MemberDTO mDTO, Model model) {
 		
 		mDTO.setSearchCondition("전체조회");
 		List<MemberDTO> mdatas = memberService.selectAll(mDTO);
@@ -28,11 +28,11 @@ public class AdminMemberManagementPageController {
 		if (mdatas == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("fail", "회원이 존재하지 않습니다.");
-			model.addAttribute("redirect", "adminPage");
-			return "alert";
+			model.addAttribute("redirect", "/adminPage");
+			return "/alert";
 		}
 		model.addAttribute("member", mdatas);
-		return "adminMemberManagement";
+		return "/admin/adminMemberManagement";
 	}
 		
 }

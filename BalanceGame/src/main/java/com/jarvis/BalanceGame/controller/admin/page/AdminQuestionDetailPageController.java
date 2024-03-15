@@ -11,13 +11,13 @@ import com.jarvis.BalanceGame.service.QuestionService;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminTitleDetailPageController {
+public class AdminQuestionDetailPageController {
 
 	@Autowired
 	private QuestionService questionService;
 	
-	@GetMapping("/adminTitleDetailPage")
-	public String AdminTitleDetailPageController(QuestionDTO qDTO, Model model) {
+	@GetMapping("/questionDetailPage")
+	public String adminTitleDetailPageController(QuestionDTO qDTO, Model model) {
 		
 		qDTO.setSearchCondition("관리자문제상세조회");
 		qDTO = questionService.selectOne(qDTO);
@@ -25,12 +25,12 @@ public class AdminTitleDetailPageController {
 		if(qDTO == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
-			model.addAttribute("redirect", "adminTitleAccessPage");
-			return "alert";
+			model.addAttribute("redirect", "/adminquestionDetail");
+			return "/alert";
 			
 		}
 		model.addAttribute("qDTO", qDTO);
-		return "adminTitleDetail";
+		return "/admin/adminquestionDetail";
 	}
 	
 }

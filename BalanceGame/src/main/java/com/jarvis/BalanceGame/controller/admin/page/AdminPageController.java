@@ -32,7 +32,7 @@
 //	
 //	
 //	@GetMapping("/adminPage")
-//	public String AdminPageController(LetterDTO lDTO, QuestionDTO qDTO, MemberDTO mDTO, PaymentDTO pDTO, Model model) {
+//	public String adminPageController(LetterDTO lDTO, QuestionDTO qDTO, MemberDTO mDTO, PaymentDTO pDTO, Model model) {
 //		
 //		qDTO.setSearchCondition("총문제수");
 //		qDTO.setQuestionAccess("F");
@@ -62,7 +62,7 @@
 //		model.addAttribute("mDTO", mDTO);
 //		model.addAttribute("pDTO", pDTO);
 //
-//		return "adminMain";
+//		return "/admin/adminMain";
 //	}
 //}
 //

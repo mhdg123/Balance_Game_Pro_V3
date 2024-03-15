@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminCreateTitlePageController {
 
 	@GetMapping("/adminCreateTitlePage")
-	public String AdminCreateTitlePageController() {
+	public String adminCreateTitlePageController() {
 		
 		return "/admin/adminMakeTitle";
 	}

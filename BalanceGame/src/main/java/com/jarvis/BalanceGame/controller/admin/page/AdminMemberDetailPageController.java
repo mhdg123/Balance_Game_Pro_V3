@@ -25,7 +25,7 @@ public class AdminMemberDetailPageController {
 	private CommentService commentService;
 
 	@GetMapping("/adminMemberDetailPage")
-	public String AdminMemberDetailPageController(MemberDTO mDTO, CommentDTO cDTO, Model model) {
+	public String adminMemberDetailPageController(MemberDTO mDTO, CommentDTO cDTO, Model model) {
 
 		mDTO.setSearchCondition("유저조회");
 		cDTO.setSearchCondition("유저댓글조회");
@@ -37,8 +37,8 @@ public class AdminMemberDetailPageController {
 		if (member == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("fail", "회원이 존재하지 않습니다.");
-			model.addAttribute("redirect", "adminPage");
-			return "alert";
+			model.addAttribute("redirect", "/adminPage");
+			return "/alert";
 		}
 
 		model.addAttribute("member", member);
@@ -46,6 +46,6 @@ public class AdminMemberDetailPageController {
 		System.out.println("로그 cdatas[" + cdatas + "]");
 		System.out.println("로그 member[" + member + "]");
 
-		return "adminMemberDetail";
+		return "/admin/adminMemberDetail";
 	}
 }

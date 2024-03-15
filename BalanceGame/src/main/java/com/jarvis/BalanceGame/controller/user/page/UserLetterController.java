@@ -35,7 +35,7 @@
 //		
 //		model.addAttribute("status", "close");
 //		model.addAttribute("msg", "건의사항이 발송되었습니다.");
-//		return "/";
+//		return "/user/index";
 //	}
 //}
 

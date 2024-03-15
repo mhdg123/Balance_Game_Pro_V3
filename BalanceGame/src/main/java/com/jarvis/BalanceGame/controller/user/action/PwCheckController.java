@@ -3,6 +3,7 @@ package com.jarvis.BalanceGame.controller.user.action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
@@ -11,12 +12,13 @@ import com.jarvis.BalanceGame.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/user")
 public class PwCheckController {
 
 	@Autowired
 	private MemberService memberService;
 
-	@RequestMapping("/pwCheck")
+	@GetMapping("/pwCheck")
 	public String PwCheckController(MemberDTO mDTO, Model model,HttpSession session) {
 		mDTO.setSearchCondition("2차인증");
 		
@@ -29,7 +31,7 @@ public class PwCheckController {
 			
 			// 인증 성공
 			model.addAttribute("status", "success");
-			model.addAttribute("redirect", "myPage.do");
+			model.addAttribute("redirect", "/myPage");
 			model.addAttribute("msg", memberService.selectOne(mDTO).getName() + "님 인증 성공하였습니다.");
 			
 			return "/alert";	

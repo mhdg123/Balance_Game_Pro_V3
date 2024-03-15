@@ -3,6 +3,7 @@ package com.jarvis.BalanceGame.controller.admin.action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
@@ -17,7 +18,7 @@ public class AdminMemberUpdateController {
 	@Autowired
 	private MemberService memberService;
 	
-	@RequestMapping("/")
+	@GetMapping("/MemberUpdate")
 	public String adminMemberUpdateController(MemberDTO mDTO, Model model, HttpSession session) {
 		
 		mDTO.setLoginId((String) session.getAttribute("loginId"));
@@ -29,15 +30,15 @@ public class AdminMemberUpdateController {
 			// 내정보 변경 성공
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "정보가 수정되었습니다.");
-			model.addAttribute("redirect", "main");
-			return "alert";
+			model.addAttribute("redirect", "/adminMain");
+			return "/alert";
 		}
 		
 			// 내정보 변경 실패
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "정보 변경에 실패하였습니다.");
-			model.addAttribute("redirect", "myPage");
-			return "alert";
+			model.addAttribute("redirect", "/adminMain");
+			return "/alert";
 
 	}
 	
