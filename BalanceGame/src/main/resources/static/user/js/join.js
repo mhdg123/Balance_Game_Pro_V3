@@ -146,12 +146,12 @@
 	    let loginId = $('#loginId').val();
 	    if (loginId.length >= 5) {
 	        $.ajax({
-	            url: "idCheckAsync",
+	            url: "/user/idCheckAsync",
 	            type: "POST",
 	            data: {
 	                loginId: loginId
 	            },
-	            dataType: 'json',
+	            dataType: 'text',
 	            success: function (result) {
 	                let feedback = $("#id_feedback");
 	                if (result == 1) {

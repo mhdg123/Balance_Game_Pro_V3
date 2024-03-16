@@ -20,20 +20,20 @@ public class MemberDAO {
 
 	// 회원가입 SQL
 	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE) VALUES(?,?,?,?,?,?,?,?,?)";
-	
+
 	// 아이디 중복 체크 SQL
 	private static final String SELECT_LOGIN_ID = "SELECT LOGIN_ID FROM MEMBER WHERE LOGIN_ID = ? ";
-	
+
 	// 로그인 SQL
 	private static final String LOGIN = "SELECT LOGIN_ID, ROLE FROM MEMBER WHERE LOGIN_ID = ? AND MEMBER_PASSWORD = ? ";
-	
-	// 유저 수 조회 
+
+	// 유저 수 조회
 	private static final String SELECT_CNT = "SELECT COUNT(1) AS CNT FROM MEMBER";
-	
+
 	// 유저 상세 조회
 	private static final String SELECTONE_USER = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
-	
+
 	// 마이페이지 SQL
 	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS "
 			+ "FROM MEMBER WHERE LOGIN_ID = ? AND MEMBER_PASSWORD = ?";
@@ -44,7 +44,7 @@ public class MemberDAO {
 			+ " CASE WHEN IFNULL(SUM(S.AMOUNT), 0) = 0 THEN ELSE TO_CHAR(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE))) END AS RANKING "
 			+ " FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID "
 			+ " GROUP BY M.LOGIN_ID, M.EMAIL, M.ADDRESS, M.GENDER, M.AGE";
-	
+
 	// 유저 삭제
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
 
@@ -61,7 +61,6 @@ public class MemberDAO {
 		// 회원 전체 검색
 		if (mDTO.getSearchCondition().equals("viewOne")) {
 			Object[] args = { mDTO.getLoginId() };
-			
 			return jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
 		}
 		// 로그인
@@ -70,20 +69,34 @@ public class MemberDAO {
 			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
 			System.out.println("loginDAO 실행2");
 			if (args != null) {
-	            MemberDTO result = null;
-	            try {
-	                result = jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
-	            } catch (EmptyResultDataAccessException e) {
-	                // 조회 결과가 없을 때 예외처리
-	                System.out.println("로그인 실패: 사용자가 존재하지 않습니다.");
-	            }
-	            return result;
-	        }
+				MemberDTO result = null;
+				try {
+					result = jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
+				} catch (EmptyResultDataAccessException e) {
+					// 조회 결과가 없을 때 예외처리
+					System.out.println("로그인 실패: 사용자가 존재하지 않습니다.");
+				}
+				return result;
+			}
 		}
 		// 아이디 중복확인
 		else if (mDTO.getSearchCondition().equals("duplitcateCheck")) {
+			System.out.println("아이디 중복확인 DAO 1");
 			Object[] args = { mDTO.getLoginId() };
-			return jdbcTemplate.queryForObject(SELECT_LOGIN_ID, args, new MemberRowMapperIdCheck());
+			System.out.println(mDTO.getLoginId() + "중복확인 요청한 아이디 " + mDTO.getLoginId());
+			MemberDTO result = null;
+			try {
+			    result = jdbcTemplate.queryForObject(SELECT_LOGIN_ID, args, new MemberRowMapperIdCheck());
+			    if (result.getLoginId().equals(mDTO.getLoginId())) {
+			        System.out.println("아이디 중복 DAO");
+			        return result;
+			    }
+			} catch (EmptyResultDataAccessException e) {
+			    // 결과가 없는 경우 처리
+			    System.out.println("결과가 없습니다.");
+			}
+			return null;
+
 		}
 		// 마이페이지 조회
 		else if (mDTO.getSearchCondition().equals("myInfo")) {
@@ -93,11 +106,13 @@ public class MemberDAO {
 		return null;
 	}
 
-	// 회원가입             LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE
+	// 회원가입 LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER,
+	// CELL_PHONE, AGE
 	public boolean insert(MemberDTO mDTO) {
 		System.out.println(mDTO);
-		int result = jdbcTemplate.update(INSERT, mDTO.getLoginId(), mDTO.getMemberPassword(), mDTO.getName(),mDTO.getNickName(),
-				mDTO.getEmail(), mDTO.getAddress(), mDTO.getGender(), mDTO.getCellPhone(), mDTO.getAge());
+		int result = jdbcTemplate.update(INSERT, mDTO.getLoginId(), mDTO.getMemberPassword(), mDTO.getName(),
+				mDTO.getNickName(), mDTO.getEmail(), mDTO.getAddress(), mDTO.getGender(), mDTO.getCellPhone(),
+				mDTO.getAge());
 		if (result <= 0) {
 			return false;
 		}
@@ -161,7 +176,7 @@ class MemberRowMapperIdCheck implements RowMapper<MemberDTO> {
 	}
 }
 
-class MemberRowMapperDetail implements RowMapper<MemberDTO>{
+class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
