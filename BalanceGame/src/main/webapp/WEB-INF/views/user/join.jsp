@@ -40,7 +40,7 @@
                   class="row contact_form"
                   action="/user/join"
                   method="POST"
-                  onsubmit="return joinForm()"
+                  onsubmit="return joinFormAction();"
                   name = "joinForm"
                   
                 >
@@ -56,7 +56,7 @@
 				  <input id="role" type="hidden" name="role" value="USER">
 				  <input id="advertisementStatus" type="hidden" name="advertisementStatus" value="T">
                   <!----------------------------------------이름 입력창---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp이름</div>
+                  <div>&nbsp;&nbsp;&nbsp;이름</div>
                   <div class="col-md-12 form-group p_star">
                     <input
                       type="text"
@@ -69,7 +69,7 @@
                   </div>
                   <!----------------------------------------이름 입력창---------------------------------------->
                   <!----------------------------------------나이 입력창---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp생년월일</div>
+                  <div>&nbsp;&nbsp;&nbsp;생년월일</div>
                   <div class="col-md-12 form-group p_star">
                     <input
                       type="date"
@@ -82,7 +82,7 @@
                   </div>
                   <!----------------------------------------나이 입력창---------------------------------------->
                   <!----------------------------------------아이디 입력창---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp아이디</div>
+                  <div>&nbsp;&nbsp;&nbsp;아이디</div>
                   <div class="col-md-12 form-group p_star">
                     <input
                       type="text"
@@ -96,7 +96,7 @@
                   </div>
                   <!----------------------------------------아이디 입력창---------------------------------------->
                     <!----------------------------------------닉네임 입력창---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp닉네임</div>
+                  <div>&nbsp;&nbsp;&nbsp;닉네임</div>
                   <div class="col-md-12 form-group p_star">
                     <input
                       type="text"
@@ -109,7 +109,7 @@
                   </div>
                   <!----------------------------------------닉네임 입력창---------------------------------------->
                   <!----------------------------------------비밀번호 입력창---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp비밀번호</div>
+                  <div>&nbsp;&nbsp;&nbsp;비밀번호</div>
                   <div class="col-md-12 form-group p_star">
                     <input
                       type="password"
@@ -118,12 +118,12 @@
                       name="memberPassword"
                       placeholder="비밀번호 입력"
                       value="test1234"
-                      onkeyup="checkPassword()"
+                      onkeyup="checkPassword();"
                     />
                   </div>
                   <!----------------------------------------비밀번호 입력창---------------------------------------->
                   <!----------------------------------------비밀번호 확인 입력창---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp비밀번호 확인&nbsp&nbsp&nbsp&nbsp</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 확인&nbsp;&nbsp;&nbsp;</div>
                   <div  id="passwordError"></div>
                   <div class="col-md-12 form-group p_star">
                     <input
@@ -133,7 +133,7 @@
                       name="passwordCheck"
                       placeholder="비밀번호 확인 입력"
                       value="test1234"
-                      onkeyup="checkPassword()"
+                      onkeyup="checkPassword();"
                     />
                   </div>
                   
@@ -167,7 +167,7 @@
                   <!----------------------------------------인증번호 발송버튼---------------------------------------->
                   <div>
                     <br />
-                    &nbsp&nbsp&nbsp&nbsp<a
+                    &nbsp;&nbsp;&nbsp;<a
                       onclick=""
                       class="genric-btn info circle"
                       >인증번호 발송</a
@@ -178,7 +178,7 @@
                   <!----------------------------------------인증번호 재발송---------------------------------------->
                   <div style="display: none">
                     <br />
-                    &nbsp&nbsp&nbsp&nbsp<a
+                    &nbsp;&nbsp;&nbsp;<a
                       href="#"
                       class="genric-btn info circle"
                       >인증번호 재발송</a
@@ -188,7 +188,7 @@
                   <!----------------------------------------인증번호 확인---------------------------------------->
                   <div style="display: none">
                     <br />
-                    &nbsp&nbsp&nbsp&nbsp<a
+                    &nbsp;&nbsp;&nbsp;<a
                       href="#"
                       class="genric-btn info circle"
                       >인증번호 확인</a
@@ -209,7 +209,7 @@
                   </div>
                   <!----------------------------------------이메일 입력창---------------------------------------->
                   <!----------------------------------------성별 선택---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp성별</div>
+                  <div>&nbsp;&nbsp;&nbsp;성별</div>
                   <div class="col-md-12 form-group p_star">
                     <select id="gender" name="gender" class="country_select">
                       <option value="M">남자</option>
@@ -218,7 +218,7 @@
                   </div>
                   <!----------------------------------------성별 선택---------------------------------------->
                   <!----------------------------------------주소 입력---------------------------------------->
-                  <div>&nbsp&nbsp&nbsp&nbsp주소</div>
+                  <div>&nbsp;&nbsp;&nbsp;주소</div>
                   <div class="col-md-12 form-group p_star">
                     <input
                       type="text"
@@ -230,8 +230,7 @@
                     />
                   </div>
                   <div>
-                    &nbsp&nbsp&nbsp&nbsp<a
-                      href="#"
+                    &nbsp;&nbsp;&nbsp;<a
                       class="genric-btn info circle"
                       onClick="addressSearch();"
                       >주소 찾기</a
@@ -252,8 +251,6 @@
                     >
                       회원가입
                     </button>
-                    
-                    <a href="javascript:test();">fffff</a>ssss
                   </div>
                 </form>
               </div>
@@ -271,14 +268,14 @@
    
 	<!-- 메인 페이지 푸터 -->
     <%@ include file="../layout/index-footer.jsp"%>
-	<!-- 메인 페이지 푸터 -->
-
-    <!-- JS here -->
 	<!-- 회원가입 -->
-	<script src="/resources/assets/js/join.js"></script>
-
+	<script src="/resources/user/js/join.js"></script>
     <!-- 푸터 고정 스크립트 공통 모음 -->    
     <%@ include file="../layout/footer-fix.jsp"%>
-    <!-- 푸터 고정 스크립트 공통 모음 -->  
+    
+    <script>
+    
+   
+    </script>
   </body>
 </html>

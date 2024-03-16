@@ -3,6 +3,7 @@ package com.jarvis.BalanceGame.controller.user.action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,7 +19,6 @@ public class JoinController {
 	
 	@PostMapping("/join")
 	public String joinController(MemberDTO mDTO, Model model) {
-		model.addAttribute("UTF-8");
 		mDTO.setSearchCondition("회원가입");
 
 		if (memberService.insert(mDTO)) {
@@ -34,6 +34,13 @@ public class JoinController {
 		model.addAttribute("msg",  "오류가 발생하였습니다.");
 		return "alert";
 		
+	}
+	
+	
+	@RequestMapping("/addressSearchApi")
+	public String addressSearchApi() {
+		System.out.println("주소api 페이지 실행");
+		return "user/addressPopup";
 	}
 
 }
