@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
@@ -18,35 +19,32 @@ public class LoginController {
 	@Autowired
 	private MemberService memberService;
 	
-	@GetMapping("/login")
-	public String LoginController(MemberDTO mDTO, Model model,HttpSession session) {
-		
-		mDTO.setSearchCondition("로그인");
-		memberService.selectOne(mDTO);
+	@PostMapping("/login")
+	public String loginController(MemberDTO mDTO, Model model,HttpSession session) {
+		System.out.println("로그인 기능 실행");
+		mDTO.setSearchCondition("login");
 		mDTO = memberService.selectOne(mDTO);
-		if (memberService != null) {
+		if (mDTO != null) {
 			if ("ADMIN".equals(mDTO.getRole())) {
-				model.addAttribute("msg","관리자 로그인 완료");
-				model.addAttribute("status", "success");
 				session.setAttribute("loginId", mDTO.getLoginId());
-				// memberService.getLoginId()
+				model.addAttribute("status", "success");
 				model.addAttribute("msg", mDTO.getLoginId() + " 관리자님 로그인 하셨습니다.");
-				model.addAttribute("redirect", "adminPage");
+				model.addAttribute("redirect", "/");
 				return "alert";
 				
 			} else {
 				// 로그인 성공
-				model.addAttribute("status", "success");
 				session.setAttribute("loginId", mDTO.getLoginId());
+				model.addAttribute("status", "success");
 				model.addAttribute("msg", mDTO.getLoginId() + "님 로그인 하셨습니다.");
-				model.addAttribute("redirect", "main");
+				model.addAttribute("redirect", "/");
 				return "alert";
 			}
 		}
 			// 로그인 실패
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "로그인 정보가 틀렸습니다 다시 확인해주세요");
-			model.addAttribute("redirect", "login");
+			model.addAttribute("redirect", "/user/loginPage");
 			return "alert";
 
 	}

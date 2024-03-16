@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -60,12 +61,24 @@ public class MemberDAO {
 		// 회원 전체 검색
 		if (mDTO.getSearchCondition().equals("viewOne")) {
 			Object[] args = { mDTO.getLoginId() };
+			
 			return jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
 		}
 		// 로그인
 		else if (mDTO.getSearchCondition().equals("login")) {
+			System.out.println("loginDAO 실행");
 			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
-			return jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
+			System.out.println("loginDAO 실행2");
+			if (args != null) {
+	            MemberDTO result = null;
+	            try {
+	                result = jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
+	            } catch (EmptyResultDataAccessException e) {
+	                // 조회 결과가 없을 때 예외처리
+	                System.out.println("로그인 실패: 사용자가 존재하지 않습니다.");
+	            }
+	            return result;
+	        }
 		}
 		// 아이디 중복확인
 		else if (mDTO.getSearchCondition().equals("duplitcateCheck")) {
