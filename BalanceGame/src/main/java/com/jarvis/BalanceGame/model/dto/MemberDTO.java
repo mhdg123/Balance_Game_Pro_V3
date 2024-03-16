@@ -21,7 +21,7 @@ public class MemberDTO {
 	  private String address; // 주소
 	  private String gender; // 성별
 	  @DateTimeFormat(pattern="yyyy-MM-dd")
-	  private Date age; // 생년월일
+	  private String age; // 생년월일
 	  private int coin; // 포인트
 	  private int grade; // 등급
 	  private String advertisementStatus; // 광고 상태(제거인지 아닌지) 

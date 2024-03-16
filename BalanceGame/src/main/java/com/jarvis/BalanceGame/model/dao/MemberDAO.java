@@ -18,7 +18,7 @@ public class MemberDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 회원가입 SQL
-	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE) VALUES(?,?,?,?,?,?,?,?)";
+	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE) VALUES(?,?,?,?,?,?,?,?,?)";
 	
 	// 아이디 중복 체크 SQL
 	private static final String SELECT_LOGIN_ID = "SELECT LOGIN_ID FROM MEMBER WHERE LOGIN_ID = ? ";
@@ -80,9 +80,10 @@ public class MemberDAO {
 		return null;
 	}
 
-	// 회원가입
+	// 회원가입             LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE
 	public boolean insert(MemberDTO mDTO) {
-		int result = jdbcTemplate.update(INSERT, mDTO.getLoginId(), mDTO.getMemberPassword(), mDTO.getName(),
+		System.out.println(mDTO);
+		int result = jdbcTemplate.update(INSERT, mDTO.getLoginId(), mDTO.getMemberPassword(), mDTO.getName(),mDTO.getNickName(),
 				mDTO.getEmail(), mDTO.getAddress(), mDTO.getGender(), mDTO.getCellPhone(), mDTO.getAge());
 		if (result <= 0) {
 			return false;
@@ -115,7 +116,7 @@ class MemberRowMapper implements RowMapper<MemberDTO> {
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
 		member.setLoginId(rs.getString("LOGIN_ID "));
-		member.setAge(rs.getDate("AGE"));
+		member.setAge(rs.getString("AGE"));
 		member.setGender(rs.getString("GENDER"));
 		member.setEmail(rs.getString("EMAIL"));
 		member.setAddress(rs.getString("ADDRESS"));
@@ -155,7 +156,7 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO>{
 		member.setLoginId(rs.getString("LOGIN_ID "));
 		member.setName(rs.getString("NAME"));
 		member.setNickName(rs.getString("NICKNAME"));
-		member.setAge(rs.getDate("AGE"));
+		member.setAge(rs.getString("AGE"));
 		member.setGender(rs.getString("GENDER"));
 		member.setEmail(rs.getString("EMAIL"));
 		member.setAddress(rs.getString("ADDRESS"));

@@ -21,12 +21,11 @@ public class JoinController {
 		model.addAttribute("UTF-8");
 		mDTO.setSearchCondition("회원가입");
 
-		if (!memberService.insert(mDTO)) {
-			
-			model.addAttribute("status", "sussess");
+		if (memberService.insert(mDTO)) {
+			System.out.println("회원가입 성공");
+			model.addAttribute("status", "success");
 			model.addAttribute("msg", mDTO.getName() + "님 환영합니다");
-			model.addAttribute("redirect","");
-			
+			model.addAttribute("redirect","/");
 			return "alert";
 		}
 		
