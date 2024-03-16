@@ -270,6 +270,8 @@
     <%@ include file="../layout/index-footer.jsp"%>
 	<!-- 회원가입 -->
 	<script src="/resources/user/js/join.js"></script>
+	<!-- sweetalert -->
+	<script src="/resources/common/js/alert.js"></script>
     <!-- 푸터 고정 스크립트 공통 모음 -->    
     <%@ include file="../layout/footer-fix.jsp"%>
     
