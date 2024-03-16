@@ -1,4 +1,4 @@
-package com.jarvis.BalanceGame.controller.user;
+package com.jarvis.BalanceGame.common;
 
 import java.io.IOException;
 
