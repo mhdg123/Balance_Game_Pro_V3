@@ -40,7 +40,7 @@
 								<li><a href="/user/letterPage">건의하기</a></li>
 								<li><a href="/user/myInfoPage" class="hiddenText">마이페이지</a></li>
 
-								<li><a href="/logout" class="hiddenText">로그아웃</a></li>
+								<li><a href="/user/logout" class="hiddenText">로그아웃</a></li>
 								</c:if>
 								<c:if test="${loginId == null }">
 								<li><a href="/user/loginPage">건의하기</a></li>
@@ -113,7 +113,7 @@
 								</a>
 								</li>
 								<li>
-							<a href="/logout"><span
+							<a href="/user/logout"><span
 									class="flaticon-arrow"><span
 										class="window_min_text" style="font-size: small">로그아웃</span></span></a>
 							</li>
