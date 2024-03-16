@@ -38,7 +38,7 @@
                 <h2>회원가입</h2>
                 <form
                   class="row contact_form"
-                  action="/join"
+                  action="/user/join"
                   method="POST"
                   onsubmit="return joinForm()"
                   name = "joinForm"
@@ -212,8 +212,8 @@
                   <div>&nbsp&nbsp&nbsp&nbsp성별</div>
                   <div class="col-md-12 form-group p_star">
                     <select id="gender" name="gender" class="country_select">
-                      <option value="남자">남자</option>
-                      <option value="여자">여자</option>
+                      <option value="M">남자</option>
+                      <option value="F">여자</option>
                     </select>
                   </div>
                   <!----------------------------------------성별 선택---------------------------------------->
@@ -252,6 +252,8 @@
                     >
                       회원가입
                     </button>
+                    
+                    <a href="javascript:test();">fffff</a>ssss
                   </div>
                 </form>
               </div>
@@ -261,6 +263,7 @@
 
         <!----------------------------------------필요시 살리기---------------------------------------->
       </section>
+      
       <!--================End Checkout Area =================-->
     </main>
 
@@ -271,11 +274,11 @@
 	<!-- 메인 페이지 푸터 -->
 
     <!-- JS here -->
+	<!-- 회원가입 -->
+	<script src="/resources/assets/js/join.js"></script>
 
     <!-- 푸터 고정 스크립트 공통 모음 -->    
     <%@ include file="../layout/footer-fix.jsp"%>
     <!-- 푸터 고정 스크립트 공통 모음 -->  
-    <script>
-    </script>
   </body>
 </html>

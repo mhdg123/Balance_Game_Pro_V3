@@ -35,8 +35,7 @@
 
 <!-- sweetAlert  -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- 회원가입 -->
-<script src="/resources/assets/js/join.js"></script>
+
 
 <!-- 우편함 동작로직 -->
 <script>
