@@ -5,7 +5,7 @@
  <head>
  <!-- css -->
     <%@ include file="../layout/header-fix.jsp"%>
-    <title>Watch shop | eCommers</title>
+    <title>랭킹</title>
 <!-- css -->
     
   </head>

@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user")
-public class ShopPageController {
+public class RankListController {
 
-	@GetMapping("/shopPage")
-	public String shopPageController() {
-		System.out.println("상점 페이지 이동");
-//		
-		return "user/shop";
+	@GetMapping("/rankListPage")
+	public String rankListPage() {
+		System.out.println("랭킹페이지 이동");
+		return "user/rankList";
 	}
 }
