@@ -49,9 +49,15 @@
                     </div>
                 </div>
 
-                <div class="container click">
-                <h2 style="color: #ff2020;" class="fa ti-heart" id="save"></h2> <!-- fa-heart 꽉 찬 하트 -->
-                    <button class="genric-btn default f-right large" style="font-size: 30px;" id="next">
+                <div class="container">
+                	<c:if test="${data.likeID <= 0}">
+						<h2 style="color: #ff2020;" class="fa ti-heart wish" id="1"></h2> <!-- ti-heart 빈 하트 -->
+					</c:if>
+					<c:if test="${data.likeID > 0}">
+						<h2 style="color: #ff2020;" class="fa fa-heart wish"  id="1"></h2> <!-- fa-heart 꽉 찬 하트 -->
+					</c:if>
+                
+                    <button class="genric-btn default f-right large click" style="font-size: 30px;" id="next">
                         Next >
                     </button>
                 </div>
@@ -233,7 +239,7 @@
     </script>
     
     
-    <!-- 버튼 클릭 -->
+    <!-- 답변 버튼 클릭 -->
     <script type="text/javascript">
     
     $(".answer").on("click", function() {
@@ -327,6 +333,68 @@ playElement.innerHTML = `
 	$(".click").show();
     });
     </script>
+    
+    
+    <!-- 찜 클릭 -->
+    
+   <script type="text/javascript">
+   $(".wish").on("click", function() {
+		console.log("[성공]");
+		var loginId =`${loginId}`;
+		//var qId = document.getElementById('qId').value;
+		var saveId = $(this).prop('questionId');
+		//var page = document.getElementById('page').value;
+		console.log(loginId);
+		console.log(saveId);
+		if (loginId == null) {
+			console.log("[로그]로그인 x");
+			Swal.fire({
+				title: "로그인 필요",
+				text: "로그인 후 사용가능합니다.",
+				icon: "info"
+			});
+		} else {
+			console.log("[로그] 로그인 o");
+			//요소 값 가져오기
+			//https://luahius.tistory.com/158
+			$.ajax({
+				type: "POST",
+				url: "/user/wishAsync",
+				data: {
+					'loginId': loginId,
+					'qId': saveId
+				},
+				dataType: 'text',
+				success: function(data) {
+					console.log(data);
+					if (data == "실패") {
+						console.log("실패");
+					} else {
+						//console.log($("#" + saveId).attr("class", "fa wish " + "fa-heart") + "<<<<<")
+						$("#" + saveId).attr("class", "fa wish " + data);
+/* 						if (data == "찜x.png" && page == "wishPage") {
+							location.reload();
+						} */
+					}
+
+					//document.getElementById(".save").src="images/찜o.png";
+				},
+				error: function(error) {
+					console.log('에러발생');
+					console.log('에러의 종류:' + error);
+				}
+
+			});
+		}
+	});
+
+   
+   </script>
+    
+    
+    
+    
+    
     
   </body>
 </html>
