@@ -26,7 +26,7 @@
                         <div class="hero__caption">
                             <!-- 메인페이지 헤드라인 -->
                             <div id="title">
-                                <h1 style="display: inline-block; margin-right: 10px;">뭐 드실?</h1>
+                                <h1 style="display: inline-block; margin-right: 10px;">${data.title}</h1>
                                 
                             </div>
                             
@@ -36,12 +36,12 @@
                                 <br />
                                 <div id="answer_A">
                                     <button class="genric-btn primary-border radius e-large game-button answer" type="button">
-                                        <span>찹쌀떡</span>
+                                        <span>${data.answerA}</span>
                                     </button>
                                 </div>
                                 <div id="answer_B">
                                     <button class="genric-btn primary-border radius e-large game-button answer" type="button">
-                                        <span>메밀묵</span>
+                                        <span>${data.answerB}</span>
                                     </button>
                                 </div>
                             </div>
@@ -247,7 +247,32 @@
     	console.log(qId);*/
     	
     	//totalAnswer(qId, loginId, answerValue);
-
+		var answerACount;
+		var answerBCount;
+    	
+        $.ajax({
+            type: "POST",
+            url: "/user/answerAsync",
+            data: {
+                //'qId': qId,
+                //'loginId': `${loginId}`
+                //'answer': answerValue
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data.answerACount);
+                console.log(data.answerBCount);
+                var total = data.answerACount + data.answerBCount;
+                console.log(total);
+                answerACount=Math.round(((data.answerACount * 1.0) / total) * 100);
+                answerBCount=Math.round(((data.answerBCount * 1.0) / total) * 100);
+            },
+            error: function(error) {
+                console.log('에러발생');
+                console.log('에러의 종류:' + error);
+            }
+        });
+    	
     	
     	
     	//$('#play').html('<h2 class="col-12"><br />뭐 드실?</h2><div class="comments-area"><div class="col-12"><div><div><div class="serial">메밀묵</div><div class="percentage" style="width: 80%; display: inline-block"><div class="progress"><div class="progress-bar color-1" role="progressbar" style="width: 20%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div></div><div style="display: inline-block">20%</div></div><div style="display: block"><br /></div><div><div class="serial">찹쌀떡</div><div class="percentage" style="width: 80%; display: inline-block"><div class="progress"><div class="progress-bar color-1" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div></div></div><div style="display: inline-block">80%</div></div></div></div></div>');
@@ -257,14 +282,14 @@ var playElement = document.getElementById("play");
 
 // 내용을 변경합니다.
 playElement.innerHTML = `
-    <h1 class="col-12"><br />뭐 드실? </h1>
+    <h1 class="col-12"><br />${data.title}</h1>
     <div class="comments-area">
         <div class="col-12">
             <div>
                 <div>
                     
                     <div class="percentage" style="width: 80%; display: inline-block">
-                    <h4 class="serial" style="text-align: left;">메밀묵</h4>
+                    <h4 class="serial" style="text-align: left;">${data.answerA}</h4>
                         <div class="progress">
                             <div class="progress-bar color-1" id="answer_A" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -276,7 +301,7 @@ playElement.innerHTML = `
                 <div>
                     
                     <div class="percentage" style="width: 80%; display: inline-block">
-                    <h4 class="serial" style="text-align: left;">찹쌀떡</h4>
+                    <h4 class="serial" style="text-align: left;">${data.answerB}</h4>
                         <div class="progress">
                             <div class="progress-bar color-1" id="answer_B" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -288,31 +313,17 @@ playElement.innerHTML = `
     </div>`;
     
 	setTimeout(function() {
-    $("#answer_A").css("width","20%");
-    $("#answer_B").css("width","80%");
-    
-    $("#answer_A_percent").text("20%");
-    $("#answer_B_percent").text("80%");
+	    $("#answer_A").css("width",answerACount+"%");
+	    $("#answer_B").css("width",answerBCount+"%");
+	    
+	    $("#answer_A_percent").text(answerACount+"%");
+	    $("#answer_B_percent").text(answerBCount+"%");
     
 }, 100); // 100ms 후에 실행됩니다.
 
     	//commentAll(qId);
 
-    	
-    	/* $(".answer").css("height", "100px");
-    	$(".answer").css("line-height", "100px");
-    	$(".answer").css("font-size", "30px");
-    	$(".answer").css("transition", "1000ms");
-    	$(".answer").attr("disabled", true);
 
-    	$("#title h1").css("font-size", "30px");
-    	$("#title h1").css("transition", "1000ms");
-
-    	$(".save").css("width", "30px");
-    	$(".save").css("height", "30px");
-    	$(".save").css("transition", "1000ms");
-
- */
 	$(".click").show();
     });
     </script>
