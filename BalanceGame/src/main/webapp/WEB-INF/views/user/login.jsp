@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -6,6 +7,9 @@
 <%@ include file="../layout/header-fix.jsp"%>
 <title>로그인</title>
 <!-- css -->
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 
@@ -47,27 +51,52 @@
 								<h3>
 									환영합니다. <br> 로그인 해주세요.
 								</h3>
-								<form class="row contact_form" action="/user/login" method="post" novalidate="novalidate" onsubmit="return login();">
+								<form class="row contact_form" action="/user/login"
+									method="post" novalidate="novalidate"
+									onsubmit="return login();">
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="loginId" name="loginId" value="" placeholder="아이디">
+										<input type="text" class="form-control" id="loginId"
+											name="loginId" value="" placeholder="아이디">
 									</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="password" class="form-control" id="memberPassword" name="memberPassword" value="" placeholder="패스워드">
+										<input type="password" class="form-control"
+											id="memberPassword" name="memberPassword" value=""
+											placeholder="패스워드">
 									</div>
 									<div class="col-md-12 form-group">
 										<div class="creat_account d-flex align-items-center">
 											<input type="checkbox" id="f-option" name="selector">
 											<label for="f-option">아이디 저장</label>
 										</div>
-										<button type="submit" value="submit" class="btn_3">log in</button>
-										<a href="mySearchInfo.html" class="lost_pass" id="searchLoginPw"> 회원정보 찾기</a>
+										<button type="submit" value="submit" class="btn_3">log
+											in</button>
+										<a href="mySearchInfo.html" class="lost_pass"
+											id="searchLoginPw"> 회원정보 찾기</a>
 										<!-- <a class="lost_pass"  id="searchLoginId" style="cursor: pointer;" >아이디 찾기 /</a> -->
 									</div>
 								</form>
+
 							</div>
 						</div>
 					</div>
 				</div>
+
+				<!-- 네이버로그인 시작 -->
+
+				
+    <!-- 네이버 로그인 버튼 노출 영역 -->
+    <div id="naver_id_login">네이버 로그인</div>
+    <!-- //네이버 로그인 버튼 노출 영역 -->
+  <script type="text/javascript">
+        var naver_id_login = new naver_id_login("5nji9jWWSPZCvKt4pNf7", "http://localhost:8088/naverLogin");
+        var state = naver_id_login.getUniqState();
+        naver_id_login.setButton("white", 2,40);
+        naver_id_login.setDomain("http://localhost:8088");
+        naver_id_login.setState(state);
+        naver_id_login.setPopup();
+        naver_id_login.init_naver_id_login();
+    </script>
+				<!-- 네이버로그인 끝 -->
 			</div>
 		</section>
 		<!--================login_part end =================-->
@@ -180,9 +209,6 @@ document.getElementById("searchLoginPw").addEventListener("click", async () => {
 	<%@ include file="../layout/footer-fix.jsp"%>
 	<!-- sweetalert -->
 	<script src="/resources/common/js/alert.js"></script>
-	<script>
-		
-	</script>
 
 </body>
 
