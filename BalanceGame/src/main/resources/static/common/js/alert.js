@@ -16,6 +16,3 @@
 	    });
 	}
 	
-	function ttt() {
-		alert("fffff")
-	}

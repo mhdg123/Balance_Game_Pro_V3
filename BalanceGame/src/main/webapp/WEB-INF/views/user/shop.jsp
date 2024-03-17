@@ -58,7 +58,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                                 <div class="single-popular-items mb-50 text-center">
                                     <div class="popular-img">
-                                        <img src="assets/img/gallery/popular1.png" alt="">
+                                        <img src="/resources/assets/img/gallery/popular1.png" alt="">
                                         <div class="img-cap">
                                             <a href="#"><span>구매하기</span></a>
                                         </div>
@@ -75,7 +75,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                                 <div class="single-popular-items mb-50 text-center">
                                     <div class="popular-img">
-                                        <img src="assets/img/gallery/popular2.png" alt="">
+                                        <img src="/resources/assets/img/gallery/popular2.png" alt="">
                                         <div class="img-cap">
                                             <a href="#"><span>구매하기</span></a>
                                         </div>
@@ -92,7 +92,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                                 <div class="single-popular-items mb-50 text-center">
                                     <div class="popular-img">
-                                        <img src="assets/img/gallery/popular2.png" alt="">
+                                        <img src="/resources/assets/img/gallery/popular2.png" alt="">
                                         <div class="img-cap">
                                             <a href="#"><span>구매하기</span></a>
                                         </div>
@@ -115,7 +115,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                                 <div class="single-popular-items mb-50 text-center">
                                     <div class="popular-img">
-                                        <img src="assets/img/gallery/popular2.png" alt="">
+                                        <img src="/resources/assets/img/gallery/popular2.png" alt="">
                                         <div class="img-cap">
                                             <a href="#"><span>구매하기</span></a>
                                         </div>
@@ -131,7 +131,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                                 <div class="single-popular-items mb-50 text-center">
                                     <div class="popular-img">
-                                        <img src="assets/img/gallery/popular2.png" alt="">
+                                        <img src="/resources/assets/img/gallery/popular2.png" alt="">
                                         <div class="img-cap">
                                             <a href="#"><span>구매하기</span></a>
                                         </div>
@@ -189,6 +189,7 @@
 <!-- JS here -->
     <!-- 푸터 고정 스크립트 공통 모음 -->    
     <%@ include file="../layout/footer-fix.jsp"%>
+
     <!-- 푸터 고정 스크립트 공통 모음 -->  
     <script>
         function pointBuy() {

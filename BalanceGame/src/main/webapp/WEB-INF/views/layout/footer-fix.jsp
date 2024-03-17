@@ -36,7 +36,8 @@
 <!-- sweetAlert  -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
+<!-- 부트스트랩 기존꺼 적용 안되서 추가  -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- 우편함 동작로직 -->
 <script>
       async function test() {

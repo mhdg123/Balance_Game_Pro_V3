@@ -34,7 +34,7 @@
 								<li><a href="/user/gamePage">게임하기</a></li>
 								<li><a href="/user/questionListPage">문제목록</a></li>
 								<li><a href="/user/rankListPage">포인트 랭킹</a></li>
-								<li><a href="/user/shopPage" class="hiddenText">상점</a></li>
+								<li><a href="/user/shop" class="hiddenText">상점333</a></li>
 								<!-- 로그인 시 -->
 								<c:if test="${loginId != null }">
 								<li><a href="/user/letterPage">건의하기</a></li>
@@ -101,9 +101,9 @@
 														<!-- 메세지 아이콘  -->
 							<li>
 								<!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 --> <a
-								href="/user/shopPage"><span
+								href="/user/shop"><span
 									class="flaticon-shopping-cart"><span
-										style="font-size: small" class="window_min_text">상점</span>
+										style="font-size: small" class="window_min_text">상점11</span>
 								</span></a> <!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 -->
 							</li>
 							<li>
@@ -123,9 +123,9 @@
 							<c:if test="${loginId == null }">
 														<li>
 								<!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 --> <a
-								href="/user/shopPage"><span
+								href="/user/shop"><span
 									class="flaticon-shopping-cart"><span
-										style="font-size: small" class="window_min_text">상점</span>
+										style="font-size: small" class="window_min_text">상점22</span>
 								</span></a> <!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 -->
 							</li>
 							<li>
