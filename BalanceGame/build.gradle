@@ -37,6 +37,7 @@ dependencies {
     implementation group: 'net.nurigo', name: 'sdk', version: '4.3.0'
     implementation 'org.json:json:20190722'
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+    implementation 'org.jsoup:jsoup:1.17.2'
 }
 
 tasks.named('test') {
