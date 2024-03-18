@@ -52,18 +52,14 @@ public class MemberDAO {
 	public List<MemberDTO> selectAll(MemberDTO mDTO) {
 		List<MemberDTO> members = null;
 		if (mDTO.getSearchCondition().equals("viewAll")) {
-			try {
-				members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
-			} catch (Exception e) {
-				System.out.println("결과가 없습니다");
-			}
+			members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
 		}
 		return members;
 	}
 
 	// 회원 단일 검색
 	public MemberDTO selectOne(MemberDTO mDTO) {
-		// 회원 전체 검색
+		
 		MemberDTO member = null;
 		if (mDTO.getSearchCondition().equals("viewOne")) {
 			Object[] args = { mDTO.getLoginId() };

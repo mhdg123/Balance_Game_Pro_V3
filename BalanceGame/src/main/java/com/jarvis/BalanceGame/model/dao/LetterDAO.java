@@ -30,7 +30,7 @@ public class LetterDAO {
 	private static final String INSERT = "INSERT INTO LETTER(SENDER, LOGIN_ID, TITLE, LETTER_CONTENTS, LETTER_STATUS, LETTER_DATE) VALUES (?,?,?,?,'F',NOW())";
 	
 	// 메세지 읽음 유무 
-	private static final String UPDATE = "UPDATE LETTER SET LETTER_STATUS = 'T' WHERE LETTER_ID = ?";
+	private static final String UPDATE = "UPDATE LETTER SET LETTER_STATUS = CASE WHEN LETTER_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE LETTER_ID = ?";
 	
 	// 메세지 삭제 
 	private static final String DELETE = "DELETE FROM LETTER WHERE LETTER_ID = ?";

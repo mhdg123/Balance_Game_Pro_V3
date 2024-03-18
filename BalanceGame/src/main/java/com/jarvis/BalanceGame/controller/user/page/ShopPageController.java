@@ -39,12 +39,12 @@ public class ShopPageController {
       // 유저 가지고 있는 포인트
 
       
-      List<ItemDTO> data =  itemService.selectAll();
-      mDTO.setSearchCondition(null);
-      MemberDTO loginData = memberService.selectOne(mDTO);
-      model.addAttribute(data);
-      model.addAttribute("loginId", loginData.getLoginId());
-      model.addAttribute("point", loginData.getCoin());
+//      List<ItemDTO> data =  itemService.selectAll();
+//      mDTO.setSearchCondition(null);
+//      MemberDTO loginData = memberService.selectOne(mDTO);
+//      model.addAttribute(data);
+//      model.addAttribute("loginId", loginData.getLoginId());
+//      model.addAttribute("point", loginData.getCoin());
       
       
 //      
