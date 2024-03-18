@@ -2,41 +2,42 @@ package com.jarvis.BalanceGame.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jarvis.BalanceGame.model.dao.LetterDAO;
 import com.jarvis.BalanceGame.model.dto.LetterDTO;
 
 @Service
 public class LetterServiceImpl implements LetterService{
 
+	@Autowired
+	private LetterDAO letterDAO;
+	
+	
 	@Override
-	public boolean insert() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insert(LetterDTO lDTO) {
+		return letterDAO.insert(lDTO);
 	}
 
 	@Override
-	public boolean update() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(LetterDTO lDTO) {
+		return letterDAO.update(lDTO);
 	}
 
 	@Override
-	public boolean delete() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(LetterDTO lDTO) {
+		return letterDAO.delete(lDTO);
 	}
 
 	@Override
-	public List<LetterDTO> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LetterDTO> selectAll(LetterDTO lDTO) {
+		return letterDAO.selectAll(lDTO);
 	}
 
 	@Override
-	public LetterDTO selectOne() {
-		// TODO Auto-generated method stub
-		return null;
+	public LetterDTO selectOne(LetterDTO lDTO) {
+		return letterDAO.selectOne(lDTO);
 	}
 
 }
