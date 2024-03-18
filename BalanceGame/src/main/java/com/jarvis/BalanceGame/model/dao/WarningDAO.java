@@ -23,10 +23,10 @@ public class WarningDAO {
 	
 	private static final String UPDATE = null;
 	
-	private static final String DELETE = null;
+	private static final String DELETE = "DELETE FROM WARNING WHERE COMMENT_ID = ?";
 	
 	public boolean insert(WarningDTO wDTO){
-		int result = jdbcTemplate.update(INSERT);
+		int result = jdbcTemplate.update(INSERT, wDTO.getLoginId(), wDTO.getCommentId());
 		if(result<=0) {
 			return false;
 		}
@@ -34,7 +34,7 @@ public class WarningDAO {
 	}
 	
 	public boolean delete(WarningDTO wDTO) {
-		int result = jdbcTemplate.update(DELETE);
+		int result = jdbcTemplate.update(DELETE, wDTO.getCommentId());
 		if(result<=0) {
 			return false;
 		}
