@@ -52,7 +52,7 @@ public class CommentDAO {
 	// 댓글 추가하기
 	public boolean insert(CommentDTO cDTO) {
 		int result = 0;
-		if (cDTO.getSearchCondition().equals("댓글생성")) {
+		if (cDTO.getSearchCondition().equals("createComments")) {
 			result = jdbcTemplate.update(INSERT, cDTO.getQuestionId(), cDTO.getLoginId(), cDTO.getComments());
 		}
 		if (result <= 0) {

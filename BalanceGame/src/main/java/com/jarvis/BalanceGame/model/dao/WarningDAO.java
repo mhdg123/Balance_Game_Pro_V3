@@ -19,7 +19,7 @@ public class WarningDAO {
 	
 	private static final String SELECTONE = null;
 	
-	private static final String INSERT = null;
+	private static final String INSERT = "INSERT INTO WARNING (LOGIN_ID, COMMENT_ID) VALUES (?, ?)";
 	
 	private static final String UPDATE = null;
 	
