@@ -22,7 +22,6 @@ public class MyPageUpdateController {
 	public String MyPageUpdateController(MemberDTO mDTO, Model model,HttpSession session) {
 		model.addAttribute("UTF-8");
 		mDTO.setLoginId((String)session.getAttribute("loginId"));
-		mDTO.setSearchCondition("내정보변경");
 		
 		if(!memberService.update(mDTO)) {
 			System.out.println("내정보 변경 실패");

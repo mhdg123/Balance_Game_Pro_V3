@@ -20,7 +20,7 @@ public class MakeQuestionController {
 
 	@GetMapping("/makeQuestion")
 	public String MakeTitleController(QuestionDTO qDTO, Model model,HttpSession session) {
-		qDTO.setSearchCondition("문제생성");
+		qDTO.setSearchCondition("createQuestionUser");
 		qDTO.setWriter((String) session.getAttribute("loginId")); // 로그인 아이디
 		questionService.insert(qDTO);
 		

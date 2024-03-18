@@ -20,7 +20,6 @@ public class PwCheckController {
 
 	@GetMapping("/pwCheck")
 	public String PwCheckController(MemberDTO mDTO, Model model,HttpSession session) {
-		mDTO.setSearchCondition("2차인증");
 		
 		mDTO.setLoginId((String) session.getAttribute("loginId"));
 		System.out.println(session.getAttribute("loginId"));

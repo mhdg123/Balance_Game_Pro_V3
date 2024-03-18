@@ -28,7 +28,7 @@ public class AnswerAsync {
 		
 		aDTO.setLoginId((String)session.getAttribute("loginId"));
 		
-		aDTO.setSearchCondition("답변저장");
+		aDTO.setSearchCondition("createComment");
 		
 		if(answerService.insert(aDTO)) {
 			System.out.println("성공");
@@ -36,7 +36,7 @@ public class AnswerAsync {
 			System.out.println("실패");
 		}
 		
-		qDTO.setSearchCondition("문제상세조회");
+		qDTO.setSearchCondition("questionDetail");
 		qDTO.setWriter((String)session.getAttribute("loginId"));
 		
 		return gson.toJson(questionService.selectOne(qDTO));

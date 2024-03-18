@@ -23,7 +23,6 @@ public class ResignController {
 
 	@GetMapping("/resignAction")
 	public String ResignController(MemberDTO mDTO, Model model, HttpSession session) {
-		model.addAttribute("UTF-8");
 
 		String memberLoginId = mDTO.getLoginId();
 

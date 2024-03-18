@@ -25,7 +25,7 @@ public class WishListDetailPageController {
 		
 		qDTO.setWriter((String)session.getAttribute("Writer"));
 		
-		qDTO.setSearchCondition("문제상세조회");
+		qDTO.setSearchCondition("questionDetail");
 		System.out.println("Writer" + loginId);
 		qDTO = questionService.selectOne(qDTO);
 		

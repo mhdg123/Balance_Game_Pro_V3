@@ -24,10 +24,10 @@
 //	public @ResponseBody String commentWriteAsync(CommentDTO cDTO, MemberDTO mDTO, Model model, HttpSession session, Gson gson) {
 //		
 //		cDTO.setLoginId((String)session.getAttribute("loginId"));
-//		cDTO.setSearchCondition("댓글생성");
+//		cDTO.setSearchCondition("createComment");
 //		commentService.insert(cDTO);
 //		
-//		mDTO.setSearchCondition("유저조회");
+//		mDTO.setSearchCondition("viewOne");
 //		mDTO.setLoginId((String)session.getAttribute("loginId"));
 //		mDTO= memberService.selectOne(mDTO);
 //		

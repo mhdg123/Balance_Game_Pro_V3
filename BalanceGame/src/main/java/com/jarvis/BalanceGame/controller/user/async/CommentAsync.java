@@ -17,7 +17,7 @@ public class CommentAsync {
 	private CommentService commentService;
 	@RequestMapping("/commentAsync")
 	public @ResponseBody String commentAsync(CommentDTO cDTO, Model model, Gson gson) {
-		cDTO.setSearchCondition("질문댓글조회");
+		cDTO.setSearchCondition("questionComments");
 		List<CommentDTO> datas=commentService.selectAll(cDTO);
 		String json =gson.toJson(datas);
 		if (datas.isEmpty()) {

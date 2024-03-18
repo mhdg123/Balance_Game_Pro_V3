@@ -28,7 +28,7 @@ public class CrawllingListener {
 		
 		System.out.println("로그0");
 		
-		qDTO.setSearchCondition("총문제수");
+		qDTO.setSearchCondition("questionCount");
 		qDTO.setQuestionAccess("T");
 		if(questionService.selectOne(qDTO).getQuestionCount()>0) {
 			System.out.println("로그: "+ questionService.selectAll(qDTO));

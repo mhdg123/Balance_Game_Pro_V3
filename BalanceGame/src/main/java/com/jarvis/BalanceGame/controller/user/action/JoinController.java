@@ -19,7 +19,6 @@ public class JoinController {
 	
 	@PostMapping("/join")
 	public String joinController(MemberDTO mDTO, Model model) {
-		mDTO.setSearchCondition("회원가입");
 
 		if (memberService.insert(mDTO)) {
 			System.out.println("회원가입 성공");

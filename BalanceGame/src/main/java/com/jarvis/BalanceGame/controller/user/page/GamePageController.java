@@ -35,13 +35,13 @@ public class GamePageController {
 		
 		String loginId = (String) session.getAttribute("loginId");
 		
-		qDTO.setSearchCondition("총문제수");
+		qDTO.setSearchCondition("viewAllofQuestionList");
 		qDTO.setQuestionAccess("T");
 		
 		if(questionService.selectOne(qDTO).getQuestionCount()>list.size()) {
 			while (true) {
 				int i=0;
-				qDTO.setSearchCondition("질문랜덤생성");
+				qDTO.setSearchCondition("showRandomQuestion");
 				
 				// System.out.println(loginId);
 				qDTO.setWriter(loginId);
