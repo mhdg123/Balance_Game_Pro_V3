@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
 import com.jarvis.BalanceGame.service.MemberService;
 
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 

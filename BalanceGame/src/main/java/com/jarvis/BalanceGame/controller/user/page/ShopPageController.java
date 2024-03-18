@@ -19,11 +19,11 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/user")
 public class ShopPageController {
    
-   @Autowired
-   private ItemService itemService;
-   
-   @Autowired
-   private MemberService memberService;
+//   @Autowired
+//   private ItemService itemService;
+//   
+//   @Autowired
+//   private MemberService memberService;
 
    @GetMapping("/shopPage")
    public String shopPageController(ItemDTO iDTO, MemberDTO mDTO, Model model, HttpSession session) {
