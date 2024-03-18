@@ -88,6 +88,10 @@ public class QuestionDAO {
 		else if (qDTO.getSearchCondition().equals("adminViewAllOfUnapprovedQuestions")) {
 			datas = jdbcTemplate.query(SELECTALL_ADMIN_UNAPPROVED_QUESTIONS, new QuestionRowMapper());
 		}
+//		else if(qDTO.getSearchCondition().equals("questionCount")) {
+//			Object[] args = {qDTO.getQuestionAccess()};
+//			datas = jdbcTemplate.query(SELECT_CNT, args);
+//		}
 		return datas;
 	}
 
