@@ -18,9 +18,9 @@ public class QuestionDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 승인된 전체 문제 조회
-	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE, COUNT(DISTINCT W.LOGIN_ID) AS LIKE_COUNT,\r\n"
-			+ "IFNULL(W.WISH_ID, 0) AS USER_LIKED FROM QUESTION Q LEFT JOIN WISH W ON W.QUESTION_ID = Q.QUESTION_ID AND W.LOGIN_ID = ?\r\n"
-			+ "WHERE Q.QUESTION_ACCESS = 'T' GROUP BY Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE";
+	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE, COUNT(DISTINCT W.LOGIN_ID) AS LIKE_COUNT, \r\n"
+			+ "IFNULL(W.WISH_ID, 0) AS USER_LIKED FROM QUESTION Q LEFT JOIN WISH W ON W.QUESTION_ID = Q.QUESTION_ID AND W.LOGIN_ID = ? \r\n"
+			+ "WHERE Q.QUESTION_ACCESS = 'T' GROUP BY Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE, W.WISH_ID";
 
 	// 크롤링한 문제 조회
 	private static final String SELECTALL_CRAWLLING = "SELECT Q.QID, Q.TITLE, Q.WRITER, Q.ANSWER_A, Q.ANSWER_B , EXPLANATION FROM QUESTION Q";
@@ -32,7 +32,7 @@ public class QuestionDAO {
 	private static final String SELECTALL_ADMIN_UNAPPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER, Q.EXPLANATION, Q.QUESTION_DATE FROM QUESTION Q WHERE QUESTION_ACCESS = 'F' ";
 
 	// 문제 개수
-	private static final String SELECT_CNT = "SELECT COUNT(1) AS CNT FROM QUESTIONS WHERE QUESTION_ACCESS=?";
+	private static final String SELECT_CNT = "SELECT COUNT(1) AS CNT FROM QUESTION WHERE QUESTION_ACCESS=?";
 	
 	// 사용자가 풀 문제를 랜덤으로 조회
 	private static final String SELECT_ONE_RANDOM = "SELECT IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.WRITER, Q.EXPLANATION, QUESTION_DATE FROM \r\n"
@@ -41,19 +41,17 @@ public class QuestionDAO {
 
 
 	// 문제 상세보기 
-	private static final String SELECT_ONE_DETAIL = "SELECT Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, Q.WRITER Q.QUESTION_DATE "
-			+ "COUNT(CASE WHEN A.ANSWER = 'A' THEN 1 END) AS COUNT_A, "
-			+ "COUNT(CASE WHEN A.ANSWER = 'B' THEN 1 END) AS COUNT_B, "
-			+ "IFNULL(W.WISH_ID, 0) AS LIKE_ID "
-			+ "FROM QUESTIONS Q JOIN ANSWERS A ON Q.QUESTION_ID = A.QUESTION_ID "
-			+ "LEFT JOIN WISH W ON Q.QUESTION_ID = W.QUESTION_ID AND W.LOGIN_ID = ? WHERE Q.QUESTION_ID=? "
-			+ "GROUP BY Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, W.WISH_ID, Q.QUESTION_DATE";
+	private static final String SELECT_ONE_DETAIL = "SELECT Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, Q.QUESTION_DATE, \r\n"
+			+ "COUNT(CASE WHEN A.ANSWER = 'A' THEN 1 END) AS COUNT_A, COUNT(CASE WHEN A.ANSWER = 'B' THEN 1 END) AS COUNT_B, \r\n"
+			+ "IFNULL(W.WISH_ID, 0) AS LIKE_ID FROM QUESTION Q JOIN ANSWER A ON Q.QUESTION_ID = A.QUESTION_ID \r\n"
+			+ "LEFT JOIN WISH W ON Q.QUESTION_ID = W.QUESTION_ID AND W.LOGIN_ID = ? WHERE Q.QUESTION_ID= ? \r\n"
+			+ "GROUP BY Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, W.WISH_ID, Q.QUESTION_DATE;";
 
 	// 관리자가 사용하는 문제 상세보기 
-	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_DATE, FROM QUESTIONS Q WHERE QUESTION_ID = ? ";
+	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_DATE, FROM QUESTION Q WHERE QUESTION_ID = ? ";
 	
 	// 사용자가 질문 생성
-	private static final String INSERT = "INSERT INTO QUESTIONS (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION) VALUES(?,?,?,?,?)";
+	private static final String INSERT = "INSERT INTO QUESTION (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION) VALUES(?,?,?,?,?)";
 	
 	// 관리자가 질문 생성
 	private static final String INSERT_ADMIN = "INSERT INTO QUESTION (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_ACCESS) VALUES(?,?,?,?,?,'T')";
@@ -65,7 +63,7 @@ public class QuestionDAO {
 	private static final String UPDATE_ACCESS = "UPDATE QUESTION SET Q_ACCESS='T' WHERE QID=?";
 	
 	// 관리자가 문제 삭제 
-	private static final String DELETE = "DELETE FROM QUESTIONS WHERE QID=?";
+	private static final String DELETE = "DELETE FROM QUESTION WHERE QID=?";
 
 	public List<QuestionDTO> selectAll(QuestionDTO qDTO) {
 
@@ -102,19 +100,31 @@ public class QuestionDAO {
 		// 문제 상세보기
 		if (qDTO.getSearchCondition().equals("questionDetail")) {
 			Object[] args = { qDTO.getWriter(), qDTO.getQuestionId() };
-			data = jdbcTemplate.queryForObject(SELECT_ONE_DETAIL, args, new QuestionRowMapperDetail());
+			try {
+				data = jdbcTemplate.queryForObject(SELECT_ONE_DETAIL, args, new QuestionRowMapperDetail());
+			} catch (Exception e) {
+				System.out.println("문제데이터가 없습니다");
+			}
 		} 
 		
 		// 문제 랜덤으로 보기 
 		else if (qDTO.getSearchCondition().equals("showRandomQuestion")) {
 			Object[] args = { qDTO.getWriter() };
-			data = jdbcTemplate.queryForObject(SELECT_ONE_RANDOM, args, new QuestionRowMapperShowToUser());
+			try {
+				data = jdbcTemplate.queryForObject(SELECT_ONE_RANDOM, args, new QuestionRowMapperShowToUser());
+			} catch (Exception e) {
+				System.out.println("문제데이터가 없습니다");
+			}
 		} 
 		
 		// 관리자가 문제 상세보기 
 		else if (qDTO.getSearchCondition().equals("adminQuestionDetail")) {
 			Object[] args = { qDTO.getQuestionId() };
-			data = jdbcTemplate.queryForObject(SELECT_ONE_ADMIN, args, new QuestionRowMapper());
+			try {
+				data = jdbcTemplate.queryForObject(SELECT_ONE_ADMIN, args, new QuestionRowMapper());
+			} catch (Exception e) {
+				System.out.println("문제데이터가 없습니다");
+			}
 		}
 		return data;
 	}
