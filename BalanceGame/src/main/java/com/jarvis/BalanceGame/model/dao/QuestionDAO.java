@@ -69,48 +69,50 @@ public class QuestionDAO {
 
 	public List<QuestionDTO> selectAll(QuestionDTO qDTO) {
 
+		List<QuestionDTO> datas = null;
 		// 문제 모두 조회
 		if (qDTO.getSearchCondition().equals("viewAllOfQuestionList")) {
 			Object[] args = { qDTO.getWriter() };
-			return jdbcTemplate.query(SELECTALL_APPROVED_QUESTIONlIST, args, new QuestionRowMapperList());
+			datas = jdbcTemplate.query(SELECTALL_APPROVED_QUESTIONlIST, args, new QuestionRowMapperList());
 		}
 		// 크롤링 문제조회
 		else if (qDTO.getSearchCondition().equals("crawling")) {
 			System.out.println("로그 qDAO: 크롤링");
-			return jdbcTemplate.query(SELECTALL_CRAWLLING, new QuestionRowMapper());
+			datas = jdbcTemplate.query(SELECTALL_CRAWLLING, new QuestionRowMapper());
 		}
 		// 관리자가 승인한 문제조회
 		else if (qDTO.getSearchCondition().equals("adminViewAllOfApprovedQuestions")) {
-			return jdbcTemplate.query(SELECTALL_ADMIN_APPROVED_QUESTIONS, new QuestionRowMapper());
+			datas = jdbcTemplate.query(SELECTALL_ADMIN_APPROVED_QUESTIONS, new QuestionRowMapper());
 		}
 		// 관리자가 승인하지 않은 문제조회
 		else if (qDTO.getSearchCondition().equals("adminViewAllOfUnapprovedQuestions")) {
-			return jdbcTemplate.query(SELECTALL_ADMIN_UNAPPROVED_QUESTIONS, new QuestionRowMapper());
+			datas = jdbcTemplate.query(SELECTALL_ADMIN_UNAPPROVED_QUESTIONS, new QuestionRowMapper());
 		}
-		return null;
+		return datas;
 	}
 
 	// 가져올 문제테이블의 정보를 무작위로 정렬해서 가져와서 맨위에 있는 한개의 행의 데이터만 조회
 	public QuestionDTO selectOne(QuestionDTO qDTO) {
 		
+		QuestionDTO data = null;
 		// 문제 상세보기
 		if (qDTO.getSearchCondition().equals("questionDetail")) {
 			Object[] args = { qDTO.getWriter(), qDTO.getQuestionId() };
-			return jdbcTemplate.queryForObject(SELECT_ONE_DETAIL, args, new QuestionRowMapperDetail());
+			data = jdbcTemplate.queryForObject(SELECT_ONE_DETAIL, args, new QuestionRowMapperDetail());
 		} 
 		
 		// 문제 랜덤으로 보기 
 		else if (qDTO.getSearchCondition().equals("showRandomQuestion")) {
 			Object[] args = { qDTO.getWriter() };
-			return jdbcTemplate.queryForObject(SELECT_ONE_RANDOM, args, new QuestionRowMapperShowToUser());
+			data = jdbcTemplate.queryForObject(SELECT_ONE_RANDOM, args, new QuestionRowMapperShowToUser());
 		} 
 		
 		// 관리자가 문제 상세보기 
 		else if (qDTO.getSearchCondition().equals("adminQuestionDetail")) {
 			Object[] args = { qDTO.getQuestionId() };
-			return jdbcTemplate.queryForObject(SELECT_ONE_ADMIN, args, new QuestionRowMapper());
+			data = jdbcTemplate.queryForObject(SELECT_ONE_ADMIN, args, new QuestionRowMapper());
 		}
-		return null;
+		return data;
 	}
 
 	public boolean insert(QuestionDTO qDTO) {

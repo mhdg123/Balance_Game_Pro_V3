@@ -17,23 +17,39 @@ public class WishDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	// 사용자가 찜한 문제 전체 조회
 	private static final String SELECTALL = "SELECT Q.TITLE FROM WISH W JOIN QUESTIONS Q ON S.QUESIONT_ID = Q.QUESIONT_ID WHERE W.LOGIN_ID = ?";
 
+	// 문제에 대한 사용자의 찜의 유무 조회 
 	private static final String SELECTONE = "SELECT QUESIONT_ID, LOGIN_ID FROM SAVE WHERE LOGIN_ID=? AND QUESIONT_ID=?";
 
+	// 사용자가 해당 문제를 찜
 	private static final String INSERT = "INSERT INTO WISH (QUESIONT_ID, LOGIN_ID) VALUES(?,?)";
 
+	// 사용자가 해당 문제를 찜 해제 
 	private static final String DELETE = "DELETE FROM SAVE WHERE WISH_ID=?";
 
 	// 사용자가 찜한 문제 전체 조회
 	public List<WishDTO> selectAll(WishDTO wDTO) {
 		Object[] args = { wDTO.getLoginId() };
-		return jdbcTemplate.query(SELECTALL, args, new WishRowMapper());
+		List<WishDTO> datas = null;
+		try {
+			datas = jdbcTemplate.query(SELECTALL, args, new WishRowMapper());
+		} catch (Exception e) {
+			System.out.println("찜에 대한 결과를 조회할 수 없습니다");
+		}
+		return datas;
 	}
 
 	public WishDTO selectOne(WishDTO wDTO) {
 		Object[] args = { wDTO.getLoginId(), wDTO.getQuestionId() };
-		return jdbcTemplate.queryForObject(SELECTONE, args, new WishRowMapperStatus());
+		WishDTO data = null;
+		try {
+			data = jdbcTemplate.queryForObject(SELECTONE, args, new WishRowMapperStatus());
+		} catch (Exception e) {
+			System.out.println("찜에 대한 결과를 조회할 수 없습니다");
+		}
+		return data;
 	}
 
 	public boolean insert(WishDTO wDTO) {

@@ -31,17 +31,18 @@ public class CommentDAO {
 	// 댓글 전체 출력하기
 	public List<CommentDTO> selectAll(CommentDTO cDTO) {
 
+		List<CommentDTO> datas = null;
 		// 질문에 대한 댓글
 		if (cDTO.getSearchCondition().equals("questionComments")) {
 			Object[] args = { cDTO.getQuestionId() };
-			return (List<CommentDTO>) jdbcTemplate.query(SELECTALL_QUESTION, args, new CommentRowMapper());
+			datas = jdbcTemplate.query(SELECTALL_QUESTION, args, new CommentRowMapper());
 		}
 		// 유저에 대한 댓글
 		else if (cDTO.getSearchCondition().equals("userComments")) {
 			Object[] args = { cDTO.getLoginId() };
-			return (List<CommentDTO>) jdbcTemplate.query(SELECTALL_MEMBER, args, new CommentRowMapper());
+			datas = jdbcTemplate.query(SELECTALL_MEMBER, args, new CommentRowMapper());
 		}
-		return null;
+		return datas;
 	}
 
 	private CommentDTO selectOne(CommentDTO cDTO) {
