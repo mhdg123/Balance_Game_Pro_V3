@@ -64,33 +64,29 @@ public class MemberDAO {
 	// 회원 단일 검색
 	public MemberDTO selectOne(MemberDTO mDTO) {
 		// 회원 전체 검색
+		MemberDTO member = null;
 		if (mDTO.getSearchCondition().equals("viewOne")) {
 			Object[] args = { mDTO.getLoginId() };
-			MemberDTO result = null;
-			if(args != null) {
+			if (args != null) {
 				try {
-					result = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
-				}
-				catch(Exception e){
+					member = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
+				} catch (Exception e) {
 					System.out.println("결과가 없습니다");
 				}
 			}
-			return result;
 		}
 		// 로그인
 		else if (mDTO.getSearchCondition().equals("login")) {
 			System.out.println("loginDAO 실행");
 			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
 			System.out.println("loginDAO 실행2");
-			MemberDTO result = null;
 			if (args != null) {
 				try {
-					result = jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
+					member = jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
 				} catch (Exception e) {
 					// 조회 결과가 없을 때 예외처리
 					System.out.println("로그인 실패: 사용자가 존재하지 않습니다.");
 				}
-				return result;
 			}
 		}
 		// 아이디 중복확인
@@ -98,31 +94,27 @@ public class MemberDAO {
 			System.out.println("아이디 중복확인 DAO 1");
 			Object[] args = { mDTO.getLoginId() };
 			System.out.println(mDTO.getLoginId() + "중복확인 요청한 아이디 " + mDTO.getLoginId());
-			MemberDTO result = null;
 			try {
-			    result = jdbcTemplate.queryForObject(SELECT_LOGIN_ID, args, new MemberRowMapperIdCheck());
-			    if (result.getLoginId().equals(mDTO.getLoginId())) {
-			        System.out.println("아이디 중복 DAO");
-			        return result;
-			    }
+				member = jdbcTemplate.queryForObject(SELECT_LOGIN_ID, args, new MemberRowMapperIdCheck());
+				if (member.getLoginId().equals(mDTO.getLoginId())) {
+					System.out.println("아이디 중복 DAO");
+					return member;
+				}
 			} catch (Exception e) {
-			    // 결과가 없는 경우 처리
-			    System.out.println("결과가 없습니다.");
+				// 결과가 없는 경우 처리
+				System.out.println("결과가 없습니다.");
 			}
-			return result;
-
 		}
 		// 마이페이지 조회
 		else if (mDTO.getSearchCondition().equals("myInfo")) {
 			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
-			MemberDTO member = null;
 			try {
 				member = jdbcTemplate.queryForObject(MY_INFO, args, new MemberRowMapperDetail());
 			} catch (Exception e) {
 				System.out.println("내정보 결과 조회 실패");
 			}
-			return member;
 		}
+		return member;
 	}
 
 	// 회원가입 LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER,
