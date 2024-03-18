@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +32,21 @@ public class NaverLoginPageController {
 	@Autowired
 	MemberService memberService;
 	
+	@Value("${encrypted.clientId}")
+	private String clientId;// 애플리케이션 클라이언트 아이디값";
+	
+	@Value("${encrypted.clientSecret}")
+	private String clientSecret;// 애플리케이션 클라이언트 시크릿값";
+	
 	@GetMapping("/naverLogin")
 	public String naverLoginPageController(MemberDTO mDTO,@RequestParam("code") String code,@RequestParam("state") String state,Model model,HttpSession session) throws UnsupportedEncodingException {
+
+		
 		// 토큰 저장 변수
 		String access_token = "";
 		String refresh_token = "";
 
+		
 		// 로그인 callback
 		String LoginToken = LoginConnection(code,state);
 
@@ -113,8 +123,6 @@ public class NaverLoginPageController {
 	//로그인 후 토큰 반환 메서드
 	private String LoginConnection(String code,String state) throws UnsupportedEncodingException {
 
-		String clientId = "5nji9jWWSPZCvKt4pNf7";// 애플리케이션 클라이언트 아이디값";
-		String clientSecret = "zlplsCHeig";// 애플리케이션 클라이언트 시크릿값";
 		//String code = request.getParameter("code");
 		//String state = request.getParameter("state");
 		String redirectURI = URLEncoder.encode("http://localhost:8088/naverLogin", "UTF-8");
