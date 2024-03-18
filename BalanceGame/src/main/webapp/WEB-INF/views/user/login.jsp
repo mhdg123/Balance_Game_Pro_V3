@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-	<%@ page import="java.net.URLEncoder" %>
-<%@ page import="java.security.SecureRandom" %>
-<%@ page import="java.math.BigInteger" %>
+
+<%@ page import="java.net.URLEncoder"%>
+<%@ page import="java.security.SecureRandom"%>
+<%@ page import="java.math.BigInteger"%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -12,8 +12,11 @@
 <title>로그인</title>
 <!-- css -->
 
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 
@@ -79,17 +82,11 @@
 										<!-- <a class="lost_pass"  id="searchLoginId" style="cursor: pointer;" >아이디 찾기 /</a> -->
 									</div>
 								</form>
+								<!-- 네이버로그인 시작 -->
 
-							</div>
-						</div>
-					</div>
-				</div>
 
-				<!-- 네이버로그인 시작 -->
-
-				
-    <!-- 네이버 로그인 버튼 노출 영역 -->
-<!--     <div id="naver_id_login">네이버 로그인</div>
+								<!-- 네이버 로그인 버튼 노출 영역 -->
+								<!--     <div id="naver_id_login">네이버 로그인</div>
     //네이버 로그인 버튼 노출 영역
   <script type="text/javascript">
         var naver_id_login = new naver_id_login("5nji9jWWSPZCvKt4pNf7", "http://localhost:8088/naverLogin");
@@ -100,24 +97,32 @@
         naver_id_login.setPopup();
         naver_id_login.init_naver_id_login();
     </script> -->
-    
-    
-    
-     <%
-    String clientId = "5nji9jWWSPZCvKt4pNf7";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("http://localhost:8088/naverLogin", "UTF-8");
-    SecureRandom random = new SecureRandom();
-    String state = new BigInteger(130, random).toString();
-    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-    apiURL += "&client_id=" + clientId;
-    apiURL += "&redirect_uri=" + redirectURI;
-    apiURL += "&state=" + state;
-    session.setAttribute("state", state);
- %>
-  <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
-    
-    
-				<!-- 네이버로그인 끝 -->
+
+
+
+								<%
+								String clientId = "5nji9jWWSPZCvKt4pNf7";//애플리케이션 클라이언트 아이디값";
+								String redirectURI = URLEncoder.encode("http://localhost:8088/naverLogin", "UTF-8");
+								SecureRandom random = new SecureRandom();
+								String state = new BigInteger(130, random).toString();
+								String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+								apiURL += "&client_id=" + clientId;
+								apiURL += "&redirect_uri=" + redirectURI;
+								apiURL += "&state=" + state;
+								session.setAttribute("state", state);
+								%>
+								<a href="<%=apiURL%>"><img height="50"
+									src="/resources/assets/img/jarvis/naver_button.png" /></a>
+
+
+								<!-- 네이버로그인 끝 -->
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
 			</div>
 		</section>
 		<!--================login_part end =================-->

@@ -1,3 +1,4 @@
+
 package com.jarvis.BalanceGame.controller.user.page;
 
 import java.io.BufferedReader;
@@ -17,11 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
 import com.jarvis.BalanceGame.service.MemberService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -31,13 +32,13 @@ public class NaverLoginPageController {
 	MemberService memberService;
 	
 	@GetMapping("/naverLogin")
-	public String naverLoginPageController(MemberDTO mDTO, HttpServletRequest request,Model model,HttpSession session) throws UnsupportedEncodingException {
+	public String naverLoginPageController(MemberDTO mDTO,@RequestParam("code") String code,@RequestParam("state") String state,Model model,HttpSession session) throws UnsupportedEncodingException {
 		// 토큰 저장 변수
 		String access_token = "";
 		String refresh_token = "";
 
 		// 로그인 callback
-		String LoginToken = LoginConnection(request);
+		String LoginToken = LoginConnection(code,state);
 
 		//토큰 데이터 추출
 		JSONObject tokenJsonObj = new JSONObject(LoginToken); // code는 json형식을 가지고 있는 string타입
@@ -83,8 +84,8 @@ public class NaverLoginPageController {
 		System.out.println("이름 : "+name);
 		System.out.println("생년월일 : "+birthyear+"-"+birthday);
 		
-		//회원 등록 여부 확인 - 이메일로 확인
-		//mDTO.setSearchCondition("이메일회원조회");
+		//회원 등록 여부 확인 - 전화번호로 확인
+		//mDTO.setSearchCondition("전화번호회원조회");
 		//mDTO.setEmail(email);
 		//mDTO = memberService.selectOne(mDTO);
 	
@@ -100,7 +101,7 @@ public class NaverLoginPageController {
 			model.addAttribute("memberData", mDTO);
 			return "user/join";
 		}
-		
+		mDTO.setLoginId("test");
 		// 로그인 성공
 		session.setAttribute("loginId", mDTO.getLoginId());
 		model.addAttribute("status", "success");
@@ -110,13 +111,13 @@ public class NaverLoginPageController {
 	}
 
 	//로그인 후 토큰 반환 메서드
-	private String LoginConnection(HttpServletRequest request) throws UnsupportedEncodingException {
+	private String LoginConnection(String code,String state) throws UnsupportedEncodingException {
 
 		String clientId = "5nji9jWWSPZCvKt4pNf7";// 애플리케이션 클라이언트 아이디값";
 		String clientSecret = "zlplsCHeig";// 애플리케이션 클라이언트 시크릿값";
-		String code = request.getParameter("code");
-		String state = request.getParameter("state");
-		String redirectURI = URLEncoder.encode("YOUR_CALLBACK_URL", "UTF-8");
+		//String code = request.getParameter("code");
+		//String state = request.getParameter("state");
+		String redirectURI = URLEncoder.encode("http://localhost:8088/naverLogin", "UTF-8");
 		String apiURL;
 		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 		apiURL += "client_id=" + clientId;
