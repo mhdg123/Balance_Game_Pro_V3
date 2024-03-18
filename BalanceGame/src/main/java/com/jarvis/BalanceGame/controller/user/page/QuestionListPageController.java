@@ -23,7 +23,7 @@ public class QuestionListPageController {
 	@GetMapping("/questionListPage")
 	public String titleLisgtPageControllter(QuestionDTO qDTO, Model model, HttpSession session) {
 		
-		qDTO.setSearchCondition("문제전체조회");
+		qDTO.setSearchCondition("viewAllOfQuestionList");
 		qDTO.setWriter((String)session.getAttribute("loginId"));
 		List<QuestionDTO> datas = questionService.selectAll(qDTO);
 		
@@ -32,7 +32,7 @@ public class QuestionListPageController {
 		if(datas != null) {
 			model.addAttribute("qDatas", datas);
 		}else {
-			model.addAttribute("status", "success");
+			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "등록된 문제가 없습니다.");
 			model.addAttribute("redirect", "");
 			return "alert";
