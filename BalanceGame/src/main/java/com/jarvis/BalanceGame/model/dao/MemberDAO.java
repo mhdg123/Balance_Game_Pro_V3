@@ -50,10 +50,15 @@ public class MemberDAO {
 
 	// 회원 전체 검색
 	public List<MemberDTO> selectAll(MemberDTO mDTO) {
+		List<MemberDTO> members = null;
 		if (mDTO.getSearchCondition().equals("viewAll")) {
-			return (List<MemberDTO>) jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
+			try {
+				members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
+			} catch (Exception e) {
+				System.out.println("결과가 없습니다");
+			}
 		}
-		return null;
+		return members;
 	}
 
 	// 회원 단일 검색
@@ -61,18 +66,27 @@ public class MemberDAO {
 		// 회원 전체 검색
 		if (mDTO.getSearchCondition().equals("viewOne")) {
 			Object[] args = { mDTO.getLoginId() };
-			return jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
+			MemberDTO result = null;
+			if(args != null) {
+				try {
+					result = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
+				}
+				catch(Exception e){
+					System.out.println("결과가 없습니다");
+				}
+			}
+			return result;
 		}
 		// 로그인
 		else if (mDTO.getSearchCondition().equals("login")) {
 			System.out.println("loginDAO 실행");
 			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
 			System.out.println("loginDAO 실행2");
+			MemberDTO result = null;
 			if (args != null) {
-				MemberDTO result = null;
 				try {
 					result = jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
-				} catch (EmptyResultDataAccessException e) {
+				} catch (Exception e) {
 					// 조회 결과가 없을 때 예외처리
 					System.out.println("로그인 실패: 사용자가 존재하지 않습니다.");
 				}
@@ -91,19 +105,24 @@ public class MemberDAO {
 			        System.out.println("아이디 중복 DAO");
 			        return result;
 			    }
-			} catch (EmptyResultDataAccessException e) {
+			} catch (Exception e) {
 			    // 결과가 없는 경우 처리
 			    System.out.println("결과가 없습니다.");
 			}
-			return null;
+			return result;
 
 		}
 		// 마이페이지 조회
 		else if (mDTO.getSearchCondition().equals("myInfo")) {
 			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
-			return jdbcTemplate.queryForObject(MY_INFO, args, new MemberRowMapperDetail());
+			MemberDTO member = null;
+			try {
+				member = jdbcTemplate.queryForObject(MY_INFO, args, new MemberRowMapperDetail());
+			} catch (Exception e) {
+				System.out.println("내정보 결과 조회 실패");
+			}
+			return member;
 		}
-		return null;
 	}
 
 	// 회원가입 LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER,
