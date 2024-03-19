@@ -65,7 +65,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:if test="${fn:length(qDatas) <= 0 }">
+										<c:if test="${fn:length(questionDatas) <= 0 }">
 											<tr>
 												<td colspan="1">출제된 문제가 없습니다.</td>
 											</tr>
