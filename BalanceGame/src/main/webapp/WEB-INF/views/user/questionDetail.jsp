@@ -174,17 +174,21 @@
 	<script type="text/javascript">
 		$(document).ready(
 				function() {
-					var answerACount = Math
-							.round(((data.answerACount * 1.0) / total) * 100);
-					var answerBCount = Math
-							.round(((data.answerBCount * 1.0) / total) * 100);
+					var answerACount=${questionData.answerACount};
+					var answerBCount=${questionData.answerBCount};
+					var total = answerACount + answerBCount;
+					
+					var answerAPercentage = Math
+							.round(((answerACount * 1.0) / total) * 100);
+					var answerBPercentage = Math
+							.round(((answerBCount * 1.0) / total) * 100);
 
 					setTimeout(function() {
-						$("#answer_A").css("width", answerACount + "%");
-						$("#answer_B").css("width", answerBCount + "%");
+						$("#answer_A").css("width", answerAPercentage + "%");
+						$("#answer_B").css("width", answerBPercentage + "%");
 
-						$("#answer_A_percent").text(answerACount + "%");
-						$("#answer_B_percent").text(answerBCount + "%");
+						$("#answer_A_percent").text(answerAPercentage + "%");
+						$("#answer_B_percent").text(answerBPercentage + "%");
 
 					}, 100); // 100ms 후에 실행됩니다.
 				});
