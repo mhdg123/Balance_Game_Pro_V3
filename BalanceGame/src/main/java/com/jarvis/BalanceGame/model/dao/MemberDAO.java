@@ -40,11 +40,40 @@ public class MemberDAO {
 	// 내정보 변경하기 SQL
 	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
 	// 유저 전체 조회
-	private static final String SELECTALL_USER = "SELECT M.LOGIN_ID, M.EMAIL, M.ADDRESS, M.GENDER, M.AGE,IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, "
-			+ " CASE WHEN IFNULL(SUM(S.AMOUNT), 0) = 0 THEN ELSE TO_CHAR(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE))) END AS RANKING "
-			+ " FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID "
-			+ " GROUP BY M.LOGIN_ID, M.EMAIL, M.ADDRESS, M.GENDER, M.AGE";
+	private static final String SELECTALL_USER = "SELECT \r\n"
+			+ "    M.LOGIN_ID, \r\n"
+			+ "    M.GENDER, \r\n"
+			+ "    M.AGE, \r\n"
+			+ "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
+			+ "    CASE \r\n"
+			+ "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
+			+ "        ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
+			+ "    END AS RANKING \r\n"
+			+ "FROM \r\n"
+			+ "    MEMBER M \r\n"
+			+ "LEFT JOIN \r\n"
+			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n"
+			+ "GROUP BY \r\n"
+			+ "    M.LOGIN_ID, \r\n"
+			+ "    M.GENDER, \r\n"
+			+ "    M.AGE";
 
+	//유저 랭킹 조회
+	private static final String SELECTALL_RANKING = "SELECT \r\n"
+			+ "    M.NICKNAME, \r\n"
+			+ "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
+			+ "    CASE \r\n"
+			+ "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
+			+ "        ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
+			+ "    END AS RANKING \r\n"
+			+ "FROM \r\n"
+			+ "    MEMBER M \r\n"
+			+ "LEFT JOIN \r\n"
+			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n"
+			+ "GROUP BY \r\n"
+			+ "    M.NICKNAME";
+	
+	
 	// 유저 삭제
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
 
@@ -53,6 +82,9 @@ public class MemberDAO {
 		List<MemberDTO> members = null;
 		if (mDTO.getSearchCondition().equals("viewAll")) {
 			members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
+		}
+		else if(mDTO.getSearchCondition().equals("ranking")) {
+			members = jdbcTemplate.query(SELECTALL_RANKING, new MemberRowMapperRank());
 		}
 		return members;
 	}
@@ -150,11 +182,9 @@ class MemberRowMapper implements RowMapper<MemberDTO> {
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
-		member.setLoginId(rs.getString("LOGIN_ID "));
+		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setAge(rs.getString("AGE"));
 		member.setGender(rs.getString("GENDER"));
-		member.setEmail(rs.getString("EMAIL"));
-		member.setAddress(rs.getString("ADDRESS"));
 		member.setTotal(rs.getInt("TOTAL"));
 		member.setRanking(rs.getInt("RANKING"));
 		return member;
@@ -188,7 +218,7 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
-		member.setLoginId(rs.getString("LOGIN_ID "));
+		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setName(rs.getString("NAME"));
 		member.setNickName(rs.getString("NICKNAME"));
 		member.setAge(rs.getString("AGE"));
@@ -199,6 +229,20 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 		member.setAdvertisementStatus(rs.getString("ADVERTISEMENT_STATUS"));
 		member.setCoin(rs.getInt("COIN"));
 		member.setGrade(rs.getInt("GRADE"));
+		member.setMemberDate(rs.getDate("MEMBER_DATE"));
 		return member;
 	}
+}
+
+class MemberRowMapperRank implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getString("NICKNAME"));
+		member.setTotal(rs.getInt("TOTAL"));
+		member.setRanking(rs.getInt("RANKING"));
+		return member;
+	}
+	
 }
