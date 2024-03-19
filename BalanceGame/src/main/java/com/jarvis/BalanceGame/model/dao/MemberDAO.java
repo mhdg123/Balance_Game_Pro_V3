@@ -36,7 +36,7 @@ public class MemberDAO {
 
 	// 마이페이지 SQL
 	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS "
-			+ "FROM MEMBER WHERE LOGIN_ID = ? AND MEMBER_PASSWORD = ?";
+			+ "FROM MEMBER WHERE LOGIN_ID = ?";
 	// 내정보 변경하기 SQL
 	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
 	// 유저 전체 조회
@@ -103,7 +103,7 @@ public class MemberDAO {
 		}
 		// 마이페이지 조회
 		else if (mDTO.getSearchCondition().equals("myInfo")) {
-			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
+			Object[] args = { mDTO.getLoginId()};
 			try {
 				member = jdbcTemplate.queryForObject(MY_INFO, args, new MemberRowMapperDetail());
 			} catch (Exception e) {
