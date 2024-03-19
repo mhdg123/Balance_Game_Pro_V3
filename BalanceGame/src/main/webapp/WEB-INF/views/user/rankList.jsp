@@ -50,16 +50,16 @@
 										</tr>
 									</thead>
 									<tbody>
-									<c:forEach var="data" items="${questionDatas}" varStatus="loop">
+									<c:forEach var="data" items="${memberDatas}" varStatus="loop">
 										<tr>
 											<td>
-												<p>${loop.index + 1}</p>
+												<p>${data.ranking}</p>
 											</td>
 											<td>
-												<p>박찬우</p>
+												<p>${data.name}</p>
 											</td>
 											<td>
-												<p>9999p</p>
+												<p>${data.coin}p</p>
 											</td>
 										</tr>
 										</c:forEach>
