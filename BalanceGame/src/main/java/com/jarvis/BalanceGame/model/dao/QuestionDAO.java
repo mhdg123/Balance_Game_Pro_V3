@@ -35,9 +35,15 @@ public class QuestionDAO {
 	private static final String SELECT_CNT = "SELECT COUNT(1) AS CNT FROM QUESTION WHERE QUESTION_ACCESS=?";
 	
 	// 사용자가 풀 문제를 랜덤으로 조회
-	private static final String SELECT_ONE_RANDOM = "SELECT IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.WRITER, Q.EXPLANATION, QUESTION_DATE FROM \r\n"
-			+ "(SELECT QUESTION_ID, TITLE, ANSWER_A, ANSWER_B, WRITER, EXPLANATION, QUESTION_DATE FROM QUESTION Q WHERE Q.QUESTION_ACCESS = 'T' ORDER BY RAND()) Q\r\n"
-			+ "LEFT OUTER JOIN WISH W ON Q.QUESTION_ID = W.QUESTION_ID AND W.LOGIN_ID = ? LIMIT 1";
+	private static final String SELECT_ONE_RANDOM = "SELECT IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.WRITER, Q.EXPLANATION, Q.QUESTION_DATE \r\n"
+			+ "FROM (\r\n"
+			+ "    SELECT QUESTION_ID, TITLE, ANSWER_A, ANSWER_B, WRITER, EXPLANATION, QUESTION_DATE \r\n"
+			+ "    FROM QUESTION Q \r\n"
+			+ "    WHERE Q.QUESTION_ACCESS = 'T' \r\n"
+			+ "    ORDER BY RAND()\r\n"
+			+ "    LIMIT 1\r\n"
+			+ ") Q\r\n"
+			+ "LEFT OUTER JOIN WISH W ON Q.QUESTION_ID = W.QUESTION_ID AND W.LOGIN_ID = ?";
 
 
 	// 문제 상세보기 
@@ -245,7 +251,7 @@ class QuestionRowMapperCnt implements RowMapper<QuestionDTO>{
 	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		QuestionDTO data = new QuestionDTO();
 		data.setQuestionCount(rs.getInt("CNT"));
-		return null;
+		return data;
 	}
 	
 }

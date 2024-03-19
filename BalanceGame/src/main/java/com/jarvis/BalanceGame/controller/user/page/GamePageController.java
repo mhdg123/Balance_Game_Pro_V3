@@ -24,20 +24,20 @@ public class GamePageController {
 	@GetMapping("/gamePage")
 	public String gamePageController(QuestionDTO qDTO, Model model, HttpSession session) {
 		
-		List<Integer> list;
+		List<Integer> list; // 지금까지 풀었던 리스트 
 		System.out.println("컨트롤 리스트"+session.getAttribute("qList"));
 		
 		if (session.getAttribute("qList") == null) {
-			list = new ArrayList<Integer>();
+			list = new ArrayList<Integer>(); // 질문pk만 들고다님 
 		} else {
 			list = (ArrayList<Integer>) session.getAttribute("qList");
 		}
 		
 		String loginId = (String) session.getAttribute("loginId");
 		
-		qDTO.setSearchCondition("viewAllofQuestionList");
+		qDTO.setSearchCondition("questionCount");
 		qDTO.setQuestionAccess("T");
-		
+		System.out.println("게임페이지 로그");
 		if(questionService.selectOne(qDTO).getQuestionCount()>list.size()) {
 			while (true) {
 				int i=0;
@@ -46,6 +46,7 @@ public class GamePageController {
 				// System.out.println(loginId);
 				qDTO.setWriter(loginId);
 				qDTO = questionService.selectOne(qDTO);
+				System.out.println(qDTO);
 				for (i=0; i < list.size(); i++) {
 					if (list.get(i) == qDTO.getQuestionId()) {
 						
@@ -58,9 +59,9 @@ public class GamePageController {
 					break;
 				}
 			}
-			list.add(qDTO.getQuestionId());
-			session.setAttribute("qList", list);
-			model.addAttribute("data", qDTO);
+			list.add(qDTO.getQuestionId()); // 이미 푼 문제 pk를 리스트에 올림 
+			session.setAttribute("qList", list); // 새로운 리스트니까 세션에 다시 저장 
+			model.addAttribute("data", qDTO); // 뷰한테 주는 것 
 			return "user/game";
 			}
 			else {

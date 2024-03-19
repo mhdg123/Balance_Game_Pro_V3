@@ -26,7 +26,6 @@ public class QuestionListPageController {
 		qDTO.setSearchCondition("viewAllOfQuestionList");
 		qDTO.setWriter((String)session.getAttribute("loginId"));
 		List<QuestionDTO> datas = questionService.selectAll(qDTO);
-		
 		System.out.println(datas);
 		
 		if(datas != null) {
