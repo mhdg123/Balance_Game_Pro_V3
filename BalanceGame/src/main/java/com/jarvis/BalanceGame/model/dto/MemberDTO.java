@@ -4,13 +4,12 @@ import java.sql.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@ToString 
+@Data
 public class MemberDTO {
 	  private String loginId; // 로그인 ID pk
 	  private String memberPassword; // 비밀번호

@@ -29,6 +29,7 @@
 			</div>
 		</div>
 		<!--================Checkout Area =================-->
+		<c:if test="${status == 'kakaoJoin' }"> 
 		<section class="checkout_area section_padding">
 			<div class="container">
 				<div class="comments-area">
@@ -36,14 +37,132 @@
 						<div style="width: 50%; margin: 0 auto">
 							<h2>회원가입</h2>
 							<form class="row contact_form" action="/user/join" method="POST" onsubmit="return joinFormAction();" name="joinForm">
-								<!-- <div class="col-md-6 form-group p_star">
-                      <input type="text" class="form-control" id="first" name="name" />
-                      <span class="placeholder" data-placeholder="아이디 입력"></span>
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                      <input type="text" class="form-control" id="last" name="name" />
-                      <span class="placeholder" data-placeholder="Last name"></span>
-                    </div> -->
+
+								<input id="role" type="hidden" name="role" value="USER">
+								<input id="advertisementStatus" type="hidden" name="advertisementStatus" value="T">
+								<!----------------------------------------이름 입력창---------------------------------------->
+								<div>&nbsp;&nbsp;&nbsp;이름</div>
+								<div class="col-md-12 form-group p_star">
+									<input type="text" class="form-control" id="name" name="name" placeholder="이름 입력해주세요" value=${mDTO.name } />
+								</div>
+								<!----------------------------------------이름 입력창---------------------------------------->
+								<!----------------------------------------나이 입력창---------------------------------------->
+								<div>&nbsp;&nbsp;&nbsp;생년월일</div>
+								<div class="col-md-12 form-group p_star">
+									<input type="date" class="form-control" id="age" name="age" placeholder="나이 입력해주세요"  />
+								</div>
+								<!----------------------------------------나이 입력창---------------------------------------->
+								<!----------------------------------------아이디 입력창---------------------------------------->
+								<div>&nbsp;&nbsp;&nbsp;아이디</div>
+								<div class="col-md-12 form-group p_star">
+									<input type="text" class="form-control" id="loginId" name="loginId" placeholder="아이디 입력" value=${mDTO.loginId } />
+									<div>
+										<font id="id_feedback" size="2"></font>
+									</div>
+								</div>
+								<!----------------------------------------아이디 입력창---------------------------------------->
+								<!----------------------------------------닉네임 입력창---------------------------------------->
+								<div>&nbsp;&nbsp;&nbsp;닉네임</div>
+								<div class="col-md-12 form-group p_star">
+									<input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉에미 입력" value=${mDTO.nickName }  />
+								</div>
+								<!----------------------------------------닉네임 입력창---------------------------------------->
+								<!----------------------------------------비밀번호 입력창---------------------------------------->
+								<div>&nbsp;&nbsp;&nbsp;비밀번호</div>
+								<div class="col-md-12 form-group p_star">
+									<input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호 입력" value=${mDTO.memberPassword } onkeyup="checkPassword();" />
+								</div>
+								<!----------------------------------------비밀번호 입력창---------------------------------------->
+								<!----------------------------------------비밀번호 확인 입력창---------------------------------------->
+								<div>&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 확인&nbsp;&nbsp;&nbsp;</div>
+								<div id="passwordError"></div>
+								<div class="col-md-12 form-group p_star">
+									<input type="password" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인 입력" value=${mDTO.loginId } onkeyup="checkPassword();" />
+								</div>
+
+								<!----------------------------------------비밀번호 확인 입력창---------------------------------------->
+								<!----------------------------------------폰번호 입력창---------------------------------------->
+								<span>&nbsp;&nbsp;&nbsp;휴대폰 번호</span>
+								<div class="col-md-12 form-group1 p_star">
+									<input type="tel" class="form-control" id="cellPhone" name="cellPhone" placeholder="폰번호 입력" value=${mDTO.cellPhone } />
+								</div>
+								<!----------------------------------------폰번호 입력창---------------------------------------->
+								<!----------------------------------------인증번호 입력창---------------------------------------->
+								<div class="col-md-6 form-group p_star">
+									<br />
+									<input type="text" class="form-control" id="certification" name="certification" placeholder="인증번호 입력" value="1234" />
+								</div>
+								<!----------------------------------------인증번호 입력창---------------------------------------->
+								<!----------------------------------------인증번호 발송버튼---------------------------------------->
+								<div class="send-auth-num">
+									<br /> <a href="javascript:sendAuthNum();" class="genric-btn info circle">인증번호 발송</a>
+								</div>
+								<!----------------------------------------인증번호 재발송---------------------------------------->
+								<div class="resend-auth-num" style="display: none">
+									<br /> <a href="javascript:sendAuthNum();" class="genric-btn info circle">인증번호 재발송</a>
+								</div>
+								<!----------------------------------------인증번호 확인---------------------------------------->
+								<div class="confirm-auth-num" style="display: none">
+									<br /> <a href="javascript:authNumCheck();" class="genric-btn info circle">인증번호 확인</a>
+								</div>
+								<!----------------------------------------인증번호 확인---------------------------------------->
+								<!----------------------------------------이메일 입력창---------------------------------------->
+								<div class="col-md-12 form-group p_star">
+									<div>
+										<br />이메일
+									</div>
+									<input type="email" class="form-control" id="email" name="email" placeholder="이메일 입력해주세요" value=${mDTO.loginId } />
+								</div>
+								<!----------------------------------------이메일 입력창---------------------------------------->
+								<!----------------------------------------성별 선택---------------------------------------->
+								<div>&nbsp;&nbsp;&nbsp;성별</div>
+								<div class="col-md-12 form-group p_star">
+									<select id="gender" name="gender" class="country_select" value=${mDTO.gender }>
+										<option value="M">남자</option>
+										<option value="F">여자</option>
+									</select>
+								</div>
+								<!----------------------------------------성별 선택---------------------------------------->
+								<!----------------------------------------주소 입력---------------------------------------->
+								<div>&nbsp;&nbsp;&nbsp;주소</div>
+								<div class="col-md-12 form-group p_star">
+									<input type="text" class="form-control" id="address" name="address" placeholder="주소" value="서울특별시 강남구 역삼동 736-7" />
+								</div>
+								<div>
+									&nbsp;&nbsp;&nbsp;<a class="genric-btn info circle" onClick="addressSearch();">주소 찾기</a>
+									<div>
+										<br />
+									</div>
+									<!-- 공백 -->
+								</div>
+								<!----------------------------------------주소 입력---------------------------------------->
+
+								<div style="justify-items: center" class="col-md-12 form-group p_star">
+									<button type="submit" class="button button-contactForm btn_1 boxed-btn" style="width: 100%">회원가입</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!----------------------------------------필요시 살리기---------------------------------------->
+		</section>
+		</c:if>
+		
+		
+		
+		
+		<!----------------------------------------소셜 로그인 회원가입 홈---------------------------------------->
+		<c:if test="${status != null }">
+		여기는 소셜로그인 회원가입 페이지
+		<section class="checkout_area section_padding">
+			<div class="container">
+				<div class="comments-area">
+					<div class="row">
+						<div style="width: 50%; margin: 0 auto">
+							<h2>회원가입</h2>
+							<form class="row contact_form" action="/user/join" method="POST" onsubmit="return joinFormAction();" name="joinForm">
 
 								<input id="role" type="hidden" name="role" value="USER">
 								<input id="advertisementStatus" type="hidden" name="advertisementStatus" value="T">
@@ -152,12 +271,15 @@
 					</div>
 				</div>
 			</div>
-
-			<!----------------------------------------필요시 살리기---------------------------------------->
 		</section>
+		</c:if>
+		<!----------------------------------------소셜 로그인 회원가입 홈---------------------------------------->
 
 		<!--================End Checkout Area =================-->
 	</main>
+	
+	
+	
 
 	<!----------------------------------------푸터---------------------------------------->
 
