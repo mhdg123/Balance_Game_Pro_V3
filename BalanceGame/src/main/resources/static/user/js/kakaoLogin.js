@@ -82,6 +82,12 @@ Kakao.Auth.createLoginButton({
 							inputLoginId.setAttribute('name', 'loginId');
 							inputLoginId.setAttribute('value', mDTO.loginId); // mDTO.loginId 변수에 저장된 값 전달
 							form.appendChild(inputLoginId);
+							
+							var inputMemberPassword = document.createElement('input');
+							inputMemberPassword.setAttribute('type', 'hidden');
+							inputMemberPassword.setAttribute('name', 'memberPassword');
+							inputMemberPassword.setAttribute('value', mDTO.memberPassword); // mDTO.loginId 변수에 저장된 값 전달
+							form.appendChild(inputMemberPassword);
 
 							var inputName = document.createElement('input');
 							inputName.setAttribute('type', 'hidden');

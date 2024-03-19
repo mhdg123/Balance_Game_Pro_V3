@@ -86,8 +86,8 @@ public class KaKaoLoginController {
 
 		String age = formatBirthDate(birthYear, birthDay);
 		System.out.println("카카오 로그인 나이 : " + age);
-		System.out.println(loginId);
 		mDTO.setLoginId(loginId);
+		mDTO.setMemberPassword(password);
 		mDTO.setName(name);
 		mDTO.setNickName(nickName);
 		mDTO.setGender(gender);
@@ -95,7 +95,7 @@ public class KaKaoLoginController {
 		mDTO.setCellPhone(cellPhon);
 		mDTO.setAge(age);
 		
-		System.out.println("파싱 데이터 " + mDTO.getNickName());
+		System.out.println("파싱 데이터 " + mDTO);
 
 		mDTO.setSearchCondition("duplitcateCheck");
 		MemberDTO memberData = memberService.selectOne(mDTO);

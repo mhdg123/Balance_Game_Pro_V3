@@ -1,4 +1,5 @@
 let authStatus = 0;
+//일반 회원가입
 function joinFormAction() {
 
 	// 입력된 값 가져오기
@@ -115,6 +116,24 @@ function joinFormAction() {
 	}
 	return true; // 모든 유효성 검사 통과
 }
+
+
+
+// 소셜 로그인 통한 회원가입 
+function socialFormAction() {
+
+	let password = $('#memberPassword').val(); // 비밀번호
+	// 입력된 값 가져오기
+	let address = $('#address').val(); // 주소
+	// 주소 입력 확인
+	if (!address) {
+		showError("주소", "주소를 입력해주세요.");
+		return false;
+	}
+
+	return true; // 모든 유효성 검사 통과
+}
+
 
 
 
@@ -238,22 +257,25 @@ function authNumCheck() {
 // 패스워드 확인 성공 = true
 var passwordCheckResult;
 
+
 // 비밀번호 확인 하는 함수	
 function checkPassword() {
-	var memberPassword = $("#memberPassword").val();
-	var passwordCheck = $("#passwordCheck").val();
-	var errorDiv = $("#passwordError").val();
+    var memberPassword = $("#memberPassword").val();
+    var passwordCheck = $("#passwordCheck").val();
+    var errorDiv = $("#passwordError");
+    console.log(memberPassword);
+    console.log(passwordCheck);
+    console.log(errorDiv);
 
-	if (memberPassword !== passwordCheck) {
-		errorDiv.innerHTML = '[비밀번호가 일치하지 않습니다.]';
-		errorDiv.style.color = 'red';
-		passwordCheckResult = false;
-
-	} else {
-		errorDiv.innerHTML = '[비밀번호가 일치합니다.]';
-		errorDiv.style.color = 'green';
-		passwordCheckResult = true;
-	}
+    if (memberPassword !== passwordCheck) {
+        errorDiv.html(`<div style="color: red;">[비밀번호가 일치하지 않습니다.]</div>`);
+        var passwordCheckResult = false;
+        console.log("다름");
+    } else {
+        errorDiv.html(`<div style="color: green;">[비밀번호가 일치합니다.]</div>`);
+        var passwordCheckResult = true;
+    }
+    return passwordCheckResult;
 }
 
 
@@ -323,70 +345,6 @@ function timer() {
 
 
 
-/*var waitMinute = 3 * 600;  3분 설정 
-	var test = 0;
-	const Toast = Swal.mixin({
-  toast: true,
-  position: "bottom-end",
-  showConfirmButton: false,
-  timer: waitMinute,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-	const progressBar = toast.querySelector('.swal2-progress-bar');
-	let timerInterval;
-	if (progressBar) {
-	  timerInterval = setInterval(() => {
-		const timeLeft = Swal.getTimerLeft();
-		const minutes = Math.floor(timeLeft / 60000);
-		const seconds = Math.floor((timeLeft % 60000) / 1000);
-		progressBar.textContent = minutes + '분1111 ' + seconds + '초 남음';
-	  }, 1000);
-	}
-	toast.onmouseenter = () => {
-	  Swal.stopTimer();
-	  clearInterval(timerInterval);
-	};
-	toast.onmouseleave = () => {
-	  Swal.resumeTimer();
-	  if (progressBar) {
-		timerInterval = setInterval(() => {
-		  const timeLeft = Swal.getTimerLeft();
-		  const minutes = Math.floor(timeLeft / 60000);
-		  const seconds = Math.floor((timeLeft % 60000) / 1000);
-		  progressBar.textContent = minutes + '분2222 ' + seconds + '초 남음';
-		}, 1000);
-	  }
-	};
-  }
-});
-Toast.fire({
-  icon: "info",
-  title: "인증번호를 입력해주세요",
-  timer: waitMinute,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-	const timerInterval = setInterval(() => {
-	  const timeLeft = Swal.getTimerLeft();
-	  const minutes = Math.floor(timeLeft / 60000);
-	  const seconds = Math.floor((timeLeft % 60000) / 1000);
-	  toast.querySelector('.swal2-title').textContent = minutes + '분 3333' + seconds + '초 남음';
-	}, 1000);
-	toast.onmouseenter = () => {
-	  Swal.stopTimer();
-	  clearInterval(timerInterval);
-	};
-	toast.onmouseleave = () => {
-	  Swal.resumeTimer();
-	  const timerInterval = setInterval(() => {
-		const timeLeft = Swal.getTimerLeft();
-		const minutes = Math.floor(timeLeft / 60000);
-		const seconds = Math.floor((timeLeft % 60000) / 1000);
-		toast.querySelector('.swal2-title').textContent = minutes + '분444 ' + seconds + '초 남음';
-	   
-	  }, 1000);
-	};
-  }
-});*/
 
 
 

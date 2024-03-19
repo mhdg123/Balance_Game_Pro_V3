@@ -20,6 +20,8 @@ public class JoinController {
 	@PostMapping("/join")
 	public String joinController(MemberDTO mDTO, Model model) {
 
+		System.out.println("회원가입폼에서 넘어온 데이터 " + mDTO);
+		
 		if (memberService.insert(mDTO)) {
 			System.out.println("회원가입 성공");
 			model.addAttribute("status", "success");
