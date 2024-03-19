@@ -28,8 +28,9 @@ public class MyPageController {
 	
 	@GetMapping("/myInfoPage")
 	public String myPageController(MemberDTO mDTO, CommentDTO cDTO, Model model, HttpSession session) {
-		
+		System.out.println("마이페이지 들어옴");
 		mDTO.setLoginId((String)session.getAttribute("loginId"));
+		cDTO.setLoginId((String)session.getAttribute("loginId"));
 		mDTO.setSearchCondition("myInfo");
 		System.out.println(session.getAttribute("loginId"));
 		System.out.println(memberService.selectOne(mDTO));
@@ -38,10 +39,9 @@ public class MyPageController {
 		
 		cDTO.setSearchCondition("userComments");
 		List<CommentDTO> datas = commentService.selectAll(cDTO);
-		
-		
-			model.addAttribute("commentDatas", datas);
-		
+
+		model.addAttribute("commentDatas", datas);
+		System.out.println(datas);
 		
 		
 		return "user/myInfo";
