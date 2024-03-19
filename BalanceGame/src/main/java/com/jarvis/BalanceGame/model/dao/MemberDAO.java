@@ -34,9 +34,14 @@ public class MemberDAO {
 	private static final String SELECTONE_USER = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
 
-	// 마이페이지 SQL
-	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS "
+	// 마이페이지 조회 SQL
+	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, MEMBER_DATE "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
+	
+	// 마이페이지 변경 조회
+	private static final String MY_INFO_UPDATE_VIEW = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, MEMBER_DATE "
+			+ "FROM MEMBER WHERE LOGIN_ID = ? AND PASSWORD = ?";
+	
 	// 내정보 변경하기 SQL
 	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
 	// 유저 전체 조회
@@ -138,6 +143,14 @@ public class MemberDAO {
 			Object[] args = { mDTO.getLoginId()};
 			try {
 				member = jdbcTemplate.queryForObject(MY_INFO, args, new MemberRowMapperDetail());
+			} catch (Exception e) {
+				System.out.println("내정보 결과 조회 실패");
+			}
+		}
+		else if(mDTO.getSearchCondition().equals("myInfoUpdateView")) {
+			Object[] args = {mDTO.getLoginId(), mDTO.getMemberPassword()};
+			try {
+				member = jdbcTemplate.queryForObject(MY_INFO_UPDATE_VIEW, args, new MemberRowMapperDetail());
 			} catch (Exception e) {
 				System.out.println("내정보 결과 조회 실패");
 			}
