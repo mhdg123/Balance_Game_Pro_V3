@@ -18,5 +18,5 @@ public class CommentDTO {
 	
 	//------------------------------
 	private String searchCondition;
-	private String memberGrade;
+	private int memberGrade;
 }
