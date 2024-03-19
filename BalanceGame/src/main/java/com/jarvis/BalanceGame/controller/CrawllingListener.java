@@ -10,21 +10,21 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 import com.jarvis.BalanceGame.service.QuestionService;
 
+import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 @Controller
 @WebListener
-public class CrawllingListener {
+public class CrawllingListener implements ServletContextListener{
 
 	@Autowired
 	private QuestionService questionService;
 	
 	
-	public String crawllingListener(QuestionDTO qDTO, Model model) {
+	public String crawllingListener  (QuestionDTO qDTO, Model model) {
 		
 		System.out.println("로그0");
 		
@@ -51,7 +51,7 @@ public class CrawllingListener {
 		}
 		// 문제 랜덤으로 데이터 가져오기
 		Elements questions = doc.select(".tt_article_useless_p_margin span:contains(#)");
-
+		System.out.println(questions);
 		int i = 0;
 		// datas에 QuestionDTO 타입으로 저장 
 		List<QuestionDTO> datas = new ArrayList<QuestionDTO>();
@@ -97,3 +97,4 @@ public class CrawllingListener {
 		return "";
 	}
 }
+

@@ -23,9 +23,8 @@ public class MyPageController {
 		
 		mDTO.setLoginId((String)session.getAttribute("loginId"));
 		mDTO.setSearchCondition("myInfo");
-		memberService.selectOne(mDTO);
-		System.out.println(memberService.selectOne(mDTO).getLoginId());
-		model.addAttribute("myPageData", memberService);
+//		System.out.println(memberService.selectOne(mDTO).getLoginId());
+		model.addAttribute("myPageData", memberService.selectOne(mDTO));
 		
 		return "user/myInfo";
 	}
