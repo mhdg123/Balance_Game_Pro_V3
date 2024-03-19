@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="zxx">
 <!-- css -->
@@ -65,37 +65,38 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:if test="${fn:length(questionDatas) <= 0 }">
-											<tr>
-												<td colspan="1">출제된 문제가 없습니다.</td>
-											</tr>
-										</c:if>
-										<c:forEach var="data" items="${questionDatas}" varStatus="loop">
+
+										<c:forEach var="data" items="${questionDatas}"
+											varStatus="loop">
 											<tr>
 												<td
-													onClick="location.href='questionDetailPage?questionId=${data.questionId}&writer=${loginId}'"><p>${loop.index + 1}</p></td>
+													onClick="location.href='questionDetailPage?questionId=${data.questionId}'"><p>${loop.index + 1}</p></td>
 												<!-- loop.index는 0부터 시작하므로 +1을 해서 순번을 출력합니다. -->
 												<td class="qTitle"
-													onClick="location.href='questionDetailPage?questionId=${data.questionId}&writer=${loginId}'"><p>${data.title}</p></td>
+													onClick="location.href='questionDetailPage?questionId=${data.questionId}'"><p>${data.title}</p></td>
 												<td class="qTitle"
-													onClick="location.href='questionDetailPage?questionId=${data.questionId}&writer=${loginId}'"><p>${data.questionDate}</p></td>
+													onClick="location.href='questionDetailPage?questionId=${data.questionId}'"><p>${data.questionDate}</p></td>
 												<td class="qTitle"
-													onClick="location.href='questionDetailPage?questionId=${data.questionId}&writer=${loginId}'"><p>${data.likeCount}</p></td>
-												<td><input id="qId" type="hidden" value="${data.questionId}" />
-													<c:if test="${data.wishId > 0}">
+													onClick="location.href='questionDetailPage?questionId=${data.questionId}'"><p>${data.likeCount}</p></td>
+												<td><input id="qId" type="hidden"
+													value="${data.questionId}" /> <c:if
+														test="${data.wishId > 0}">
 														<div style="margin-bottom: 5px;">
-															<div style="cursor: pointer;" onclick="test();"><img
-																src="assets/img/thumb/fill-hearts.png" height="20px;"
-																width="20px;" style="margin-right: 15px;"></div>
+															<div style="cursor: pointer;" onclick="test();">
+																<img src="assets/img/thumb/fill-hearts.png"
+																	height="20px;" width="20px;"
+																	style="margin-right: 15px;">
+															</div>
 														</div>
 													</c:if> <c:if test="${data.wishId <= 0}">
 														<div style="margin-bottom: 5px;">
-															<div style="cursor: pointer;" onclick="test();"><img
-																src="assets/img/thumb/empty-hearts.png" height="20px;"
-																width="20px;" style="margin-right: 15px;"></div>
+															<div style="cursor: pointer;" onclick="test();">
+																<img src="assets/img/thumb/empty-hearts.png"
+																	height="20px;" width="20px;"
+																	style="margin-right: 15px;">
+															</div>
 														</div>
-													</c:if>
-													</td>
+													</c:if></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -103,12 +104,17 @@
 
 
 								</table>
-								</div>
+								<c:if test="${fn:length(questionDatas) <= 0 }">
+
+									<div>출제된 문제가 없습니다.</div>
+
+								</c:if>
 							</div>
 						</div>
-						</div>
-						</div>
-						
+					</div>
+				</div>
+			</div>
+
 		</section>
 
 		<!-- 추가 -->
