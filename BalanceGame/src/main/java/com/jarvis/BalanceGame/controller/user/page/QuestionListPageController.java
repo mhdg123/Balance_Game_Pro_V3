@@ -29,7 +29,7 @@ public class QuestionListPageController {
 		System.out.println(datas);
 		
 		if(datas != null) {
-			model.addAttribute("qDatas", datas);
+			model.addAttribute("questionDatas", datas);
 		}else {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "등록된 문제가 없습니다.");
