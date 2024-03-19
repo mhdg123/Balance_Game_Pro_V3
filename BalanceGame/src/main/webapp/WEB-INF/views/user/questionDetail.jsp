@@ -68,15 +68,16 @@
                     <div class="progress">
                       <div
                         class="progress-bar color-1"
+                        id="answer_A"
                         role="progressbar"
-                        style="width: ${Math.round(((questionData.answerACount * 1.0) / (questionData.answerACount+questionData.answerBCount)) * 100)} +%"
+                        style="width: 0%"
                         aria-valuenow="80"
                         aria-valuemin="0"
                         aria-valuemax="100"
                       ></div>
                     </div>
                   </div>
-                  <div style="display: inline-block">${Math.round(((questionData.answerACount * 1.0) / (questionData.answerACount+questionData.answerBCount)) * 100)}%</div>
+                  <div id="answer_A_percent"  style="display: inline-block">0%</div>
                 </div>
                 <div style="display: block"><br /></div>
                 <!-- 답변B -->
@@ -89,15 +90,16 @@
                     <div class="progress">
                       <div
                         class="progress-bar color-1"
+                        id="answer_B"
                         role="progressbar"
-                        style="width: ${Math.round(((questionData.answerBCount * 1.0) / (questionData.answerACount+questionData.answerBCount)) * 100)} +%"
+                        style="width: 0%"
                         aria-valuenow="80"
                         aria-valuemin="0"
                         aria-valuemax="100"
                       ></div>
                     </div>
                   </div>
-                  <div style="display: inline-block">${Math.round(((questionData.answerBCount * 1.0) / (questionData.answerACount+questionData.answerBCount)) * 100)}%</div>
+                  <div id="answer_B_percent"  style="display: inline-block">0%</div>
                 </div>
               </div>
             </div>
@@ -261,5 +263,26 @@
     <!-- 푸터 고정 스크립트 공통 모음 -->    
     <%@ include file="../layout/footer-fix.jsp"%>
     <!-- 푸터 고정 스크립트 공통 모음 -->  
+    
+    
+    	<!-- 문제 세팅 -->
+	<script type="text/javascript">
+    $(document).ready(function() {
+		var answerACount=Math.round(((data.answerACount * 1.0) / total) * 100);
+		var answerBCount=Math.round(((data.answerBCount * 1.0) / total) * 100);
+    	
+    	setTimeout(function() {
+    	    $("#answer_A").css("width",answerACount+"%");
+    	    $("#answer_B").css("width",answerBCount+"%");
+    	    
+    	    $("#answer_A_percent").text(answerACount+"%");
+    	    $("#answer_B_percent").text(answerBCount+"%");
+        
+    }, 100); // 100ms 후에 실행됩니다.
+    });
+    
+    </script>
+    <!-- 문제 세팅 -->
+    
   </body>
 </html>
