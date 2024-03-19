@@ -27,6 +27,8 @@ public class RankListController {
 		List<MemberDTO> datas = memberService.selectAll(mDTO);
 		System.out.println(datas);
 		
+		
+		
 		if(datas != null) {
 			model.addAttribute("memberDatas", datas);
 		}else {
