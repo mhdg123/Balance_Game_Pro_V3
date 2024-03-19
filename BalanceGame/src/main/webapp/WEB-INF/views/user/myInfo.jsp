@@ -42,28 +42,28 @@
 
 							<ul>
 								<li>
-									<p>이름</p> <span>: 박찬우</span>
+									<p>이름</p> <span>: ${memberData.name}</span>
 								</li>
 								<li>
-									<p>닉네임</p> <span>: 피터팬</span>
+									<p>닉네임</p> <span>: ${memberData.nickName}</span>
 								</li>
 								<li>
-									<p>이메일</p> <span>: chanwo2024@naver.com</span>
+									<p>이메일</p> <span>: ${memberData.email}</span>
 								</li>
 								<li>
-									<p>전화번호</p> <span>: 010-0000-0000</span>
+									<p>전화번호</p> <span>: ${memberData.cellPhone}</span>
 								</li>
 								<li>
-									<p>주소</p> <span>: 서울 어딘가</span>
+									<p>주소</p> <span>: ${memberData.address}</span>
 								</li>
 								<li>
-									<p>생년월일</p> <span>: 1999-10-01</span>
+									<p>생년월일</p> <span>: ${memberData.age}</span>
 								</li>
 								<li>
-									<p>성별</p> <span>: 남</span>
+									<p>성별</p> <span>: ${memberData.gender}</span>
 								</li>
 								<li>
-									<p>가입일</p> <span>: 2024-03-12</span>
+									<p>가입일</p> <span>: ${memberData.memberDate}</span>
 								</li>
 							</ul>
 							<br>
@@ -151,6 +151,7 @@
 						</div>
 					</div>
 				</div>
+			</div>
 		</section>
 		<!-- 해당 유저 댓글 -->
 		<div class="container">

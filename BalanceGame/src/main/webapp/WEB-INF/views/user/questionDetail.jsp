@@ -54,13 +54,13 @@
 
           <!-- 결과 -->
           <div style="height: 80px"></div>
-          <h2 class="col-12"><br />뭐 드실?</h2>
+          <h2 class="col-12"><br />${questionData.title}</h2>
           <div class="comments-area">
             <div class="col-12">
               <div>
                 <!-- 답변A -->
                 <div>
-                  <div class="serial">메밀묵</div>
+                  <div class="serial">${questionData.answerA}</div>
                   <div
                     class="percentage"
                     style="width: 80%; display: inline-block"
@@ -69,19 +69,19 @@
                       <div
                         class="progress-bar color-1"
                         role="progressbar"
-                        style="width: 20%"
+                        style="width: ${Math.round(((questionData.answerACount * 1.0) / (questionData.answerACount+questionData.answerBCount)) * 100)} +%"
                         aria-valuenow="80"
                         aria-valuemin="0"
                         aria-valuemax="100"
                       ></div>
                     </div>
                   </div>
-                  <div style="display: inline-block">20%</div>
+                  <div style="display: inline-block">${Math.round(((questionData.answerACount * 1.0) / (questionData.answerACount+questionData.answerBCount)) * 100)}%</div>
                 </div>
                 <div style="display: block"><br /></div>
                 <!-- 답변B -->
                 <div>
-                  <div class="serial">찹쌀떡</div>
+                  <div class="serial">${questionData.answerB}</div>
                   <div
                     class="percentage"
                     style="width: 80%; display: inline-block"
@@ -90,14 +90,14 @@
                       <div
                         class="progress-bar color-1"
                         role="progressbar"
-                        style="width: 80%"
+                        style="width: ${Math.round(((questionData.answerBCount * 1.0) / (questionData.answerACount+questionData.answerBCount)) * 100)} +%"
                         aria-valuenow="80"
                         aria-valuemin="0"
                         aria-valuemax="100"
                       ></div>
                     </div>
                   </div>
-                  <div style="display: inline-block">80%</div>
+                  <div style="display: inline-block">${Math.round(((questionData.answerBCount * 1.0) / (questionData.answerACount+questionData.answerBCount)) * 100)}%</div>
                 </div>
               </div>
             </div>

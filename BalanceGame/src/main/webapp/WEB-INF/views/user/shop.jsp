@@ -60,7 +60,7 @@ int totalPrice = 10;
 				</div>
 				<!-- Nav Card -->
 				<div class="tab-content" id="nav-tabContent">
-					<input type="hidden" value="${loginId }" id="loginData">
+					<input type="hidden" value="${itemData.loginId }" id="loginData">
 					<!-- 아이템 구매 탭 버튼 -->
 					<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 						<div class="row">
@@ -75,17 +75,17 @@ int totalPrice = 10;
 									</div>
 									<div class="popular-caption">
 										<h3>
-											<a href="#">닉네임 변경</a>
+											<a href="#">${itemData.itemName }</a>
 										</h3>
 										<!--  -->
-										<span>1000원</span>
+										<span>${itemData.itemPrice }원</span>
 									</div>
 								</div>
 							</div>
 							<!-- 아이템 탭 1번 아이템 -->
 
 							<!-- 아이템 탭 2번 아이템 -->
-							<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+						<!-- 	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
 								<div class="single-popular-items mb-50 text-center">
 									<div class="popular-img">
 										<img src="/resources/assets/img/gallery/popular2.png" alt="">
@@ -100,11 +100,11 @@ int totalPrice = 10;
 										<span>1000원</span>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<!-- 아이템 탭 2번 아이템 -->
 
 							<!-- 아이템 탭 3번 아이템 -->
-							<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+						<!-- 	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
 								<div class="single-popular-items mb-50 text-center">
 									<div class="popular-img">
 										<img src="/resources/assets/img/gallery/popular2.png" alt="">
@@ -119,7 +119,7 @@ int totalPrice = 10;
 										<span>1000원</span>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<!-- 아이템 탭 3번 아이템 -->
 						</div>
 					</div>
@@ -152,7 +152,7 @@ int totalPrice = 10;
 							<!-- 반복문 돌리기 -->
 							<!-- 포인트 탭 1번 포인트  -->
 							<!-- 포인트 탭 2번 포인트  -->
-							<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+							<!-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
 								<div class="single-popular-items mb-50 text-center">
 									<div class="popular-img">
 										<img src="/resources/assets/img/gallery/popular2.png" alt="">
@@ -167,7 +167,7 @@ int totalPrice = 10;
 										<span>10000원</span>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<!-- 포인트 탭 2번 포인트  -->
 						</div>
 					</div>

@@ -70,7 +70,7 @@
 												<td colspan="1">출제된 문제가 없습니다.</td>
 											</tr>
 										</c:if>
-										<c:forEach var="data" items="${qDatas}" varStatus="loop">
+										<c:forEach var="data" items="${questionDatas}" varStatus="loop">
 											<tr>
 												<td
 													onClick="location.href='titleDetailPage.do?questionId=${data.questionId}&writer=${loginId}'"><p>${loop.index + 1}</p></td>
@@ -82,13 +82,13 @@
 												<td class="qTitle"
 													onClick="location.href='titleDetailPage.do?questionId=${data.questionId}&writer=${loginId}'"><p>${data.likeCount}</p></td>
 												<td><input id="qId" type="hidden" value="${data.questionId}" />
-													<c:if test="${data.likeID > 0}">
+													<c:if test="${data.wishId > 0}">
 														<div style="margin-bottom: 5px;">
 															<div style="cursor: pointer;" onclick="test();"><img
 																src="assets/img/thumb/fill-hearts.png" height="20px;"
 																width="20px;" style="margin-right: 15px;"></div>
 														</div>
-													</c:if> <c:if test="${data.likeID <= 0}">
+													</c:if> <c:if test="${data.wishId <= 0}">
 														<div style="margin-bottom: 5px;">
 															<div style="cursor: pointer;" onclick="test();"><img
 																src="assets/img/thumb/empty-hearts.png" height="20px;"

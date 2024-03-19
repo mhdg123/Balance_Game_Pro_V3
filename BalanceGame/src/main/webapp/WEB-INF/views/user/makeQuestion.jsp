@@ -48,8 +48,8 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="name"
-                      name="name"
+                      id="title"
+                      name="title"
                       placeholder="제목 입력해주세요"
                     />
                   </div>
@@ -60,8 +60,8 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="age"
-                      name="age"
+                      id="answerA"
+                      name="answerA"
                       placeholder="답변_A 입력해주세요"
                     />
                   </div>
@@ -72,8 +72,8 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="loginId"
-                      name="loginId"
+                      id="answerB"
+                      name="answerB"
                       placeholder="답변_B 입력"
                     />
                   </div>
@@ -82,10 +82,10 @@
                   <div>&nbsp&nbsp&nbsp&nbsp출제 이유</div>
                   <div class="col-md-12 form-group p_star">
                     <input
-                      type="password"
+                      type="text"
                       class="form-control"
-                      id="memberPassword"
-                      name="memberPassword"
+                      id="explanation"
+                      name="explanation"
                       placeholder="출제 이유 입력"
                     />
                   </div>
