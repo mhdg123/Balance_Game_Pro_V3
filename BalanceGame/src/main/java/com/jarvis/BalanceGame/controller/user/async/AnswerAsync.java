@@ -1,7 +1,10 @@
 package com.jarvis.BalanceGame.controller.user.async;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,6 +16,8 @@ import com.jarvis.BalanceGame.service.QuestionService;
 
 import jakarta.servlet.http.HttpSession;
 
+@Controller
+@RequestMapping("/user")
 public class AnswerAsync {
 
 	@Autowired
@@ -21,14 +26,13 @@ public class AnswerAsync {
 	@Autowired
 	private QuestionService questionService;
 	
-	@RequestMapping("/answerAsync")
+	@PostMapping("/answerAsync")
 	public @ResponseBody String AnswerAsync(AnswerDTO aDTO, QuestionDTO qDTO, Model model, HttpSession session, Gson gson) {
 		
 		System.out.println("들어옴");
-		
 		aDTO.setLoginId((String)session.getAttribute("loginId"));
 		
-		aDTO.setSearchCondition("createComment");
+		aDTO.setSearchCondition("saveAnswer");
 		
 		if(answerService.insert(aDTO)) {
 			System.out.println("성공");
