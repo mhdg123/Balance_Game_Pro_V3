@@ -27,17 +27,19 @@ public class QuestionDetailPageController {
 		
 		qDTO.setSearchCondition("questionDetail");
 
-		questionService.selectOne(qDTO);
+		qDTO = questionService.selectOne(qDTO);
 		
 		cDTO.setSearchCondition("questionComments");
 		List<CommentDTO> commentDatas = commentService.selectAll(cDTO);
 		
 		if(questionService != null) {
-			model.addAttribute("questionData", questionService);
+			model.addAttribute("questionData", qDTO);
 			model.addAttribute("commentDatas", commentDatas);
+			System.out.println("체크 1"+commentDatas);
 		}else {
-			model.addAttribute("questionData", questionService);
+			model.addAttribute("questionData", qDTO);
 			model.addAttribute("commentDatas", commentDatas);
+			System.out.println("체크 2"+commentDatas);
 		}
 		return "user/questionDetail";
 	}
