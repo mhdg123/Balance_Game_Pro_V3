@@ -73,14 +73,14 @@
 										<c:forEach var="data" items="${questionDatas}" varStatus="loop">
 											<tr>
 												<td
-													onClick="location.href='titleDetailPage.do?questionId=${data.questionId}&writer=${loginId}'"><p>${loop.index + 1}</p></td>
+													onClick="location.href='questionDetailPage?questionId=${data.questionId}&writer=${loginId}'"><p>${loop.index + 1}</p></td>
 												<!-- loop.index는 0부터 시작하므로 +1을 해서 순번을 출력합니다. -->
 												<td class="qTitle"
-													onClick="location.href='titleDetailPage.do?questionId=${data.questionId}&writer=${loginId}'"><p>${data.title}</p></td>
+													onClick="location.href='questionDetailPage?questionId=${data.questionId}&writer=${loginId}'"><p>${data.title}</p></td>
 												<td class="qTitle"
-													onClick="location.href='titleDetailPage.do?questionId=${data.questionId}&writer=${loginId}'"><p>${data.questionDate}</p></td>
+													onClick="location.href='questionDetailPage?questionId=${data.questionId}&writer=${loginId}'"><p>${data.questionDate}</p></td>
 												<td class="qTitle"
-													onClick="location.href='titleDetailPage.do?questionId=${data.questionId}&writer=${loginId}'"><p>${data.likeCount}</p></td>
+													onClick="location.href='questionDetailPage?questionId=${data.questionId}&writer=${loginId}'"><p>${data.likeCount}</p></td>
 												<td><input id="qId" type="hidden" value="${data.questionId}" />
 													<c:if test="${data.wishId > 0}">
 														<div style="margin-bottom: 5px;">
