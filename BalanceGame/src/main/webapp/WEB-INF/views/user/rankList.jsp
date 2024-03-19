@@ -56,10 +56,10 @@
 												<p>${data.ranking}</p>
 											</td>
 											<td>
-												<p>${data.name}</p>
+												<p>${data.nickName}</p>
 											</td>
 											<td>
-												<p>${data.coin}p</p>
+												<p>${data.total}p</p>
 											</td>
 										</tr>
 										</c:forEach>

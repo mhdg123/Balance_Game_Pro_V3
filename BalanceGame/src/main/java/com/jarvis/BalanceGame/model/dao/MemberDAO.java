@@ -239,7 +239,7 @@ class MemberRowMapperRank implements RowMapper<MemberDTO>{
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
-		member.setLoginId(rs.getString("NICKNAME"));
+		member.setNickName(rs.getString("NICKNAME"));
 		member.setTotal(rs.getInt("TOTAL"));
 		member.setRanking(rs.getInt("RANKING"));
 		return member;
