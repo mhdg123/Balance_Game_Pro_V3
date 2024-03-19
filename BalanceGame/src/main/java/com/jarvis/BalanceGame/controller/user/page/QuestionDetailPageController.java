@@ -33,13 +33,13 @@ public class QuestionDetailPageController {
 		List<CommentDTO> commentDatas = commentService.selectAll(cDTO);
 		
 		if(questionService != null) {
-			model.addAttribute("qData", questionService);
-			model.addAttribute("cDatas", commentDatas);
+			model.addAttribute("questionData", questionService);
+			model.addAttribute("commentDatas", commentDatas);
 		}else {
-			model.addAttribute("qData", questionService);
-			model.addAttribute("cDatas", commentDatas);
+			model.addAttribute("questionData", questionService);
+			model.addAttribute("commentDatas", commentDatas);
 		}
-		return "user/aminquestionDetail";
+		return "user/questionDetail";
 	}
 }
 

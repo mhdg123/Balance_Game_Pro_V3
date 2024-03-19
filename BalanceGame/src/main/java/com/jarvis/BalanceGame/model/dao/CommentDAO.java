@@ -19,11 +19,11 @@ public class CommentDAO {
 
 	// 해당 문제에 대한 댓글 전체출력 
 	private static final String SELECTALL_QUESTION = "SELECT C.COMMENT_ID, C.QUESTION_ID, M.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME\r\n"
-			+ "FROM COMMENTS C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID = M.LOGIN_ID WHERE C.QUESTION_ID=?";
+			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID = M.LOGIN_ID WHERE C.QUESTION_ID=?";
 
 	// 회원이 작성한 모든 댓글 출력 
 	private static final String SELECTALL_MEMBER = "SELECT C.COMMENT_ID, C.QUESTION_ID, C.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME\r\n"
-			+ "FROM COMMENTS C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=?";
+			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=?";
 
 	// 댓글 작성 
 	private static final String INSERT = "INSERT INTO COMMENTS(QUESTION_ID, LOGIN_ID, COMMENTS) VALUES (?,?,?)";
@@ -84,8 +84,8 @@ class CommentRowMapper implements RowMapper<CommentDTO> {
 	public CommentDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		CommentDTO data = new CommentDTO();
 		data.setQuestionId(rs.getInt("QUESTION_ID"));
-		data.setCommentId(rs.getInt("COMMENT_ID "));
-		data.setLoginId(rs.getString("LOGIN_ID "));
+		data.setCommentId(rs.getInt("COMMENT_ID"));
+		data.setLoginId(rs.getString("LOGIN_ID"));
 		data.setComments(rs.getString("COMMENTS"));
 		data.setCommentDate(rs.getDate("COMMENT_DATE"));
 		return data;
