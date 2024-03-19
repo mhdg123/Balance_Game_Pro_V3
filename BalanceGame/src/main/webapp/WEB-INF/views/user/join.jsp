@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<!--================Checkout Area =================-->
-		<c:if test="${status == 'kakaoJoin' }"> 
+		<c:if test="${status != 'default' }">  <!-- 기본 회원가입 페이지 분기 처리 -->
 		<section class="checkout_area section_padding">
 			<div class="container">
 				<div class="comments-area">
@@ -154,8 +154,7 @@
 		
 		
 		<!----------------------------------------소셜 로그인 회원가입 홈---------------------------------------->
-		<c:if test="${status != null }">
-		여기는 소셜로그인 회원가입 페이지
+		<c:if test="${status != 'kakaoJoin' }">
 		<section class="checkout_area section_padding">
 			<div class="container">
 				<div class="comments-area">

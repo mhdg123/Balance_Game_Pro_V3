@@ -13,8 +13,9 @@ import com.jarvis.BalanceGame.model.dto.MemberDTO;
 public class JoinPageController {
    
 	@GetMapping("/joinPage")
-   public String joinPageController() {
+   public String joinPageController(Model model) {
       System.out.println("회원가입 페이지 이동");
+      model.addAttribute("status", "default"); // 기본 회원가입 페이지 폼 분기 처리
       return "user/join";
    }
 	
