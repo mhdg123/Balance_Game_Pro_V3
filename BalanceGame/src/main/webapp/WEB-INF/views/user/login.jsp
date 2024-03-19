@@ -116,6 +116,7 @@
 
 
 								<!-- 네이버로그인 끝 -->
+								<a id="kakao-login-btn"></a>
 							</div>
 						</div>
 					</div>
@@ -235,6 +236,7 @@ document.getElementById("searchLoginPw").addEventListener("click", async () => {
 	<%@ include file="../layout/footer-fix.jsp"%>
 	<!-- sweetalert -->
 	<script src="/resources/common/js/alert.js"></script>
+	<script src="/resources/user/js/kakaoLogin.js"></script>
 
 </body>
 
