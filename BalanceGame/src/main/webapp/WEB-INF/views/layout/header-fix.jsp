@@ -12,6 +12,8 @@
       type="image/x-icon"
       href="/resources/assets/img/favicon.ico"
     />
+    <!-- 카카오 로그인 -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <!-- 제이쿼리  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- CSS here -->
