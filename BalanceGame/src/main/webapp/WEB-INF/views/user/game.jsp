@@ -27,38 +27,38 @@
 								<div class="hero__caption">
 									<!-- 메인페이지 헤드라인 -->
 									<div id="title">
-										<h1 style="display: inline-block; margin-right: 10px;">${data.title}</h1>
+										<h1 style="display: inline-block; margin-right: 10px;">${questionData.title}</h1>
 
 									</div>
 
 									<!-- Hero-btn -->
 									<div class="button-container">
 										<br /> <br />
-										<div id="answer_A">
-											<button
+										
+											<button  id="answer_A"
 												class="genric-btn primary-border radius e-large game-button answer"
-												type="button">
-												<span>${data.answerA}</span>
+												type="button" value="A">
+												${questionData.answerA}
 											</button>
-										</div>
-										<div id="answer_B">
-											<button
+										
+										
+											<button id="answer_B"
 												class="genric-btn primary-border radius e-large game-button answer"
-												type="button">
-												<span>${data.answerB}</span>
+												type="button" value="B">
+												${questionData.answerB}
 											</button>
-										</div>
+										
 									</div>
 								</div>
 							</div>
 						</div>
 
 						<div class="container">
-							<c:if test="${data.wishId <= 0}">
+							<c:if test="${questionData.wishId <= 0}">
 								<h2 style="color: #ff2020;" class="fa ti-heart wish" id="1"></h2>
 								<!-- ti-heart 빈 하트 -->
 							</c:if>
-							<c:if test="${data.wishId > 0}">
+							<c:if test="${questionData.wishId > 0}">
 								<h2 style="color: #ff2020;" class="fa fa-heart wish" id="1"></h2>
 								<!-- fa-heart 꽉 찬 하트 -->
 							</c:if>
@@ -88,9 +88,7 @@
 				</div>
 
 				<!-- 댓글 입력 End -->
-				<br />
-				<br />
-				<br />
+				<br /> <br /> <br />
 				<h4>댓글</h4>
 
 				<!-- 댓글들 -->
@@ -175,13 +173,13 @@
     
     $(".answer").on("click", function() {
     	
-/*     	var qId = document.getElementById('qId').value;
-    	var loginId = document.getElementById('loginId').value;
-    	var answerValue = $(this).prop('value'); */
+    	//var qId = document.getElementById('qId').value;
+    	//var loginId = document.getElementById('loginId').value;
+    	var answerValue = $(this).prop('value');
     	//로그인 아이디,질문 pk 로그
-    	/*console.log($(this).prop("value"));
-    	console.log(loginId);
-    	console.log(qId);*/
+    	console.log("답변클릭 "+ $(this).prop("value"));
+    	//console.log(loginId);
+    	console.log("${questionData.questionId}");
     	
     	//totalAnswer(qId, loginId, answerValue);
 		var answerACount;
@@ -191,9 +189,9 @@
             type: "POST",
             url: "/user/answerAsync",
             data: {
-                //'qId': qId,
+                'questionId': `${questionData.questionId}`,
                 //'loginId': `${loginId}`
-                //'answer': answerValue
+                'answer': answerValue
             },
             dataType: 'json',
             success: function(data) {
@@ -219,14 +217,14 @@ var playElement = document.getElementById("play");
 
 // 내용을 변경합니다.
 playElement.innerHTML = `
-    <h1 class="col-12"><br />${data.title}</h1>
+    <h1 class="col-12"><br />${questionData.title}</h1>
     <div class="comments-area">
         <div class="col-12">
             <div>
                 <div>
                     
                     <div class="percentage" style="width: 80%; display: inline-block">
-                    <h4 class="serial" style="text-align: left;">${data.answerA}</h4>
+                    <h4 class="serial" style="text-align: left;">${questionData.answerA}</h4>
                         <div class="progress">
                             <div class="progress-bar color-1" id="answer_A" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -238,7 +236,7 @@ playElement.innerHTML = `
                 <div>
                     
                     <div class="percentage" style="width: 80%; display: inline-block">
-                    <h4 class="serial" style="text-align: left;">${data.answerB}</h4>
+                    <h4 class="serial" style="text-align: left;">${questionData.answerB}</h4>
                         <div class="progress">
                             <div class="progress-bar color-1" id="answer_B" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
