@@ -18,15 +18,15 @@ public class CommentDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 해당 문제에 대한 댓글 전체출력 
-	private static final String SELECTALL_QUESTION = "SELECT C.COMMENT_ID, C.QUESTION_ID, M.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME\r\n"
-			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID = M.LOGIN_ID WHERE C.QUESTION_ID=?";
+	private static final String SELECTALL_QUESTION = "SELECT C.COMMENT_ID, C.QUESTION_ID, M.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
+			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID = M.LOGIN_ID WHERE C.QUESTION_ID=? ORDER BY C.COMMENT_DATE DESC";
 
 	// 회원이 작성한 모든 댓글 출력 
-	private static final String SELECTALL_MEMBER = "SELECT C.COMMENT_ID, C.QUESTION_ID, C.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME\r\n"
-			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=?";
+	private static final String SELECTALL_MEMBER = "SELECT C.COMMENT_ID, C.QUESTION_ID, C.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
+			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=? ORDER BY C.COMMENT_DATE DESC";
 
 	// 댓글 작성 
-	private static final String INSERT = "INSERT INTO COMMENTS(QUESTION_ID, LOGIN_ID, COMMENTS) VALUES (?,?,?)";
+	private static final String INSERT = "INSERT INTO COMMENT (QUESTION_ID, LOGIN_ID, COMMENTS) VALUES (?,?,?)";
 
 	// 댓글 전체 출력하기
 	public List<CommentDTO> selectAll(CommentDTO cDTO) {
@@ -87,6 +87,7 @@ class CommentRowMapper implements RowMapper<CommentDTO> {
 		data.setCommentId(rs.getInt("COMMENT_ID"));
 		data.setLoginId(rs.getString("LOGIN_ID"));
 		data.setComments(rs.getString("COMMENTS"));
+		data.setMemberGrade(rs.getInt("GRADE"));
 		data.setCommentDate(rs.getDate("COMMENT_DATE"));
 		return data;
 	}

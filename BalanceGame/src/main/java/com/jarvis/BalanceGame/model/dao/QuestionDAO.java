@@ -200,7 +200,7 @@ class QuestionRowMapper implements RowMapper<QuestionDTO> {
 	@Override
 	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		QuestionDTO data = new QuestionDTO();
-		data.setQuestionId(rs.getInt("QUESTION_ID "));
+		data.setQuestionId(rs.getInt("QUESTION_ID"));
 		data.setTitle(rs.getString("TITLE"));
 		data.setWriter(rs.getString("WRITER"));
 		data.setExplanation(rs.getString("EXPLANATION"));
