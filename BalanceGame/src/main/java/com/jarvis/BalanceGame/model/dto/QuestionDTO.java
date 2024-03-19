@@ -23,7 +23,7 @@ public class QuestionDTO {
     
     //---------------------------------------
     private String searchCondition;
-    private int likeID;
+    private int wishId;
     private int answerACount;
     private int answerBCount;
     private int likeCount;

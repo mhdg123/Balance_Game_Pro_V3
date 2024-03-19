@@ -45,7 +45,7 @@ public class QuestionDAO {
 			+ "COUNT(CASE WHEN A.ANSWER = 'A' THEN 1 END) AS COUNT_A, COUNT(CASE WHEN A.ANSWER = 'B' THEN 1 END) AS COUNT_B, \r\n"
 			+ "IFNULL(W.WISH_ID, 0) AS LIKE_ID FROM QUESTION Q JOIN ANSWER A ON Q.QUESTION_ID = A.QUESTION_ID \r\n"
 			+ "LEFT JOIN WISH W ON Q.QUESTION_ID = W.QUESTION_ID AND W.LOGIN_ID = ? WHERE Q.QUESTION_ID= ? \r\n"
-			+ "GROUP BY Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, W.WISH_ID, Q.QUESTION_DATE;";
+			+ "GROUP BY Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, W.WISH_ID, Q.QUESTION_DATE";
 
 	// 관리자가 사용하는 문제 상세보기 
 	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_DATE, FROM QUESTION Q WHERE QUESTION_ID = ? ";
@@ -70,6 +70,7 @@ public class QuestionDAO {
 		List<QuestionDTO> datas = null;
 		// 문제 모두 조회
 		if (qDTO.getSearchCondition().equals("viewAllOfQuestionList")) {
+			System.out.println("모든문제조회DAO");
 			Object[] args = { qDTO.getWriter() };
 			datas = jdbcTemplate.query(SELECTALL_APPROVED_QUESTIONlIST, args, new QuestionRowMapperList());
 		}
@@ -86,10 +87,6 @@ public class QuestionDAO {
 		else if (qDTO.getSearchCondition().equals("adminViewAllOfUnapprovedQuestions")) {
 			datas = jdbcTemplate.query(SELECTALL_ADMIN_UNAPPROVED_QUESTIONS, new QuestionRowMapper());
 		}
-//		else if(qDTO.getSearchCondition().equals("questionCount")) {
-//			Object[] args = {qDTO.getQuestionAccess()};
-//			datas = jdbcTemplate.query(SELECT_CNT, args);
-//		}
 		return datas;
 	}
 
@@ -125,6 +122,11 @@ public class QuestionDAO {
 			} catch (Exception e) {
 				System.out.println("문제데이터가 없습니다");
 			}
+		}
+		// 문제개수 
+		else if(qDTO.getSearchCondition().equals("questionCount")) {
+			Object[] args = {qDTO.getQuestionAccess()};
+			data = jdbcTemplate.queryForObject(SELECT_CNT, args, new QuestionRowMapperCnt());
 		}
 		return data;
 	}
@@ -181,7 +183,7 @@ class QuestionRowMapperList implements RowMapper<QuestionDTO> {
 		data.setQuestionId(rs.getInt("QUESTION_ID"));
 		data.setTitle(rs.getString("TITLE"));
 		data.setLikeCount(rs.getInt("LIKE_COUNT"));
-		data.setLikeID(rs.getInt("LIKE_ID"));
+		data.setWishId(rs.getInt("LIKE_ID"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}
@@ -214,7 +216,7 @@ class QuestionRowMapperDetail implements RowMapper<QuestionDTO> {
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setAnswerACount(rs.getInt("COUNT_A"));
 		data.setAnswerBCount(rs.getInt("COUNT_B"));
-		data.setLikeID(rs.getInt("LIKE_ID"));
+		data.setWishId(rs.getInt("LIKE_ID"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}
@@ -231,8 +233,19 @@ class QuestionRowMapperShowToUser implements RowMapper<QuestionDTO> {
 		data.setAnswerA(rs.getString("ANSWER_A"));
 		data.setAnswerB(rs.getString("ANSWER_B"));
 		data.setExplanation(rs.getString("EXPLANATION"));
-		data.setLikeID(rs.getInt("LIKE_ID"));
+		data.setWishId(rs.getInt("LIKE_ID"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}
+}
+
+class QuestionRowMapperCnt implements RowMapper<QuestionDTO>{
+
+	@Override
+	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		QuestionDTO data = new QuestionDTO();
+		data.setQuestionCount(rs.getInt("CNT"));
+		return null;
+	}
+	
 }
