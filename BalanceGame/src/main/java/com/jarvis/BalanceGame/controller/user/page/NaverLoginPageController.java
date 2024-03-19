@@ -109,6 +109,7 @@ public class NaverLoginPageController {
 			mDTO.setCellPhone(mobile);
 			mDTO.setAge(birthyear+"-"+birthday);
 			model.addAttribute("memberData", mDTO);
+			model.addAttribute("status", "socialJoin");
 			return "user/join";
 		}
 		mDTO.setLoginId("test");
