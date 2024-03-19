@@ -35,7 +35,7 @@ public class CommentWriteAsync {
 		mDTO= memberService.selectOne(mDTO);
 		
 		cDTO.setLoginId(mDTO.getName());
-//		cDTO.setGrade(mDTO.getGrade());
+		cDTO.setMemberGrade(mDTO.getGrade());
 		
 		String json =gson.toJson(cDTO);
 		System.out.println(json);
