@@ -159,93 +159,40 @@
 
 
 				<h4>댓글</h4>
-
-				<div class="comment-list">
-					<div>
+				<c:forEach var="data" items="${commentDatas}" varStatus="loop">
+					<div class="comment-list">
 						<div>
-							<div class="desc">
-								<div class="d-flex">
-									<div class="d-flex align-items-center">
-										<h5>
-											<a href="#" style="color: black">피터팬</a>
-										</h5>
-										<p class="date">December 4, 2017 at 3:12 pm</p>
+							<div>
+								<div class="desc">
+									<div class="d-flex">
+										<div class="d-flex align-items-center">
+											<h5>
+												<a href="#" style="color: black">${data.loginId}</a>
+											</h5>
+											<p class="date">${data.commentDate}</p>
+										</div>
+									</div>
+									<div>
+										<p class="comment">${data.comments}</p>
+									</div>
+									<!-- 이름 날짜 삭제 -->
+									<div class="d-flex justify-content-between">
+										<div class="d-flex align-items-center"></div>
+										<div class="reply-btn">
+											<div class="btn-reply text-uppercase"
+												style="display: inline-block;">신고</div>
+											<div class="btn-reply text-uppercase"
+												style="display: inline-block;">삭제</div>
+										</div>
 									</div>
 								</div>
-								<div>
-									<p class="comment">밤만쥬에서 모티브를 얻은 듯한 수달 캐릭터로 초기 낙서 작업물에서부터 꽤
-										일찍 등장했다. 밤만쥬를 안주로 술을 마시는 것이 본격적인 첫 등장.</p>
-								</div>
-								<!-- 이름 날짜 삭제 -->
-								<div class="d-flex justify-content-between">
-									<div class="d-flex align-items-center"></div>
-									<div class="reply-btn">
-										<a href="#" class="btn-reply text-uppercase">삭제</a>
-									</div>
-								</div>
+								<hr />
 							</div>
-							<hr />
 						</div>
 					</div>
-				</div>
+				</c:forEach>
 
-				<div class="comment-list">
-					<div>
-						<div>
-							<div class="desc">
-								<div class="d-flex">
-									<div class="d-flex align-items-center">
-										<h5>
-											<a href="#" style="color: black">피터팬</a>
-										</h5>
-										<p class="date">December 4, 2017 at 3:12 pm</p>
-									</div>
-								</div>
-								<div>
-									<p class="comment">주요 캐릭터 3인방이며 서브 주인공 격 캐릭터다. 주인공 치이카와의
-										단짝친구 중 한 명. 치이카와와 함께 책을 읽으며 말하던 것이 첫 등장.</p>
-								</div>
-								<!-- 이름 날짜 삭제 -->
-								<div class="d-flex justify-content-between">
-									<div class="d-flex align-items-center"></div>
-									<div class="reply-btn">
-										<a href="#" class="btn-reply text-uppercase">삭제</a>
-									</div>
-								</div>
-							</div>
-							<hr />
-						</div>
-					</div>
-				</div>
 
-				<div class="comment-list">
-					<div>
-						<div>
-							<div class="desc">
-								<div class="d-flex">
-									<div class="d-flex align-items-center">
-										<h5>
-											<a href="#" style="color: black">피터팬</a>
-										</h5>
-										<p class="date">December 4, 2017 at 3:12 pm</p>
-									</div>
-								</div>
-								<div class="d-flex">
-									<p class="comment">주요 캐릭터 3인방이며 서브 주인공 격 캐릭터다. 주인공 치이카와의
-										단짝친구 중 한 명. 치이카와와 함께 책을 읽으며 말하던 것이 첫 등장.</p>
-								</div>
-								<!-- 이름 날짜 삭제 -->
-								<div class="d-flex justify-content-between">
-									<div class="d-flex align-items-center"></div>
-									<div class="reply-btn">
-										<a href="#" class="btn-reply text-uppercase">삭제</a>
-									</div>
-								</div>
-							</div>
-							<hr />
-						</div>
-					</div>
-				</div>
 				<nav class="blog-pagination justify-content-center d-flex">
 					<ul class="pagination">
 						<li class="page-item"><a href="#" class="page-link"
@@ -261,8 +208,7 @@
 				</nav>
 			</div>
 		</div>
-		</div>
-		</div>
+
 
 		<!--================End Checkout Area =================-->
 	</main>
