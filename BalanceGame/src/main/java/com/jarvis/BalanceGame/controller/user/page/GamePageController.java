@@ -61,7 +61,7 @@ public class GamePageController {
 			}
 			list.add(qDTO.getQuestionId()); // 이미 푼 문제 pk를 리스트에 올림 
 			session.setAttribute("qList", list); // 새로운 리스트니까 세션에 다시 저장 
-			model.addAttribute("data", qDTO); // 뷰한테 주는 것 
+			model.addAttribute("questionData", qDTO); // 뷰한테 주는 것 
 			return "user/game";
 			}
 			else {
