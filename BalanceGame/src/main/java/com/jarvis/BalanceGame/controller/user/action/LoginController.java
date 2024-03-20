@@ -31,7 +31,7 @@ public class LoginController {
 				session.setAttribute("loginId", mDTO.getLoginId());
 				model.addAttribute("status", "success");
 				model.addAttribute("msg", mDTO.getLoginId() + " 관리자님 로그인 하셨습니다.");
-				model.addAttribute("redirect", "/");
+				model.addAttribute("redirect", "/admin/adminPage");
 				return "alert";
 				
 			} else {
