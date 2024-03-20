@@ -25,7 +25,7 @@ public class JoinPageController {
 	public String kakaoJoin(MemberDTO mDTO, Model model) {
 		System.out.println(mDTO + "카카오로 처음 로그인 해서 회원가입 처리 ");
 		// 비회원일때
-		model.addAttribute("mDTO", mDTO);
+		model.addAttribute("memberData", mDTO);
 		model.addAttribute("status", "socialJoin");
 		return "user/join";
 		
