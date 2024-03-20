@@ -17,6 +17,6 @@ public class UserLetterPageController {
 		model.addAttribute("loginId", loginId);
 		
 		
-		return "user/userSuggestion";
+		return "user/letter";
 	}
 }
