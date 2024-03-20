@@ -47,7 +47,9 @@ public class MemberDAO {
 	private static final String SELECTALL_USER = "SELECT \r\n"
 			+ "    M.LOGIN_ID, \r\n"
 			+ "    M.GENDER, \r\n"
-			+ "    M.AGE, \r\n"
+			+ "    M.AGE,"
+			+ "    M.ADDRESS \r\n"
+			+ "    M.EMAIL"
 			+ "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
 			+ "    CASE \r\n"
 			+ "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
@@ -60,7 +62,9 @@ public class MemberDAO {
 			+ "GROUP BY \r\n"
 			+ "    M.LOGIN_ID, \r\n"
 			+ "    M.GENDER, \r\n"
-			+ "    M.AGE";
+			+ "    M.AGE"
+			+ "    M.ADDRESS"
+			+ "	   M.EMAIL";
 
 	//유저 랭킹 조회
 	private static final String SELECTALL_RANKING = "SELECT \r\n"
@@ -206,6 +210,8 @@ class MemberRowMapper implements RowMapper<MemberDTO> {
 		member.setGender(rs.getString("GENDER"));
 		member.setTotal(rs.getInt("TOTAL"));
 		member.setRanking(rs.getInt("RANKING"));
+		member.setAddress(rs.getString("ADDRESS"));
+		member.setEmail(rs.getString("EMAIL"));
 		return member;
 	}
 
