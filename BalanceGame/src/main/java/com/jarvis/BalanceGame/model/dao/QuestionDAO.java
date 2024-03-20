@@ -23,7 +23,7 @@ public class QuestionDAO {
 			+ "    Q.TITLE, \r\n"
 			+ "    Q.QUESTION_DATE, \r\n"
 			+ "    COUNT(DISTINCT W.LOGIN_ID) AS LIKE_COUNT, \r\n"
-			+ "    MAX(CASE WHEN W.LOGIN_ID = ? THEN 1 ELSE 0 END) AS USER_LIKED\r\n"
+			+ "    MAX(CASE WHEN W.LOGIN_ID = ? THEN 1 ELSE 0 END) AS LIKE_ID\r\n"
 			+ "FROM \r\n"
 			+ "    QUESTION Q \r\n"
 			+ "LEFT JOIN \r\n"
