@@ -20,7 +20,7 @@ public class PaymentDAO {
 	
 	// 포인트 구매 
 	private static final String PURCHASE_POINT = "INSERT INTO PAYMENT (LOGIN_ID, AMOUNT) VALUES (?, ?)"; // INPUT : 로그인 아이디, 결제 금액 
-
+	private static final String SELECT_TOTAL = "SELECT SUM(AMOUNT) AS TOTAL_AMOUNT FROM PAYMENT";
 	
 	public boolean insert(PaymentDTO pDTO) {
 		int result = 0;
@@ -34,20 +34,23 @@ public class PaymentDAO {
 		return true;
 	}
 
+	public PaymentDTO selectOne(PaymentDTO pDTO) {
+		PaymentDTO data = null;
+		try {
+			data = jdbcTemplate.queryForObject(SELECT_TOTAL, new PaymentRowMapperTotal());
+		} catch (Exception e) {
+			System.out.println("총 결제금액 조회 불가");
+		}
+		return data;
+	}
 	
-	class PaymentRowMapper implements RowMapper<PaymentDTO> {
+	class PaymentRowMapperTotal implements RowMapper<PaymentDTO> {
 
 		@Override
 		public PaymentDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 			PaymentDTO data = new PaymentDTO();
-			data.setLoginId(rs.getString("LOGIN_ID"));
-			data.setAmount(rs.getInt("AMOUNT"));
-			data.setPaymentDate(rs.getDate("PAYMENT_DATE"));
+			data.setTotalAmount((rs.getInt("TOTAL_AMOUNT")));
 			return data;
 		}
 	}
-
-
-	
-
 }

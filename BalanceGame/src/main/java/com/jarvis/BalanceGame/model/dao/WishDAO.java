@@ -21,13 +21,13 @@ public class WishDAO {
 	private static final String SELECTALL = "SELECT Q.TITLE FROM WISH W JOIN QUESTIONS Q ON S.QUESTION_ID = Q.QUESTION_ID WHERE W.LOGIN_ID = ?";
 
 	// 문제에 대한 사용자의 찜의 유무 조회 
-	private static final String SELECTONE = "SELECT QUESTION_ID, LOGIN_ID FROM SAVE WHERE LOGIN_ID=? AND QUESTION_ID=?";
+	private static final String SELECTONE = "SELECT QUESTION_ID, LOGIN_ID FROM WISH WHERE LOGIN_ID=? AND QUESTION_ID=?";
 
 	// 사용자가 해당 문제를 찜
 	private static final String INSERT = "INSERT INTO WISH (QUESTION_ID, LOGIN_ID) VALUES(?,?)";
 
 	// 사용자가 해당 문제를 찜 해제 
-	private static final String DELETE = "DELETE FROM SAVE WHERE WISH_ID=?";
+	private static final String DELETE = "DELETE FROM WISH WHERE LOGIN_ID=? AND QUESTION_ID = ?";
 
 	// 사용자가 찜한 문제 전체 조회
 	public List<WishDTO> selectAll(WishDTO wDTO) {
@@ -66,7 +66,7 @@ public class WishDAO {
 	}
 
 	public boolean delete(WishDTO wDTO) {
-		int result = jdbcTemplate.update(DELETE, wDTO.getWishId());
+		int result = jdbcTemplate.update(DELETE, wDTO.getLoginId(), wDTO.getQuestionId());
 		if (result <= 0) {
 			return false;
 		}
