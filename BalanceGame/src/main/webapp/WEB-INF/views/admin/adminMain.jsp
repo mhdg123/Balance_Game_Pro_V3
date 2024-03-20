@@ -260,7 +260,6 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="card-body table-responsive p-0">
 									<table class="table table-hover text-nowrap">
 										<thead>
@@ -270,18 +269,18 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:if test="${empty sugDatas}">
+											<c:if test="${empty letterDatas}">
 												<tr>
 													<td colspan="1">건의사항이 없습니다.</td>
 												</tr>
 
 											</c:if>
 										<tbody id="suggestionTableBody">
-											<c:forEach var="data" items="${lDatas}"> <!-- 건의사항 -->
-												<%-- <tr onclick="location.href = 'adminSuggestionDetailPageAction.do?sugId=${lDatas.sugId}'">
-													<td id="loginIdData">${lDatas.loginId}</td>
-													<td id="titleData">${lDatas.title}</td>
-												</tr> --%>
+											<c:forEach var="data" items="${letterDatas}"> <!-- 건의사항 -->
+												 <tr onclick="location.href = 'adminSuggestionDetailPageAction.do?sugId=${lDatas.sugId}'">
+													<td id="loginIdData">${data.sender}</td>
+													<td id="titleData">${data.title}</td>
+												</tr> 
 											</c:forEach>
 										</tbody>
 										</tbody>
