@@ -113,7 +113,7 @@
 								</a>
 								</li>
 								<li>
-							<a href="/user/logout"><span
+							<a onclick="unlinkApp();"><span
 									class="flaticon-arrow"><span
 										class="window_min_text" style="font-size: small">로그아웃</span></span></a>
 							</li>

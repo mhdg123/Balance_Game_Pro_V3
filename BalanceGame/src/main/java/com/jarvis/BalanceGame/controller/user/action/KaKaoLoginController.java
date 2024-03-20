@@ -94,28 +94,35 @@ public class KaKaoLoginController {
 		mDTO.setEmail(email);
 		mDTO.setCellPhone(cellPhon);
 		mDTO.setAge(age);
-		
-		System.out.println("파싱 데이터 " + mDTO);
 
-		mDTO.setSearchCondition("duplitcateCheck");
+		System.out.println("파싱 데이터 " + mDTO); // 파싱 데이터
+
+		mDTO.setSearchCondition("socialLogin");
 		MemberDTO memberData = memberService.selectOne(mDTO);
-		
+//		System.out.println("조회된 아이디 코인 값 : " + memberData.getCoin() );
+//		System.out.println("조회된 아이디 객체 : " + memberData);
 //		memberData.setLoginId("test");
+		System.out.println("로그인시 조회된 데이터" + memberData );
 		// 회원 조회해서 회원이면 데이터 설정
-		if ( memberData != null) {
-			mDTO.setSearchCondition("login");  // kakaoLogin.js확인
-		// 비회원이면
-		} else {
+		if (memberData == null) { // 카카오로 로그인시 조회된 데이터가 없으면 카카오데이터 파싱한 데이터로 데이터 넘겨주기
+			System.out.println("회원가입");
 			mDTO.setSearchCondition("join");
+			return gson.toJson(mDTO);
+			// 비회원이면
+		} else {
+			memberData.setSearchCondition("login"); // kakaoLogin.js확인 // 카카오 로그인시 데이터가 있으면 sc에 login으로 분기 처리
 		}
-		return gson.toJson(mDTO); // 카카오 로그인 데이터 파싱후 데이터 비동기 응답
+		return gson.toJson(memberData); // 카카오 로그인 데이터 파싱후 데이터 비동기 응답
 
 	}
-
 
 	@PostMapping("/login/kakao")
 	public String kakaoLogin(MemberDTO mDTO, HttpSession session, Model model) {
 		// 회원일때
+		System.out.println("카카오로 로그인 함!!");
+		System.out.println("로그인 시 세션에 저장 될 아이디 : " + mDTO.getLoginId());
+		System.out.println("로그인 시 세션에 저장 될 포인트 : " + mDTO.getCoin());
+		System.out.println("로그인 시 세션에 저장 될 닉네임 : " + mDTO.getNickName());
 		session.setAttribute("loginId", mDTO.getLoginId());
 		session.setAttribute("point", mDTO.getCoin());
 		session.setAttribute("nickName", mDTO.getNickName());

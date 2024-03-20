@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script src="/resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
 <script src="/resources/assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="/resources/assets/js/popper.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/assets/js/bootstrap.min.js"></script>
 <!-- Jquery Mobile Menu -->
 <script src="/resources/assets/js/jquery.slicknav.min.js"></script>
 
@@ -39,6 +38,7 @@
 <!-- 부트스트랩 기존꺼 적용 안되서 추가  -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- 우편함 동작로직 -->
+
 <script>
       async function test() {
         const { value: text } = await Swal.fire({
@@ -82,5 +82,22 @@
            }
        });
    }
-      
     </script>
+<script type="text/javascript">
+	function unlinkApp() {
+		 var msg = '로그아웃 하였습니다.'
+    	var decodedMsg = decodeURIComponent(msg) // 메세지 디코딩  
+		Kakao.init('a1d65a9b4d7e633373b709fc13e2df12'); // javascript API 키
+		Kakao.API.request({
+			url: '/v1/user/unlink',
+			success: function(res) {
+				alert("111")
+				location.href = '/user/logout';
+			},
+			fail: function(err) {
+				alert("2222")
+				location.href = '/user/logout';
+			},
+		})
+	}
+</script>
