@@ -76,7 +76,7 @@
 									<table class="table table-hover text-nowrap">
 										<thead>
 											<tr>
-												<th>ID</th>
+												<th>아이디</th>
 												<th>주소</th>
 												<th>이메일</th>
 												<th>나이</th>

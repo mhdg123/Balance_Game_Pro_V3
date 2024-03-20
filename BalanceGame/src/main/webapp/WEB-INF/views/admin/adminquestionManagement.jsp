@@ -61,7 +61,7 @@
 									<div class="card-tools">
 
 										<div class="input-group input-group-sm" style="width: 120px;">
-											<a href="adminTitleAccessPage.do"><button type="button" class="btn btn-block btn-success">문제승인</button></a>
+											<a href="/admin/questionAccessPage"><button type="button" class="btn btn-block btn-success">문제승인</button></a>
 											<div class="input-group-append"></div>
 										</div>
 									</div>
@@ -72,9 +72,9 @@
 										<thead>
 											<tr>
 												<th>NO</th>
-												<th>User</th>
-												<th>Title</th>
-												<th>Reason</th>
+												<th>아이디</th>
+												<th>제목</th>
+												<th>상세 이유</th>
 											</tr>
 										</thead>
 										<tbody>

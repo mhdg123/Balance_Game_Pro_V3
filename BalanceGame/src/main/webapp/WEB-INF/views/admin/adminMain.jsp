@@ -142,7 +142,7 @@
 									<table class="table table-hover text-nowrap">
 										<thead>
 											<tr>
-												<th>ID</th>
+												<th>아이디</th>
 												<th>제목</th>
 											</tr>
 										</thead>

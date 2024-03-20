@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.ArrayList,model.member.MemberDTO, model.question.QuestionDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -16,23 +16,23 @@
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
-<link rel="stylesheet" href="adminLte/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/fontawesome-free/css/all.min.css">
 <!-- Ionicons -->
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Tempusdominus Bootstrap 4 -->
-<link rel="stylesheet" href="adminLte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <!-- iCheck -->
-<link rel="stylesheet" href="adminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <!-- JQVMap -->
-<link rel="stylesheet" href="adminLte/plugins/jqvmap/jqvmap.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/jqvmap/jqvmap.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="adminLte/dist/css/adminlte.min.css">
+<link rel="stylesheet" href="/resources/adminLte/dist/css/adminlte.min.css">
 <!-- overlayScrollbars -->
-<link rel="stylesheet" href="adminLte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <!-- Daterange picker -->
-<link rel="stylesheet" href="adminLte/plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/daterangepicker/daterangepicker.css">
 <!-- summernote -->
-<link rel="stylesheet" href="adminLte/plugins/summernote/summernote-bs4.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/summernote/summernote-bs4.min.css">
 <script>
     // 문제등록시간 포멧팅
     function formatCreateTime(time) {
@@ -169,50 +169,37 @@ th {
 
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-			<!-- Brand Logo -->
-			<a href="adminPage.do" class="brand-link"> <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-light">관리자</span>
+			<a href="/admin/adminPage" class="brand-link"> <img src="images/logo.png" alt="자비스로고" class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-light">관리자</span>
 			</a>
 
-			<!-- Sidebar -->
 			<div class="sidebar">
-				<!-- Sidebar user panel (optional) -->
 
-				<!-- SidebarSearch Form -->
 				<div class="form-inline"></div>
 
-				<!-- Sidebar Menu -->
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-						<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
 						<li class="nav-item menu-open"><a href="#" class="nav-link active"> <i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
 									관리 <i class="right fas fa-angle-left"></i>
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="adminPage.do" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/adminPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
 										<p>메인</p>
 								</a></li>
-								<li class="nav-item"><a href="adminMemberManagementPage.do" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>유저관리</p>
 								</a></li>
-								<li class="nav-item"><a href="adminTitleManagementPage.do" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/questionManagementPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
 										<p>문제관리</p>
 								</a></li>
-								<li class="nav-item"><a href="adminSponsor.do" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>후원관리</p>
 								</a></li>
 							</ul></li>
-
-
-
-
 					</ul>
 				</nav>
-				<!-- /.sidebar-menu -->
 			</div>
-			<!-- /.sidebar -->
 		</aside>
 
 		<!-- Content Wrapper. Contains page content -->
@@ -250,18 +237,18 @@ th {
 											</tr>
 										</thead>
 										<tbody>
-											<c:if test="${fn:length(qdatas_f) <=0 }">
+											<c:if test="${fn:length(questionDatas_f) <=0 }">
 												<tr>
 													<td colspan="1">출제문제가 없습니다</td>
 												</tr>
 											</c:if>
 
-											<c:forEach var="data" items="${qdatas_f}">
-												<tr onclick="location.href = 'adminTitleDetaileAccessPage.do?qid=${data.qId}'">
-													<td>${data.qId}</td>
-													<td>${data.loginId}</td>
+											<c:forEach var="data" items="${questionDatas_f}">
+												<tr onclick="location.href = 'adminTitleDetaileAccessPage.do?questionId=${data.questionId}'">
+													<td>${data.questionId}</td>
+													<td>${data.writer}</td>
 													<td>${data.title}</td>
-													<td><script>document.write(formatCreateTime('${data.regdate}'));</script></td>
+													<td><script>document.write(formatCreateTime('${data.questionDate}'));</script></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -301,40 +288,40 @@ th {
 	<!-- ./wrapper -->
 
 	<!-- jQuery -->
-	<script src="adminLte/plugins/jquery/jquery.min.js"></script>
+	<script src="/resources/adminLte/plugins/jquery/jquery.min.js"></script>
 	<!-- jQuery UI 1.11.4 -->
-	<script src="adminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script src="/resources/adminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
 		$.widget.bridge('uibutton', $.ui.button)
 	</script>
 	<!-- Bootstrap 4 -->
-	<script src="adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/resources/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- ChartJS -->
-	<script src="adminLte/plugins/chart.js/Chart.min.js"></script>
+	<script src="/resources/adminLte/plugins/chart.js/Chart.min.js"></script>
 	<!-- Sparkline -->
-	<script src="adminLte/plugins/sparklines/sparkline.js"></script>
+	<script src="/resources/adminLte/plugins/sparklines/sparkline.js"></script>
 	<!-- JQVMap -->
-	<script src="adminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
-	<script src="adminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+	<script src="/resources/adminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
+	<script src="/resources/adminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
 	<!-- jQuery Knob Chart -->
-	<script src="adminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
+	<script src="/resources/adminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
 	<!-- daterangepicker -->
-	<script src="adminLte/plugins/moment/moment.min.js"></script>
-	<script src="adminLte/plugins/daterangepicker/daterangepicker.js"></script>
+	<script src="/resources/adminLte/plugins/moment/moment.min.js"></script>
+	<script src="/resources/adminLte/plugins/daterangepicker/daterangepicker.js"></script>
 	<!-- Tempusdominus Bootstrap 4 -->
-	<script src="adminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<script src="/resources/adminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 	<!-- Summernote -->
-	<script src="adminLte/plugins/summernote/summernote-bs4.min.js"></script>
+	<script src="/resources/adminLte/plugins/summernote/summernote-bs4.min.js"></script>
 	<!-- overlayScrollbars -->
-	<script src="adminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<script src="/resources/adminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 	<!-- AdminLTE App -->
-	<script src="adminLte/dist/js/adminlte.js"></script>
+	<script src="/resources/adminLte/dist/js/adminlte.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<script src="adminLte/dist/js/pages/dashboard.js"></script>
+	<script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
 	<!-- 인공지능 -->
-	<script src="adminLte/dist/js/ai.js"></script>
+	<script src="/resources/adminLte/dist/js/ai.js"></script>
 </body>
 </html>
