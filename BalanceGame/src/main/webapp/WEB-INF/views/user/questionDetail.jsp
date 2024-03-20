@@ -50,8 +50,8 @@
 				<h2 class="col-12">
 					<br />${questionData.title}
 					<c:if test="${questionData.wishId > 0}">
-						<div style="margin-bottom: 5px;">
-							<div style="cursor: pointer;">
+						<div style="margin-bottom: 5px;"  class="f-right">
+							<div style="cursor: pointer;" >
 								<img src="/resources/assets/img/thumb/fill-hearts.png"
 									height="20px;" width="20px;" style="margin-right: 15px;"
 									class="wish" id="${questionData.questionId}">
@@ -59,16 +59,14 @@
 						</div>
 					</c:if>
 					<c:if test="${questionData.wishId <= 0}">
-						<div style="margin-bottom: 5px;">
-							<div style="cursor: pointer;">
+						<div style="margin-bottom: 5px;" class="f-right" >
+							<div style="cursor: pointer;"> 
 								<img src="/resources/assets/img/thumb/empty-hearts.png"
 									height="20px;" width="20px;" style="margin-right: 15px;"
 									class="wish" id="${questionData.questionId}">
 							</div>
 						</div>
 					</c:if>
-					${questionData.wishId}
-
 				</h2>
 				<div class="comments-area">
 					<div class="col-12">
