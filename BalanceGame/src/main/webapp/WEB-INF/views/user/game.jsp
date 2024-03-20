@@ -73,12 +73,12 @@
 			<div class="comments-area">
 				<!-- 댓글 입력 Start -->
 				<div class="col-12">
-					<div class="form-group">
+					<div class="form-group" id="comment-insert-box">
 						<textarea class="form-control w-100" name="comment" id="comment"
 							cols="30" rows="3" placeholder="댓글을 입력하세요"></textarea>
 					</div>
 					<div class="form-group f-right">
-						<button type="submit" class="genric-btn info-border radius large">
+						<button type="submit" id="write" class="genric-btn info-border radius large">
 							댓글 입력</button>
 					</div>
 				</div>
@@ -86,8 +86,11 @@
 				<!-- 댓글 입력 End -->
 				<br /> <br /> <br />
 				<h4>댓글</h4>
-				<c:forEach var="data" items="${commentDatas}" varStatus="loop">
-					<div class="comment-list">
+				<div id="comment-box"></div>
+				
+				
+
+				<%-- 	<div class="comment-list">
 						<div>
 							<div>
 								<div class="desc">
@@ -116,8 +119,8 @@
 								<hr />
 							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</div> --%>
+
 
 
 
@@ -251,8 +254,7 @@ playElement.innerHTML = `
     
 }, 100); // 100ms 후에 실행됩니다.
 
-    	//commentAll(qId);
-
+    	commentAll(`${questionData.questionId}`);
 
 	$(".click").show();
     });
@@ -320,9 +322,58 @@ playElement.innerHTML = `
 
    
    </script>
+<!-- 찜 클릭 -->
+
+<!-- 댓글입력 -->
+	<script type="text/javascript">
+		$("#write").on("click", function() {
+			var comments = $('#comment').val().trim();
+			
+			if(!blankSpace()){
+				console.log('댓글 공백');
+				$('#comment').val("");
+				return;
+			}
+			
+			$.ajax({
+				type : "POST",
+				url : "/user/commentWriteAsync",
+				data : {
+					'questionId' : `${questionData.questionId}`,
+					'comments' : comments
+
+				},
+				dataType : 'text',
+				success : function(data) {
+					console.log(data);
+					$('#comment').val("");
+					commentAll(`${questionData.questionId}`);
+				},
+				error : function(error) {
+
+					console.log('에러발생');
+					console.log('에러의 종류:' + error);
+				}
+
+			});
+
+		});
+
+		$("#comment").on("keydown", function(e) {
+			console.log(e.key);
+			if (e.key == 'Enter' || e.key == 'NumpadEnter') {
+				console.log("엔터침" + e.key);
+				$("#write").click();
+			}
+		});
+		
+	</script>
+	<!-- 댓글입력 -->
 
 
 
+	<script src="/resources/user/js/commentAll.js"></script>
+	<script src="/resources/user/js/blankSpace.js"></script>
 
 
 
