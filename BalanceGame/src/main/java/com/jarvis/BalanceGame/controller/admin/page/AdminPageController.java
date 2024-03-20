@@ -48,7 +48,6 @@ public class AdminPageController {
 		mDTO = memberService.selectOne(mDTO);
 		System.out.println(mDTO);
 		
-		pDTO.setSearchCondition("totalPoint");
 		pDTO = paymentService.selectOne(pDTO);
 		System.out.println(pDTO);
 		
