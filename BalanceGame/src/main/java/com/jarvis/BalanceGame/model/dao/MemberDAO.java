@@ -103,10 +103,13 @@ public class MemberDAO {
 		MemberDTO member = null;
 		if (mDTO.getSearchCondition().equals("viewOne")) {
 			Object[] args = { mDTO.getLoginId() };
+			System.out.println("" +mDTO.getLoginId());
 			if (args != null) {
 				try {
 					member = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
+					System.out.println("유저 조회 쿼리 try / catch11" + member);
 				} catch (Exception e) {
+					System.out.println("유저 조회 쿼리 try / catch222" + member);
 					System.out.println("결과가 없습니다");
 				}
 			}
@@ -246,7 +249,7 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setName(rs.getString("NAME"));
 		member.setNickName(rs.getString("NICKNAME"));
-		member.setAge(rs.getString("AGE"));
+		member.setAge(rs.getString("AGE"));     			
 		member.setGender(rs.getString("GENDER"));
 		member.setEmail(rs.getString("EMAIL"));
 		member.setAddress(rs.getString("ADDRESS"));
@@ -254,7 +257,6 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 		member.setAdvertisementStatus(rs.getString("ADVERTISEMENT_STATUS"));
 		member.setCoin(rs.getInt("COIN"));
 		member.setGrade(rs.getInt("GRADE"));
-		member.setMemberDate(rs.getDate("MEMBER_DATE"));
 		return member;
 	}
 }
