@@ -1,20 +1,6 @@
 
 /* 로그아웃 */
-function unlinkApp() {
-	var msg = '로그아웃 하였습니다.'
-	var decodedMsg = decodeURIComponent(msg) // 메세지 디코딩 
-	Kakao.API.request({
-		url: '/v1/user/unlink',
-		success: function(res) {
-			//	alert('success: ' + JSON.stringify(res))
-			console.log('success: ' + JSON.stringify(res));
-			location.href = '/alert/' + decodedMsg + '/success/' + 'main'; // 파라미터 포함 메인 페이지 이동
-		},
-		fail: function(err) {
-			alert('fail: ' + JSON.stringify(err))
-		},
-	})
-}
+
 
 
 
@@ -142,7 +128,18 @@ Kakao.Auth.createLoginButton({
 							inputLoginId.setAttribute('name', 'loginId');
 							inputLoginId.setAttribute('value', mDTO.loginId); // mDTO.loginId 변수에 저장된 값 전달
 							form.appendChild(inputLoginId);
-
+							
+							var inputNickName = document.createElement('input');
+							inputNickName.setAttribute('type', 'hidden');
+							inputNickName.setAttribute('name', 'nickName');
+							inputNickName.setAttribute('value', mDTO.nickName); // mDTO.nickName 변수에 저장된 값 전달
+							form.appendChild(inputNickName);
+							
+							var inputCoin = document.createElement('input');
+							inputCoin.setAttribute('type', 'hidden');
+							inputCoin.setAttribute('name', 'coin');
+							inputCoin.setAttribute('value', mDTO.coin); // mDTO.nickName 변수에 저장된 값 전달
+							form.appendChild(inputCoin);
 							// 나머지 필드들도 위와 같이 추가해줍니다.
 
 							// form을 body에 추가하여 화면에 표시되도록 합니다.

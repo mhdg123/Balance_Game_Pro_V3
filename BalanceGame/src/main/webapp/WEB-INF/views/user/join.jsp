@@ -147,13 +147,6 @@
 			</section>
 		</c:if>
 
-
-
-
-
-
-
-
 		<!----------------------------------------소셜 로그인 회원가입 홈---------------------------------------->
 		<c:if test="${status == 'socialJoin' }">
 			<section class="checkout_area section_padding">
@@ -163,7 +156,7 @@
 							<div style="width: 50%; margin: 0 auto">
 								<h2>카카오 회원가입</h2>
 								<form class="row contact_form" action="/user/join" method="POST" onsubmit="return socialFormAction();" name="joinForm">
-									<input id="memberPassword" name="memberPassword" type="text" value="${mDTO.memberPassword }">
+									<input type="hidden" name="memberPassword" value="${mDTO.memberPassword }">
 									<input id="role" type="hidden" name="role" value="USER">
 									<input id="advertisementStatus" type="hidden" name="advertisementStatus" value="T">
 									<!----------------------------------------이름 입력창---------------------------------------->
@@ -222,7 +215,7 @@
 									<!----------------------------------------주소 입력---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;주소</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="address" name="address" placeholder="주소" value="서울특별시 강남구 역삼동 736-7" />
+										<input type="text" class="form-control" id="address" name="address" placeholder="주소를 입력해주세요" value="" />
 									</div>
 									<div>
 										&nbsp;&nbsp;&nbsp;<a class="genric-btn info circle" onClick="addressSearch();">주소 찾기</a>
@@ -241,7 +234,6 @@
 						</div>
 					</div>
 				</div>
-				<a href="javascript:sss();">dddd</a>
 			</section>
 		</c:if>
 		<!----------------------------------------소셜 로그인 회원가입 홈---------------------------------------->
