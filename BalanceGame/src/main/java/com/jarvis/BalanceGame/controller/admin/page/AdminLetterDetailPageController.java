@@ -29,7 +29,7 @@ public class AdminLetterDetailPageController {
 			return "alert";
 		}
 
-		model.addAttribute("lDTO", lDTO);
+		model.addAttribute("letterDatas", lDTO);
 
 		return "admin/adminLetterDetail";
 	}

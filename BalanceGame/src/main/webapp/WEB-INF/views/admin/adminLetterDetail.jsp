@@ -180,13 +180,12 @@ th {
 							<div class="card-header">
 								<h3 class="card-title">건의사항</h3>
 							</div>
-
 							 <c:choose>
 								<c:when test="${not empty letterDatas}">
 									<table border="1">
 										<tr>
 											<th style="width: 78px;">ID</th>
-											<td>${letterDatas.loginId}</td>
+											<td>${letterDatas.sender}</td>
 										</tr>
 										<tr>
 											<th>제목</th>
