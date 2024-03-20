@@ -60,7 +60,7 @@
 								<div class="icon">
 									<i class="ion ion-bag"></i>
 								</div>
-								<a href="adminTitleManagementPage.do" class="small-box-footer">문제관리페이지 <i class="fas fa-arrow-circle-right"></i></a>
+								<a href="/admin/questionManagementPage" class="small-box-footer">문제관리페이지 <i class="fas fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 						<!-- ./col -->

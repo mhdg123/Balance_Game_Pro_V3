@@ -32,6 +32,10 @@
 <link rel="stylesheet" href="/resources/adminLte/plugins/daterangepicker/daterangepicker.css">
 <!-- summernote -->
 <link rel="stylesheet" href="/resources/adminLte/plugins/summernote/summernote-bs4.min.css">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 .message {
 	border-top: 1px solid #ccc;

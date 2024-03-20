@@ -95,7 +95,7 @@
 										</tbody>
 										<tbody id="suggestionTableBody">
 											<c:forEach var="data" items="${memberDatas}">
-												<tr onclick="location.href = 'adminMemberDetailPage.do?loginId=${data.loginId}'">
+												<tr onclick="location.href = '/admin/adminMemberDetailPage?loginId=${data.loginId}'">
 													<td id="loginIdData">${data.loginId}</td>
 													<td id="addressData">${data.address}</td>
 													<td id="eamilData">${data.email}</td>
