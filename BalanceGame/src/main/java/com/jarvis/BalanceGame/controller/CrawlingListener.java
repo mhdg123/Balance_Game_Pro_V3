@@ -8,32 +8,30 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 import com.jarvis.BalanceGame.service.QuestionService;
-
-import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.annotation.WebListener;
-@Controller
-@WebListener
-public class CrawllingListener implements ServletContextListener{
+@Service
+public class CrawlingListener{
 
 	@Autowired
 	private QuestionService questionService;
+	private int count;
+	public int getCount() {
+		return this.count;
+	}
 	
-	
-	public String crawllingListener  (QuestionDTO qDTO, Model model) {
+	public String crawlingListener  (QuestionDTO qDTO, Model model) {
+		
 		
 		System.out.println("로그0");
 		
-		qDTO.setSearchCondition("questionCount");
-		qDTO.setQuestionAccess("T");
-		if(questionService.selectOne(qDTO).getQuestionCount()>0) {
-			System.out.println("로그: "+ questionService.selectAll(qDTO));
-			return "";
-		}
+		qDTO.setSearchCondition("crawling");
+		questionService.selectAll(qDTO);
+		System.out.println("크롤링>>>"+questionService.selectAll(qDTO));
+		
 		
 		System.out.println("로그1");
 		
@@ -90,10 +88,11 @@ public class CrawllingListener implements ServletContextListener{
 			i++;
 		}
 		for(QuestionDTO data : datas) {
-			data.setSearchCondition("관리자문제생성");
+			data.setSearchCondition("createQuestionAdmin");
 			questionService.insert(data);
 		}
 		
+		this.count++;
 		return "";
 	}
 }
