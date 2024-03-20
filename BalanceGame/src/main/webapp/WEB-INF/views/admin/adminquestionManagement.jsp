@@ -1,7 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.ArrayList,model.member.MemberDTO, model.question.QuestionDTO"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,23 +11,23 @@
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
-<link rel="stylesheet" href="adminLte/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/fontawesome-free/css/all.min.css">
 <!-- Ionicons -->
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Tempusdominus Bootstrap 4 -->
-<link rel="stylesheet" href="adminLte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <!-- iCheck -->
-<link rel="stylesheet" href="adminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <!-- JQVMap -->
-<link rel="stylesheet" href="adminLte/plugins/jqvmap/jqvmap.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/jqvmap/jqvmap.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="adminLte/dist/css/adminlte.min.css">
+<link rel="stylesheet" href="/resources/adminLte/dist/css/adminlte.min.css">
 <!-- overlayScrollbars -->
-<link rel="stylesheet" href="adminLte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <!-- Daterange picker -->
-<link rel="stylesheet" href="adminLte/plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/daterangepicker/daterangepicker.css">
 <!-- summernote -->
-<link rel="stylesheet" href="adminLte/plugins/summernote/summernote-bs4.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/summernote/summernote-bs4.min.css">
 <style>
 .message {
 	border-top: 1px solid #ccc;
@@ -218,15 +216,15 @@ th {
            </tr>
           </thead>
           <tbody>
-           <c:if test="${empty qdatas_t}">
+           <c:if test="${empty questionDatas}">
             <tr>
              <td colspan="1">출제된 문제가 없습니다.</td>
             </tr>
            </c:if>
-           <c:forEach var="data" items="${qdatas_t}" varStatus="loop">
-            <tr onclick="location.href = 'adminTitleDetailPage.do?qid=${data.qId}'">
+           <c:forEach var="data" items="${questionDatas}" varStatus="loop">
+            <tr onclick="location.href = 'adminTitleDetailPage.do?qid=${data.questionId}'">
             <td>${loop.index + 1}</td>
-             <td>${data.loginId}</td>
+             <td>${data.writer}</td>
              <td>${data.title}</td>
              <td>${data.explanation}</td>
             </tr>
@@ -269,40 +267,40 @@ th {
  <!-- ./wrapper -->
 
  <!-- jQuery -->
- <script src="adminLte/plugins/jquery/jquery.min.js"></script>
+ <script src="/resources/adminLte/plugins/jquery/jquery.min.js"></script>
  <!-- jQuery UI 1.11.4 -->
- <script src="adminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
+ <script src="/resources/adminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
  <script>
 		$.widget.bridge('uibutton', $.ui.button)
 	</script>
  <!-- Bootstrap 4 -->
- <script src="adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <script src="/resources/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
  <!-- ChartJS -->
- <script src="adminLte/plugins/chart.js/Chart.min.js"></script>
+ <script src="/resources/adminLte/plugins/chart.js/Chart.min.js"></script>
  <!-- Sparkline -->
- <script src="adminLte/plugins/sparklines/sparkline.js"></script>
+ <script src="/resources/adminLte/plugins/sparklines/sparkline.js"></script>
  <!-- JQVMap -->
- <script src="adminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
- <script src="adminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+ <script src="/resources/adminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
+ <script src="/resources/adminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
  <!-- jQuery Knob Chart -->
- <script src="adminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
+ <script src="/resources/adminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
  <!-- daterangepicker -->
- <script src="adminLte/plugins/moment/moment.min.js"></script>
- <script src="adminLte/plugins/daterangepicker/daterangepicker.js"></script>
+ <script src="/resources/adminLte/plugins/moment/moment.min.js"></script>
+ <script src="/resources/adminLte/plugins/daterangepicker/daterangepicker.js"></script>
  <!-- Tempusdominus Bootstrap 4 -->
- <script src="adminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+ <script src="/resources/adminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
  <!-- Summernote -->
- <script src="adminLte/plugins/summernote/summernote-bs4.min.js"></script>
+ <script src="/resources/adminLte/plugins/summernote/summernote-bs4.min.js"></script>
  <!-- overlayScrollbars -->
- <script src="adminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+ <script src="/resources/adminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
  <!-- AdminLTE App -->
- <script src="adminLte/dist/js/adminlte.js"></script>
+ <script src="/resources/adminLte/dist/js/adminlte.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
- <script src="adminLte/dist/js/pages/dashboard.js"></script>
+ <script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
  <!-- 인공지능 -->
- <script src="adminLte/dist/js/ai.js"></script>
+ <script src="/resources/adminLte/dist/js/ai.js"></script>
 </body>
 </html>
