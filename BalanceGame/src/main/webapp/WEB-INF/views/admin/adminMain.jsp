@@ -7,38 +7,38 @@
 		<%@ include file="../adminLayout/header.jsp"%>
 		<!-- 왼쪽 사이드 바 -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-	<a href="/admin/adminPage" class="brand-link"> <img src="images/logo.png" alt="자비스로고" class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-light">관리자</span>
-	</a>
+			<a href="/admin/adminPage" class="brand-link"> <img src="images/logo.png" alt="자비스로고" class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-light">관리자</span>
+			</a>
 
-	<div class="sidebar">
+			<div class="sidebar">
 
-		<div class="form-inline"></div>
+				<div class="form-inline"></div>
 
-		<nav class="mt-2">
-			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-				<li class="nav-item menu-open"><a href="#" class="nav-link active"> <i class="nav-icon fas fa-tachometer-alt"></i>
-						<p>
-							관리 <i class="right fas fa-angle-left"></i>
-						</p>
-				</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="/admin/adminPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-								<p>메인</p>
-						</a></li>
-						<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
-								<p>유저관리</p>
-						</a></li>
-						<li class="nav-item"><a href="/admin/questionManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
-								<p>문제관리</p>
-						</a></li>
-						<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
-								<p>후원관리</p>
-						</a></li>
-					</ul></li>
-			</ul>
-		</nav>
-	</div>
-</aside>
+				<nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+						<li class="nav-item menu-open"><a href="#" class="nav-link active"> <i class="nav-icon fas fa-tachometer-alt"></i>
+								<p>
+									관리 <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="/admin/adminPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+										<p>메인</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>유저관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/questionManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>문제관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>후원관리</p>
+								</a></li>
+							</ul></li>
+					</ul>
+				</nav>
+			</div>
+		</aside>
 
 
 
@@ -155,7 +155,7 @@
 											</c:if>
 										<tbody id="suggestionTableBody">
 											<c:forEach var="data" items="${letterDatas}">
-												<tr onclick="location.href = 'adminSuggestionDetailPageAction.do?sugId=${lDatas.sugId}'">
+												<tr onclick="location.href = '/admin/letterDetailPageAction?letterId=${data.letterId}'">
 													<td id="loginIdData">${data.sender}</td>
 													<td id="titleData">${data.title}</td>
 												</tr>
@@ -178,6 +178,6 @@
 	<!-- 스크립트 모음 -->
 	<%@ include file="../adminLayout/footer-fix.jsp"%>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </body>
 </html>

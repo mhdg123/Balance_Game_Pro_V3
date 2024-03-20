@@ -15,23 +15,22 @@ public class AdminLetterDetailPageController {
 
 	@Autowired
 	private LetterService letterService;
-	
+
 	@GetMapping("/letterDetailPageAction")
 	public String adminSuggestionDetailPageController(LetterDTO lDTO, Model model) {
-		
+		System.out.println("편지 PK id값 : " + lDTO.getLetterId());
+
 		lDTO = letterService.selectOne(lDTO);
-		
-		if(lDTO == null) {
+		System.out.println("편지 데이터 : " + lDTO);
+		if (lDTO == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
-			model.addAttribute("redirect", "adminLetterDetail");
+			model.addAttribute("redirect", "/admin/adminPage");
 			return "alert";
 		}
-		
+
 		model.addAttribute("lDTO", lDTO);
 
 		return "admin/adminLetterDetail";
 	}
 }
-
-

@@ -13,77 +13,79 @@ import com.jarvis.BalanceGame.model.dto.LetterDTO;
 
 @Repository
 public class LetterDAO {
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	// 전체 편지함 조회
 	private static final String SELECTALL = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER";
-	
+
 	// 안읽은 편지 조회
 	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
-	
-	// 해당 메세지 조회 
+
+	// 해당 메세지 조회
 	private static final String SELECTONE = "SELECT SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE FROM LETTER WHERE LETTER_ID = ?";
-	
-	// 메세지 발송 
+
+	// 메세지 발송
 	private static final String INSERT = "INSERT INTO LETTER(SENDER, LOGIN_ID, TITLE, LETTER_CONTENTS) VALUES (?,?,?,?)";
-	
-	// 메세지 읽음 유무 
+
+	// 메세지 읽음 유무
 	private static final String UPDATE = "UPDATE LETTER SET LETTER_STATUS = CASE WHEN LETTER_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE LETTER_ID = ?";
-	
-	// 메세지 삭제 
+
+	// 메세지 삭제
 	private static final String DELETE = "DELETE FROM LETTER WHERE LETTER_ID = ?";
-	
-	
-	public List<LetterDTO> selectAll(LetterDTO lDTO){
-		
+
+	public List<LetterDTO> selectAll(LetterDTO lDTO) {
+
 		List<LetterDTO> datas = null;
-		if(lDTO.getSearchCondition().equals("unReadMessage")) {
-			Object[] args = {lDTO.getLoginId()};
+		if (lDTO.getSearchCondition().equals("unReadMessage")) {
+			Object[] args = { lDTO.getLoginId() };
 			datas = jdbcTemplate.query(SELECTALL_UNREAD, args, new UnReadLetterRowMapper());
-		}
-		else if(lDTO.getSearchCondition().equals("viewAllMessage")) {
+		} else if (lDTO.getSearchCondition().equals("viewAllMessage")) {
 			datas = jdbcTemplate.query(SELECTALL, new LetterRowMapper());
 		}
 		return datas;
 	}
-	
+
 	public LetterDTO selectOne(LetterDTO lDTO) {
 		LetterDTO data = null;
-		Object[] args= {lDTO.getLetterId()};
+		System.out.println("편지 PK id값 DAO: " + lDTO.getLetterId());
+		Object[] args = { lDTO.getLetterId() };
 		try {
-			data = jdbcTemplate.queryForObject(SELECTONE, args, new LetterRowMapperViewOne());	
+			data = jdbcTemplate.queryForObject(SELECTONE, args, new LetterRowMapperViewOne());
 		} catch (Exception e) {
 			System.out.println("해당 편지 데이터가 없습니다");
 		}
 		return data;
 	}
-	
+
 	public boolean insert(LetterDTO lDTO) {
-		int result = jdbcTemplate.update(INSERT, lDTO.getSender(), lDTO.getLoginId(), lDTO.getTitle(), lDTO.getLetterContents());
-		if(result<=0) {
+		int result = jdbcTemplate.update(INSERT, lDTO.getSender(), lDTO.getLoginId(), lDTO.getTitle(),
+				lDTO.getLetterContents());
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
+
 	public boolean update(LetterDTO lDTO) {
 		int result = jdbcTemplate.update(UPDATE, lDTO.getLetterId());
-		if(result <=0 ) {
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
+
 	public boolean delete(LetterDTO lDTO) {
 		int result = jdbcTemplate.update(DELETE, lDTO.getLetterId());
-		if(result <=0) {
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
 }
 
-class UnReadLetterRowMapper implements RowMapper<LetterDTO>{
+class UnReadLetterRowMapper implements RowMapper<LetterDTO> {
 
 	@Override
 	public LetterDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -95,7 +97,7 @@ class UnReadLetterRowMapper implements RowMapper<LetterDTO>{
 	}
 }
 
-class LetterRowMapper implements RowMapper<LetterDTO>{
+class LetterRowMapper implements RowMapper<LetterDTO> {
 
 	@Override
 	public LetterDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -110,7 +112,7 @@ class LetterRowMapper implements RowMapper<LetterDTO>{
 	}
 }
 
-class LetterRowMapperViewOne implements RowMapper<LetterDTO>{
+class LetterRowMapperViewOne implements RowMapper<LetterDTO> {
 
 	@Override
 	public LetterDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -122,4 +124,3 @@ class LetterRowMapperViewOne implements RowMapper<LetterDTO>{
 		return data;
 	}
 }
-
