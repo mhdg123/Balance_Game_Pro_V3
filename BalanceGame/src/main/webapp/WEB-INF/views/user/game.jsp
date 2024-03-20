@@ -264,13 +264,13 @@ playElement.innerHTML = `
 	<script type="text/javascript">
    $(".wish").on("click", function() {
 		console.log("[성공]");
-		//var loginId =`${loginId}`;
+		var loginId =`${loginId}`;
 		//var qId = document.getElementById('qId').value;
 		var questionId = $(this).prop('id');
 		//var page = document.getElementById('page').value;
 		//console.log(loginId);
 		console.log(questionId);
-		if (loginId == null) {
+		if (loginId == "") {
 			console.log("[로그]로그인 x");
 			Swal.fire({
 				title: "로그인 필요",
