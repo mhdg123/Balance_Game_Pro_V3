@@ -175,7 +175,7 @@
 							<!-- small box -->
 							<div class="small-box bg-info">
 								<div class="inner">
-									<h3>${qDTOTotalCnt.cnt}</h3>
+									<h3>${qDTOTotalCnt.questionCount}</h3>
 
 									<p>총 문제수</p>
 								</div>
@@ -190,7 +190,7 @@
 							<!-- small box -->
 							<div class="small-box bg-success">
 								<div class="inner">
-									<h3>${qDTOApproveCnt.cnt}</h3>
+									<h3>${qDTOApproveCnt.questionCount}</h3>
 
 									<p>문제 승인</p>
 								</div>
@@ -206,7 +206,7 @@
 							<!-- small box -->
 							<div class="small-box bg-warning">
 								<div class="inner">
-									<h3>${mDTO.cnt}</h3>
+									<h3>${memberDatas.memberCount}</h3> 
 
 									<p>회원수</p>
 								</div>
@@ -222,7 +222,7 @@
 							<div class="small-box bg-danger">
 								<div class="inner">
 									<h3>
-										<fmt:formatNumber value="${sDTO.total}" currencyCode="KRW" />
+										 <fmt:formatNumber value="${paymentDatas.totalAmount}" currencyCode="KRW" /> 
 									</h3>
 									<p>후원금액</p>
 								</div>
@@ -277,11 +277,11 @@
 
 											</c:if>
 										<tbody id="suggestionTableBody">
-											<c:forEach var="data" items="${sugDatas}">
-												<tr onclick="location.href = 'adminSuggestionDetailPageAction.do?sugId=${data.sugId}'">
-													<td id="loginIdData">${data.loginId}</td>
-													<td id="titleData">${data.title}</td>
-												</tr>
+											<c:forEach var="data" items="${lDatas}"> <!-- 건의사항 -->
+												<%-- <tr onclick="location.href = 'adminSuggestionDetailPageAction.do?sugId=${lDatas.sugId}'">
+													<td id="loginIdData">${lDatas.loginId}</td>
+													<td id="titleData">${lDatas.title}</td>
+												</tr> --%>
 											</c:forEach>
 										</tbody>
 										</tbody>

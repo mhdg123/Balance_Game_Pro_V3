@@ -38,6 +38,7 @@
 								<!-- 로그인 시 -->
 								<c:if test="${loginId != null }">
 								<li><a href="/user/letterPage">건의하기</a></li>
+								<a style="color: red;" href="/admin/adminPage">관리자 페이지로가기</a>
 								<li><a href="/user/myInfoPage" class="hiddenText">마이페이지</a></li>
 
 								<li><a href="/user/logout" class="hiddenText">로그아웃</a></li>
