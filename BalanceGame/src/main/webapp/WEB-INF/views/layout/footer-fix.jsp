@@ -91,11 +91,9 @@
 		Kakao.API.request({
 			url: '/v1/user/unlink',
 			success: function(res) {
-				alert("111")
 				location.href = '/user/logout';
 			},
 			fail: function(err) {
-				alert("2222")
 				location.href = '/user/logout';
 			},
 		})

@@ -156,25 +156,25 @@
 							<div style="width: 50%; margin: 0 auto">
 								<h2>카카오 회원가입</h2>
 								<form class="row contact_form" action="/user/join" method="POST" onsubmit="return socialFormAction();" name="joinForm">
-									<input type="hidden" name="memberPassword" value="${mDTO.memberPassword }">
+									<input type="hidden" name="memberPassword" value="${memberData.memberPassword }">
 									<input id="role" type="hidden" name="role" value="USER">
 									<input id="advertisementStatus" type="hidden" name="advertisementStatus" value="T">
 									<!----------------------------------------이름 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;이름</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="name" name="name" placeholder="이름 입력해주세요" value=${mDTO.name } readonly />
+										<input type="text" class="form-control" id="name" name="name" placeholder="이름 입력해주세요" value=${memberData.name } readonly />
 									</div>
 									<!----------------------------------------이름 입력창---------------------------------------->
 									<!----------------------------------------나이 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;생년월일</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="date" class="form-control" id="age" name="age" placeholder="나이 입력해주세요" value=${mDTO.age } readonly />
+										<input type="date" class="form-control" id="age" name="age" placeholder="나이 입력해주세요" value=${memberData.age } readonly />
 									</div>
 									<!----------------------------------------나이 입력창---------------------------------------->
 									<!----------------------------------------아이디 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;아이디</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="loginId" name="loginId" placeholder="아이디 입력" value=${mDTO.loginId } readonly />
+										<input type="text" class="form-control" id="loginId" name="loginId" placeholder="아이디 입력" value=${memberData.loginId } readonly />
 										<div>
 											<font id="id_feedback" size="2"></font>
 										</div>
@@ -183,14 +183,14 @@
 									<!----------------------------------------닉네임 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;닉네임</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉에미 입력" value=${mDTO.nickName } readonly />
+										<input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉에미 입력" value=${memberData.nickName } readonly />
 									</div>
 									<!----------------------------------------닉네임 입력창---------------------------------------->
 
 									<!----------------------------------------폰번호 입력창---------------------------------------->
 									<span>&nbsp;&nbsp;&nbsp;휴대폰 번호</span>
 									<div class="col-md-12 form-group1 p_star">
-										<input type="tel" class="form-control" id="cellPhone" name="cellPhone" placeholder="폰번호 입력" value=${mDTO.cellPhone } readonly />
+										<input type="tel" class="form-control" id="cellPhone" name="cellPhone" placeholder="폰번호 입력" value=${memberData.cellPhone } readonly />
 									</div>
 									<!----------------------------------------폰번호 입력창---------------------------------------->
 
@@ -199,16 +199,16 @@
 										<div>
 											<br />이메일
 										</div>
-										<input type="email" class="form-control" id="email" name="email" placeholder="이메일 입력해주세요" value=${mDTO.email } readonly />
+										<input type="email" class="form-control" id="email" name="email" placeholder="이메일 입력해주세요" value=${memberData.email } readonly />
 									</div>
 									<!----------------------------------------이메일 입력창---------------------------------------->
 									<!----------------------------------------성별 선택---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;성별</div>
 									<div class="col-md-12 form-group p_star">
-									<input type=hidden name="gender" value="${mDTO.gender}">
+									<input type=hidden name="gender" value="${memberData.gender}">
 										<select id="gender"  class="country_select" disabled>
-											<option value="M" ${mDTO.gender == 'M' ? 'selected' : ''}>남자</option>
-											<option value="F" ${mDTO.gender == 'F' ? 'selected' : ''}>여자</option>
+											<option value="M" ${memberData.gender == 'M' ? 'selected' : ''}>남자</option>
+											<option value="F" ${memberData.gender == 'F' ? 'selected' : ''}>여자</option>
 										</select>
 									</div>
 									<!----------------------------------------성별 선택---------------------------------------->
