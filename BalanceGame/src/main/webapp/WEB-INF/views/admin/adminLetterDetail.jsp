@@ -204,8 +204,8 @@ th {
 
 							<div class="card-footer">
 								<div class="float-left">
-									<form action="adminSuggestionDeleteAction.do" method="post">
-										<input type="hidden" name="sugId" value="${sugDTO.sugId}">
+									<form action="/admin/letterDelete" method="post">
+										<input type="hidden" name="letterId" value="${letterDatas.letterId}">
 										<button type="submit" class="btn btn-block btn-danger">건의내용삭제</button>
 									</form>
 								</div>

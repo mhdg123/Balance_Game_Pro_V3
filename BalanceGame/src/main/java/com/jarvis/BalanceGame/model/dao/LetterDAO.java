@@ -24,7 +24,7 @@ public class LetterDAO {
 	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
 
 	// 해당 메세지 조회
-	private static final String SELECTONE = "SELECT SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE FROM LETTER WHERE LETTER_ID = ?";
+	private static final String SELECTONE = "SELECT LETTER_ID,SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE FROM LETTER WHERE LETTER_ID = ?";
 
 	// 메세지 발송
 	private static final String INSERT = "INSERT INTO LETTER(SENDER, LOGIN_ID, TITLE, LETTER_CONTENTS) VALUES (?,?,?,?)";
@@ -117,6 +117,7 @@ class LetterRowMapperViewOne implements RowMapper<LetterDTO> {
 	@Override
 	public LetterDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		LetterDTO data = new LetterDTO();
+		data.setLetterId(rs.getInt("LETTER_ID")); // 추가 필요
 		data.setSender(rs.getString("SENDER"));
 		data.setTitle(rs.getString("TITLE"));
 		data.setLetterContents(rs.getString("LETTER_CONTENTS"));
