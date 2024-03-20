@@ -48,8 +48,8 @@ public class MemberDAO {
 			+ "    M.LOGIN_ID, \r\n"
 			+ "    M.GENDER, \r\n"
 			+ "    M.AGE,"
-			+ "    M.ADDRESS \r\n"
-			+ "    M.EMAIL"
+			+ "    M.ADDRESS, \r\n"
+			+ "    M.EMAIL, "
 			+ "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
 			+ "    CASE \r\n"
 			+ "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
@@ -62,8 +62,8 @@ public class MemberDAO {
 			+ "GROUP BY \r\n"
 			+ "    M.LOGIN_ID, \r\n"
 			+ "    M.GENDER, \r\n"
-			+ "    M.AGE"
-			+ "    M.ADDRESS"
+			+ "    M.AGE,"
+			+ "    M.ADDRESS,"
 			+ "	   M.EMAIL";
 
 	//유저 랭킹 조회
