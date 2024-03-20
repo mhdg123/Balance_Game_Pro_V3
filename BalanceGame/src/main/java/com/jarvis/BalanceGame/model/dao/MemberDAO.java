@@ -27,7 +27,7 @@ public class MemberDAO {
 	private static final String LOGIN = "SELECT LOGIN_ID, ROLE FROM MEMBER WHERE LOGIN_ID = ? AND MEMBER_PASSWORD = ? ";
 
 	// 유저 수 조회
-	private static final String SELECT_CNT = "SELECT COUNT(1) AS CNT FROM MEMBER";
+	private static final String SELECT_CNT = "SELECT COUNT(1) AS MEMBER_CNT FROM MEMBER";
 
 	// 유저 상세 조회
 	private static final String SELECTONE_USER = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS "
@@ -154,6 +154,13 @@ public class MemberDAO {
 				System.out.println("내정보 결과 조회 실패");
 			}
 		}
+		else if(mDTO.getSearchCondition().equals("memberCount")) {
+			try {
+				member = jdbcTemplate.queryForObject(SELECT_CNT, new MemberRowMapperCnt());
+			}catch(Exception e) {
+				System.out.println("멤버수 결과 조회 실패");
+			}
+		}
 		return member;
 	}
 
@@ -254,6 +261,16 @@ class MemberRowMapperRank implements RowMapper<MemberDTO>{
 		member.setNickName(rs.getString("NICKNAME"));
 		member.setTotal(rs.getInt("TOTAL"));
 		member.setRanking(rs.getInt("RANKING"));
+		return member;
+	}
+}
+
+class MemberRowMapperCnt implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setMemberCount(rs.getInt("MEMBER_CNT"));;
 		return member;
 	}
 	

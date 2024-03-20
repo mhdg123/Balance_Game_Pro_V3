@@ -37,22 +37,27 @@ public class AdminPageController {
 		qDTO.setSearchCondition("questionCount");
 		qDTO.setQuestionAccess("F");
 		QuestionDTO qDTOApproveCnt = questionService.selectOne(qDTO);
+		System.out.println(qDTOApproveCnt);
 		
 		qDTO.setSearchCondition("questionCount");
 		qDTO.setQuestionAccess("T");
 		QuestionDTO qDTOTotalCnt = questionService.selectOne(qDTO);
+		System.out.println(qDTOTotalCnt);
 		
 		mDTO.setSearchCondition("memberCount");
 		mDTO = memberService.selectOne(mDTO);
+		System.out.println(mDTO);
 		
 		pDTO.setSearchCondition("purchasePoint");
 		pDTO = paymentService.selectOne(pDTO);
+		System.out.println(pDTO);
 		
 		lDTO.setSearchCondition("viewAllMessage");
 		List<LetterDTO> lDatas = letterService.selectAll(lDTO);
 		System.out.println(lDatas);
 		System.out.println(letterService.selectAll(lDTO));
-
+		System.out.println(lDatas);
+		
 		if (lDatas.size() <= 0) {
 			System.out.println("건의사항 : null");
 		}
