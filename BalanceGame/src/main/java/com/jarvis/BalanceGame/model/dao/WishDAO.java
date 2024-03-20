@@ -18,13 +18,13 @@ public class WishDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 사용자가 찜한 문제 전체 조회
-	private static final String SELECTALL = "SELECT Q.TITLE FROM WISH W JOIN QUESTIONS Q ON S.QUESIONT_ID = Q.QUESIONT_ID WHERE W.LOGIN_ID = ?";
+	private static final String SELECTALL = "SELECT Q.TITLE FROM WISH W JOIN QUESTIONS Q ON S.QUESTION_ID = Q.QUESTION_ID WHERE W.LOGIN_ID = ?";
 
 	// 문제에 대한 사용자의 찜의 유무 조회 
-	private static final String SELECTONE = "SELECT QUESIONT_ID, LOGIN_ID FROM SAVE WHERE LOGIN_ID=? AND QUESIONT_ID=?";
+	private static final String SELECTONE = "SELECT QUESTION_ID, LOGIN_ID FROM SAVE WHERE LOGIN_ID=? AND QUESTION_ID=?";
 
 	// 사용자가 해당 문제를 찜
-	private static final String INSERT = "INSERT INTO WISH (QUESIONT_ID, LOGIN_ID) VALUES(?,?)";
+	private static final String INSERT = "INSERT INTO WISH (QUESTION_ID, LOGIN_ID) VALUES(?,?)";
 
 	// 사용자가 해당 문제를 찜 해제 
 	private static final String DELETE = "DELETE FROM SAVE WHERE WISH_ID=?";
@@ -90,7 +90,7 @@ class WishRowMapperStatus implements RowMapper<WishDTO> {
 	@Override
 	public WishDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		WishDTO data = new WishDTO();
-		data.setQuestionId(rs.getInt("QUESIONT_ID"));
+		data.setQuestionId(rs.getInt("QUESTION_ID"));
 		data.setLoginId(rs.getString("LOGIN_ID"));
 		return data;
 	}
