@@ -13,6 +13,8 @@ import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 import com.jarvis.BalanceGame.service.CommentService;
 import com.jarvis.BalanceGame.service.QuestionService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/user")
 public class QuestionDetailPageController {
@@ -23,10 +25,12 @@ public class QuestionDetailPageController {
 	private CommentService commentService;
 	
 	@GetMapping("/questionDetailPage")
-	public String titleDetailPageController(QuestionDTO qDTO, CommentDTO cDTO, Model model) {
+	public String titleDetailPageController(QuestionDTO qDTO, CommentDTO cDTO, Model model, HttpSession session) {
 		
+		String loginId = (String) session.getAttribute("loginId");
+		qDTO.setWriter(loginId);
 		qDTO.setSearchCondition("questionDetail");
-
+		
 		qDTO = questionService.selectOne(qDTO);
 		
 		cDTO.setSearchCondition("questionComments");
