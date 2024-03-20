@@ -102,7 +102,6 @@ class LetterRowMapper implements RowMapper<LetterDTO>{
 		LetterDTO data = new LetterDTO();
 		data.setLetterId(rs.getInt("LETTER_ID"));
 		data.setSender(rs.getString("SENDER"));
-		data.setLoginId(rs.getString("LOGIN_ID"));
 		data.setTitle(rs.getString("TITLE"));
 		data.setLetterContents(rs.getString("LETTER_CONTENTS"));
 		data.setLetterDate(rs.getDate("LETTER_DATE"));
