@@ -82,18 +82,19 @@
 													value="${data.questionId}" /> <c:if
 														test="${data.wishId > 0}">
 														<div style="margin-bottom: 5px;">
-															<div style="cursor: pointer;" onclick="test();">
-																<img src="assets/img/thumb/fill-hearts.png"
+															<div style="cursor: pointer;">
+																<img src="/resources/assets/img/thumb/fill-hearts.png"
 																	height="20px;" width="20px;"
-																	style="margin-right: 15px;">
+																	style="margin-right: 15px;"class="wish"  id="${data.questionId}">
 															</div>
 														</div>
-													</c:if> <c:if test="${data.wishId <= 0}">
-														<div style="margin-bottom: 5px;">
-															<div style="cursor: pointer;" onclick="test();">
-																<img src="assets/img/thumb/empty-hearts.png"
+													</c:if> 
+													<c:if test="${data.wishId <= 0}">
+														<div style="margin-bottom: 5px;" >
+															<div style="cursor: pointer;">
+																<img src="/resources/assets/img/thumb/empty-hearts.png"
 																	height="20px;" width="20px;"
-																	style="margin-right: 15px;">
+																	style="margin-right: 15px;" class="wish" id="${data.questionId}">
 															</div>
 														</div>
 													</c:if></td>
@@ -145,9 +146,61 @@
 	<%@ include file="../layout/footer-fix.jsp"%>
 	<!-- 푸터 고정 스크립트 공통 모음 -->
 	<script>
-		function test() {
-			alert("좋아요 누름");
-		}
+	   $(".wish").on("click", function() {
+			console.log("[성공]");
+			var loginId =`${loginId}`;
+			//var qId = document.getElementById('qId').value;
+			var questionId = $(this).prop('id');
+			//var page = document.getElementById('page').value;
+			//console.log(loginId);
+			console.log(questionId);
+			if (loginId == "") {
+				console.log("[로그]로그인 x");
+				Swal.fire({
+					title: "로그인 필요",
+					text: "로그인 후 사용가능합니다.",
+					icon: "info"
+				});
+			} else {
+				console.log("[로그] 로그인 o");
+				//요소 값 가져오기
+				//https://luahius.tistory.com/158
+				$.ajax({
+					type: "POST",
+					url: "/user/wishAsync",
+					data: {
+						'questionId': questionId
+					},
+					dataType: 'text',
+					success: function(data) {
+						console.log(data);
+						if (data == "실패") {
+							console.log("실패");
+						} 
+						else {
+							//console.log($("#" + saveId).attr("class", "fa wish " + "fa-heart") + "<<<<<")
+							if(data=="wishOn"){
+								$("#" + questionId).attr("src", "/resources/assets/img/thumb/fill-hearts.png");
+							}
+							else if(data=="wishOff"){
+								$("#" + questionId).attr("src", "/resources/assets/img/thumb/empty-hearts.png");
+							}
+							
+	/* 						if (data == "찜x.png" && page == "wishPage") {
+								location.reload();
+							} */
+						}
+
+						//document.getElementById(".save").src="images/찜o.png";
+					},
+					error: function(error) {
+						console.log('에러발생');
+						console.log('에러의 종류:' + error);
+					}
+
+				});
+			}
+		});
 
 		function test1() {
 			alert("문제 상세페이지 이동");
