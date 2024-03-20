@@ -94,17 +94,13 @@
 									cols="30" rows="3" placeholder="댓글을 입력하세요"></textarea>
 							</div>
 							<div class="form-group f-right">
-								<button type="submit"
-									id="write"
-									class="genric-btn info-border radius large">
-									댓글 입력</button>
+								<button type="submit" id="write"
+									class="genric-btn info-border radius large">댓글 입력</button>
 							</div>
 						</div>
 
 						<!-- 댓글 입력 End -->
-						<br />
-						<br />
-						<br />
+						<br /> <br /> <br />
 						<h4>댓글</h4>
 						<c:forEach var="data" items="${commentDatas}" varStatus="loop">
 							<div class="comment-list">
@@ -175,9 +171,12 @@
 	<script type="text/javascript">
 		$(document).ready(
 				function() {
-					var answerACount=${questionData.answerACount};
-					var answerBCount=${questionData.answerBCount};
+					var answerACount = Number("${questionData.answerACount}");
+					var answerBCount = Number("${questionData.answerBCount}");
 					var total = answerACount + answerBCount;
+/* 					console.log("answerACount : "+answerACount);
+					console.log("answerBCount : "+answerBCount);
+					console.log("total : "+total); */
 					
 					var answerAPercentage = Math
 							.round(((answerACount * 1.0) / total) * 100);
@@ -195,78 +194,76 @@
 				});
 	</script>
 	<!-- 문제 세팅 -->
-	
+
 	<!-- 댓글입력 -->
 	<script type="text/javascript">
-	$("#write").on("click", function() {
-		//var qId = document.getElementById('qId').value;
-		//var loginId = document.getElementById('loginId').value;
-		//console.log('[로그] 질문 pk'+`${qId}`);
-		//console.log("댓글 입력");
-		var comments = $('#comment').val().trim();
-		//$('#inputContent').val('');
-		
-		//공백 확인
-		
-		/* if(!blankSpace()){
-			console.log('댓글 공백');
+		$("#write").on("click", function() {
+			//var qId = document.getElementById('qId').value;
+			//var loginId = document.getElementById('loginId').value;
+			//console.log('[로그] 질문 pk'+`${qId}`);
+			//console.log("댓글 입력");
+			var comments = $('#comment').val().trim();
+			//$('#inputContent').val('');
+
+			//공백 확인
+
+			/* if(!blankSpace()){
+				console.log('댓글 공백');
+				//$('#apple').html('<input type="text" placeholder="댓글을 입력하세요" id="inputContent">');
+				 alert('입력 필드에 값을 입력하세요 또는 기호 입력은 불가합니다'); // 사용자에게 알립니다.
+				return;
+			} */
+
 			//$('#apple').html('<input type="text" placeholder="댓글을 입력하세요" id="inputContent">');
-			 alert('입력 필드에 값을 입력하세요 또는 기호 입력은 불가합니다'); // 사용자에게 알립니다.
-			return;
-		} */
-		
-		//$('#apple').html('<input type="text" placeholder="댓글을 입력하세요" id="inputContent">');
-		//태그 초기화 - 다른 곳에선 다르게 처리하기~
-		
-		/* if (isRun == true) {
-			return;
-		}
+			//태그 초기화 - 다른 곳에선 다르게 처리하기~
+			/* if (isRun == true) {
+				return;
+			}
 
-		isRun = true; */
-		
+			isRun = true; */
 
-		//console.log('확인1: ' + content);
-		
+			//console.log('확인1: ' + content);
 			$.ajax({
-				type: "POST",
-				url: "/user/commentWriteAsync",
-				data: {
-					'questionId': `${questionData.questionId}`,
-					'comments': comments
+				type : "POST",
+				url : "/user/commentWriteAsync",
+				data : {
+					'questionId' : `${questionData.questionId}`,
+					'comments' : comments
 
 				},
-				dataType: 'json',
-				success: function(data) {
-					location.reload();
-					
-					
-/* 					var elem = "";
-
-					elem += "<tr> <td>";
-					if (data.grade == 1) {
-						elem += "<img src= 'images/blackStone.png' alt='등급1에 주는 블랙스톤' width='25' height ='25' />";
-					} else if (data.grade == 2) {
-						elem += "<img src= 'images/silverStone.png' alt='등급1에 주는 블랙스톤' width='25' height ='25' />";
-					} else if (data.grade == 3) {
-						elem += "<img src='images/goldStone.png' alt='등급3에 주는 골드스톤' width='25' height ='25' />";
-					} else if (data.grade == 4) {
-						elem += "<img src='images/blueStone.png' alt='등급4에 주는 플래티넘스톤' width='25' height ='25' />";
+				dataType : 'text',
+				success : function(data) {
+					if (data == "success") {
+						location.reload();
 					}
-					elem += data.memberName + "</td>";
 
-					elem += "<td>" + data.content + "</td>";
-					elem += "</tr>";
-					console.log('확인2: ' + data.name);
-					if ($("#noComment").length > 0) {
-						$("#noComment").text("");
-					}
-					$("table tbody").append(elem);
+					/* 					var elem = "";
 
-					isRun = false;
-					$('#inputContent').val(''); */
+					 elem += "<tr> <td>";
+					 if (data.grade == 1) {
+					 elem += "<img src= 'images/blackStone.png' alt='등급1에 주는 블랙스톤' width='25' height ='25' />";
+					 } else if (data.grade == 2) {
+					 elem += "<img src= 'images/silverStone.png' alt='등급1에 주는 블랙스톤' width='25' height ='25' />";
+					 } else if (data.grade == 3) {
+					 elem += "<img src='images/goldStone.png' alt='등급3에 주는 골드스톤' width='25' height ='25' />";
+					 } else if (data.grade == 4) {
+					 elem += "<img src='images/blueStone.png' alt='등급4에 주는 플래티넘스톤' width='25' height ='25' />";
+					 }
+					 elem += data.memberName + "</td>";
+
+					 elem += "<td>" + data.content + "</td>";
+					 elem += "</tr>";
+					 console.log('확인2: ' + data.name);
+					 if ($("#noComment").length > 0) {
+					 $("#noComment").text("");
+					 }
+					 $("table tbody").append(elem);
+
+					 isRun = false;
+					 $('#inputContent').val(''); */
 					//document.getElementById(".save").src="images/찜o.png";
 				},
-				error: function(error) {
+				error : function(error) {
 
 					console.log('에러발생');
 					console.log('에러의 종류:' + error);
@@ -274,18 +271,15 @@
 
 			});
 
-		
+		});
 
-	});
-
-	/* $("#inputContent").on("keydown", function(e) {
-		console.log(e.code);
-		if (e.code == 'Enter' || e.code == 'NumpadEnter') {
-			console.log("엔터침" + e.code);
-			$("#write").click();
-		}
-	}); */
-	
+		/* $("#inputContent").on("keydown", function(e) {
+			console.log(e.code);
+			if (e.code == 'Enter' || e.code == 'NumpadEnter') {
+				console.log("엔터침" + e.code);
+				$("#write").click();
+			}
+		}); */
 	</script>
 	<!-- 댓글입력 -->
 

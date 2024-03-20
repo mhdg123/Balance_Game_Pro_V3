@@ -28,19 +28,21 @@ public class CommentWriteAsync {
 		
 		cDTO.setLoginId((String)session.getAttribute("loginId"));
 		cDTO.setSearchCondition("createComments");
-		commentService.insert(cDTO);
+		if(commentService.insert(cDTO)) {
+			return "success";
+		}
 		
-		mDTO.setSearchCondition("viewOne");
-		mDTO.setLoginId((String)session.getAttribute("loginId"));
-		mDTO= memberService.selectOne(mDTO);
-		
-		cDTO.setLoginId(mDTO.getName());
-		cDTO.setMemberGrade(mDTO.getGrade());
-		
-		String json =gson.toJson(cDTO);
-		System.out.println(json);
-		
-		return gson.toJson(cDTO);
+//		mDTO.setSearchCondition("viewOne");
+//		mDTO.setLoginId((String)session.getAttribute("loginId"));
+//		mDTO= memberService.selectOne(mDTO);
+//		
+//		cDTO.setLoginId(mDTO.getLoginId());
+//		cDTO.setMemberGrade(mDTO.getGrade());
+//		
+//		String json =gson.toJson(cDTO);
+//		System.out.println(json);
+//		
+		return "fail";
 	}
 }
 
