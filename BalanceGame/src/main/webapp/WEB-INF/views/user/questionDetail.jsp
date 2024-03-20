@@ -48,7 +48,28 @@
 				<!-- 결과 -->
 				<div style="height: 80px"></div>
 				<h2 class="col-12">
-					<br />${questionData.title}</h2>
+					<br />${questionData.title}
+					<c:if test="${questionData.wishId > 0}">
+						<div style="margin-bottom: 5px;">
+							<div style="cursor: pointer;">
+								<img src="/resources/assets/img/thumb/fill-hearts.png"
+									height="20px;" width="20px;" style="margin-right: 15px;"
+									class="wish" id="${questionData.questionId}">
+							</div>
+						</div>
+					</c:if>
+					<c:if test="${questionData.wishId <= 0}">
+						<div style="margin-bottom: 5px;">
+							<div style="cursor: pointer;">
+								<img src="/resources/assets/img/thumb/empty-hearts.png"
+									height="20px;" width="20px;" style="margin-right: 15px;"
+									class="wish" id="${questionData.questionId}">
+							</div>
+						</div>
+					</c:if>
+					${questionData.wishId}
+
+				</h2>
 				<div class="comments-area">
 					<div class="col-12">
 						<div>
@@ -174,10 +195,10 @@
 					var answerACount = Number("${questionData.answerACount}");
 					var answerBCount = Number("${questionData.answerBCount}");
 					var total = answerACount + answerBCount;
-/* 					console.log("answerACount : "+answerACount);
-					console.log("answerBCount : "+answerBCount);
-					console.log("total : "+total); */
-					
+					/* 					console.log("answerACount : "+answerACount);
+					 console.log("answerBCount : "+answerBCount);
+					 console.log("total : "+total); */
+
 					var answerAPercentage = Math
 							.round(((answerACount * 1.0) / total) * 100);
 					var answerBPercentage = Math
@@ -201,13 +222,11 @@
 
 			var comments = $('#comment').val().trim();
 
-
-			if(!blankSpace()){
+			if (!blankSpace()) {
 				console.log('댓글 공백');
 				$('#comment').val("");
 				return;
-			} 
-
+			}
 
 			$.ajax({
 				type : "POST",
@@ -241,9 +260,71 @@
 				$("#write").click();
 			}
 		});
-		
 	</script>
 	<!-- 댓글입력 -->
 	<script src="/resources/user/js/blankSpace.js"></script>
+	
+	
+		<!-- 찜 하기 스크립트 -->
+	<script>
+	   $(".wish").on("click", function() {
+			console.log("[성공]");
+			var loginId =`${loginId}`;
+			//var qId = document.getElementById('qId').value;
+			var questionId = $(this).prop('id');
+			//var page = document.getElementById('page').value;
+			//console.log(loginId);
+			console.log(questionId);
+			if (loginId == "") {
+				console.log("[로그]로그인 x");
+				Swal.fire({
+					title: "로그인 필요",
+					text: "로그인 후 사용가능합니다.",
+					icon: "info"
+				});
+			} else {
+				console.log("[로그] 로그인 o");
+				//요소 값 가져오기
+				//https://luahius.tistory.com/158
+				$.ajax({
+					type: "POST",
+					url: "/user/wishAsync",
+					data: {
+						'questionId': questionId
+					},
+					dataType: 'text',
+					success: function(data) {
+						console.log(data);
+						if (data == "실패") {
+							console.log("실패");
+						} 
+						else {
+							//console.log($("#" + saveId).attr("class", "fa wish " + "fa-heart") + "<<<<<")
+							if(data=="wishOn"){
+								$("#" + questionId).attr("src", "/resources/assets/img/thumb/fill-hearts.png");
+							}
+							else if(data=="wishOff"){
+								$("#" + questionId).attr("src", "/resources/assets/img/thumb/empty-hearts.png");
+							}
+							
+	/* 						if (data == "찜x.png" && page == "wishPage") {
+								location.reload();
+							} */
+						}
+
+						//document.getElementById(".save").src="images/찜o.png";
+					},
+					error: function(error) {
+						console.log('에러발생');
+						console.log('에러의 종류:' + error);
+					}
+
+				});
+			}
+		});
+	   </script>
+	   <!-- 찜 하기 스크립트 -->
+	
+	
 </body>
 </html>

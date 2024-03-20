@@ -145,6 +145,7 @@
 	<!-- 푸터 고정 스크립트 공통 모음 -->
 	<%@ include file="../layout/footer-fix.jsp"%>
 	<!-- 푸터 고정 스크립트 공통 모음 -->
+	<!-- 찜 하기 스크립트 -->
 	<script>
 	   $(".wish").on("click", function() {
 			console.log("[성공]");
@@ -201,7 +202,7 @@
 				});
 			}
 		});
-
+	   <!-- 찜 하기 스크립트 -->
 		function test1() {
 			alert("문제 상세페이지 이동");
 		}
