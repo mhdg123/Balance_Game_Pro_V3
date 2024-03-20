@@ -48,7 +48,7 @@ public class AdminPageController {
 		mDTO = memberService.selectOne(mDTO);
 		System.out.println(mDTO);
 		
-		pDTO.setSearchCondition("purchasePoint");
+		pDTO.setSearchCondition("totalPoint");
 		pDTO = paymentService.selectOne(pDTO);
 		System.out.println(pDTO);
 		
@@ -64,9 +64,10 @@ public class AdminPageController {
 		System.out.println("건의사항 데이터는 있음");
 		model.addAttribute("qDTOApproveCnt", qDTOApproveCnt);
 		model.addAttribute("qDTOTotalCnt", qDTOTotalCnt);
-		model.addAttribute("mDTO", mDTO);
-		model.addAttribute("pDTO", pDTO);
-
+		model.addAttribute("memberDatas", mDTO);
+		model.addAttribute("paymentDatas", pDTO);
+		model.addAttribute("letterDatas", lDatas);
+		
 		return "admin/adminMain";
 	}
 }

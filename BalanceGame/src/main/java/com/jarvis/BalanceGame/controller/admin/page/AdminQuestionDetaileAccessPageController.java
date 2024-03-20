@@ -19,7 +19,7 @@ public class AdminQuestionDetaileAccessPageController {
 	@GetMapping("/questionDetaileAccessPage")
 	public String adminTitleDetaileAccessPageController(QuestionDTO qDTO, Model model) {
 		
-		qDTO.setSearchCondition("관리자문제상세조회");
+		qDTO.setSearchCondition("adminQuestionDetail");
 		qDTO = questionService.selectOne(qDTO);
 		
 		if(qDTO == null) {
@@ -28,7 +28,7 @@ public class AdminQuestionDetaileAccessPageController {
 			model.addAttribute("redirect", "adminQuestionDetaileAccess");
 			return "alret";
 		}
-		model.addAttribute("qDTO", qDTO);
+		model.addAttribute("questionData", qDTO);
 		return "admin/adminQuestionDetaileAccess";
 	}
 	

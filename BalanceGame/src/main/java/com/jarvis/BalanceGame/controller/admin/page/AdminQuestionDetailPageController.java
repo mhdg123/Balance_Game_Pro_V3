@@ -19,7 +19,7 @@ public class AdminQuestionDetailPageController {
 	@GetMapping("/questionDetailPage")
 	public String adminTitleDetailPageController(QuestionDTO qDTO, Model model) {
 		
-		qDTO.setSearchCondition("관리자문제상세조회");
+		qDTO.setSearchCondition("adminQuestionDetail");
 		qDTO = questionService.selectOne(qDTO);
 		
 		if(qDTO == null) {
@@ -29,7 +29,7 @@ public class AdminQuestionDetailPageController {
 			return "alert";
 			
 		}
-		model.addAttribute("qDTO", qDTO);
+		model.addAttribute("questionData", qDTO);
 		return "admin/adminquestionDetail";
 	}
 	

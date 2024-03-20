@@ -22,6 +22,7 @@ public class WishAsync {
 	public @ResponseBody String wishAsync(WishDTO wDTO, HttpSession session) {
 		
 		wDTO.setLoginId((String)session.getAttribute("loginId"));
+		System.out.println("찜하기 확인1"+ wDTO);
 		
 		boolean flag=false; 
 		String src="";
@@ -29,11 +30,13 @@ public class WishAsync {
 			flag = wishService.insert(wDTO);
 			if (flag) {
 				src="wishOn";
+				System.out.println("찜하기 확인2"+ wDTO);
 			}
 		}else {
 			flag= wishService.delete(wDTO);
 			if (flag) {
 				src="wishOff";
+				System.out.println("찜하기 확인3"+ wDTO);
 			}
 		}
 

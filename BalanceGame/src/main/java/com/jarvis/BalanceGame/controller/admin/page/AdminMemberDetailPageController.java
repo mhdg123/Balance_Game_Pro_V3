@@ -27,8 +27,8 @@ public class AdminMemberDetailPageController {
 	@GetMapping("/adminMemberDetailPage")
 	public String adminMemberDetailPageController(MemberDTO mDTO, CommentDTO cDTO, Model model) {
 
-		mDTO.setSearchCondition("유저조회");
-		cDTO.setSearchCondition("유저댓글조회");
+		mDTO.setSearchCondition("viewOne");
+		cDTO.setSearchCondition("userComments");
 
 		List<CommentDTO> cdatas = commentService.selectAll(cDTO);
 
@@ -41,10 +41,10 @@ public class AdminMemberDetailPageController {
 			return "alert";
 		}
 
-		model.addAttribute("member", member);
-		model.addAttribute("cdatas", cdatas);
-		System.out.println("로그 cdatas[" + cdatas + "]");
-		System.out.println("로그 member[" + member + "]");
+		model.addAttribute("memberData", member);
+		model.addAttribute("commentDatas", cdatas);
+		System.out.println("로그 commentDatas[" + cdatas + "]");
+		System.out.println("로그 memberData[" + member + "]");
 
 		return "admin/adminMemberDetail";
 	}

@@ -22,13 +22,13 @@ public class AdminQuestionAccessPageController {
 	@GetMapping("/questionAccessPage")
 	public String adminTitleAccessPageController(QuestionDTO qDTO, Model model) {
 		
-		qDTO.setSearchCondition("관리자문제조회");
+		qDTO.setSearchCondition("adminViewAllOfUnapprovedQuestions");
 		
 		qDTO.setQuestionAccess("F");
 		
 		List<QuestionDTO> qdatas_f = questionService.selectAll(qDTO);
 		
-		System.out.println("qdatas_f"+qdatas_f);
+		System.out.println("questionDatas_f"+qdatas_f);
 		
 		if(qdatas_f == null) {	
 			model.addAttribute("status", "fail");
@@ -37,7 +37,7 @@ public class AdminQuestionAccessPageController {
 			return "alert";
 		}
 		
-		model.addAttribute("qdatas_f", qdatas_f);
+		model.addAttribute("questionDatas_f", qdatas_f);
 
 		return "admin/adminQuestionAccess";
 	}

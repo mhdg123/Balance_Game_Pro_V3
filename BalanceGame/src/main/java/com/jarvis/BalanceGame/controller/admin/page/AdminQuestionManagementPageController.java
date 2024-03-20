@@ -21,21 +21,21 @@ public class AdminQuestionManagementPageController {
 	@GetMapping("/questionManagementPage")
 	public String adminTitleManagementPageController(QuestionDTO qDTO, Model model) {
 		
-		qDTO.setSearchCondition("관리자문제조회");
+		qDTO.setSearchCondition("adminViewAllOfApprovedQuestions");
 		qDTO.setQuestionAccess("T");
 		
 		
 		List<QuestionDTO> qdatas_t = questionService.selectAll(qDTO);
 		
-		System.out.println("qdatas_t" + qdatas_t);
+		System.out.println("questionDatas" + qdatas_t);
 		if(qdatas_t == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
 			model.addAttribute("redirect", "adminPage");
 			return "alert";
 		}
-		model.addAttribute("qdatas_t", qdatas_t);
-		System.out.println("qdatas_t" + qdatas_t);
+		model.addAttribute("questionDatas", qdatas_t);
+		System.out.println("questionDatas" + qdatas_t);
 		return "admin/adminquestionManagement";
 	}
 }
