@@ -34,20 +34,16 @@
 									<!-- Hero-btn -->
 									<div class="button-container">
 										<br /> <br />
-										
-											<button  id="answer_A"
-												class="genric-btn primary-border radius e-large game-button answer"
-												type="button" value="A">
-												${questionData.answerA}
-											</button>
-										
-										
-											<button id="answer_B"
-												class="genric-btn primary-border radius e-large game-button answer"
-												type="button" value="B">
-												${questionData.answerB}
-											</button>
-										
+
+										<button id="answer_A"
+											class="genric-btn primary-border radius e-large game-button answer"
+											type="button" value="A">${questionData.answerA}</button>
+
+
+										<button id="answer_B"
+											class="genric-btn primary-border radius e-large game-button answer"
+											type="button" value="B">${questionData.answerB}</button>
+
 									</div>
 								</div>
 							</div>
@@ -55,11 +51,11 @@
 
 						<div class="container">
 							<c:if test="${questionData.wishId <= 0}">
-								<h2 style="color: #ff2020;" class="fa ti-heart wish" id="1"></h2>
+								<h2 style="color: #ff2020;" class="fa ti-heart wish" id="${questionData.questionId}"></h2>
 								<!-- ti-heart 빈 하트 -->
 							</c:if>
 							<c:if test="${questionData.wishId > 0}">
-								<h2 style="color: #ff2020;" class="fa fa-heart wish" id="1"></h2>
+								<h2 style="color: #ff2020;" class="fa fa-heart wish" id="${questionData.questionId}"></h2>
 								<!-- fa-heart 꽉 찬 하트 -->
 							</c:if>
 
@@ -90,40 +86,39 @@
 				<!-- 댓글 입력 End -->
 				<br /> <br /> <br />
 				<h4>댓글</h4>
-
-				<!-- 댓글들 -->
-				<div class="comment-list">
-					<div>
+				<c:forEach var="data" items="${commentDatas}" varStatus="loop">
+					<div class="comment-list">
 						<div>
-							<div class="desc">
-								<div class="d-flex">
-									<div class="d-flex align-items-center">
-										<h5>
-											<a href="#" style="color: black">쿠리만쥬</a>
-										</h5>
-										<p class="date">December 4, 2017 at 3:12 pm</p>
+							<div>
+								<div class="desc">
+									<div class="d-flex">
+										<div class="d-flex align-items-center">
+											<h5>
+												<a href="#" style="color: black">${data.loginId}</a>
+											</h5>
+											<p class="date">${data.commentDate}</p>
+										</div>
+									</div>
+									<div>
+										<p class="comment">${data.comments}</p>
+									</div>
+									<!-- 이름 날짜 삭제 -->
+									<div class="d-flex justify-content-between">
+										<div class="d-flex align-items-center"></div>
+										<div class="reply-btn">
+											<div class="btn-reply text-uppercase"
+												style="display: inline-block;">신고</div>
+											<div class="btn-reply text-uppercase"
+												style="display: inline-block;">삭제</div>
+										</div>
 									</div>
 								</div>
-								<div>
-									<p class="comment">밤만쥬에서 모티브를 얻은 듯한 수달 캐릭터로 초기 낙서 작업물에서부터 꽤
-										일찍 등장했다. 밤만쥬를 안주로 술을 마시는 것이 본격적인 첫 등장.</p>
-								</div>
-								<!-- 이름 날짜 삭제 -->
-								<div class="d-flex justify-content-between">
-									<div class="d-flex align-items-center"></div>
-									<div class="reply-btn">
-										<div class="btn-reply text-uppercase"
-											style="display: inline-block;">신고</div>
-										<div class="btn-reply text-uppercase"
-											style="display: inline-block;">삭제</div>
-									</div>
-								</div>
+								<hr />
 							</div>
-							<hr />
 						</div>
 					</div>
-				</div>
-				<!-- 댓글들 -->
+				</c:forEach>
+
 
 
 
@@ -269,12 +264,12 @@ playElement.innerHTML = `
 	<script type="text/javascript">
    $(".wish").on("click", function() {
 		console.log("[성공]");
-		var loginId =`${loginId}`;
+		//var loginId =`${loginId}`;
 		//var qId = document.getElementById('qId').value;
-		var saveId = $(this).prop('questionId');
+		var questionId = $(this).prop('id');
 		//var page = document.getElementById('page').value;
-		console.log(loginId);
-		console.log(saveId);
+		//console.log(loginId);
+		console.log(questionId);
 		if (loginId == null) {
 			console.log("[로그]로그인 x");
 			Swal.fire({
@@ -290,8 +285,7 @@ playElement.innerHTML = `
 				type: "POST",
 				url: "/user/wishAsync",
 				data: {
-					'loginId': loginId,
-					'qId': saveId
+					'questionId': questionId
 				},
 				dataType: 'text',
 				success: function(data) {
@@ -300,7 +294,13 @@ playElement.innerHTML = `
 						console.log("실패");
 					} else {
 						//console.log($("#" + saveId).attr("class", "fa wish " + "fa-heart") + "<<<<<")
-						$("#" + saveId).attr("class", "fa wish " + data);
+						if(data=="wishOn"){
+						$("#" + saveId).attr("class", "fa fa-heart wish");
+						}
+						else if(data=="wishOff"){
+							$("#" + saveId).attr("class", "fa ti-heart wish");
+						}
+						
 /* 						if (data == "찜x.png" && page == "wishPage") {
 							location.reload();
 						} */
