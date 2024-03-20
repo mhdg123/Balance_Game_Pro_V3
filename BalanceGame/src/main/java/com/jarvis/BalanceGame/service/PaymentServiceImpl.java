@@ -39,8 +39,7 @@ public class PaymentServiceImpl implements PaymentService{
 
 	@Override
 	public PaymentDTO selectOne(PaymentDTO pDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		return paymentDAO.selectOne(pDTO);
 	}
 
 }
