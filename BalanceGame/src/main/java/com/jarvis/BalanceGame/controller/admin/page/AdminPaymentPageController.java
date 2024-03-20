@@ -24,7 +24,7 @@ import com.jarvis.BalanceGame.service.PaymentService;
   	
   	@GetMapping("/paymentManagementPage")
   	public String adminSupportPageController(PaymentDTO pDTO,MemberDTO mDTO, Model model) {
-  		
+  		System.out.println("관리자 결제 관리 페이지 이동");
   		mDTO.setSearchCondition("ranking");
   		List<MemberDTO> mdatas = memberService.selectAll(mDTO);
   		
@@ -42,7 +42,7 @@ import com.jarvis.BalanceGame.service.PaymentService;
   		model.addAttribute("totalAmount", totalAmount);
   		
   
-  		return "admin/paymentManagementPage";
+  		return "admin/paymentManagement";
   	}
   	
   	
