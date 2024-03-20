@@ -292,13 +292,14 @@ playElement.innerHTML = `
 					console.log(data);
 					if (data == "실패") {
 						console.log("실패");
-					} else {
+					} 
+					else {
 						//console.log($("#" + saveId).attr("class", "fa wish " + "fa-heart") + "<<<<<")
 						if(data=="wishOn"){
-						$("#" + saveId).attr("class", "fa fa-heart wish");
+							$("#" + questionId).attr("class", "fa fa-heart wish");
 						}
 						else if(data=="wishOff"){
-							$("#" + saveId).attr("class", "fa ti-heart wish");
+							$("#" + questionId).attr("class", "fa ti-heart wish");
 						}
 						
 /* 						if (data == "찜x.png" && page == "wishPage") {
