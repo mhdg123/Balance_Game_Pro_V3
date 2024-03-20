@@ -18,10 +18,6 @@ public class CrawlingListener{
 
 	@Autowired
 	private QuestionService questionService;
-	private int count;
-	public int getCount() {
-		return this.count;
-	}
 	
 	public String crawlingListener  (QuestionDTO qDTO, Model model) {
 		
@@ -92,7 +88,6 @@ public class CrawlingListener{
 			questionService.insert(data);
 		}
 		
-		this.count++;
 		return "";
 	}
 }

@@ -60,7 +60,7 @@ public class AdminPageController {
 		if (lDatas.size() <= 0) {
 			System.out.println("건의사항 : null");
 		}
-		System.out.println("건의사항 데이터는 있음 + " + lDatas);
+		System.out.println("건의사항 데이터는 있음");
 		model.addAttribute("qDTOApproveCnt", qDTOApproveCnt);
 		model.addAttribute("qDTOTotalCnt", qDTOTotalCnt);
 		model.addAttribute("memberDatas", mDTO);

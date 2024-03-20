@@ -8,22 +8,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.jarvis.BalanceGame.controller.CrawlingListener;
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
+import com.jarvis.BalanceGame.service.QuestionService;
 
 @Controller
 public class MainPageController {
 
 	@Autowired
 	private CrawlingListener crawlingListener;
+	@Autowired
+	private QuestionService questionService;
 	
 	@GetMapping({"/","/main"})
 	public  String mainPageController(QuestionDTO qDTO, Model model) {
 	System.out.println("메인페이지 이동");
 	
+	qDTO.setSearchCondition("questionCount");
+	qDTO.setQuestionAccess("T");
+	qDTO = questionService.selectOne(qDTO);
 	
-	if(crawlingListener.getCount()<=0) {
+	if(qDTO.getQuestionCount()<10) {
 	crawlingListener.crawlingListener(qDTO, model);
 	}
-	
 	
 	//1. 여기서 메서드 불러야됨
 	//2. 그러려면 new 해야함
