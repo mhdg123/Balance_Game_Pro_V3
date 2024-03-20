@@ -86,7 +86,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:if test="${empty member}">
+											<c:if test="${empty memberDatas}">
 												<tr>
 													<td colspan="1">회원 정보가 없습니다.</td>
 												</tr>
@@ -94,13 +94,9 @@
 											</c:if>
 										</tbody>
 										<tbody id="suggestionTableBody">
-											<c:forEach var="data" items="${member}">
+											<c:forEach var="data" items="${memberDatas}">
 												<tr onclick="location.href = 'adminMemberDetailPage.do?loginId=${data.loginId}'">
-													<td id="loginIdData">
-														<%-- 														<crown:crown ranking="${data.ranking}" />
- --%>
-														${data.loginId}
-													</td>
+													<td id="loginIdData">${data.loginId}</td>
 													<td id="addressData">${data.address}</td>
 													<td id="eamilData">${data.email}</td>
 													<td id="ageData">${data.age}</td>
