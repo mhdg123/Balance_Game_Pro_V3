@@ -18,9 +18,20 @@ public class QuestionDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 승인된 전체 문제 조회
-	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE, COUNT(DISTINCT W.LOGIN_ID) AS LIKE_COUNT, \r\n"
-			+ "IFNULL(W.WISH_ID, 0) AS LIKE_ID FROM QUESTION Q LEFT JOIN WISH W ON W.QUESTION_ID = Q.QUESTION_ID AND W.LOGIN_ID = ? \r\n"
-			+ "WHERE Q.QUESTION_ACCESS = 'T' GROUP BY Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE, W.WISH_ID";
+	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT \r\n"
+			+ "    Q.QUESTION_ID, \r\n"
+			+ "    Q.TITLE, \r\n"
+			+ "    Q.QUESTION_DATE, \r\n"
+			+ "    COUNT(DISTINCT W.LOGIN_ID) AS LIKE_COUNT, \r\n"
+			+ "    MAX(CASE WHEN W.LOGIN_ID = ? THEN 1 ELSE 0 END) AS USER_LIKED\r\n"
+			+ "FROM \r\n"
+			+ "    QUESTION Q \r\n"
+			+ "LEFT JOIN \r\n"
+			+ "    WISH W ON W.QUESTION_ID = Q.QUESTION_ID\r\n"
+			+ "WHERE \r\n"
+			+ "    Q.QUESTION_ACCESS = 'T' \r\n"
+			+ "GROUP BY \r\n"
+			+ "    Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE";
 
 	// 크롤링한 문제 조회
 	private static final String SELECTALL_CRAWLLING = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER, Q.ANSWER_A, Q.ANSWER_B , EXPLANATION, QUESTION_DATE FROM QUESTION Q";

@@ -18,5 +18,7 @@ public class ItemLogDTO {
 	 private int ItemLogCount; // SELECT할 때 필요한 아이템 개수  
 	 @NotNull
 	 private Date itemLogDate; // 아이템 구매한 시간 
-
+//------------------------------------------------------------
+	 private int totalCount; // 총 사용한 아이템 개수 
+	 private String itemName;
 }
