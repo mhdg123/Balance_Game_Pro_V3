@@ -69,7 +69,7 @@
 									</button>
 									<div class="dropdown-options shadow p-3 mb-5 bg-body rounded" id="dropdown-options">
 										<div>우편함</div>
-										<div class="letter-group" style="overflow-y: auto; height: 200px;">
+										<div class="letter-group" id="letter-group" style="overflow-y: auto; height: 200px;">
 											<div class="letter-box" onclick="javascript:test();">
 												<div>보낸사람 : 관리자</div>
 												<div>제목 : 안녕하세요</div>
@@ -146,4 +146,6 @@
 		</div>
 	</div>
 	<!-- Header End -->
+	
+
 </header>

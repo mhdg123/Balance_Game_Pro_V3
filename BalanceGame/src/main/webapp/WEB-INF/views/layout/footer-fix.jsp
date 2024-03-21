@@ -83,6 +83,50 @@
        });
    }
     </script>
+
+	<script type="text/javascript">
+	$('#dropdown-btn').on('click',function(){
+		
+		var letterElement = document.getElementById("letter-group");
+		
+		
+		$.ajax({
+			type : "POST",
+			url : "/user/commentWriteAsync",
+			data : {
+			},
+			dataType : 'text',
+			success : function(data) {
+				console.log(data);
+				//데이터들 만큼 반복하여 어펜드
+				//클릭 이벤트 활성화 여부확인
+				letterElement.innerHTML=`
+				<div class="letter-box" onclick="javascript:test();">
+					<div>보낸사람 : 관리자</div>
+					<div>제목 : 안녕하세요</div>
+				</div>
+				<hr />`;
+			},
+			error : function(error) {
+
+				console.log('에러발생');
+				console.log('에러의 종류:' + error);
+			}
+
+		});
+		
+	});
+	
+	
+	</script>
+
+<!-- 메시지박스 -->
+
+
+
+
+
+
 <script type="text/javascript">
 	function unlinkApp() {
 		 var msg = '로그아웃 하였습니다.'
@@ -99,3 +143,8 @@
 		})
 	}
 </script>
+
+
+
+
+
