@@ -15,14 +15,16 @@ public class AdminQuestionDetaileAccessPageController {
 
 	@Autowired
 	private QuestionService questionService;
-	
+
 	@GetMapping("/questionDetaileAccessPage")
 	public String adminTitleDetaileAccessPageController(QuestionDTO qDTO, Model model) {
-		
+		System.out.println("문제 승인, 거절 상세페이지 이동");
+		System.out.println("문제 pk 파라미터 : " + qDTO.getQuestionId());
 		qDTO.setSearchCondition("adminQuestionDetail");
 		qDTO = questionService.selectOne(qDTO);
-		
-		if(qDTO == null) {
+		System.out.println("조회된 문제 데이터 : " + qDTO);
+
+		if (qDTO == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
 			model.addAttribute("redirect", "adminQuestionDetaileAccess");
@@ -31,5 +33,5 @@ public class AdminQuestionDetaileAccessPageController {
 		model.addAttribute("questionData", qDTO);
 		return "admin/adminQuestionDetaileAccess";
 	}
-	
+
 }

@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 import com.jarvis.BalanceGame.service.QuestionService;
+
+import retrofit2.http.POST;
 
 @Controller
 @RequestMapping("/admin")
@@ -16,7 +19,7 @@ public class AdminQuestionAccessController {
 	@Autowired
 	private QuestionService questionService;
 	
-	@GetMapping("/questionAccess")
+	@PostMapping("/questionAccess")
 	public String adminTitleAccessController(QuestionDTO qDTO, Model model) {
 		
 		System.out.println("승인할 문제 번호 : " + qDTO.getQuestionId());

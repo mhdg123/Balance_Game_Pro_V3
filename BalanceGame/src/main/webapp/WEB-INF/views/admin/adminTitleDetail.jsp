@@ -194,10 +194,10 @@
            <c:if test="${qDTO.category==1}">
             <input type="checkbox" class="form-check-input" id="adultCheck" >
            </c:if>
-           <c:if test="${qDTO.category==2 }">
+           <%-- <c:if test="${qDTO.category==2 }">
             <input type="checkbox" class="form-check-input" id="adultCheck" checked="on">
            </c:if>
-           <label class="form-check-label" for="adultCheck">19 문제</label>
+           <label class="form-check-label" for="adultCheck">19 문제</label> --%>
 
           </div>
 

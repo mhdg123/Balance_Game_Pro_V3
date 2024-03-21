@@ -1,9 +1,6 @@
-<%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +8,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="images/favicon.png">
-<title>관리자 문제승인 페이지</title>
+<title>관리자 문제 승인 상세 페이지</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -33,41 +30,6 @@
 <link rel="stylesheet" href="/resources/adminLte/plugins/daterangepicker/daterangepicker.css">
 <!-- summernote -->
 <link rel="stylesheet" href="/resources/adminLte/plugins/summernote/summernote-bs4.min.css">
-<script>
-    // 문제등록시간 포멧팅
-    function formatCreateTime(time) {
-        var date = new Date(time);
-        var year = date.getFullYear().toString().slice(-2); // 연도 뒤의 두 자리만 가져오기
-        var month = ("0" + (date.getMonth() + 1)).slice(-2); // 월 가져오기 (월은 0부터 시작하므로 +1 해줌)
-        var day = ("0" + date.getDate()).slice(-2); // 일 가져오기
-        var hours = date.getHours();
-        var minutes = ("0" + date.getMinutes()).slice(-2); // 분 가져오기
-        var ampm = hours >= 12 ? 'PM' : 'AM'; // 오전/오후 구분
-        hours = hours % 12; // 12시간 형식으로 변환
-        hours = hours ? hours : 12; // 0시는 12시로 표시
-        var formattedHours = ("0" + hours).slice(-2); // 두 자리 숫자로 표현
-        var formattedTime = year + "/" + month + "/" + day + " " + ampm + " " + formattedHours + ":" + minutes + " [ " + getTimeAgo(date) + " ]";
-        return formattedTime;
-    }
-
-    // 시간 차이 계산 함수
-    function getTimeAgo(date) {
-        var now = new Date(); // 현재 시간 가져오기
-        var diff = Math.floor((now - date) / (1000 * 60)); // 분 단위로 현재 시간과의 차이 계산
-        
-        if (diff < 1) {
-            return "방금 전";
-        } else if (diff < 60) {
-            return diff + "분전";
-        } else if (diff < 1440) {
-            return Math.floor(diff / 60) + "시간 전";
-        } else {
-            return Math.floor(diff / 1440) + "일 전";
-        }
-    }
-</script>
-
-
 <style>
 .message {
 	border-top: 1px solid #ccc;
@@ -111,24 +73,6 @@
 	cursor: pointer;
 }
 </style>
-<style>
-/* 스타일링을 위한 CSS */
-table {
-	border-collapse: collapse;
-	width: 100%;
-}
-
-th, td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: left;
-}
-
-th {
-	background-color: #f2f2f2;
-}
-</style>
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -144,7 +88,7 @@ th {
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="adminPage.do" role="button"> <img src="images/123.png" alt="Menu" width="30" height="30">
 				</a></li>
-				<li class="nav-item d-none d-sm-inline-block nav-link">문제관리 페이지</li>
+				<li class="nav-item d-none d-sm-inline-block nav-link">문제승인 페이지</li>
 				<li class="nav-item d-none d-sm-inline-block"><a href="logout.do" class="nav-link">로그아웃</a></li>
 			</ul>
 
@@ -187,7 +131,7 @@ th {
 								<li class="nav-item"><a href="/admin/adminPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
 										<p>메인</p>
 								</a></li>
-								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
 										<p>유저관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/questionManagementPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
@@ -208,82 +152,75 @@ th {
 
 			<!-- Main content -->
 			<section class="content">
-				<div class="container-fluid">
-
-					<!-- /.row -->
-					<!-- Main row -->
+				<section class="content">
 					<div class="row">
-						<div class="col-12">
-							<div class="card" style="margin-top: 20px;">
+						<div class="col-md-6">
+							<div class="card card-primary">
 								<div class="card-header">
-									<h3 class="card-title">문제승인목록</h3>
+									<h3 class="card-title">문제</h3>
 									<div class="card-tools">
-
-										<div class="input-group input-group-sm" style="width: 100px;">
-											<a href="adminCreateTitlePage.do"><button type="button" class="btn btn-block btn-primary">문제출제</button></a>
-											<div class="input-group-append"></div>
-										</div>
+										<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+											<i class="fas fa-minus"></i>
+										</button>
 									</div>
 								</div>
-
-								<div class="card-body table-responsive p-0">
-									<table class="table table-hover text-nowrap">
-										<thead>
-											<tr>
-												<th>NO</th>
-												<th>Writer</th>
-												<th>Title</th>
-												<th>Date</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:if test="${fn:length(questionDatas_f) <=0 }">
-												<tr>
-													<td colspan="1">출제문제가 없습니다</td>
-												</tr>
-											</c:if>
-
-											<c:forEach var="data" items="${questionDatas_f}">
-												<tr onclick="location.href = '/admin/questionDetaileAccessPage?questionId=${data.questionId}'">
-													<td>${data.questionId}</td>
-													<td>${data.writer}</td>
-													<td>${data.title}</td>
-													<td><script>document.write(formatCreateTime('${data.questionDate}'));</script></td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
+								<form action="/admin/questionAccess" method="POST" id="insertForm">
+									<div class="card-body">
+										<div class="form-group">
+											<label for="inputName">제목</label>
+											<input type="text" id="inputName" class="form-control" value="${questionData.title}" name="title">
+										</div>
+										<div class="form-group">
+											<label for="inputDescription">선택지A</label>
+											<textarea id="inputDescription" class="form-control" rows="2" name="answer_A">${questionData.answerA}</textarea>
+										</div>
+										<div class="form-group">
+											<label for="inputDescription">선택지B</label>
+											<textarea id="inputDescription" class="form-control" rows="2" name="answer_B">${questionData.answerB }</textarea>
+										</div>
+										<div class="form-group">
+											<label for="inputDescription">출제 이유</label>
+											<textarea id="inputDescription" class="form-control" rows="3" name="Explanation">${questionData.explanation }</textarea>
+										</div>
+										<!-- <div class="form-check">
+											<input type="hidden" name="category" id="YN" value="1">
+											<input type="checkbox" class="form-check-input" id="adultCheck">
+											<label class="form-check-label" for="adultCheck">19 문제</label>
+										</div> -->
+										<input type="hidden" name="questionId" value="${questionData.questionId}" />
+										<button type="submit" class="btn btn-block btn-success" style="margin-bottom: 10px; margin-top: 10px;">문제 승인</button>
+								</form>
+								<form action="/admin/questionRefuse" method="POST">
+									<input type="hidden" name="questionId" value="${questionData.questionId}" />
+									<button type="submit" class="btn btn-block btn-danger">문제 거절</button>
+								</form>
 
 							</div>
 
-
-
 						</div>
 
-						<!-- right col (We are only adding the ID to make the widgets sortable)-->
-
-						<!-- right col -->
 					</div>
-					<!-- /.row (main row) -->
-				</div>
-				<!-- /.container-fluid -->
-			</section>
-			<!-- /.content -->
 		</div>
-		<!-- /.content-wrapper -->
-		<footer class="main-footer">
-			<strong>자비스(주) &copy; 1234-5678 </strong> All rights reserved.
-			<div class="float-right d-none d-sm-inline-block">
-				<b>Version</b> 3.2.0
-			</div>
-		</footer>
+		<div class="row"></div>
+		</section>
 
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
+		<!-- /.container-fluid -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<footer class="main-footer">
+		<strong>자비스(주) &copy; 1234-5678 </strong> All rights reserved.
+		<div class="float-right d-none d-sm-inline-block">
+			<b>Version</b> 3.2.0
+		</div>
+	</footer>
+
+	<!-- Control Sidebar -->
+	<aside class="control-sidebar control-sidebar-dark">
+		<!-- Control sidebar content goes here -->
+	</aside>
+	<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
 
@@ -298,6 +235,10 @@ th {
 	<!-- Bootstrap 4 -->
 	<script src="/resources/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+	<script src="/resources/adminLte/js/blankSpace.js"></script>
+	<!-- 공백을 막아주는 js -->
+	<script src="/resources/adminLte/js/submitBlankCheck.js"></script>
+	<script src="/resources/adminLte/js/categoryCheck.js"></script>
 	<!-- ChartJS -->
 	<script src="/resources/adminLte/plugins/chart.js/Chart.min.js"></script>
 	<!-- Sparkline -->
@@ -321,7 +262,5 @@ th {
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
-	<!-- 인공지능 -->
-	<script src="/resources/adminLte/dist/js/ai.js"></script>
 </body>
 </html>
