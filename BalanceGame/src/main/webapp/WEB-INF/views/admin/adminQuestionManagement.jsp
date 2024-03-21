@@ -84,7 +84,7 @@
 												</tr>
 											</c:if>
 											<c:forEach var="data" items="${questionDatas}" varStatus="loop">
-												<tr onclick="location.href = 'adminTitleDetailPage.do?qid=${data.questionId}'">
+												<tr onclick="location.href = '/admin/questionDetailPage?questionId=${data.questionId}'">
 													<td>${loop.index + 1}</td>
 													<td>${data.writer}</td>
 													<td>${data.title}</td>

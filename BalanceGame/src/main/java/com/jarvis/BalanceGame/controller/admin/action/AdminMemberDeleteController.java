@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
@@ -21,7 +22,7 @@ public class AdminMemberDeleteController {
 	@Autowired
 	private MemberService memberService;
 	
-	@GetMapping("/adminMemberDelete")
+	@PostMapping("/adminMemberDelete")
 	public String adminMemberDeleteController(MemberDTO mDTO, Model model, HttpSession session) {
 		mDTO.setLoginId((String)session.getAttribute("loginId"));
 		

@@ -36,7 +36,7 @@ public class AdminQuestionManagementPageController {
 		}
 		model.addAttribute("questionDatas", qdatas_t);
 		System.out.println("questionDatas" + qdatas_t);
-		return "admin/adminquestionManagement";
+		return "admin/adminQuestionManagement";
 	}
 }
 
