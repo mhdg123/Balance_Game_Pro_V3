@@ -24,8 +24,8 @@ public class UserLetterController {
 		
 		String loginId = (String) session.getAttribute("loginId");
 		
-		lDTO.setLoginId(loginId); // 건의하는 유저 아이디
-		
+		lDTO.setSender(loginId); // 건의하는 유저 아이디
+		lDTO.setLoginId("ADMIN");
 		boolean flag = letterService.insert(lDTO);
 		
 		if (!flag) {
