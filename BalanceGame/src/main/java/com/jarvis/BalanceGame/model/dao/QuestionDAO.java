@@ -77,7 +77,7 @@ public class QuestionDAO {
 	private static final String UPDATE = "UPDATE QUESTION SET TITLE=?,ANSWER_A=?,ANSWER_B=?,EXPLANATION=?, Q_ACCESS=? WHERE QUESTION_ID=?";
 
 	// 관리자가 문제 승인
-	private static final String UPDATE_ACCESS = "UPDATE QUESTION SET Q_ACCESS='T' WHERE QUESTION_ID=?";
+	private static final String UPDATE_ACCESS = "UPDATE QUESTION SET QUESTION_ACCESS='T' WHERE QUESTION_ID=?";
 	
 	// 관리자가 문제 삭제 
 	private static final String DELETE = "DELETE FROM QUESTION WHERE QUESTION_ID=?";
