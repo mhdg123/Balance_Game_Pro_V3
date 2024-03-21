@@ -170,8 +170,8 @@ public class QuestionDAO {
 
 		int result = 0;
 		if (qDTO.getSearchCondition().equals("updateQuestion")) {
-			result = jdbcTemplate.update(UPDATE, qDTO.getQuestionId(),qDTO.getTitle(), qDTO.getAnswerA(), qDTO.getAnswerB(),
-					qDTO.getExplanation(), qDTO.getQuestionAccess());
+			result = jdbcTemplate.update(UPDATE, qDTO.getTitle(), qDTO.getAnswerA(), qDTO.getAnswerB(),
+					qDTO.getExplanation(), qDTO.getQuestionAccess(),qDTO.getQuestionId());
 			if (result <= 0) {
 				return false;
 			}
