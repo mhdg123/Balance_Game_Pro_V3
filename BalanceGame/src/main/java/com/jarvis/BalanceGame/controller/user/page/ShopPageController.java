@@ -27,7 +27,7 @@ public class ShopPageController {
    
   
 
-   @GetMapping("/shop")
+   @GetMapping("/shopPage")
    public String shopPageController(ItemDTO iDTO, MemberDTO mDTO, Model model, HttpSession session) {
       System.out.println("상점 페이지 이동");
       
