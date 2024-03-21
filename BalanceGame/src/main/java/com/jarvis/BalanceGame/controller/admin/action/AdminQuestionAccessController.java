@@ -19,7 +19,7 @@ public class AdminQuestionAccessController {
 	@GetMapping("/questionAccess")
 	public String adminTitleAccessController(QuestionDTO qDTO, Model model) {
 		
-		qDTO.setSearchCondition("승인");
+		qDTO.setSearchCondition("approveQuestion");
 		
 		boolean flag = questionService.update(qDTO);
 		if(!flag) {
