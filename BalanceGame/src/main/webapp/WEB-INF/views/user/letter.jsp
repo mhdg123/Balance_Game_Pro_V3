@@ -40,8 +40,9 @@
       <section class="confirmation_part section_padding">
         <div class="container" style="margin: 0 auto">
           <h1>건의하기</h1>
-          <form action="" method="POST">
-            <textarea name="text" id="editor"></textarea>
+          <form action="/user/sendLetter" method="POST">
+          	제목 <input type="text" name="title">
+            <textarea name="letterContents" id="editor"></textarea>
             <p>
               <br />
               <input
