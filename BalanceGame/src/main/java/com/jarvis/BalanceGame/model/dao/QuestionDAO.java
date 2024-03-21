@@ -135,7 +135,7 @@ public class QuestionDAO {
 		else if (qDTO.getSearchCondition().equals("adminQuestionDetail")) {
 			Object[] args = { qDTO.getQuestionId() };
 			try {
-				data = jdbcTemplate.queryForObject(SELECT_ONE_ADMIN, args, new QuestionRowMapper());
+				data = jdbcTemplate.queryForObject(SELECT_ONE_ADMIN, args, new QuestionRowMapperAdminDetail());
 			} catch (Exception e) {
 				System.out.println("문제데이터가 없습니다");
 			}
@@ -262,6 +262,22 @@ class QuestionRowMapperCnt implements RowMapper<QuestionDTO>{
 	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		QuestionDTO data = new QuestionDTO();
 		data.setQuestionCount(rs.getInt("CNT"));
+		return data;
+	}
+}
+
+class QuestionRowMapperAdminDetail implements RowMapper<QuestionDTO>{
+
+	@Override
+	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		QuestionDTO data = new QuestionDTO();
+		data.setQuestionId(rs.getInt("QUESTION_ID"));
+		data.setTitle(rs.getString("TITLE"));
+		data.setWriter(rs.getString("WRITER"));
+		data.setAnswerA(rs.getString("ANSWER_A"));
+		data.setAnswerB(rs.getString("ANSWER_B"));
+		data.setExplanation(rs.getString("EXPLANATION"));
+		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}
 	
