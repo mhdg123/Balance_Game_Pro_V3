@@ -65,7 +65,7 @@ public class QuestionDAO {
 			+ "GROUP BY Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, W.WISH_ID, Q.QUESTION_DATE";
 
 	// 관리자가 사용하는 문제 상세보기 
-	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_DATE FROM QUESTION Q WHERE QUESTION_ID = ? ";
+	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_DATE, QUESTION_ACCESS  FROM QUESTION Q WHERE QUESTION_ID = ? ";
 	
 	// 사용자가 질문 생성
 	private static final String INSERT = "INSERT INTO QUESTION (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION) VALUES(?,?,?,?,?)";
@@ -278,6 +278,7 @@ class QuestionRowMapperAdminDetail implements RowMapper<QuestionDTO>{
 		data.setAnswerB(rs.getString("ANSWER_B"));
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
+		data.setQuestionAccess(rs.getString("QUESTION_ACCESS"));
 		return data;
 	}
 	
