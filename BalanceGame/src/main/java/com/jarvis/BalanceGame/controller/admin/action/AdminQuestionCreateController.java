@@ -26,7 +26,7 @@ public class AdminQuestionCreateController {
 	@GetMapping("/TitleCreate")
 	public String adminTitleCreateController(QuestionDTO qDTO, Model model, HttpSession session) {
 		
-		qDTO.setSearchCondition("관리자문제생성");
+		qDTO.setSearchCondition("createQuestionAdmin");
 		
 		boolean flag = questionService.insert(qDTO);
 		if(!flag) {

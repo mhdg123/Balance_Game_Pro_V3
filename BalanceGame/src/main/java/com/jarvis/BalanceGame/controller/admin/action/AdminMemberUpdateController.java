@@ -23,7 +23,6 @@ public class AdminMemberUpdateController {
 		
 		mDTO.setLoginId((String) session.getAttribute("loginId"));
 		
-		mDTO.setSearchCondition("회원변경");
 		
 		boolean myInfoUpdate = memberService.update(mDTO);
 		if (myInfoUpdate) {

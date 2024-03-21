@@ -24,7 +24,6 @@ public class AdminMemberDeleteController {
 	@GetMapping("/adminMemberDelete")
 	public String adminMemberDeleteController(MemberDTO mDTO, Model model, HttpSession session) {
 		mDTO.setLoginId((String)session.getAttribute("loginId"));
-		mDTO.setSearchCondition("회원삭제");
 		
 		boolean flag = memberService.delete(mDTO);
 		

@@ -19,7 +19,7 @@ public class AdminTitleUpdateController {
 	@GetMapping("/TitleUpdate")
 	public String adminTitleUpdateController(QuestionDTO qDTO, Model model) {
 		
-		qDTO.setSearchCondition("문제수정");
+		qDTO.setSearchCondition("updateQuestion");
 		
 		boolean flag = questionService.update(qDTO);
 		if(!flag) {
