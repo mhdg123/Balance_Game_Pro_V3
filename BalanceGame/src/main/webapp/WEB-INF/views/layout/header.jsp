@@ -102,7 +102,7 @@
 														<!-- 메세지 아이콘  -->
 							<li>
 								<!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 --> <a
-								href="/user/shop"><span
+								href="/user/shopPage"><span
 									class="flaticon-shopping-cart"><span
 										style="font-size: small" class="window_min_text">상점</span>
 								</span></a> <!-- 비로그인 상태에서 상점은 들어갈수 있지만 아이템 구매서 로그인 요구하기 -->
