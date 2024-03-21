@@ -42,7 +42,7 @@ import com.jarvis.BalanceGame.service.PaymentService;
   		model.addAttribute("totalAmount", totalAmount);
   		
   
-  		return "admin/paymentManagement";
+  		return "admin/adminPaymentManagement";
   	}
   	
   	
