@@ -38,7 +38,7 @@
                 <h2>문제 출제</h2>
                 <form
                   class="row contact_form"
-                  action="#"
+                  action="/user/makeQuestion"
                   method="post"
                   novalidate="novalidate"
                 >
