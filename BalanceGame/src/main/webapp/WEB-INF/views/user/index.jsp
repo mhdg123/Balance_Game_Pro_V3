@@ -48,8 +48,11 @@
                       data-delay=".8s"
                       data-duration="2000ms"
                     >
+                    
                       <a href="/user/gamePage" class="btn hero-btn">게임하기</a>
+                      <c:if test="${loginId == null}">
                       <a href="/user/loginPage" class="btn hero-btn">로그인</a>
+                      </c:if>
                     </div>
                   </div>
                 </div>
