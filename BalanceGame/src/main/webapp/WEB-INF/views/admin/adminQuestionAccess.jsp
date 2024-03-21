@@ -244,7 +244,7 @@ th {
 											</c:if>
 
 											<c:forEach var="data" items="${questionDatas_f}">
-												<tr onclick="location.href = 'adminTitleDetaileAccessPage.do?questionId=${data.questionId}'">
+												<tr onclick="location.href = '/admin/questionAccess?questionId=${data.questionId}'">
 													<td>${data.questionId}</td>
 													<td>${data.writer}</td>
 													<td>${data.title}</td>
