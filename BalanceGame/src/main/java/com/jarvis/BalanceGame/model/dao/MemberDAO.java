@@ -35,56 +35,34 @@ public class MemberDAO {
 
 	// 소셜로그인
 	private static final String SOCIAL_LOGIN = "SELECT LOGIN_ID, COIN, NICKNAME FROM MEMBER WHERE LOGIN_ID=?";
-	
+
 	// 마이페이지 조회 SQL
 	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, MEMBER_DATE "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
-	
+
 	// 마이페이지 변경 조회
 	private static final String MY_INFO_UPDATE_VIEW = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, MEMBER_DATE "
 			+ "FROM MEMBER WHERE LOGIN_ID = ? AND PASSWORD = ?";
-	
+
 	// 내정보 변경하기 SQL
 	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
 	// 유저 전체 조회
-	private static final String SELECTALL_USER = "SELECT \r\n"
-			+ "    M.LOGIN_ID, \r\n"
-			+ "    M.GENDER, \r\n"
-			+ "    M.AGE,"
-			+ "    M.ADDRESS, \r\n"
-			+ "    M.EMAIL, "
-			+ "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
-			+ "    CASE \r\n"
-			+ "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
+	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
+			+ "    M.AGE," + "    M.ADDRESS, \r\n" + "    M.EMAIL, " + "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
+			+ "    CASE \r\n" + "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
 			+ "        ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
-			+ "    END AS RANKING \r\n"
-			+ "FROM \r\n"
-			+ "    MEMBER M \r\n"
-			+ "LEFT JOIN \r\n"
-			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n"
-			+ "GROUP BY \r\n"
-			+ "    M.LOGIN_ID, \r\n"
-			+ "    M.GENDER, \r\n"
-			+ "    M.AGE,"
-			+ "    M.ADDRESS,"
-			+ "	   M.EMAIL";
+			+ "    END AS RANKING \r\n" + "FROM \r\n" + "    MEMBER M \r\n" + "LEFT JOIN \r\n"
+			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n" + "GROUP BY \r\n" + "    M.LOGIN_ID, \r\n"
+			+ "    M.GENDER, \r\n" + "    M.AGE," + "    M.ADDRESS," + "	   M.EMAIL";
 
-	//유저 랭킹 조회
-	private static final String SELECTALL_RANKING = "SELECT \r\n"
-			+ "    M.NICKNAME, \r\n"
-			+ "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
-			+ "    CASE \r\n"
+	// 유저 랭킹 조회
+	private static final String SELECTALL_RANKING = "SELECT \r\n" + "    M.NICKNAME, \r\n"
+			+ "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n" + "    CASE \r\n"
 			+ "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
 			+ "        ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
-			+ "    END AS RANKING \r\n"
-			+ "FROM \r\n"
-			+ "    MEMBER M \r\n"
-			+ "LEFT JOIN \r\n"
-			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n"
-			+ "GROUP BY \r\n"
-			+ "    M.NICKNAME";
-	
-	
+			+ "    END AS RANKING \r\n" + "FROM \r\n" + "    MEMBER M \r\n" + "LEFT JOIN \r\n"
+			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n" + "GROUP BY \r\n" + "    M.NICKNAME";
+
 	// 유저 삭제
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
 
@@ -93,8 +71,7 @@ public class MemberDAO {
 		List<MemberDTO> members = null;
 		if (mDTO.getSearchCondition().equals("viewAll")) {
 			members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
-		}
-		else if(mDTO.getSearchCondition().equals("ranking")) {
+		} else if (mDTO.getSearchCondition().equals("ranking")) {
 			members = jdbcTemplate.query(SELECTALL_RANKING, new MemberRowMapperRank());
 		}
 		return members;
@@ -102,11 +79,11 @@ public class MemberDAO {
 
 	// 회원 단일 검색
 	public MemberDTO selectOne(MemberDTO mDTO) {
-		
+
 		MemberDTO member = null;
 		if (mDTO.getSearchCondition().equals("viewOne")) {
 			Object[] args = { mDTO.getLoginId() };
-			System.out.println("" +mDTO.getLoginId());
+			System.out.println("" + mDTO.getLoginId());
 			if (args != null) {
 				try {
 					member = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
@@ -149,31 +126,30 @@ public class MemberDAO {
 		}
 		// 마이페이지 조회
 		else if (mDTO.getSearchCondition().equals("myInfo")) {
-			Object[] args = { mDTO.getLoginId()};
+			Object[] args = { mDTO.getLoginId() };
 			try {
 				member = jdbcTemplate.queryForObject(MY_INFO, args, new MemberRowMapperDetail());
 			} catch (Exception e) {
 				System.out.println("내정보 결과 조회 실패");
 			}
-		}
-		else if(mDTO.getSearchCondition().equals("myInfoUpdateView")) {
-			Object[] args = {mDTO.getLoginId(), mDTO.getMemberPassword()};
+		} else if (mDTO.getSearchCondition().equals("myInfoUpdateView")) {
+			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
 			try {
 				member = jdbcTemplate.queryForObject(MY_INFO_UPDATE_VIEW, args, new MemberRowMapperDetail());
 			} catch (Exception e) {
 				System.out.println("내정보 결과 조회 실패");
 			}
-		}
-		else if(mDTO.getSearchCondition().equals("memberCount")) {
+		} else if (mDTO.getSearchCondition().equals("memberCount")) {
 			try {
 				member = jdbcTemplate.queryForObject(SELECT_CNT, new MemberRowMapperCnt());
-			}catch(Exception e) {
+			} catch (Exception e) {
 				System.out.println("멤버수 결과 조회 실패");
 			}
-		}
-		else if(mDTO.getSearchCondition().equals("SOCIAL_LOGIN")) {
+		} else if (mDTO.getSearchCondition().equals("socialLogin")) {
+			Object[] args = { mDTO.getLoginId() };
 			try {
-				member = jdbcTemplate.queryForObject(SOCIAL_LOGIN, new MemberRowMapperSocialLogin());
+				System.out.println("소셜 로그인 dao");
+				member = jdbcTemplate.queryForObject(SOCIAL_LOGIN, args, new MemberRowMapperSocialLogin());
 			} catch (Exception e) {
 				System.out.println("소셜로그인 실패");
 			}
@@ -259,7 +235,7 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setName(rs.getString("NAME"));
 		member.setNickName(rs.getString("NICKNAME"));
-		member.setAge(rs.getString("AGE"));     			
+		member.setAge(rs.getString("AGE"));
 		member.setGender(rs.getString("GENDER"));
 		member.setEmail(rs.getString("EMAIL"));
 		member.setAddress(rs.getString("ADDRESS"));
@@ -271,7 +247,7 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 	}
 }
 
-class MemberRowMapperRank implements RowMapper<MemberDTO>{
+class MemberRowMapperRank implements RowMapper<MemberDTO> {
 
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -283,17 +259,18 @@ class MemberRowMapperRank implements RowMapper<MemberDTO>{
 	}
 }
 
-class MemberRowMapperCnt implements RowMapper<MemberDTO>{
+class MemberRowMapperCnt implements RowMapper<MemberDTO> {
 
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
-		member.setMemberCount(rs.getInt("MEMBER_CNT"));;
+		member.setMemberCount(rs.getInt("MEMBER_CNT"));
+		;
 		return member;
 	}
 }
 
-class MemberRowMapperSocialLogin implements RowMapper<MemberDTO>{
+class MemberRowMapperSocialLogin implements RowMapper<MemberDTO> {
 
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -303,5 +280,5 @@ class MemberRowMapperSocialLogin implements RowMapper<MemberDTO>{
 		member.setCoin(rs.getInt("COIN"));
 		return member;
 	}
-	
+
 }
