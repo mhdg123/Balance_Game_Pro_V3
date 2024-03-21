@@ -21,11 +21,10 @@ public class MyInfoPasswordCheckAsync {
 	private MemberService memberService;
 	
 	@PostMapping("/myInfoPasswordCheckAsync")
-	public @ResponseBody String myInfoPasswordCheckAsync(MemberDTO mDTO,  @RequestParam("password") String password,Model model, HttpSession session) {
+	public @ResponseBody String myInfoPasswordCheckAsync(MemberDTO mDTO,Model model, HttpSession session) {
 		mDTO.setSearchCondition("login");
 		String loginId = (String)session.getAttribute("loginId");
 		mDTO.setLoginId(loginId);
-		mDTO.setMemberPassword(password);
 		mDTO = memberService.selectOne(mDTO);
 		
 		if(mDTO == null) {
