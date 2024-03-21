@@ -58,16 +58,28 @@ public class QuestionDAO {
 
 
 	// 문제 상세보기 
-	private static final String SELECT_ONE_DETAIL = "SELECT Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, Q.QUESTION_DATE, \r\n"
-			+ "COALESCE(SUM(CASE WHEN A.ANSWER = 'A' THEN 1 ELSE 0 END), 0) AS COUNT_A, \r\n"
-			+ "COALESCE(SUM(CASE WHEN A.ANSWER = 'B' THEN 1 ELSE 0 END), 0) AS COUNT_B, \r\n"
-			+ "IFNULL(W.WISH_ID, 0) AS LIKE_ID,\r\n"
-			+ "CASE WHEN COUNT(A.ANSWER) = 0 THEN 0 ELSE NULL END AS ANSWER\r\n"
-			+ "FROM QUESTION Q \r\n"
-			+ "LEFT JOIN ANSWER A ON Q.QUESTION_ID = A.QUESTION_ID \r\n"
-			+ "LEFT JOIN WISH W ON Q.QUESTION_ID = W.QUESTION_ID AND W.LOGIN_ID = ? \r\n"
-			+ "WHERE Q.QUESTION_ID= ? \r\n"
-			+ "GROUP BY Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, Q.QUESTION_DATE, W.WISH_ID";
+	private static final String SELECT_ONE_DETAIL = "SELECT \r\n"
+			+ "    Q.QUESTION_ID, \r\n"
+			+ "    Q.WRITER, \r\n"
+			+ "    Q.TITLE, \r\n"
+			+ "    Q.ANSWER_A, \r\n"
+			+ "    Q.ANSWER_B, \r\n"
+			+ "    Q.EXPLANATION, \r\n"
+			+ "    Q.QUESTION_DATE, \r\n"
+			+ "    IFNULL(COUNT(CASE WHEN A.ANSWER = 'A' THEN 1 END), 0) AS COUNT_A, \r\n"
+			+ "    IFNULL(COUNT(CASE WHEN A.ANSWER = 'B' THEN 1 END), 0) AS COUNT_B, \r\n"
+			+ "    IFNULL(W.WISH_ID, 0) AS LIKE_ID,\r\n"
+			+ "    CASE WHEN COUNT(A.ANSWER) = 0 THEN 0 ELSE NULL END AS ANSWER\r\n"
+			+ "FROM \r\n"
+			+ "    QUESTION Q \r\n"
+			+ "LEFT JOIN \r\n"
+			+ "    ANSWER A ON Q.QUESTION_ID = A.QUESTION_ID \r\n"
+			+ "LEFT JOIN \r\n"
+			+ "    WISH W ON Q.QUESTION_ID = W.QUESTION_ID AND W.LOGIN_ID = ? \r\n"
+			+ "WHERE \r\n"
+			+ "    Q.QUESTION_ID= ? \r\n"
+			+ "GROUP BY \r\n"
+			+ "    Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, W.WISH_ID, Q.QUESTION_DATE";
 
 	// 관리자가 사용하는 문제 상세보기 
 	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_DATE, QUESTION_ACCESS  FROM QUESTION Q WHERE QUESTION_ID = ? ";
