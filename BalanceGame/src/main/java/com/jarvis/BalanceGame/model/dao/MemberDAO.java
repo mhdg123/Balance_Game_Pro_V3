@@ -56,12 +56,10 @@ public class MemberDAO {
 			+ "    M.GENDER, \r\n" + "    M.AGE," + "    M.ADDRESS," + "	   M.EMAIL";
 
 	// 유저 랭킹 조회
-	private static final String SELECTALL_RANKING = "SELECT \r\n" + "    M.NICKNAME, \r\n"
-			+ "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n" + "    CASE \r\n"
-			+ "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
-			+ "        ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
-			+ "    END AS RANKING \r\n" + "FROM \r\n" + "    MEMBER M \r\n" + "LEFT JOIN \r\n"
-			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n" + "GROUP BY \r\n" + "    M.NICKNAME";
+	private static final String SELECTALL_RANKING = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, "
+			+ " CASE WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL "
+			+ " ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) "
+			+ " END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME";
 
 	// 유저 삭제
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
@@ -252,6 +250,7 @@ class MemberRowMapperRank implements RowMapper<MemberDTO> {
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setNickName(rs.getString("NICKNAME"));
 		member.setTotal(rs.getInt("TOTAL"));
 		member.setRanking(rs.getInt("RANKING"));
