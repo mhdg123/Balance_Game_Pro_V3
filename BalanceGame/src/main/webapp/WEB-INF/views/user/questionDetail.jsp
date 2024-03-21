@@ -32,21 +32,28 @@
 		<!--================ 문제목록 =================-->
 		<section>
 			<div class="container">
-				<!-- 필터 -->
-				<div class="row f-right"
-					style="padding-top: 10px; display: flex; align-items: center; gap: 10px;">
-					<div>필터</div>
-					<div class="default-select col-md-3" id="default-select">
-						<select>
-							<option value="1">전체</option>
-							<option value="2">남자</option>
-							<option value="3">여자</option>
-						</select>
-					</div>
-				</div>
+	
 
 				<!-- 결과 -->
-				<div style="height: 80px"></div>
+				<div style="height: 80px;margin-top: 40px">
+							<!-- 필터 -->
+				<div
+					style="display: flex; justify-content: space-between; align-items: center;">
+					<a href="/user/questionListPage"><p>< 문제목록</p></a>
+					<div class="row f-right"
+						style="display: flex; align-items: center; gap: 10px;">
+						<div>필터</div>
+						<div class="default-select col-md-3" id="default-select">
+							<select>
+								<option value="1">전체</option>
+								<option value="2">남자</option>
+								<option value="3">여자</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				</div>
 				<h2 class="col-12">
 					<br />${questionData.title}
 					<c:if test="${questionData.wishId > 0}">
