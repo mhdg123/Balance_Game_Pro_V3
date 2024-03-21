@@ -33,6 +33,9 @@ public class MemberDAO {
 	private static final String SELECTONE_USER = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
 
+	// 소셜로그인
+	private static final String SOCIAL_LOGIN = "SELECT LOGIN_ID, COIN, NICKNAME FROM MEMBER WHERE LOGIN_ID=?";
+	
 	// 마이페이지 조회 SQL
 	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, MEMBER_DATE "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
@@ -168,6 +171,13 @@ public class MemberDAO {
 				System.out.println("멤버수 결과 조회 실패");
 			}
 		}
+		else if(mDTO.getSearchCondition().equals("SOCIAL_LOGIN")) {
+			try {
+				member = jdbcTemplate.queryForObject(SOCIAL_LOGIN, new MemberRowMapperSocialLogin());
+			} catch (Exception e) {
+				System.out.println("소셜로그인 실패");
+			}
+		}
 		return member;
 	}
 
@@ -279,6 +289,18 @@ class MemberRowMapperCnt implements RowMapper<MemberDTO>{
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
 		member.setMemberCount(rs.getInt("MEMBER_CNT"));;
+		return member;
+	}
+}
+
+class MemberRowMapperSocialLogin implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getString("LOGIN_ID"));
+		member.setNickName(rs.getString("NICKNAME"));
+		member.setCoin(rs.getInt("COIN"));
 		return member;
 	}
 	
