@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminCreateTitlePageController {
+public class AdminCreateQuestionPageController {
 
 	@GetMapping("/adminCreateTitlePage")
 	public String adminCreateTitlePageController() {
-		
-		return "admin/adminMakeTitle";
+		System.out.println("관리자 문제 출제 페이지 이동");
+		return "admin/adminMakeQuestion";
 	}
 	
 }

@@ -54,7 +54,7 @@
 									<div class="card-tools">
 
 										<div class="input-group input-group-sm" style="width: 100px;">
-											<a href="adminCreateTitlePage.do"><button type="button" class="btn btn-block btn-primary">문제출제</button></a>
+											<a href="/admin/adminCreateTitlePage"><button type="button" class="btn btn-block btn-primary">문제출제</button></a>
 											<div class="input-group-append"></div>
 										</div>
 									</div>
