@@ -234,31 +234,67 @@
     `,
     focusConfirm: false,
     preConfirm: async () => {
-      const password = document.getElementById("swal-input1").value;
+      const memberPassword = document.getElementById("swal-input1").value;
 
-      // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-      const response = await fetch("/api/find-id", {
+		$.ajax({
+			type: "POST",
+			url: "/user/myInfoPasswordCheckAsync",
+			data: {
+				'memberPassword': memberPassword
+			},
+			dataType: 'text',
+			success: function(data) {
+				console.log(data);
+				if (data == "success") {
+					console.log("성공");
+					location.href ="/user/myPageUpdatePageController";
+				}else{
+					Swal.fire("비밀번호 확인해주세요");
+				}
+			},
+			error: function(error) {
+				console.log('에러발생');
+				console.log('에러의 종류:' + error);
+			}
+
+		});
+      
+    
+      
+      
+/*         // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
+      const response = await fetch("/user/myInfoPasswordCheckAsync", {
         method: "POST",
-        body: JSON.stringify({ password }),
-        headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
+        type:"text",
+        body: { 'memberPassword' :memberPassword }
+        //headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
       });
 
       if (!response.ok) {
-          return "서버 전송 실패";
+          return "서버 전송 실패1";
         // throw new Error("서버에 데이터 전송 실패!");
+      }else{
+    	  console.log(response);
+    	  if(response=="success"){
+    		  location.href ="/user/myPageUpdatePageController";
+    	  }
+    	  else{
+    		  return "인증 실패2";
+    	  }
+    	  
       }
 
       // 성공적인 응답 처리 (원하는 논리로 변경)
       const data = await response.json();
       console.log("회원님의 아이디는 : " + data + "입니다.") 
     //   console.log("서버 응답:", data); // 예시: 응답 데이터 기록
-      return formValues; // 추가 처리를 위해 formValues 반환
+      return formValues; // 추가 처리를 위해 formValues 반환  */
     }
   });
 
-  if (formValues) {
+/*   if (formValues) {
     Swal.fire(JSON.stringify(formValues));
-  }
+  }  */
      }
 
 
