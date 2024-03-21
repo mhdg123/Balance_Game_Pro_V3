@@ -1,7 +1,93 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
-<!-- 헤더 고정 -->
-<%@ include file="../adminLayout/header-fix.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/resources/adminLte/plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet" href="/resources/adminLte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- iCheck -->
+<link rel="stylesheet" href="/resources/adminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- JQVMap -->
+<link rel="stylesheet" href="/resources/adminLte/plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="/resources/adminLte/dist/css/adminlte.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="/resources/adminLte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet" href="/resources/adminLte/plugins/daterangepicker/daterangepicker.css">
+<!-- summernote -->
+<link rel="stylesheet" href="/resources/adminLte/plugins/summernote/summernote-bs4.min.css">
+<!-- sliderBar -->
+<link rel="stylesheet" href="/resources/adminLte/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+<link rel="stylesheet" href="/resources/adminLte/plugins/bootstrap-slider/css/bootstrap-slider.min.css">
+<link rel="stylesheet" href="/resources/adminLte/dist/css/adminlte.min.css?v=3.2.0">
+
+<style>
+.message {
+	border-top: 1px solid #ccc;
+	padding: 10px;
+	margin-top: 5px;
+	background-color: #e6e6e6;
+}
+
+#chat-container {
+	width: 400px;
+	height: 600px;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #ccc;
+}
+
+#chat-messages {
+	flex: 1;
+	overflow-y: auto;
+	padding: 10px;
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+#user-input {
+	display: flex;
+	padding: 10px;
+}
+
+#user-input input {
+	flex: 1;
+	padding: 10px;
+	outline: none;
+}
+
+#user-input button {
+	border: none;
+	background-color: #1e88e5;
+	color: white;
+	padding: 10px 15px;
+	cursor: pointer;
+}
+</style>
+<style>
+/* 스타일링을 위한 CSS */
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+</style>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 
@@ -100,7 +186,7 @@
 
 
 										<tbody>
-											<c:if test="${empty sdatas}">
+											<c:if test="${empty memberDatas}">
 												<tr>
 													<td colspan="1">회원 정보가 없습니다.</td>
 												</tr>
@@ -108,15 +194,15 @@
 											</c:if>
 
 
-											<c:forEach var="data" items="${sdatas}" varStatus="loop">
-												<tr onclick="location.href = 'adminMemberDetailPage.do?loginId=${data.loginId}'">
+											<c:forEach var="data" items="${memberDatas}" varStatus="loop">
+												<tr onclick="location.href = '/admin/adminMemberDetailPage?loginId=${data.loginId}'">
 													<td>${loop.index + 1}</td>
 													<td>
-														<%-- <crown:crown ranking="${data.ranking}" />${data.name}(${data.loginId})</td> --%>
+														${data.loginId}(${data.nickName})
 													<td>
 														<fmt:formatNumber value="${data.total}" currencyCode="KRW" />
 													</td>
-													<td>${data.date}</td>
+													<td>${data.total}</td>
 												</tr>
 
 											</c:forEach>
@@ -151,9 +237,49 @@
 	</div>
 	<!-- ./wrapper -->
 
-	<%@ include file="../adminLayout/footer.jsp"%>
-	<%@ include file="../adminLayout/footer-fix.jsp"%>
-	<script>
+	<!-- jQuery -->
+ <script src="/resources/adminLte/plugins/jquery/jquery.min.js"></script>
+ <!-- jQuery UI 1.11.4 -->
+ <script src="/resources/adminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
+ <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+ <script>
+		$.widget.bridge('uibutton', $.ui.button)
+	</script>
+ <!-- Bootstrap 4 -->
+ <script src="/resources/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+ <!-- ChartJS -->
+ <script src="/resources/adminLte/plugins/chart.js/Chart.min.js"></script>
+ <!-- Sparkline -->
+ <script src="/resources/adminLte/plugins/sparklines/sparkline.js"></script>
+ <!-- JQVMap -->
+ <script src="/resources/adminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
+ <script src="/resources/adminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+ <!-- jQuery Knob Chart -->
+ <script src="/resources/adminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
+ <!-- daterangepicker -->
+ <script src="/resources/adminLte/plugins/moment/moment.min.js"></script>
+ <script src="/resources/adminLte/plugins/daterangepicker/daterangepicker.js"></script>
+ <!-- Tempusdominus Bootstrap 4 -->
+ <script src="/resources/adminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+ <!-- Summernote -->
+ <script src="/resources/adminLte/plugins/summernote/summernote-bs4.min.js"></script>
+ <!-- overlayScrollbars -->
+ <script src="/resources/adminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+ <!-- AdminLTE App -->
+ <script src="/resources/adminLte/dist/js/adminlte.js"></script>
+ <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+ <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+ <script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
+ <!-- 인공지능 -->
+ <script src="/resources/adminLte/dist/js/ai.js"></script> '' 
+ <script src="/resources/adminLte/dist/js/adminlte.min.js?v=3.2.0"></script> '' 
+ <script src="/resources/adminLte/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script> ''
+ <script src="/resources/adminLte/plugins/bootstrap-slider/bootstrap-slider.min.js"></script> '' 
+ <script src="/resources/adminLte/js/rangeSlider.js"></script> //
+ <script src="/resources/adminLte/js/sponsorListDate.js"></script> //
+ <script src="/resources/adminLte/js/sponsorListRank.js"></script> //
+ <script>
 		$(function() {
 			/* BOOTSTRAP SLIDER */
 			$('.slider').bootstrapSlider()

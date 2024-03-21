@@ -27,8 +27,9 @@ import com.jarvis.BalanceGame.service.PaymentService;
   		System.out.println("관리자 결제 관리 페이지 이동");
   		mDTO.setSearchCondition("ranking");
   		List<MemberDTO> mdatas = memberService.selectAll(mDTO);
-  		
+  		System.out.println("관리자 결제 회원 조회된 데이터 : " + mdatas);
   		PaymentDTO totalAmount = paymentService.selectOne(pDTO);
+  		System.out.println("관리자 결제 금액 조회된 데이터 : " + totalAmount);
   		
   		if(mdatas == null) {
   
