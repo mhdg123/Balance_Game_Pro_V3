@@ -186,7 +186,7 @@
 							else if(data=="wishOff"){
 								$("#" + questionId).attr("src", "/resources/assets/img/thumb/empty-hearts.png");
 							}
-							
+							location.reload();
 	/* 						if (data == "찜x.png" && page == "wishPage") {
 								location.reload();
 							} */
