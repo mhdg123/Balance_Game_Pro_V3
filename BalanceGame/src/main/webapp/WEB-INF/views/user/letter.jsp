@@ -41,7 +41,13 @@
         <div class="container" style="margin: 0 auto">
           <h1>건의하기</h1>
           <form action="/user/sendLetter" method="POST">
-          	제목 <input type="text" name="title">
+          	제목 <input
+                      type="text"
+                      class="form-control"
+                      id="title"
+                      name="title"
+                      placeholder="제목 입력해주세요"
+                    />
             <textarea name="letterContents" id="editor"></textarea>
             <p>
               <br />
