@@ -25,23 +25,23 @@ public class AdminTitleUpdateController {
 		System.out.println("관리자 문제 답변A 파라미터 : " + qDTO.getAnswerA());
 		System.out.println("관리자 문제 답변B 파라미터 : " + qDTO.getAnswerB());
 		System.out.println("관리자 문제 설명 파라미터 : " + qDTO.getExplanation());
-		System.out.println("관리자 문제 출제 수락 여부  파라미터 : " + qDTO.getQuestionAccess());
-		System.out.println();
-		Class<?> dataType = qDTO.getQuestionAccess().getClass();
-		System.out.println("데이터 타입: " + dataType.getName());
 		qDTO.setSearchCondition("updateQuestion");
-		
+		if(qDTO.getQuestionAccess() == null) {
+			qDTO.setQuestionAccess("F");
+		}
 		boolean flag = questionService.update(qDTO);
+		
 		if(!flag) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "실패했습니다");
-			model.addAttribute("redirect", "adminMain");
+			model.addAttribute("redirect", "/admin/adminPage");
 			return "alert";
 		}
+	
 		System.out.println("관리자 문제 수정 성공");
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", "수정되었습니다");
-		model.addAttribute("redirect", "adminMain");
+		model.addAttribute("redirect", "/admin/questionManagementPage");
 		return "alert";
 
 	}
