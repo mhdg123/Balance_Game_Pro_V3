@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
@@ -20,7 +21,7 @@ public class AdminQuestionRefuseController {
 	@Autowired
 	private QuestionService questionService;
 	
-	@GetMapping("/TitleRefuse")
+	@PostMapping("/questionRefuse")
 	public String adminTitleRefuseController(QuestionDTO qDTO, Model model) {
 		
 		
@@ -28,12 +29,12 @@ public class AdminQuestionRefuseController {
 		if(!flag) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "실패했습니다");
-			model.addAttribute("redirect", "adminMain");
+			model.addAttribute("redirect", "/adminMain");
 			return "alert";
 		}
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", "거절했습니다");
-		model.addAttribute("redirect", "adminMain");
+		model.addAttribute("redirect", "/adminMain");
 		return "alert";
 	}
 	
