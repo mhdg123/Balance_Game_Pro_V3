@@ -23,7 +23,10 @@ public class AdminLetterSendAsync {
 		
 		String loginId = (String)session.getAttribute("loginId");
 		
-		lDTO.setLoginId(loginId);
+		String recipient = lDTO.getSender();
+		
+		lDTO.setSender(loginId);
+		lDTO.setLoginId(recipient);
 		
 		boolean flag = letterService.insert(lDTO);
 		
