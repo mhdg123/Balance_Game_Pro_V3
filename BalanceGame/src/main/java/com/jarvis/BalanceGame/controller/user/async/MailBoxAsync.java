@@ -47,8 +47,6 @@ public class MailBoxAsync {
 		String loginId = (String) session.getAttribute("loginId");
 	    lDTO.setLoginId(loginId);
 	
-	    letterService.update(lDTO);
-
 	    lDTO.setSearchCondition("unReadMessage");
 	    // 읽지 않은 편지 수를 조회하여 반환
 	    List<LetterDTO> unreadLetters = letterService.selectAll(lDTO);

@@ -102,26 +102,33 @@
       .dropdown-options hr {
         margin: 5px
       }
-      .cnt {
-        position: relative;
-      }
 
-      .cnt::before {
-        position: absolute;
-        content: "${cnt}";
-        background: #ff003c;
-        color: #fff;
-        text-align: center;
-        border-radius: 8px;
-        font-size: 10px;
-        top: -5px;
-        left: 20px;
-        transition: 0.2s;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        padding: 1px 3px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 500;
-      }
+      
+      
+      
+      
+.nav-counter {
+    position: absolute;
+    top: -8px; /* 조정 필요 */
+    left: 20px; /* 이미지 폭 + 여백 조정 필요 */
+    min-width: 8px;
+    line-height: 20px;
+    padding: 0 6px;
+    font-weight: normal;
+    font-size: small;
+    color: white;
+    text-align: center;
+    background: #ff003c;
+    border-radius: 11px;
+    background-image: -webkit-linear-gradient(top, #e8616c, #dd202f);
+    background-image: -moz-linear-gradient(top, #e8616c, #dd202f);
+    background-image: -o-linear-gradient(top, #e8616c, #dd202f);
+    background-image: linear-gradient(to bottom, #e8616c, #dd202f);
+    -webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px rgba(0, 0, 0, 0.12);
+    box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px rgba(0, 0, 0, 0.12);
+}
+
+
+
     </style>
    

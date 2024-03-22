@@ -40,7 +40,35 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- 우편함 동작로직 -->
+<!-- 메시지박스 -->
+<!-- 메시지 개수 받아오기 -->
+<script>
+$(document).ready(function() {
+    // 페이지 로드가 완료되면 실행될 코드를 여기에 작성합니다.
+	 $.ajax({
+	        type: "POST",
+	        url: "/user/mailCount",
+	        data: {},
+	        dataType: 'text',
+	        success: function(data) {
+	        	 console.log(data);
+	             //$('.cnt').css("content",data);
+	             $('#letterContent').text(data);
+	        },
+	        error: function(error) {
+	            console.log('에러발생');
+	            console.log('에러의 종류:' + error);
+	        }
+	    });
+    
+});
 
+
+</script>
+
+<!-- 메시지 개수 받아오기 -->
+
+<!-- 메시지 상세 받아오기 -->
 <script>
 
 $(document).on('click', '.letter-box', async function() {
@@ -50,11 +78,34 @@ $(document).on('click', '.letter-box', async function() {
     try {
         var data = await $.ajax({
             type: "POST",
-            url: "/user/letterDetailAsync",
+            url: "/user/mailCheck",
             data: {
                 "letterId": letterId
             },
-            dataType: 'json'
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                $.ajax({
+        	        type: "POST",
+        	        url: "/user/mailCount",
+        	        data: {},
+        	        dataType: 'text',
+        	        success: function(data) {
+        	        	 console.log(data);
+        	             //$('.cnt').css("content",data);
+        	             $('#letterContent').text(data);
+        	        },
+        	        error: function(error) {
+        	            console.log('에러발생');
+        	            console.log('에러의 종류:' + error);
+        	        }
+        	    });
+            },
+            error: function(error) {
+                console.log('에러발생');
+                console.log('에러의 종류:' + error);
+            }
+            
         });
         
         const { value: text } = await Swal.fire({
@@ -69,8 +120,9 @@ $(document).on('click', '.letter-box', async function() {
     }
 });
     </script>
+<!-- 메시지 상세 받아오기 -->
 
-<!-- 메시지박스 -->
+
 
 <!-- 드롭박스 스크립트 -->
 <script>
@@ -113,7 +165,7 @@ $('#dropdown-btn').on('click',function(){
     
     $.ajax({
         type: "POST",
-        url: "/user/letterTitleAsync",
+        url: "/user/mailBoxAsync",
         data: {},
         dataType: 'json',
         success: function(data) {
@@ -156,15 +208,6 @@ $('#dropdown-btn').on('click',function(){
 
 </script>
 <!-- 메시지 추가로 받아오기 -->
-
-
-<!-- 메시지 상세 받아오기 -->
-<script type="text/javascript">
-
-
-
-</script>
-<!-- 메시지 상세 받아오기 -->
 
 
 <!-- 메시지박스 -->
