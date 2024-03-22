@@ -16,7 +16,7 @@ public class AdminLetterDetailPageController {
 	@Autowired
 	private LetterService letterService;
 
-	@GetMapping("/letterDetailPageAction")
+	@GetMapping("/letterDetailPage")
 	public String adminSuggestionDetailPageController(LetterDTO lDTO, Model model) {
 		System.out.println("편지 PK id값 : " + lDTO.getLetterId());
 
