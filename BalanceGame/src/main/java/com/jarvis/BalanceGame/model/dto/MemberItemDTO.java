@@ -16,4 +16,7 @@ public class MemberItemDTO {
 	 @NotNull
 	 private int itemId; // 아이템 ID
 	 private int memberItemCount; // 구매한 아이템 개수
+	 
+	 //----------------------------------------
+	 private String itemName;
 }
