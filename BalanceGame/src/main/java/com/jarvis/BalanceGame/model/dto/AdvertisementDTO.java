@@ -15,4 +15,6 @@ public class AdvertisementDTO {
 	@NotNull
     private String advertisementUrl; // 광고 주소
     private String advertisementImg; // 광고 이미지
+    @NotNull
+    private String advertisementStatus; // 광고 상태값
 }
