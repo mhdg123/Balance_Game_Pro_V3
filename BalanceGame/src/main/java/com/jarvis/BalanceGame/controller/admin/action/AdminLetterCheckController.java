@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jarvis.BalanceGame.model.dto.LetterDTO;
 import com.jarvis.BalanceGame.service.LetterService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminLetterCheckController {
@@ -17,8 +19,11 @@ public class AdminLetterCheckController {
 	private LetterService letterService;
 	
 	@GetMapping("/adminLetterCheckController")
-	public String adminLetterCheckController(LetterDTO lDTO, Model model) {
-		lDTO.setLoginId("admin");
+	public String adminLetterCheckController(LetterDTO lDTO, Model model, HttpSession session) {
+		
+		String loginId = (String)session.getAttribute("loginId");
+		
+		lDTO.setLoginId(loginId);
 		letterService.update(lDTO);
 		
 		return "admin/adminLetterManagement";

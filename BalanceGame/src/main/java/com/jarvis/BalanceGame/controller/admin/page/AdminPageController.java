@@ -17,6 +17,8 @@ import com.jarvis.BalanceGame.service.MemberService;
 import com.jarvis.BalanceGame.service.PaymentService;
 import com.jarvis.BalanceGame.service.QuestionService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminPageController {
@@ -32,7 +34,7 @@ public class AdminPageController {
 	
 	
 	@GetMapping("/adminPage")
-	public String adminPageController(LetterDTO lDTO, QuestionDTO qDTO, MemberDTO mDTO, PaymentDTO pDTO, Model model) {
+	public String adminPageController(LetterDTO lDTO, QuestionDTO qDTO, MemberDTO mDTO, PaymentDTO pDTO, Model model, HttpSession session) {
 		
 		qDTO.setSearchCondition("questionCount");
 		qDTO.setQuestionAccess("F");
@@ -51,7 +53,10 @@ public class AdminPageController {
 		pDTO = paymentService.selectOne(pDTO);
 		System.out.println(pDTO);
 		
-		lDTO.setLoginId("admin");
+		
+		String loginId = (String)session.getAttribute("loginId");
+		
+		lDTO.setLoginId(loginId);
 		lDTO.setSearchCondition("unReadMessage");
 		List<LetterDTO> lDatas = letterService.selectAll(lDTO);
 		System.out.println(lDatas);
