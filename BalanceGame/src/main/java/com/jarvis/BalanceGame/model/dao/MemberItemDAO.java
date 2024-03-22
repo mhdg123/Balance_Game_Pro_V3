@@ -31,13 +31,21 @@ public class MemberItemDAO {
 	
 	
 	public List<MemberItemDTO> selectAll(MemberItemDTO miDTO){
+		List<MemberItemDTO> memberItemList = null;
 		Object[] args = {miDTO.getLoginId()};
-		return jdbcTemplate.query(SELECTALL, args, new MemberItemRowMapper());
+		memberItemList = jdbcTemplate.query(SELECTALL, args, new MemberItemRowMapper());
+		return memberItemList;
 	}
 	
 	public MemberItemDTO selectOne(MemberItemDTO miDTO) {
+		MemberItemDTO memberItem = null;
 		Object[] args = {miDTO.getLoginId(), miDTO.getItemId()};
-		return jdbcTemplate.queryForObject(SELECTONE, args, new MemberItemRowMapperitemIsOwned());
+		try {
+			memberItem = jdbcTemplate.queryForObject(SELECTONE, args, new MemberItemRowMapperitemIsOwned());
+		} catch (Exception e) {
+			System.out.println("멤버 아이템 조회 불가");
+		}
+		return memberItem;
 	}
 	
 	public boolean insert(MemberItemDTO miDTO) {

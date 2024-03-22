@@ -21,7 +21,7 @@ public class LetterDAO {
 	private static final String SELECTALL = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER ORDER BY LETTER_DATE DESC";
 
 	// 안읽은 편지 조회
-	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
+	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER, LETTER_STATUS, LETTER_DATE FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
 
 	// 해당 메세지 조회
 	private static final String SELECTONE = "SELECT LETTER_ID,SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LETTER_ID = ?";
@@ -93,6 +93,8 @@ class UnReadLetterRowMapper implements RowMapper<LetterDTO> {
 		data.setLetterId(rs.getInt("LETTER_ID"));
 		data.setSender(rs.getString("SENDER"));
 		data.setTitle(rs.getString("TITLE"));
+		data.setLetterDate(rs.getDate("LETTER_DATE"));
+		data.setLetterStatus(rs.getString("LETTER_STATUS"));
 		return data;
 	}
 }
