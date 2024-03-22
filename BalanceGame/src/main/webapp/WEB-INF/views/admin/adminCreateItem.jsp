@@ -152,7 +152,7 @@
 				<section class="content">
 					<div class="row" style="display: flex; justify-content: center">
 						<div class="col-md-6">
-							<div class="card card-primary">
+							<!-- <div class="card card-primary">
 								<div class="card-header">
 									<h3 class="card-title">문제</h3>
 									<div class="card-tools">
@@ -187,8 +187,53 @@
 									</div>
 								</form>
 
-							</div>
+							</div> -->
+							<div class="card card-primary">
+								<div class="card-header">
+									<h3 class="card-title">아이템 관리</h3>
+								</div>
 
+
+								<form action="/admin/itemCreate" method="post">
+									<div class="card-body">
+										<div class="form-group">
+											<label for="exampleInputEmail1">아이템 번호</label>
+											<input type="text" class="form-control" id="itemId" name="itemId" placeholder="아이템 NO" value="1" readonly >
+										</div>
+
+										<div class="form-group">
+											<label for="exampleInputEmail1">아이템 명</label>
+											<input type="text" class="form-control" id="itemName" name="itemName" placeholder="아이템 명">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">가격</label>
+											<input type="text" class="form-control" id="itemPrice" name="itemPrice" placeholder="가격">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputFile">아이템 이미지</label>
+											<div class="input-group">
+												<div class="custom-file">
+													<input type="file" class="custom-file-input" id="itemImg" name="itemImg">
+													<label class="custom-file-label" for="exampleInputFile">파일 선택</label>
+												</div>
+
+											</div>
+										</div>
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" type="radio" id="customRadio2" name="itemType" value="item">
+											<label for="customRadio2" class="custom-control-label">아이템</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" type="radio" id="customRadio1" name="itemType" value="coin">
+											<label for="customRadio1" class="custom-control-label">포인트</label>
+										</div>
+									</div>
+
+									<div class="card-footer">
+										<button type="submit" class="btn btn-primary">생성</button>
+									</div>
+								</form>
+							</div>
 						</div>
 
 					</div>
@@ -257,39 +302,63 @@
 	<!-- 공백을 막아주는 js -->
 	<script src="/resources/adminLte/js/submitBlankCheck.js"></script>
 	<!-- 공백 폼 제출을 막아주는 js -->
-	
-	
+
+
 	<script>
-    document.getElementById("insertForm").addEventListener("submit", function(event) {
-        var title = document.getElementById("inputName").value.trim();
-        var answerA = document.getElementsByName("answerA")[0].value.trim();
-        var answerB = document.getElementsByName("answerB")[0].value.trim();
-        var explanation = document.getElementsByName("explanation")[0].value.trim();
-        var errorMessage = "";
+		document
+				.getElementById("insertForm")
+				.addEventListener(
+						"submit",
+						function(event) {
+							var title = document.getElementById("inputName").value
+									.trim();
+							var answerA = document.getElementsByName("answerA")[0].value
+									.trim();
+							var answerB = document.getElementsByName("answerB")[0].value
+									.trim();
+							var explanation = document
+									.getElementsByName("explanation")[0].value
+									.trim();
+							var errorMessage = "";
 
-        if (title === "") {
-            errorMessage += "제목을 입력해주세요.\n";
-            document.getElementById("inputName").focus();
-        }
-        if (answerA === "") {
-            errorMessage += "선택지A를 입력해주세요.\n";
-            document.getElementsByName("answerA")[0].focus();
-        }
-        if (answerB === "") {
-            errorMessage += "선택지B를 입력해주세요.\n";
-            document.getElementsByName("answerB")[0].focus();
-        }
-        if (explanation === "") {
-            errorMessage += "출제 이유를 입력해주세요.\n";
-            document.getElementsByName("explanation")[0].focus();
-        }
+							if (title === "") {
+								errorMessage += "제목을 입력해주세요.\n";
+								document.getElementById("inputName").focus();
+							}
+							if (answerA === "") {
+								errorMessage += "선택지A를 입력해주세요.\n";
+								document.getElementsByName("answerA")[0]
+										.focus();
+							}
+							if (answerB === "") {
+								errorMessage += "선택지B를 입력해주세요.\n";
+								document.getElementsByName("answerB")[0]
+										.focus();
+							}
+							if (explanation === "") {
+								errorMessage += "출제 이유를 입력해주세요.\n";
+								document.getElementsByName("explanation")[0]
+										.focus();
+							}
 
-        if (errorMessage !== "") {
-            alert(errorMessage);
-            event.preventDefault(); // 폼 제출 방지
-        }
-    });
-</script>
-	
+							if (errorMessage !== "") {
+								alert(errorMessage);
+								event.preventDefault(); // 폼 제출 방지
+							}
+						});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			// 파일 선택이 변경되었을 때
+			$('#exampleInputFile').on('change', function() {
+				// 선택된 파일의 이름 가져오기
+				var fileName = $(this).val().split('\\').pop();
+				// 파일 이름 표시
+				$(this).next('.custom-file-label').html(fileName);
+			});
+		});
+	</script>
+
 </body>
 </html>
