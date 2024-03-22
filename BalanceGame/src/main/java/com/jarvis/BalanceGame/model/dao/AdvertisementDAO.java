@@ -18,30 +18,49 @@ public class AdvertisementDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	private static final String SELECTALL = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT";
-	private static final String SELECTONE = "";
-	private static final String INSERT = "";
-	private static final String UPDATE = "";
-	private static final String DELETE = "";
+	private static final String SELECTONE = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE FROM ADVERTISEMENT ORDER BY RAND() LIMIT 1";
+	private static final String INSERT = "INSERT INTO ADVERTISEMENT (ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE) VALUES (?, ?)";
+	private static final String UPDATE = "UPDATE ADVERTISEMENT SET ADVERTISEMENT_STATUS = CASE WHEN ADVERTISEMENT_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE ADVERTISEMENT_ID = ?";
+	private static final String DELETE = "DELETE FROM ADVERTISEMENT WHERE ADVERTISEMENT_ID = ?";
 	
 	public List<AdvertisementDTO> selectAll(AdvertisementDTO adDTO){
-		List<AdvertisementDTO> ad = null;
-		ad = jdbcTemplate.query(SELECTALL, new AdvertisementRowMapper());
-		return ad;
+		List<AdvertisementDTO> adList = null;
+		adList = jdbcTemplate.query(SELECTALL, new AdvertisementRowMapper());
+		return adList;
 	}
 
 	public AdvertisementDTO selectOne(AdvertisementDTO adDTO) {
-		
+		AdvertisementDTO ad = null;
+		Object[] args = {};
+		try {
+			ad = jdbcTemplate.queryForObject(SELECTONE, args, new AdvertisementRowMapperRandomChoice());
+		} catch (Exception e) {
+			System.out.println("광고 상세보기 조회 실패");
+		}
+		return ad;
 	}
 	
 	public boolean insert(AdvertisementDTO adDTO) {
-		return false;
+		int result = jdbcTemplate.update(INSERT, adDTO.getAdvertisementUrl(), adDTO.getAdvertisementImg());
+		if(result <= 0) {
+			return false;
+		}
+		return true;
 	}
 	
 	public boolean update(AdvertisementDTO adDTO) {
-		return false;
+		int result = jdbcTemplate.update(UPDATE, adDTO.getAdvertisementId());
+		if(result <= 0) {
+			return false;
+		}
+		return true;
 	}
 	public boolean delete(AdvertisementDTO adDTO) {
-		return false;
+		int result = jdbcTemplate.update(DELETE, adDTO.getAdvertisementId());
+		if(result <= 0) {
+			return false;
+		}
+		return true;
 	}
 	
 }
@@ -57,4 +76,17 @@ class AdvertisementRowMapper implements RowMapper<AdvertisementDTO>{
 		ad.setAdvertisementStatus(rs.getString("ADVERTISEMENT_STATUS"));
 		return ad;
 	}
+}
+
+class AdvertisementRowMapperRandomChoice implements RowMapper<AdvertisementDTO>{
+
+	@Override
+	public AdvertisementDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		AdvertisementDTO ad = new AdvertisementDTO();
+		ad.setAdvertisementId(rs.getInt("ADVERTISEMENT_ID"));
+		ad.setAdvertisementUrl(rs.getString("ADVERTISEMENT_URL"));
+		ad.setAdvertisementImg(rs.getString("ADVERTISEMENT_IMAGE"));
+		return ad;
+	}
+	
 }
