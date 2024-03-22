@@ -18,13 +18,13 @@ public class AdminLetterListPageController {
 	@Autowired
 	private LetterService letterService;
 	
-	@GetMapping("adminLetterListPageController")
+	@GetMapping("/adminLetterListPage")
 	public String adminLetterListPageController(LetterDTO lDTO, Model model) {
 		lDTO.setSearchCondition("viewAllMessage");
 		List<LetterDTO> lDatas = letterService.selectAll(lDTO);
 		
 		model.addAttribute("letterDatas", lDatas);
 		
-		return "admin/adminLetterListPageController";
+		return "admin/adminLetterListPage";
 	}
 }

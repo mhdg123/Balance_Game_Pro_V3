@@ -18,7 +18,7 @@ public class AdminLetterCheckController {
 	@Autowired
 	private LetterService letterService;
 	
-	@GetMapping("/adminLetterCheckController")
+	@GetMapping("/adminLetterCheck")
 	public String adminLetterCheckController(LetterDTO lDTO, Model model, HttpSession session) {
 		
 		String loginId = (String)session.getAttribute("loginId");
