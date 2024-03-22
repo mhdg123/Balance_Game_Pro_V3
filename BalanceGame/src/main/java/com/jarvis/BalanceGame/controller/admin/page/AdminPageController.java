@@ -51,7 +51,8 @@ public class AdminPageController {
 		pDTO = paymentService.selectOne(pDTO);
 		System.out.println(pDTO);
 		
-		lDTO.setSearchCondition("viewAllMessage");
+		lDTO.setLoginId("admin");
+		lDTO.setSearchCondition("unReadMessage");
 		List<LetterDTO> lDatas = letterService.selectAll(lDTO);
 		System.out.println(lDatas);
 		System.out.println(letterService.selectAll(lDTO));
