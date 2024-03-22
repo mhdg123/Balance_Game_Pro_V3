@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <script src="/resources/assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
 <script src="/resources/assets/js/vendor/jquery-1.12.4.min.js"></script>
@@ -36,23 +37,42 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- 부트스트랩 기존꺼 적용 안되서 추가  -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- 우편함 동작로직 -->
 
 <script>
-      async function test() {
-        const { value: text } = await Swal.fire({
-          title:
-            "<div class='f-left'><h1>안녕하세요</h1><p class='f-left'>관리자</p></div>",
-          html: `
-          <div class='' style="height:100px; width:100%;border: 1px solid rgb(200,200,200)">집에 보내 주세요 </div>
-          `,
-          showCloseButton: true,
+
+$(document).on('click', '.letter-box', async function() {
+    console.log("메시지 박스 클릭");
+    var letterId = $(this).attr('id');
+    
+    try {
+        var data = await $.ajax({
+            type: "POST",
+            url: "/user/letterDetailAsync",
+            data: {
+                "letterId": letterId
+            },
+            dataType: 'json'
         });
-      }
+        
+        const { value: text } = await Swal.fire({
+            title:
+                "<div class='f-left'><h2>"+data.title+"</h2><p class='f-left'>"+data.sender+"</p></div>",
+            html: "<div class='' style='height:100px; width:100%;border: 1px solid rgb(200,200,200)'>"+data.letterContents+"</div>",
+            showCloseButton: true
+        });
+    } catch (error) {
+        console.log('에러발생');
+        console.log('에러의 종류:' + error);
+    }
+});
     </script>
 
 <!-- 메시지박스 -->
+
+<!-- 드롭박스 스크립트 -->
 <script>
       document.addEventListener("click", function (event) {
         var dropdown = document.getElementById("dropdown");
@@ -83,45 +103,72 @@
        });
    }
     </script>
+<!-- 드롭박스 스크립트 -->
 
-	<script type="text/javascript">
-	$('#dropdown-btn').on('click',function(){
-		
-		var letterElement = document.getElementById("letter-group");
-		
-		
-		$.ajax({
-			type : "POST",
-			url : "/user/commentWriteAsync",
-			data : {
-			},
-			dataType : 'text',
-			success : function(data) {
-				console.log(data);
-				//데이터들 만큼 반복하여 어펜드
-				//클릭 이벤트 활성화 여부확인
-				letterElement.innerHTML=`
-				<div class="letter-box" onclick="javascript:test();">
-					<div>보낸사람 : 관리자</div>
-					<div>제목 : 안녕하세요</div>
-				</div>
-				<hr />`;
-			},
-			error : function(error) {
-
-				console.log('에러발생');
-				console.log('에러의 종류:' + error);
-			}
-
-		});
-		
-	});
+<!-- 메시지 목록 받아오기 -->
+<script type="text/javascript">
+$('#dropdown-btn').on('click',function(){
+    var letterElement = $("#letter-group");
+    var newletterElement = $("<div></div>"); // 새로운 jQuery 객체 생성
+    
+    $.ajax({
+        type: "POST",
+        url: "/user/letterTitleAsync",
+        data: {},
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+            // 데이터들 만큼 반복하여 어펜드
+            // 클릭 이벤트 활성화 여부 확인
+            $.each(data, function(index, data) {
+                console.log(data.sender);
+                // 새로운 요소를 생성하여 newletterElement에 추가합니다.
+                var newElement = $('<div class="letter-box" id="'+ data.letterId +'">' +
+                                    '<div>보낸사람 : ' + data.sender + '</div>' +
+                                    '<div>제목 : ' + data.title + '</div>' +
+                                '</div><hr />');
+                newletterElement.append(newElement);
+            });
+            
+            
+            // letterElement를 비워놓고 newletterElement를 추가합니다.
+            letterElement.html(newletterElement);
+            
+            // 새로운 요소를 추가합니다.
+           // var dropdownArrow = $('<div class="dropdown-arrow letter-box" id="addLetter" style="text-align: center;">...</div>');
+           // letterElement.append(dropdownArrow);
+        },
+        error: function(error) {
+            console.log('에러발생');
+            console.log('에러의 종류:' + error);
+        }
+    });
+});
 	
 	
 	</script>
+<!-- 메시지 목록 받아오기 -->
+
+<!-- 메시지 추가로 받아오기 -->
+<script type="text/javascript">
+
+/* 구현미정 */
+
+</script>
+<!-- 메시지 추가로 받아오기 -->
+
+
+<!-- 메시지 상세 받아오기 -->
+<script type="text/javascript">
+
+
+
+</script>
+<!-- 메시지 상세 받아오기 -->
+
 
 <!-- 메시지박스 -->
-
+<!-- 우편함 동작로직 -->
 
 
 
