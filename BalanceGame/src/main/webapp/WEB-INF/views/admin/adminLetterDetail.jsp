@@ -163,24 +163,16 @@ th {
 				</nav>
 			</div>
 		</aside>
-
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-
-
 			<!-- Main content -->
 			<section class="content">
 				<div class="container-fluid">
-
-
-					<!-- /.row -->
-					<!-- Main row -->
 					<div class="col-md-9">
 						<div class="card card-primary card-outline">
 							<div class="card-header">
 								<h3 class="card-title">건의사항</h3>
 							</div>
-							 <c:choose>
+							<c:choose>
 								<c:when test="${not empty letterDatas}">
 									<table border="1">
 										<tr>
@@ -203,40 +195,90 @@ th {
 							</c:choose>
 
 							<div class="card-footer">
-								<div class="float-left">
-									<form action="/admin/letterDelete" method="post">
-										<input type="hidden" name="letterId" value="${letterDatas.letterId}">
-										<button type="submit" class="btn btn-block btn-danger">건의내용삭제</button>
-									</form>
+								<div class="row">
+									<div class="col">
+										<!-- 읽음 처리 url만 연결하기 데이터는 컨트롤에서 업데이트 할 예정 -->
+										<form action="#" method="post">
+											<input type="hidden" name="letterId" value="${letterDatas.letterId}">
+											<button type="submit" class="btn btn-block btn-success">읽음</button>
+										</form>
+									</div>
+									<div class="col">
+										<!-- 답변하기 -->
+										<input type="hidden" id="letterId" value="${letterDatas.letterId}">
+										<input type="hidden" id="sender" value="${letterDatas.sender}">
+										<input type="hidden" id=title value="${letterDatas.title}">
+										<button type="submit" onclick="aa();" class="btn btn-block btn-primary">답변</button>
+									</div>
+									<div class="col">
+										<form action="/admin/letterDelete" method="post">
+											<input type="hidden" name="letterId" value="${letterDatas.letterId}">
+											<button type="submit" class="btn btn-block btn-danger">삭제</button>
+										</form>
+									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
-
-
-
-
 				</div>
 		</div>
-		<!-- /.container-fluid -->
 		</section>
-		<!-- /.content -->
+
+
 	</div>
-	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<strong>자비스(주) &copy; 1234-5678 </strong> All rights reserved.
 		<div class="float-right d-none d-sm-inline-block">
 			<b>Version</b> 3.2.0
 		</div>
 	</footer>
-
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark">
-		<!-- Control sidebar content goes here -->
-	</aside>
-	<!-- /.control-sidebar -->
+	<aside class="control-sidebar control-sidebar-dark"></aside>
 	</div>
-	<!-- ./wrapper -->
+
+	<script>
+	async function aa() {
+		var letterId = $('#letterId').val();
+		var sender = $('#sender').val();
+		var title = $('#title').val();
+		const { value: letterContents } = await Swal.fire({
+			  input: "textarea",
+			  inputLabel: "답변하기",
+			  inputPlaceholder: "답변내용",
+			  /* inputAttributes: {
+			    "aria-label": "Type your message here"
+			  }, */
+			  showCancelButton: true,
+			  confirmButtonText: "전송",
+			  cancelButtonText: "취소"
+			});
+			if (letterContents) {
+				$.ajax({
+			        url: '/test', // 보낼 URL
+			        method: 'POST', // 전송 방식
+			        dataType: 'json', // 받을 데이터 형식
+			        data: { // 전송할 데이터
+			        	letterId: letterId,
+			            sender: sender,
+			            title: title,
+			            letterContents: letterContents
+			        },
+			        success: function(response) { // 성공 시 동작
+			            console.log(response); // 서버에서 받은 응답을 콘솔에 출력
+			            // 성공 처리를 추가로 할 경우 여기에 작성
+			        },
+			        error: function(xhr, status, error) { // 실패 시 동작
+			            console.error(xhr); // 오류 내용을 콘솔에 출력
+			            // 실패 처리를 추가로 할 경우 여기에 작성
+			        }
+			    });
+			  /*  Swal.fire(sender + " 에게 메세지를 전송했습니다."); */
+			   /* Swal.fire("건의사항 번호 : " + letterId + "건의 사항 제목" + title + "이고, " + sender + "에게 " + text + "내용을 보냅니다.");  테스트 코드 */ 
+			/* location.href = "";  */
+			}
+	}
+	
+	</script>
 
 	<!-- jQuery -->
 	<script src="/resources/adminLte/plugins/jquery/jquery.min.js"></script>

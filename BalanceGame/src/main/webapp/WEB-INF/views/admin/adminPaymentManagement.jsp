@@ -125,6 +125,9 @@ th {
 								<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
 										<p>후원관리</p>
 								</a></li>
+								<li class="nav-item"><a href="/admin/adminCreateItemPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>아이템관리</p>
+								</a></li>
 							</ul></li>
 					</ul>
 				</nav>

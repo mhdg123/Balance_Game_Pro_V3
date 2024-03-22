@@ -4,7 +4,7 @@
 <%@ include file="../adminLayout/header-fix.jsp"%>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
-		<%@ include file="../adminLayout/header.jsp"%>
+		<jsp:include page="../adminLayout/header.jsp" />
 		<!-- 왼쪽 사이드 바 -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<a href="/admin/adminPage" class="brand-link"> <img src="images/logo.png" alt="자비스로고" class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-light">관리자</span>
@@ -33,6 +33,9 @@
 								</a></li>
 								<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>후원관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/adminCreateItemPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>아이템관리</p>
 								</a></li>
 							</ul></li>
 					</ul>
