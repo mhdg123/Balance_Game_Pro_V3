@@ -25,7 +25,6 @@ public class ShopPageController {
    @Autowired
    private MemberService memberService;
    
-  
 
    @GetMapping("/shopPage")
    public String shopPageController(ItemDTO iDTO, MemberDTO mDTO, Model model, HttpSession session) {
@@ -47,6 +46,7 @@ public class ShopPageController {
       
       String loginId = (String)session.getAttribute("loginId");
       mDTO.setLoginId(loginId);
+      model.addAttribute(loginId);
       
       
       
