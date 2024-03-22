@@ -22,7 +22,7 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="/admin/adminPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/adminPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
 										<p>메인</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
@@ -37,7 +37,7 @@
 								<li class="nav-item"><a href="/admin/adminCreateItemPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>아이템관리</p>
 								</a></li>
-								<li class="nav-item"><a href="/admin/adminLetterListPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/adminLetterListPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
 										<p>건의사항관리</p>
 								</a></li>
 							</ul></li>
@@ -150,6 +150,8 @@
 											<tr>
 												<th>아이디</th>
 												<th>제목</th>
+												<th>읽음 상태</th>
+												<th>날짜</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -161,9 +163,16 @@
 											</c:if>
 										<tbody id="suggestionTableBody">
 											<c:forEach var="data" items="${letterDatas}">
-												<tr onclick="location.href = '/admin/letterDetailPageAction?letterId=${data.letterId}'">
+												<tr onclick="location.href = '/admin/letterDetailPage?letterId=${data.letterId}'">
 													<td id="loginIdData">${data.sender}</td>
 													<td id="titleData">${data.title}</td>
+													<c:if test="${data.letterStatus == 'T' }">
+													<td id="titleData">읽음</td>
+													</c:if>
+													<c:if test="${data.letterStatus == 'F' }">
+													<td id="titleData">읽지 않음</td>
+													</c:if>
+													<td id="titleData">${data.letterDate}</td>
 												</tr>
 											</c:forEach>
 										</tbody>

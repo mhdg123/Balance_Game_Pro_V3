@@ -197,11 +197,18 @@ th {
 							<div class="card-footer">
 								<div class="row">
 									<div class="col">
-										<!-- 읽음 처리 url만 연결하기 데이터는 컨트롤에서 업데이트 할 예정 -->
-										<form action="#" method="post">
-											<input type="hidden" name="letterId" value="${letterDatas.letterId}">
-											<button type="submit" class="btn btn-block btn-success">읽음</button>
-										</form>
+										<c:if test="${letterDatas.letterStatus == 'F' }">
+											<form action="/admin/adminLetterCheck" method="post">
+												<input type="hidden" name="letterId" value="${letterDatas.letterId}">
+												<button type="submit" class="btn btn-block btn-success">읽지 않음</button>
+											</form>
+										</c:if>
+										<c:if test="${letterDatas.letterStatus == 'T' }">
+											<form action="/admin/adminLetterCheck" method="post">
+												<input type="hidden" name="letterId" value="${letterDatas.letterId}">
+												<button type="submit" class="btn btn-block btn-success">읽음</button>
+											</form>
+										</c:if>
 									</div>
 									<div class="col">
 										<!-- 답변하기 -->
@@ -254,9 +261,9 @@ th {
 			});
 			if (letterContents) {
 				$.ajax({
-			        url: '/test', // 보낼 URL
+			        url: '/admin/adminLetterSendAsync', // 보낼 URL
 			        method: 'POST', // 전송 방식
-			        dataType: 'json', // 받을 데이터 형식
+			        dataType: 'text', // 받을 데이터 형식
 			        data: { // 전송할 데이터
 			        	letterId: letterId,
 			            sender: sender,
@@ -264,6 +271,10 @@ th {
 			            letterContents: letterContents
 			        },
 			        success: function(response) { // 성공 시 동작
+			        	if(response == "success") {
+			        		Swal.fire(sender + " 에게 메세지를 전송했습니다.");
+			        		location.href = "/admin/adminPage";
+			        	}
 			            console.log(response); // 서버에서 받은 응답을 콘솔에 출력
 			            // 성공 처리를 추가로 할 경우 여기에 작성
 			        },

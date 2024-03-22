@@ -60,9 +60,6 @@ public class AdminPageController {
 		lDTO.setSearchCondition("unReadMessage");
 		List<LetterDTO> lDatas = letterService.selectAll(lDTO);
 		System.out.println(lDatas);
-		System.out.println(letterService.selectAll(lDTO));
-		System.out.println(lDatas);
-		
 		if (lDatas.size() <= 0) {
 			System.out.println("건의사항 : null");
 		}

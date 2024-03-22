@@ -100,7 +100,7 @@ th {
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<a href="/admin/adminPage" class="brand-link"> <img src="images/logo.png" alt="자비스로고" class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-light">관리자</span>
 			</a>
- 
+
 			<div class="sidebar">
 
 				<div class="form-inline"></div>
@@ -127,6 +127,9 @@ th {
 								</a></li>
 								<li class="nav-item"><a href="/admin/adminCreateItemPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>아이템관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/adminLetterListPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>건의사항관리</p>
 								</a></li>
 							</ul></li>
 					</ul>
@@ -200,8 +203,7 @@ th {
 											<c:forEach var="data" items="${memberDatas}" varStatus="loop">
 												<tr onclick="location.href = '/admin/adminMemberDetailPage?loginId=${data.loginId}'">
 													<td>${loop.index + 1}</td>
-													<td>
-														${data.loginId}(${data.nickName})
+													<td>${data.loginId}(${data.nickName})
 													<td>
 														<fmt:formatNumber value="${data.total}" currencyCode="KRW" />
 													</td>
@@ -241,48 +243,55 @@ th {
 	<!-- ./wrapper -->
 
 	<!-- jQuery -->
- <script src="/resources/adminLte/plugins/jquery/jquery.min.js"></script>
- <!-- jQuery UI 1.11.4 -->
- <script src="/resources/adminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
- <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
- <script>
+	<script src="/resources/adminLte/plugins/jquery/jquery.min.js"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="/resources/adminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
 		$.widget.bridge('uibutton', $.ui.button)
 	</script>
- <!-- Bootstrap 4 -->
- <script src="/resources/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="/resources/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
- <!-- ChartJS -->
- <script src="/resources/adminLte/plugins/chart.js/Chart.min.js"></script>
- <!-- Sparkline -->
- <script src="/resources/adminLte/plugins/sparklines/sparkline.js"></script>
- <!-- JQVMap -->
- <script src="/resources/adminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
- <script src="/resources/adminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
- <!-- jQuery Knob Chart -->
- <script src="/resources/adminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
- <!-- daterangepicker -->
- <script src="/resources/adminLte/plugins/moment/moment.min.js"></script>
- <script src="/resources/adminLte/plugins/daterangepicker/daterangepicker.js"></script>
- <!-- Tempusdominus Bootstrap 4 -->
- <script src="/resources/adminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
- <!-- Summernote -->
- <script src="/resources/adminLte/plugins/summernote/summernote-bs4.min.js"></script>
- <!-- overlayScrollbars -->
- <script src="/resources/adminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
- <!-- AdminLTE App -->
- <script src="/resources/adminLte/dist/js/adminlte.js"></script>
- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
- <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
- <script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
- <!-- 인공지능 -->
- <script src="/resources/adminLte/dist/js/ai.js"></script> '' 
- <script src="/resources/adminLte/dist/js/adminlte.min.js?v=3.2.0"></script> '' 
- <script src="/resources/adminLte/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script> ''
- <script src="/resources/adminLte/plugins/bootstrap-slider/bootstrap-slider.min.js"></script> '' 
- <script src="/resources/adminLte/js/rangeSlider.js"></script> //
- <script src="/resources/adminLte/js/sponsorListDate.js"></script> //
- <script src="/resources/adminLte/js/sponsorListRank.js"></script> //
- <script>
+	<!-- ChartJS -->
+	<script src="/resources/adminLte/plugins/chart.js/Chart.min.js"></script>
+	<!-- Sparkline -->
+	<script src="/resources/adminLte/plugins/sparklines/sparkline.js"></script>
+	<!-- JQVMap -->
+	<script src="/resources/adminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
+	<script src="/resources/adminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+	<!-- jQuery Knob Chart -->
+	<script src="/resources/adminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
+	<!-- daterangepicker -->
+	<script src="/resources/adminLte/plugins/moment/moment.min.js"></script>
+	<script src="/resources/adminLte/plugins/daterangepicker/daterangepicker.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script src="/resources/adminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- Summernote -->
+	<script src="/resources/adminLte/plugins/summernote/summernote-bs4.min.js"></script>
+	<!-- overlayScrollbars -->
+	<script src="/resources/adminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="/resources/adminLte/dist/js/adminlte.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
+	<!-- 인공지능 -->
+	<script src="/resources/adminLte/dist/js/ai.js"></script>
+	''
+	<script src="/resources/adminLte/dist/js/adminlte.min.js?v=3.2.0"></script>
+	''
+	<script src="/resources/adminLte/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+	''
+	<script src="/resources/adminLte/plugins/bootstrap-slider/bootstrap-slider.min.js"></script>
+	''
+	<script src="/resources/adminLte/js/rangeSlider.js"></script>
+	//
+	<script src="/resources/adminLte/js/sponsorListDate.js"></script>
+	//
+	<script src="/resources/adminLte/js/sponsorListRank.js"></script>
+	//
+	<script>
 		$(function() {
 			/* BOOTSTRAP SLIDER */
 			$('.slider').bootstrapSlider()

@@ -167,7 +167,7 @@
 									</div>
 								</div>
 
-								<form action="/admin/titleUpdate" method="POST" id="insertForm">
+								<form action="/admin/questionUpdate" method="POST" id="insertForm">
 									<div class="card-body">
 										<div class="form-group">
 											<input type="hidden" value="${questionData.questionId}" name="questionId">

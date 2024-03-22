@@ -26,7 +26,7 @@ public class AdminMemberDetailPageController {
 
 	@GetMapping("/adminMemberDetailPage")
 	public String adminMemberDetailPageController(MemberDTO mDTO, CommentDTO cDTO, Model model) {
-
+		System.out.println("관리자에서 유저 상세페이지 이동 ");
 		mDTO.setSearchCondition("viewOne");
 		cDTO.setSearchCondition("userComments");
 

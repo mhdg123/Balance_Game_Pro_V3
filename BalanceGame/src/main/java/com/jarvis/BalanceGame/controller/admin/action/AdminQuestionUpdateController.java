@@ -12,12 +12,12 @@ import com.jarvis.BalanceGame.service.QuestionService;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminTitleUpdateController {
+public class AdminQuestionUpdateController {
 
 	@Autowired
 	private QuestionService questionService;
 	
-	@PostMapping("/titleUpdate")
+	@PostMapping("/questionUpdate")
 	public String adminTitleUpdateController(QuestionDTO qDTO, Model model) {
 		System.out.println("관리자 문제PK 파라미터 : " + qDTO.getQuestionId());
 		System.out.println("관리자 문제 출제 유저 아이디 :  " + qDTO.getWriter());

@@ -127,7 +127,7 @@
 
 							<div class="card" style="margin-top: 20px;">
 								<div class="card-header">
-									<h3 class="card-title">건의사항</h3>
+									<h3 class="card-title">읽지 않은 건의사항</h3>
 									<div class="card-tools">
 										<div style="margin-left: 66px;">
 											<!-- <label>이름 검색</label>
@@ -150,6 +150,8 @@
 											<tr>
 												<th>아이디</th>
 												<th>제목</th>
+												<th>상태</th>
+												<th>날짜</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -161,11 +163,19 @@
 											</c:if>
 										<tbody id="suggestionTableBody">
 											<c:forEach var="data" items="${letterDatas}">
-												<tr onclick="location.href = '/admin/letterDetailPageAction?letterId=${data.letterId}'">
+												<tr onclick="location.href = '/admin/letterDetailPage?letterId=${data.letterId}'">
 													<td id="loginIdData">${data.sender}</td>
 													<td id="titleData">${data.title}</td>
+													<c:if test="${data.letterStatus == 'T' }">
+														<td id="titleData">읽음</td>
+													</c:if>
+													<c:if test="${data.letterStatus == 'F' }">
+														<td id="titleData">읽지 않음</td>
+													</c:if>
+													<td id="titleData">${data.letterDate}</td>
 												</tr>
 											</c:forEach>
+											<%-- </c:if> --%>
 										</tbody>
 										</tbody>
 									</table>
