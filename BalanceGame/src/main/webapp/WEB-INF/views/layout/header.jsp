@@ -39,7 +39,10 @@
 								<c:if test="${loginId != null }">
 									<li><a href="/user/letterPage">건의하기</a></li>
 									<a style="color: red;" href="/admin/adminPage">관리자 페이지로가기</a>
+									
+									
 									<li><a href="/user/myInfoPage" class="hiddenText">마이페이지</a></li>
+									<li><a href="/user/questionListPage" class="hiddenText">모든 우편 보기</a></li>
 
 									<li><a href="/user/logout" class="hiddenText">로그아웃</a></li>
 								</c:if>
@@ -63,18 +66,21 @@
 								<li>
 									<div class="dropdown" id="dropdown">
 										<button class="letter" id="dropdown-btn">
-										
+
 											<img src="/resources/assets/img/jarvis/messageiconCut.png" />
-											<p  class="nav-counter" id="letterContent">0</p>
-											
-											<span style="font-size: small" class="window_min_text">우편함 </span>
-											
+											<p class="nav-counter" id="letterContent">0</p>
+
+											<span style="font-size: small" class="window_min_text">우편함
+											</span>
+
 										</button>
 										<div class="dropdown-options shadow p-3 mb-5 bg-body rounded"
 											id="dropdown-options">
 											<div>우편함</div>
 											<div class="letter-group" id="letter-group"
 												style="overflow-y: auto; height: 200px;"></div>
+											<a href="/user/questionListPage" class="f-right"
+												style="color: black;">모든 우편 보기</a>
 										</div>
 									</div>
 								</li>

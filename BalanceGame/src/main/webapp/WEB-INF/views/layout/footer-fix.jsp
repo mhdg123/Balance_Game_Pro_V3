@@ -172,17 +172,20 @@ $('#dropdown-btn').on('click',function(){
             console.log(data);
             // 데이터들 만큼 반복하여 어펜드
             // 클릭 이벤트 활성화 여부 확인
-            $.each(data, function(index, data) {
-                console.log(data.sender);
-                // 새로운 요소를 생성하여 newletterElement에 추가합니다.
-                var newElement = $('<div class="letter-box" id="'+ data.letterId +'">' +
-                                    '<div>보낸사람 : ' + data.sender + '</div>' +
-                                    '<div>제목 : ' + data.title + '</div>' +
-                                '</div><hr />');
-                newletterElement.append(newElement);
-            });
-            
-            
+            if(data.length > 0) {
+                $.each(data, function(index, data) {
+                    console.log(data.sender);
+                    // 새로운 요소를 생성하여 newletterElement에 추가합니다.
+                    var newElement = $('<div class="letter-box" id="'+ data.letterId +'">' +
+                                        '<div>보낸사람 : ' + data.sender + '</div>' +
+                                        '<div>제목 : ' + data.title + '</div>' +
+                                    '</div><hr />');
+                    newletterElement.append(newElement);
+                });
+            } else {
+                // 데이터가 없을 때 출력할 메시지
+                newletterElement.append('<div style=" text-align: center;">새로운 우편이 없습니다.</div>');
+            }
             // letterElement를 비워놓고 newletterElement를 추가합니다.
             letterElement.html(newletterElement);
             
