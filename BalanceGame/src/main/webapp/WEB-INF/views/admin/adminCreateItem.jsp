@@ -207,7 +207,7 @@
 										</div>
 										<div class="form-group">
 											<label for="exampleInputPassword1">가격</label>
-											<input type="text" class="form-control" id="itemPrice" name="itemPrice" placeholder="가격">
+											<input type="number" class="form-control" id="itemPrice" name="itemPrice" placeholder="가격">
 										</div>
 										<div class="form-group">
 											<label for="exampleInputFile">아이템 이미지</label>
