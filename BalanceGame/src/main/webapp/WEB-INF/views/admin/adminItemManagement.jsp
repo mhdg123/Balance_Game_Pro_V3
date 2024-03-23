@@ -112,7 +112,7 @@
 													<tbody>
 														<c:forEach var="data" items="${itemDatas}" varStatus="loop">
 															<c:if test="${data.itemType == 'item' }">
-																<tr onclick="location.href = '/admin/questionDetailPage?questionId=${data.itemId}'">
+																<tr onclick="location.href = '/admin/itemDetailPage?itemId=${data.itemId}'">
 																	<td>${loop.index + 1}</td>
 																	<td>${data.itemName}</td>
 																	<td>${data.itemPrice}</td>
@@ -140,7 +140,7 @@
 													<tbody>
 														<c:forEach var="data" items="${itemDatas}" varStatus="loop">
 															<c:if test="${data.itemType == 'point' }">
-																<tr onclick="location.href = '/admin/questionDetailPage?questionId=${data.itemId}'">
+																<tr onclick="location.href = '/admin/itemDetailPage?itemId=${data.itemId}'">
 																	<td>${data.itemId}</td>
 																	<td>${data.itemName}</td>
 																	<td>${data.itemPrice}</td>

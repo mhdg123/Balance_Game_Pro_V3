@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="images/favicon.png">
-<title>관리자 문제 상세 페이지</title>
+<title>관리자 아이템 상세 페이지</title>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
 
@@ -131,7 +131,7 @@
 						<div class="col-md-6">
 							<div class="card card-primary">
 								<div class="card-header">
-									<h3 class="card-title">문제</h3>
+									<h3 class="card-title">${itemData.itemName }</h3>
 									<div class="card-tools">
 										<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
 											<i class="fas fa-minus"></i>
@@ -156,8 +156,13 @@
 											<input type="text" id="inputName" class="form-control" name="answerB" value="${itemData.itemImg}">
 										</div>
 										<div class="form-group">
-											<label for="inputDescription">타입</label>
-											<input type="text" id="inputName" class="form-control" name="explanation" value="${itemData.itemType}">
+											<label for="inputDescription">아이템 종류</label>
+											<c:if test="${itemData.itemType == 'item' }">
+											<input type="text" id="inputName" class="form-control" name="explanation" value="아이템" readonly>
+											</c:if>
+											<c:if test="${itemData.itemType == 'point' }">
+											<input type="text" id="inputName" class="form-control" name="explanation" value="포인트" readonly>
+											</c:if>
 										</div>
 
 
@@ -170,7 +175,7 @@
 								<div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap; height: 195px;">
 									<div class="filtr-item col-sm-2 filteredOut" data-category="1" data-sort="white sample"
 										style="opacity: 0; transform: scale(0.5) translate3d(0px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; z-index: -1000; width: 196.4px; transition: all 0.5s ease-out 0ms, width 1ms ease 0s;">
-										<a href="/resources/assets/img/jarvis/${itemData.itemImg}" data-toggle="lightbox" data-title="${itemData.itemName} 이미지"> <img src="/resources/assets/img/jarvis/logotext.png" class="img-fluid mb-2" alt="white sample">
+										<a href="/resources/assets/img/jarvis/${itemData.itemImg}" data-toggle="lightbox" data-title="${itemData.itemName} 이미지"> <img src="/resources/assets/img/jarvis/logotext.png" class="img-fluid mb-2" alt="${itemData.itemName }">
 										</a>
 									</div>
 									
