@@ -79,7 +79,7 @@
 											<div>우편함</div>
 											<div class="letter-group" id="letter-group"
 												style="overflow-y: auto; height: 200px;"></div>
-											<a href="/user/questionListPage" class="f-right"
+											<a href="/user/letterListPage" class="f-right"
 												style="color: black;">모든 우편 보기</a>
 										</div>
 									</div>
