@@ -18,7 +18,7 @@ public class ItemDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	private static final String SELECTALL = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE FROM ITEM";
-	private static final String SELECTONE = "SELECT ITEM_NAME, ITEM_PRICE, ITEM_IMAGE FROM ITEM WHERE ITEM_ID =?";
+	private static final String SELECTONE = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE FROM ITEM WHERE ITEM_ID =?";
 	private static final String INSERT = "INSERT INTO ITEM (ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE) VALUES (?,?,?,?)";
 	private static final String UPDATE = "UPDATE ITEM SET ITEM_NAME = ?, ITEM_PRICE = ? WHERE ITEM_ID = ?";
 	private static final String DELETE = "DELETE FROM ITEM WHERE ITEM_ID = ?";
@@ -83,9 +83,11 @@ class ItemRowMapperDetail implements RowMapper<ItemDTO>{
 	@Override
 	public ItemDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ItemDTO data = new ItemDTO();
+		data.setItemId(rs.getInt("ITEM_ID"));
 		data.setItemName(rs.getString("ITEM_NAME"));
 		data.setItemPrice(rs.getInt("ITEM_PRICE"));
 		data.setItemImg(rs.getString("ITEM_IMAGE"));
+		data.setItemType(rs.getString("ITEM_TYPE"));
 		return data;
 	}
 	
