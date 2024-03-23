@@ -187,7 +187,7 @@ th {
 								<li class="nav-item"><a href="/admin/adminPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
 										<p>메인</p>
 								</a></li>
-								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
 										<p>유저관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/questionManagementPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
@@ -195,6 +195,12 @@ th {
 								</a></li>
 								<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>후원관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/adminItemManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>아이템관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/adminLetterListPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>건의사항관리</p>
 								</a></li>
 							</ul></li>
 					</ul>
@@ -220,7 +226,7 @@ th {
 									<div class="card-tools">
 
 										<div class="input-group input-group-sm" style="width: 100px;">
-											<a href="adminCreateTitlePage.do"><button type="button" class="btn btn-block btn-primary">문제출제</button></a>
+											<a href="/admin/adminMakeQuestionPage"><button type="button" class="btn btn-block btn-primary">문제출제</button></a>
 											<div class="input-group-append"></div>
 										</div>
 									</div>

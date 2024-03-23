@@ -34,7 +34,7 @@
 								<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>후원관리</p>
 								</a></li>
-								<li class="nav-item"><a href="/admin/adminCreateItemPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/adminItemManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>아이템관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/adminLetterListPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
@@ -60,7 +60,7 @@
 									<div class="card-tools">
 
 										<div class="input-group input-group-sm" style="width: 100px;">
-											<a href="/admin/adminCreateTitlePage"><button type="button" class="btn btn-block btn-primary">문제출제</button></a>
+											<a href="/admin/adminMakeQuestionPage"><button type="button" class="btn btn-block btn-primary">문제출제</button></a>
 											<div class="input-group-append"></div>
 										</div>
 									</div>
