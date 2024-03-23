@@ -55,69 +55,7 @@
 			<section class="content">
 				<div class="container-fluid">
 					<!-- Small boxes (Stat box) -->
-					<div class="row">
-						<div class="col-lg-3 col-6">
-							<!-- small box -->
-							<div class="small-box bg-info">
-								<div class="inner">
-									<h3>${qDTOTotalCnt.questionCount}</h3>
-									<p>총 문제수</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-bag"></i>
-								</div>
-								<a href="/admin/questionManagementPage" class="small-box-footer">문제관리페이지 <i class="fas fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-						<!-- ./col -->
-						<div class="col-lg-3 col-6">
-							<!-- small box -->
-							<div class="small-box bg-success">
-								<div class="inner">
-									<h3>${qDTOApproveCnt.questionCount}</h3>
-
-									<p>문제 승인</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-stats-bars"></i>
-								</div>
-								<a href="/admin/questionAccessPage" class="small-box-footer">문제승인페이지 <i class="fas fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-						<!-- ./col -->
-						<div class="col-lg-3 col-6">
-
-							<!-- small box -->
-							<div class="small-box bg-warning">
-								<div class="inner">
-									<h3>${memberDatas.memberCount}</h3>
-
-									<p>회원수</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-person-add"></i>
-								</div>
-								<a href="/admin/questionAccessPage" class="small-box-footer">유저목록페이지 <i class="fas fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-						<!-- ./col -->
-						<div class="col-lg-3 col-6">
-							<!-- small box -->
-							<div class="small-box bg-danger">
-								<div class="inner">
-									<h3>
-										<fmt:formatNumber value="${paymentDatas.totalAmount}" currencyCode="KRW" />
-									</h3>
-									<p>후원금액</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-pie-graph"></i>
-								</div>
-								<a href="/admin/paymentManagementPage" class="small-box-footer">후원페이지 <i class="fas fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-						<!-- ./col -->
-					</div>
+					
 
 					<!-- /.row -->
 					<!-- 건의 사항 데이터 시작 -->
