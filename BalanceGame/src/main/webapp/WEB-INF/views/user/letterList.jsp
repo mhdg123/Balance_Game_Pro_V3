@@ -58,20 +58,23 @@
 
 									<thead>
 										<tr>
-											<th scope="col" style="width: 5%">NO</th>
-											<th scope="col" style="width: 65%">제목</th>
-											<th scope="col" style="width: 30%">시간</th>
+											<th scope="col" style="width: 10%"></th>
+											<th scope="col" style="width: 10%"></th>
+											<th scope="col" style="width: 65%"></th>
+											<th scope="col" style="width: 15%"></th>
 										</tr>
 									</thead>
 									<tbody>
 
 										<c:forEach var="data" items="${letterDatas}"
 											varStatus="loop">
+											<!-- loop.index는 0부터 시작하므로 +1을 해서 순번을 출력합니다. -->
 											<tr>
-												<td style="padding: 10px;"
-													onClick="location.href='letterDetailPage?letterId=${data.letterId}'"><p style="margin:0;">${loop.index + 1}</p></td>
-												<!-- loop.index는 0부터 시작하므로 +1을 해서 순번을 출력합니다. -->
-												<td style=" padding: 10px; ;"
+												<td style="padding: 10px;"><p style="margin:0;">${data.letterStatus}</p></td>
+												
+												<td style=" padding: 10px;"
+													onClick="location.href='letterDetailPage?letterId=${data.letterId}'"><p style="margin:0;">${data.sender}</p></td>
+												<td style=" padding: 10px;"
 													onClick="location.href='letterDetailPage?letterId=${data.letterId}'"><p style="margin:0;">${data.title}</p></td>
 												<td style=" padding: 10px;"
 													onClick="location.href='letterDetailPage?letterId=${data.letterId}'"><p  style="margin:0;">${data.letterDate}</p></td>
