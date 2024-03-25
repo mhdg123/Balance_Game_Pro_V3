@@ -17,4 +17,7 @@ public class AdvertisementDTO {
     private String advertisementImg; // 광고 이미지
     @NotNull
     private String advertisementStatus; // 광고 상태값
+    
+    //--------------------------------------------
+    private String searchCondition; 
 }

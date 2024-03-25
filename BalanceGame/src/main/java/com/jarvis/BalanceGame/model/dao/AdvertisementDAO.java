@@ -18,7 +18,8 @@ public class AdvertisementDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	private static final String SELECTALL = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT";
-	private static final String SELECTONE = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE FROM ADVERTISEMENT ORDER BY RAND() LIMIT 1";
+	private static final String SELECTONERANDOM = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE FROM ADVERTISEMENT ORDER BY RAND() LIMIT 1";
+	private static final String SELECTONEDETAIL = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT WHERE ADVERTISEMENT_ID = ?";
 	private static final String INSERT = "INSERT INTO ADVERTISEMENT (ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE) VALUES (?, ?)";
 	private static final String UPDATE = "UPDATE ADVERTISEMENT SET ADVERTISEMENT_STATUS = CASE WHEN ADVERTISEMENT_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE ADVERTISEMENT_ID = ?";
 	private static final String DELETE = "DELETE FROM ADVERTISEMENT WHERE ADVERTISEMENT_ID = ?";
@@ -31,9 +32,15 @@ public class AdvertisementDAO {
 
 	public AdvertisementDTO selectOne(AdvertisementDTO adDTO) {
 		AdvertisementDTO ad = null;
-		Object[] args = {};
 		try {
-			ad = jdbcTemplate.queryForObject(SELECTONE, args, new AdvertisementRowMapperRandomChoice());
+			if(adDTO.getSearchCondition().equals("adRandomChoice")) {
+				Object[] args = {};
+				ad = jdbcTemplate.queryForObject(SELECTONERANDOM, args, new AdvertisementRowMapperRandomChoice());
+			}
+			else if(adDTO.getSearchCondition().equals("adViewOne")) {
+				Object[] args = {adDTO.getAdvertisementId()};
+				ad = jdbcTemplate.queryForObject(SELECTONEDETAIL, args, new AdvertisementRowMapper());
+			}
 		} catch (Exception e) {
 			System.out.println("광고 상세보기 조회 실패");
 		}
