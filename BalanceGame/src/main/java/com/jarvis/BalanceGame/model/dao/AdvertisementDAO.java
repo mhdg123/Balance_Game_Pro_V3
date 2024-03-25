@@ -18,8 +18,9 @@ public class AdvertisementDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	private static final String SELECTALL = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT";
-	private static final String SELECTONERANDOM = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE FROM ADVERTISEMENT ORDER BY RAND() LIMIT 1";
-	private static final String SELECTONEDETAIL = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT WHERE ADVERTISEMENT_ID = ?";
+	private static final String SELECTONE_RANDOM = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE FROM ADVERTISEMENT ORDER BY RAND() LIMIT 1";
+	private static final String SELECTONE_DETAIL = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT WHERE ADVERTISEMENT_ID = ?";
+	private static final String SELECTONE_NEXT_ID = "SELECT MAX(ADVERTISEMENT_ID)+1 AS NEXT_AD_ID FROM ADVERTISEMENT";
 	private static final String INSERT = "INSERT INTO ADVERTISEMENT (ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE) VALUES (?, ?)";
 	private static final String UPDATE = "UPDATE ADVERTISEMENT SET ADVERTISEMENT_STATUS = CASE WHEN ADVERTISEMENT_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE ADVERTISEMENT_ID = ?";
 	private static final String DELETE = "DELETE FROM ADVERTISEMENT WHERE ADVERTISEMENT_ID = ?";
@@ -35,11 +36,14 @@ public class AdvertisementDAO {
 		try {
 			if(adDTO.getSearchCondition().equals("adRandomChoice")) {
 				Object[] args = {};
-				ad = jdbcTemplate.queryForObject(SELECTONERANDOM, args, new AdvertisementRowMapperRandomChoice());
+				ad = jdbcTemplate.queryForObject(SELECTONE_RANDOM, args, new AdvertisementRowMapperRandomChoice());
 			}
 			else if(adDTO.getSearchCondition().equals("adViewOne")) {
 				Object[] args = {adDTO.getAdvertisementId()};
-				ad = jdbcTemplate.queryForObject(SELECTONEDETAIL, args, new AdvertisementRowMapper());
+				ad = jdbcTemplate.queryForObject(SELECTONE_DETAIL, args, new AdvertisementRowMapper());
+			}
+			else if(adDTO.getSearchCondition().equals("adNextId")) {
+				ad = jdbcTemplate.queryForObject(SELECTONE_NEXT_ID, new AdvertisementNextId());
 			}
 		} catch (Exception e) {
 			System.out.println("광고 상세보기 조회 실패");
@@ -95,5 +99,14 @@ class AdvertisementRowMapperRandomChoice implements RowMapper<AdvertisementDTO>{
 		ad.setAdvertisementImg(rs.getString("ADVERTISEMENT_IMAGE"));
 		return ad;
 	}
-	
+}
+
+class AdvertisementNextId implements RowMapper<AdvertisementDTO>{
+
+	@Override
+	public AdvertisementDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		AdvertisementDTO ad = new AdvertisementDTO();
+		ad.setAdvertisementNextId(rs.getInt("NEXT_AD_ID"));
+		return ad;
+	}
 }

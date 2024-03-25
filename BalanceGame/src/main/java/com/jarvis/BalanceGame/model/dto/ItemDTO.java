@@ -16,4 +16,8 @@ public class ItemDTO {
 	  private String itemImg; // 아이템 이미지
 	  @NotNull
 	  private String itemType; // 아이템 타입(아이템 / 포인트)
+	  
+	  //-----------------------------------------
+	  private String searchCondition;
+	  private int itemNextId; // 다음 pk
 }

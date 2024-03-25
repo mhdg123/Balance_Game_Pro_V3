@@ -20,4 +20,5 @@ public class AdvertisementDTO {
     
     //--------------------------------------------
     private String searchCondition; 
+    private int advertisementNextId; // 다음 pk
 }

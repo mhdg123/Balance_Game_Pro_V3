@@ -19,6 +19,7 @@ public class ItemDAO {
 	
 	private static final String SELECTALL = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE FROM ITEM";
 	private static final String SELECTONE = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE FROM ITEM WHERE ITEM_ID =?";
+	private static final String SELECTONE_NEXT_ID = "SELECT MAX(ITEM_ID)+1 AS NEXT_ITEM_ID FROM ITEM";
 	private static final String INSERT = "INSERT INTO ITEM (ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE) VALUES (?,?,?,?)";
 	private static final String UPDATE = "UPDATE ITEM SET ITEM_NAME = ?, ITEM_PRICE = ? WHERE ITEM_ID = ?";
 	private static final String DELETE = "DELETE FROM ITEM WHERE ITEM_ID = ?";
@@ -30,9 +31,14 @@ public class ItemDAO {
 	}
 	public ItemDTO selectOne(ItemDTO iDTO) {
 		ItemDTO data = null;
-		Object[] args = {iDTO.getItemId()};
 		try {
-			data = jdbcTemplate.queryForObject(SELECTONE, args, new ItemRowMapperDetail());
+			if(iDTO.getSearchCondition().equals("itemViewOne")) {
+				Object[] args = {iDTO.getItemId()};
+				data = jdbcTemplate.queryForObject(SELECTONE, args, new ItemRowMapperDetail());
+			}
+			else if(iDTO.getSearchCondition().equals("itemNextId")) {
+				data = jdbcTemplate.queryForObject(SELECTONE_NEXT_ID, new ItemRowMapperNextId());
+			}
 		} catch (Exception e) {
 			System.out.println("해당 아이템 데이터가 없습니다");
 		}
@@ -90,5 +96,14 @@ class ItemRowMapperDetail implements RowMapper<ItemDTO>{
 		data.setItemType(rs.getString("ITEM_TYPE"));
 		return data;
 	}
-	
+}
+
+class ItemRowMapperNextId implements RowMapper<ItemDTO>{
+
+	@Override
+	public ItemDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ItemDTO data = new ItemDTO();
+		data.setItemNextId(rs.getInt("NEXT_ITEM_ID"));
+		return data;
+	}
 }
