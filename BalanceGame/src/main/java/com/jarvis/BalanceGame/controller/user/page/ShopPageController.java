@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.ItemDTO;
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
+import com.jarvis.BalanceGame.model.dto.PaymentDTO;
 import com.jarvis.BalanceGame.service.ItemService;
 import com.jarvis.BalanceGame.service.MemberService;
-
-import jakarta.servlet.http.HttpSession;
+import com.jarvis.BalanceGame.service.PaymentService;
 
 @Controller
 @RequestMapping("/user")
@@ -23,11 +23,14 @@ public class ShopPageController {
    private ItemService itemService;
    
    @Autowired
+   private PaymentService paymentService;
+   
+   @Autowired
    private MemberService memberService;
    
 
    @GetMapping("/shopPage")
-   public String shopPageController(ItemDTO iDTO, MemberDTO mDTO, Model model, HttpSession session) {
+   public String shopPageController(ItemDTO iDTO, MemberDTO mDTO,PaymentDTO pDTO, Model model) {
       System.out.println("상점 페이지 이동");
       
 //       페이지 이동시 selectAll
@@ -38,16 +41,13 @@ public class ShopPageController {
 //       로그인 아이디
 //       이미지 url
 //       유저 가지고 있는 포인트
+      
+      List<PaymentDTO> pdata = paymentService.selectAll(pDTO);
+      
+      List<ItemDTO> idata =  itemService.selectAll(iDTO);
 
-      
-      List<ItemDTO> data =  itemService.selectAll(iDTO);
-//      MemberDTO loginData = memberService.selectOne(mDTO);
-      model.addAttribute(data);
-      
-      String loginId = (String)session.getAttribute("loginId");
-      mDTO.setLoginId(loginId);
-      model.addAttribute(loginId);
-      
+      model.addAttribute("paymentDatas", pdata);
+      model.addAttribute("itemDatas", idata);
       
       
       

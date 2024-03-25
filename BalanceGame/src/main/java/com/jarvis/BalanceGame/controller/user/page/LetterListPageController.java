@@ -27,7 +27,7 @@ public class LetterListPageController {
 		
 		lDTO.setLoginId(loginId);
 		
-		lDTO.setSearchCondition("allMessage");
+		lDTO.setSearchCondition("viewAllMessage");
 		
 		List<LetterDTO> ldata = letterService.selectAll(lDTO);
 		

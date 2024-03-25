@@ -27,28 +27,18 @@ public class LetterListAsync {
 		lDTO.setLoginId(loginId);
 		System.out.println("쪽지읽음 확인 1"+lDTO);
 		
-		boolean flag = false;
 		String src="";
 		
-		if (letterService.update(lDTO)) {
-			flag = letterService.insert(lDTO);
-			if (flag) {
-				src="readOn";
-				System.out.println("쪽지읽음 확인2"+ lDTO);
-			}
-		}else {
-			flag= letterService.update(lDTO);
-			if (flag) {
-				src="readOff";
-				System.out.println("쪽지읽음 확인3"+ lDTO);
-			}
-		}
+		letterService.update(lDTO);
 		
-		if(!flag) {
-			
-			System.out.println("실패");
-			return "실패";
+		if(lDTO.getLetterStatus()=="T") {
+			src="readOn";
+			System.out.println("쪽지읽음 확인2"+ lDTO);
+		}else {
+			src="readOff";
+			System.out.println("쪽지읽음 확인3"+ lDTO);
 		}
+
 			System.out.println(src);
 
 		return src;
