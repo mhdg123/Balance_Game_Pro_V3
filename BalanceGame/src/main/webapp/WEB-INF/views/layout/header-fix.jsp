@@ -4,7 +4,6 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Watch shop | eCommers</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="manifest" href="site.webmanifest" />

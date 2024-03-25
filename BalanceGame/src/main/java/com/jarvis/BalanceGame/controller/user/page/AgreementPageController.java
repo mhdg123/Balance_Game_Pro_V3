@@ -7,16 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/user")
 public class AgreementPageController {
 
-	@RequestMapping("/약관동의!!")
+	@RequestMapping("/joinAgree")
 	public String agreementPageController(Model model, HttpSession session) {
+		System.out.println("약관동의 페이지 이동");
 		
-		String loginId = (String)session.getAttribute("loginId");
-		
-		model.addAttribute("loginId", loginId);
-		
-		return "user/아직모름";
+		return "user/joinAgree";
 	}
 	
 }
