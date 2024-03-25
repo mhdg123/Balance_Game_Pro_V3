@@ -24,42 +24,34 @@ public class LetterListAsync {
 		String loginId = (String)session.getAttribute("loginId");
 		lDTO.setLoginId(loginId);
 		
+		lDTO.setLoginId(loginId);
+		System.out.println("쪽지읽음 확인 1"+lDTO);
 		
+		boolean flag = false;
+		String src="";
 		
+		if (letterService.update(lDTO)) {
+			flag = letterService.insert(lDTO);
+			if (flag) {
+				src="readOn";
+				System.out.println("쪽지읽음 확인2"+ lDTO);
+			}
+		}else {
+			flag= letterService.update(lDTO);
+			if (flag) {
+				src="readOff";
+				System.out.println("쪽지읽음 확인3"+ lDTO);
+			}
+		}
 		
-		
-		
-		
-		
-		return "";
+		if(!flag) {
+			
+			System.out.println("실패");
+			return "실패";
+		}
+			System.out.println(src);
+
+		return src;
 	}
 	
 }
-
-wDTO.setLoginId((String)session.getAttribute("loginId"));
-System.out.println("찜하기 확인1"+ wDTO);
-
-boolean flag=false; 
-String src="";
-if (wishService.selectOne(wDTO) == null) {
-	flag = wishService.insert(wDTO);
-	if (flag) {
-		src="wishOn";
-		System.out.println("찜하기 확인2"+ wDTO);
-	}
-}else {
-	flag= wishService.delete(wDTO);
-	if (flag) {
-		src="wishOff";
-		System.out.println("찜하기 확인3"+ wDTO);
-	}
-}
-
-if(!flag) {
-	
-	System.out.println("실패");
-	return "실패";
-}
-	System.out.println(src);
-
-return src;
