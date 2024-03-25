@@ -7,7 +7,20 @@
 <%@ include file="../layout/header-fix.jsp"%>
 <title>Watch shop | eCommers</title>
 <!-- css -->
-
+<style type="text/css">
+    .item-element {
+        height: 28px;
+    }
+    .item-element button {
+        display: none;
+    }
+    .item-element:hover {
+        background-color: #f2f2f2; /* 마우스 호버 시 회색 배경색 지정 */
+    }
+    .item-element:hover button {
+        display: block;
+    }
+</style>
 </head>
 
 <body>
@@ -94,59 +107,23 @@
 						<h4>아이템</h4>
 						<div class="shadow p-3 mb-5 bg-body rounded"
 							style="overflow-y: auto; height: 400px;">
-
 							<ul>
-								<li>
-
-									<div>
-										<img src="assets/img/comment/comment_3.png" alt=""> <span>:
-											닉변</span>
-									</div>
-
-
-								</li>
-								<li>
-									<div>
-										<img src="assets/img/comment/comment_3.png" alt=""> <span>:
-											닉변</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<img src="assets/img/comment/comment_3.png" alt=""> <span>:
-											닉변</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<img src="assets/img/comment/comment_3.png" alt=""> <span>:
-											닉변</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<img src="assets/img/comment/comment_3.png" alt=""> <span>:
-											닉변</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<img src="assets/img/comment/comment_3.png" alt=""> <span>:
-											닉변</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<img src="assets/img/comment/comment_3.png" alt=""> <span>:
-											닉변</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<img src="assets/img/comment/comment_3.png" alt=""> <span>:
-											닉변</span>
-									</div>
-								</li>
+								<c:choose>
+									<c:when test="${fn:length(memberItemDatas) > 0}">
+										<c:forEach var="data" items="${memberItemDatas}">
+											<li class="item-element">
+												<div >
+													<img src="assets/img/comment/comment_3.png" alt=""> <span>
+														&nbsp;&nbsp;${data.itemName}</span>
+													<button type="button" class="genric-btn primary radius change-ck-button f-right small">사용</button>
+												</div>
+											</li>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<li>아이템이 없습니다.</li>
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</div>
 					</div>
@@ -261,40 +238,9 @@
       
     
       
-      
-/*         // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-      const response = await fetch("/user/myInfoPasswordCheckAsync", {
-        method: "POST",
-        type:"text",
-        body: { 'memberPassword' :memberPassword }
-        //headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
-      });
-
-      if (!response.ok) {
-          return "서버 전송 실패1";
-        // throw new Error("서버에 데이터 전송 실패!");
-      }else{
-    	  console.log(response);
-    	  if(response=="success"){
-    		  location.href ="/user/myPageUpdatePageController";
-    	  }
-    	  else{
-    		  return "인증 실패2";
-    	  }
-    	  
-      }
-
-      // 성공적인 응답 처리 (원하는 논리로 변경)
-      const data = await response.json();
-      console.log("회원님의 아이디는 : " + data + "입니다.") 
-    //   console.log("서버 응답:", data); // 예시: 응답 데이터 기록
-      return formValues; // 추가 처리를 위해 formValues 반환  */
     }
   });
 
-/*   if (formValues) {
-    Swal.fire(JSON.stringify(formValues));
-  }  */
      }
 
 
