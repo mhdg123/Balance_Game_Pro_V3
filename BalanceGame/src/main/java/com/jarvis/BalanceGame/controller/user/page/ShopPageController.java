@@ -44,11 +44,11 @@ public class ShopPageController {
       
       iDTO.setItemType("item");
       List<ItemDTO> idata =  itemService.selectAll(iDTO);
-      iDTO.setItemType("coin");
-      List<ItemDTO> idatas =  itemService.selectAll(iDTO);
+      model.addAttribute("itemDatas", idata);
       
-      model.addAttribute("itemData", idata);
-      model.addAttribute("itemDatas", idatas);
+      iDTO.setItemType("coin");
+      List<ItemDTO> pdata =  itemService.selectAll(iDTO);
+      model.addAttribute("paymentDatas", pdata);
       
       
       

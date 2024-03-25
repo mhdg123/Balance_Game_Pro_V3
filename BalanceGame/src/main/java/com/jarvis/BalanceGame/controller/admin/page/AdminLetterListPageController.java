@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jarvis.BalanceGame.model.dto.LetterDTO;
 import com.jarvis.BalanceGame.service.LetterService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminLetterListPageController {
@@ -19,7 +21,9 @@ public class AdminLetterListPageController {
 	private LetterService letterService;
 	
 	@GetMapping("/adminLetterListPage")
-	public String adminLetterListPageController(LetterDTO lDTO, Model model) {
+	public String adminLetterListPageController(LetterDTO lDTO, Model model,HttpSession session) {
+		String loginId = (String)session.getAttribute("loginId");
+		lDTO.setLoginId(loginId);
 		lDTO.setSearchCondition("viewAllMessage");
 		List<LetterDTO> lDatas = letterService.selectAll(lDTO);
 		
