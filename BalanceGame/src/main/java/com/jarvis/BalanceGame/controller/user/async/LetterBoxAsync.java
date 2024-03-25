@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
-public class MailBoxAsync {
+public class LetterBoxAsync {
 
 	@Autowired
 	private LetterService letterService;
