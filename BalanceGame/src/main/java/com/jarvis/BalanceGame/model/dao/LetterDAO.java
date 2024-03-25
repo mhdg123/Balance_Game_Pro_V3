@@ -18,7 +18,7 @@ public class LetterDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 전체 편지함 조회
-	private static final String SELECTALL = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER ORDER BY LETTER_DATE DESC";
+	private static final String SELECTALL = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LOGIN_ID=? ORDER BY LETTER_DATE DESC";
 
 	// 안읽은 편지 조회
 	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER, LETTER_STATUS, LETTER_DATE FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
@@ -38,11 +38,11 @@ public class LetterDAO {
 	public List<LetterDTO> selectAll(LetterDTO lDTO) {
 
 		List<LetterDTO> datas = null;
+		Object[] args = { lDTO.getLoginId() };
 		if (lDTO.getSearchCondition().equals("unReadMessage")) {
-			Object[] args = { lDTO.getLoginId() };
 			datas = jdbcTemplate.query(SELECTALL_UNREAD, args, new UnReadLetterRowMapper());
 		} else if (lDTO.getSearchCondition().equals("viewAllMessage")) {
-			datas = jdbcTemplate.query(SELECTALL, new LetterRowMapper());
+			datas = jdbcTemplate.query(SELECTALL, args, new LetterRowMapper());
 		}
 		return datas;
 	}
