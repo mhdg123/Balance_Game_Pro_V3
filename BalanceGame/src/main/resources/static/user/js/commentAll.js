@@ -37,7 +37,7 @@ function commentAll(questionId) {
 										<div class="d-flex align-items-center"></div>
 										<div class="reply-btn">
 											<div class="btn-reply text-uppercase"
-												style="display: inline-block;">신고</div>`;
+												style="display: inline-block;" onclick="commentWarning(${data.commentId})">신고</div>`;
 												
 											if (data.loginId==loginId){
 											elem +=`<div class="btn-reply text-uppercase"
@@ -92,5 +92,34 @@ $.ajax({
 
 }
 
+
+function commentWarning(commentId) {
+	console.log(loginId+" "+questionId+" "+commentId);
+	$.ajax({
+		type: "POST",
+		url: "/user/warningCommentAsync",
+		data: {
+			'commentId': commentId
+		},
+		dataType: 'text',
+		success: function(data) {
+			console.log("성공 실패 : "+data);
+			if(data=="1"){
+				Swal.fire({
+				title: "신고",
+				text: "신고가 완료 되었습니다.",
+				icon: "info"
+			});
+			}
+		},
+		error: function(error) {
+
+			console.log('에러발생');
+			console.log('에러의 종류:' + error);
+		}
+
+	});
+
+}
 
 
