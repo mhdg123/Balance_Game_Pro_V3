@@ -73,3 +73,20 @@
 	         location.href = '/' ;
 	     }
 	}
+	
+	function PointItemBuy(itemId) {
+		 let form = document.createElement('form');
+    
+    let obj;
+    obj = document.createElement('input');
+    obj.setAttribute('type', 'hidden');
+    obj.setAttribute('name', 'itemId');
+    obj.setAttribute('value', itemId);
+    
+    form.appendChild(obj);
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', '/user/itemPurchase');
+    document.body.appendChild(form);
+    form.submit();
+	}
+	
