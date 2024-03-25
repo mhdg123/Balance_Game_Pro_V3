@@ -13,10 +13,10 @@ import com.jarvis.BalanceGame.model.dto.ItemDTO;
 
 @Repository
 public class ItemDAO {
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	private static final String SELECTALL_ITEM_TYPE = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE FROM ITEM WHERE ITEM_TYPE = 'item' ";
 	private static final String SELECTALL_POINT_TYPE = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE FROM ITEM WHERE ITEM_TYPE = 'point' ";
 	private static final String SELECTONE = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE FROM ITEM WHERE ITEM_ID =?";
@@ -24,25 +24,24 @@ public class ItemDAO {
 	private static final String INSERT = "INSERT INTO ITEM (ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE) VALUES (?,?,?,?)";
 	private static final String UPDATE = "UPDATE ITEM SET ITEM_NAME = ?, ITEM_PRICE = ? WHERE ITEM_ID = ?";
 	private static final String DELETE = "DELETE FROM ITEM WHERE ITEM_ID = ?";
-	
-	public List<ItemDTO> selectAll(ItemDTO iDTO){
+
+	public List<ItemDTO> selectAll(ItemDTO iDTO) {
 		List<ItemDTO> datas = null;
-                        if(iDTO.getSearchCondition().equals("itemType")) {
-			datas = jdbcTemplate.query(SELECTALL_ITEM_TYPE, args, new ItemRowMapper());
-		}
-		else if((iDTO.getSearchCondition().equals("pointType")){
-			datas = jdbcTemplate.query(SELECTALL_POINT_TYPE, args, new ItemRowMapper());
+		if (iDTO.getSearchCondition().equals("itemType")) {
+			datas = jdbcTemplate.query(SELECTALL_ITEM_TYPE, new ItemRowMapper());
+		} else if (iDTO.getSearchCondition().equals("pointType")) {
+			datas = jdbcTemplate.query(SELECTALL_POINT_TYPE, new ItemRowMapper());
 		}
 		return datas;
 	}
+
 	public ItemDTO selectOne(ItemDTO iDTO) {
 		ItemDTO data = null;
 		try {
-			if(iDTO.getSearchCondition().equals("itemViewOne")) {
-				Object[] args = {iDTO.getItemId()};
+			if (iDTO.getSearchCondition().equals("itemViewOne")) {
+				Object[] args = { iDTO.getItemId() };
 				data = jdbcTemplate.queryForObject(SELECTONE, args, new ItemRowMapperDetail());
-			}
-			else if(iDTO.getSearchCondition().equals("itemNextId")) {
+			} else if (iDTO.getSearchCondition().equals("itemNextId")) {
 				data = jdbcTemplate.queryForObject(SELECTONE_NEXT_ID, new ItemRowMapperNextId());
 			}
 		} catch (Exception e) {
@@ -50,33 +49,34 @@ public class ItemDAO {
 		}
 		return data;
 	}
-	
+
 	public boolean insert(ItemDTO iDTO) {
-		int result = jdbcTemplate.update(INSERT, iDTO.getItemName(), iDTO.getItemPrice(), iDTO.getItemImg(), iDTO.getItemType());
-		if(result <=0) {
+		int result = jdbcTemplate.update(INSERT, iDTO.getItemName(), iDTO.getItemPrice(), iDTO.getItemImg(),
+				iDTO.getItemType());
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	public boolean update(ItemDTO iDTO) {
 		int result = jdbcTemplate.update(UPDATE, iDTO.getItemName(), iDTO.getItemPrice(), iDTO.getItemId());
-		if(result <=0) {
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	public boolean delete(ItemDTO iDTO) {
 		int result = jdbcTemplate.update(DELETE, iDTO.getItemId());
-		if(result <=0) {
+		if (result <= 0) {
 			return false;
 		}
 		return true;
 	}
 }
 
-class ItemRowMapper implements RowMapper<ItemDTO>{
+class ItemRowMapper implements RowMapper<ItemDTO> {
 
 	@Override
 	public ItemDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -89,7 +89,7 @@ class ItemRowMapper implements RowMapper<ItemDTO>{
 	}
 }
 
-class ItemRowMapperDetail implements RowMapper<ItemDTO>{
+class ItemRowMapperDetail implements RowMapper<ItemDTO> {
 
 	@Override
 	public ItemDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -103,7 +103,7 @@ class ItemRowMapperDetail implements RowMapper<ItemDTO>{
 	}
 }
 
-class ItemRowMapperNextId implements RowMapper<ItemDTO>{
+class ItemRowMapperNextId implements RowMapper<ItemDTO> {
 
 	@Override
 	public ItemDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

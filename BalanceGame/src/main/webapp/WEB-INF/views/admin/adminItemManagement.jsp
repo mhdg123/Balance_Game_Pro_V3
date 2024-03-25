@@ -108,20 +108,16 @@
 															<th>NO</th>
 															<th>아이템 명</th>
 															<th>포인트</th>
-															<th>타입</th>
-
 														</tr>
 													</thead>
 													<tbody>
-														<c:forEach var="data" items="${itemDatas}" varStatus="loop">
-															<c:if test="${data.itemType == 'item' }">
+														<c:forEach var="data" items="${itemTypeDatas}" varStatus="loop">
 																<tr onclick="location.href = '/admin/itemDetailPage?itemId=${data.itemId}'">
 																	<td>${loop.index + 1}</td>
 																	<td>${data.itemName}</td>
 																	<td>${data.itemPrice}</td>
 																	<td>${data.itemType}</td>
 																</tr>
-															</c:if>
 														</c:forEach>
 													</tbody>
 												</table>
@@ -141,15 +137,13 @@
 														</tr>
 													</thead>
 													<tbody>
-														<c:forEach var="data" items="${itemDatas}" varStatus="loop">
-															<c:if test="${data.itemType == 'point' }">
+														<c:forEach var="data" items="${pointTypeDatas}" varStatus="loop">
 																<tr onclick="location.href = '/admin/itemDetailPage?itemId=${data.itemId}'">
-																	<td>${data.itemId}</td>
+																	<td>${loop.index + 1}</td>
 																	<td>${data.itemName}</td>
 																	<td>${data.itemPrice}</td>
 																	<td>${data.itemType}</td>
 																</tr>
-															</c:if>
 														</c:forEach>
 													</tbody>
 												</table>

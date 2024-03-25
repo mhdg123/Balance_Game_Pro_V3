@@ -19,7 +19,8 @@ public class AdminCreateAdvertisementPageController {
 	@GetMapping("/adminCreateAdvertisementPage")
 	public String adminCreateTitlePageController(AdvertisementDTO aDTO, Model model) {
 		System.out.println("관리자 광고 생성 페이지 이동");
-		// 광고 마지막 PK 데이터 필요
+		// (광고 마지막 PK값 데이터 searchCondition 사용해서 가져오기 dao추가됨)
+		
 		return "admin/adminCreateAdvertisement";
 	}
 	
