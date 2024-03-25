@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jarvis.BalanceGame.MailService;
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 import com.jarvis.BalanceGame.service.QuestionService;
 //한글코딩
@@ -24,8 +25,10 @@ public class AdminQuestionRefuseController {
 	@PostMapping("/questionRefuse")
 	public String adminTitleRefuseController(QuestionDTO qDTO, Model model) {
 		
-		
+		// qDTO.qeustionId를 모델로 보내주고 모델에서 join해서 해당 회원의 이메일을 가져오고 그 가져온 이메일을 인자로 집어넣음 
+		//MailService.sendMessage();
 		boolean flag = questionService.delete(qDTO);
+		
 		if(!flag) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "실패했습니다");
