@@ -26,7 +26,7 @@ public class ItemDAO {
 	
 	public List<ItemDTO> selectAll(ItemDTO iDTO){
 		List<ItemDTO> datas = null;
-		Object[] args = {iDTO.getItemType};
+		Object[] args = {iDTO.getItemType()};
 		datas = jdbcTemplate.query(SELECTALL, args, new ItemRowMapper());
 		return datas;
 	}

@@ -181,16 +181,16 @@
 									<div class="card-body">
 										<div class="form-group">
 											<label for="exampleInputEmail1">광고 번호</label>
-											<input type="text" class="form-control" id="itemId" name="itemId" placeholder="아이템 NO" value="1" readonly>
+											<input type="text" class="form-control" id="advertisementId" name="advertisementId" placeholder="광고 NO" value="1" readonly>
 										</div>
 
 										<div class="form-group">
 											<label for="exampleInputEmail1">URL</label>
-											<input type="text" class="form-control" id="itemName" name="itemName" placeholder="아이템 명">
+											<input type="text" class="form-control" id="advertisementUrl" name="advertisementUrl" placeholder="광고 URL">
 										</div>
 										<div class="form-group">
 											<label for="exampleInputPassword1">이미지</label>
-											<input type="number" class="form-control" id="itemPrice" name="itemPrice" placeholder="가격">
+											<input type="text" class="form-control" id="advertisementImg" name="advertisementImg" placeholder="이미지">
 										</div>
 										<div class="form-group">
 											<label for="exampleInputFile">광고 이미지</label>
