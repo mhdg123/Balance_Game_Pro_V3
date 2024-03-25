@@ -178,7 +178,7 @@
 									<div class="card-body">
 										<div class="form-group">
 											<label for="exampleInputEmail1">아이템 번호</label>
-											<input type="text" class="form-control" id="itemId" name="itemId" placeholder="아이템 NO" value="1" readonly>
+											<input type="text" class="form-control" id="itemId" name="itemId" placeholder="아이템 NO" value="${itemLastPk}" readonly>
 										</div>
 
 										<div class="form-group">
