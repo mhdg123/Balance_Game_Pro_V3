@@ -158,8 +158,10 @@
 										<div class="reply-btn">
 											<div class="btn-reply text-uppercase"
 												style="display: inline-block;">신고</div>
+												<c:if test="${data.loginId==loginId }">
 											<div class="btn-reply text-uppercase"
-												style="display: inline-block;">삭제</div>
+												style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>
+												</c:if>
 										</div>
 									</div>
 								</div>
@@ -246,7 +248,7 @@
 
 
     </script>
-
+	<script src="/resources/user/js/commentAll.js"></script>
 
 </body>
 </html>

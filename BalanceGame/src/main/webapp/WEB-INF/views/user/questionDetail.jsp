@@ -32,27 +32,27 @@
 		<!--================ 문제목록 =================-->
 		<section>
 			<div class="container">
-	
+
 
 				<!-- 결과 -->
-				<div style="height: 80px;margin-top: 40px">
-							<!-- 필터 -->
-				<div
-					style="display: flex; justify-content: space-between; align-items: center;">
-					<a href="/user/questionListPage"><p>< 문제목록</p></a>
-					<div class="row f-right"
-						style="display: flex; align-items: center; gap: 10px;">
-						<div>필터</div>
-						<div class="default-select col-md-3" id="default-select">
-							<select>
-								<option value="1">전체</option>
-								<option value="2">남자</option>
-								<option value="3">여자</option>
-							</select>
+				<div style="height: 80px; margin-top: 40px">
+					<!-- 필터 -->
+					<div
+						style="display: flex; justify-content: space-between; align-items: center;">
+						<a href="/user/questionListPage"><p>< 문제목록</p></a>
+						<div class="row f-right"
+							style="display: flex; align-items: center; gap: 10px;">
+							<div>필터</div>
+							<div class="default-select col-md-3" id="default-select">
+								<select>
+									<option value="1">전체</option>
+									<option value="2">남자</option>
+									<option value="3">여자</option>
+								</select>
+							</div>
 						</div>
 					</div>
-				</div>
-				
+
 				</div>
 				<h2 class="col-12">
 					<br />${questionData.title}
@@ -150,8 +150,10 @@
 												<div class="reply-btn">
 													<div class="btn-reply text-uppercase"
 														style="display: inline-block;">신고</div>
-													<div class="btn-reply text-uppercase"
-														style="display: inline-block;">삭제</div>
+													<c:if test="${data.loginId==loginId }">
+														<div class="btn-reply text-uppercase"
+															style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>
+													</c:if>
 												</div>
 											</div>
 										</div>
@@ -336,7 +338,7 @@
 						});
 	</script>
 	<!-- 찜 하기 스크립트 -->
-
+	<script src="/resources/user/js/commentAll.js"></script>
 
 </body>
 </html>

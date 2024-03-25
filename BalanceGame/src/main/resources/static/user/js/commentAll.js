@@ -1,7 +1,7 @@
 
 function commentAll(questionId) {
 
-
+	console.log("loginId : "+loginId);
 	console.log("commentAll"+questionId);
 	$.ajax({
 		type: "POST",
@@ -37,10 +37,14 @@ function commentAll(questionId) {
 										<div class="d-flex align-items-center"></div>
 										<div class="reply-btn">
 											<div class="btn-reply text-uppercase"
-												style="display: inline-block;">신고</div>
-											<div class="btn-reply text-uppercase"
-												style="display: inline-block;">삭제</div>
-										</div>
+												style="display: inline-block;">신고</div>`;
+												
+											if (data.loginId==loginId){
+											elem +=`<div class="btn-reply text-uppercase"
+												style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>`;
+												
+												}
+										elem +=`</div>
 									</div>
 								</div>
 								<hr />
@@ -62,3 +66,31 @@ function commentAll(questionId) {
 
 
 }
+
+function commentDelete(commentId) {
+	console.log(loginId+" "+questionId+" "+commentId);
+$.ajax({
+		type: "POST",
+		url: "/user/deleteCommentAsync",
+		data: {
+			'commentId': commentId
+		},
+		dataType: 'text',
+		success: function(data) {
+			console.log("성공 실패 : "+data);
+			if(data=="1"){
+			commentAll(questionId);
+			}
+		},
+		error: function(error) {
+
+			console.log('에러발생');
+			console.log('에러의 종류:' + error);
+		}
+
+	});
+
+}
+
+
+
