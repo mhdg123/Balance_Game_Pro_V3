@@ -13,7 +13,7 @@ function joinFormAction() {
 	let email = $('#email').val(); // 이메일
 	let gender = $("#gender").val();
 	let address = $('#address').val(); // 주소
-	let authNumCk = $("#authNum").val(); // 입력된 인증번호
+	let authNumCk = $("#certification").val(); // 입력된 인증번호
 
 
 	// 이름 유효성 검사
@@ -92,7 +92,7 @@ function joinFormAction() {
 	}
 
 	// 인증번호 확인
-	if (authStatus <= 0) { // authStatus: 인증 성공 여부
+	if (authStatus == 0) { // authStatus: 인증 성공 여부
 		showError("인증확인", "인증번호가 일치하지 않습니다. 다시 확인해주세요");
 		return false;
 	}
