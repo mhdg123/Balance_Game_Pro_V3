@@ -7,7 +7,10 @@
 <%@ include file="../layout/header-fix.jsp"%>
 <title>Watch shop | eCommers</title>
 <!-- css -->
-
+    <script>
+        var loginId = "${loginId}";
+        var questionId="${questionData.questionId}";
+    </script>
 </head>
 
 <body>

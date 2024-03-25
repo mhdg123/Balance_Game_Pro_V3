@@ -248,7 +248,34 @@
 
 
     </script>
-	<script src="/resources/user/js/commentAll.js"></script>
+	
+	<script type="text/javascript">
+	function commentDelete(commentId) {
+
+	$.ajax({
+			type: "POST",
+			url: "/user/deleteCommentAsync",
+			data: {
+				'commentId': commentId
+			},
+			dataType: 'text',
+			success: function(data) {
+				console.log("성공 실패 : "+data);
+				if(data=="1"){
+					location.reload();
+				}
+			},
+			error: function(error) {
+
+				console.log('에러발생');
+				console.log('에러의 종류:' + error);
+			}
+
+		});
+
+	}	
+	
+	</script>
 
 </body>
 </html>
