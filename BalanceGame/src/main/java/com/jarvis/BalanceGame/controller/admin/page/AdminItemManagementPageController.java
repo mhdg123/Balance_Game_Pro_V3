@@ -24,13 +24,6 @@ public class AdminItemManagementPageController {
 		System.out.println("관리자 아이템 관리 페이지 이동");
 
 		List<ItemDTO> datas = itemService.selectAll(iDTO);
-		/*
-		 * if (itemDatas.size() >= 0) { model.addAttribute("status", "fail");
-		 * model.addAttribute("msg", "등록된 아이템이 없습니다."); model.addAttribute("redirect",
-		 * "/admin/adminPage");
-		 * 
-		 * return "alert"; }
-		 */
 		System.out.println("관리자 등록된 아이템 데이터 : " + datas);
 		model.addAttribute("itemDatas", datas);
 		return "admin/adminItemManagement";
