@@ -31,7 +31,7 @@ public class LetterListPageController {
 		
 		List<LetterDTO> ldata = letterService.selectAll(lDTO);
 		
-		model.addAttribute("listDatas", ldata);
+		model.addAttribute("letterDatas", ldata);
 		
 		return "user/letterList";
 		
