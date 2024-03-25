@@ -17,7 +17,7 @@ public class ItemDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private static final String SELECTALL = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE FROM ITEM";
+	private static final String SELECTALL = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE FROM ITEM WHERE ITEM_TYPE = ? ";
 	private static final String SELECTONE = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE FROM ITEM WHERE ITEM_ID =?";
 	private static final String SELECTONE_NEXT_ID = "SELECT MAX(ITEM_ID)+1 AS NEXT_ITEM_ID FROM ITEM";
 	private static final String INSERT = "INSERT INTO ITEM (ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE) VALUES (?,?,?,?)";
@@ -26,7 +26,8 @@ public class ItemDAO {
 	
 	public List<ItemDTO> selectAll(ItemDTO iDTO){
 		List<ItemDTO> datas = null;
-		datas = jdbcTemplate.query(SELECTALL, new ItemRowMapper());
+		Object[] args = {iDTO.getItemType};
+		datas = jdbcTemplate.query(SELECTALL, args, new ItemRowMapper());
 		return datas;
 	}
 	public ItemDTO selectOne(ItemDTO iDTO) {
