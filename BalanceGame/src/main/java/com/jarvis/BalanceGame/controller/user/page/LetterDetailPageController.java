@@ -24,7 +24,7 @@ public class LetterDetailPageController {
 		
 		model.addAttribute("letterData",lDTO);
 		
-		return "letterDetail";
+		return "user/letterDetail";
 	}
 	
 }
