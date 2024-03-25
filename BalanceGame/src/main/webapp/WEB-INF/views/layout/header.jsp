@@ -42,7 +42,7 @@
 									
 									
 									<li><a href="/user/myInfoPage" class="hiddenText">마이페이지</a></li>
-									<li><a href="/user/questionListPage" class="hiddenText">모든 우편 보기</a></li>
+									<li><a href="/user/letterListPage" class="hiddenText">모든 우편 보기</a></li>
 
 									<li><a href="/user/logout" class="hiddenText">로그아웃</a></li>
 								</c:if>

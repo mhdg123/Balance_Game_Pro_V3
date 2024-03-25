@@ -16,7 +16,7 @@ public class LetterDetailPageController {
 	@Autowired
 	private LetterService letterService;
 	
-	@GetMapping("letterDetailPage")
+	@GetMapping("/letterDetailPage")
 	public String letterDetailPageController(LetterDTO lDTO, Model model) {
 		
 		

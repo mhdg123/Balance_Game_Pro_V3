@@ -88,7 +88,7 @@
 								</table>
 								<c:if test="${fn:length(letterDatas) <= 0 }">
 
-									<div>출제된 문제가 없습니다.</div>
+									<div>쪽지가 없습니다.</div>
 
 								</c:if>
 							</div>
