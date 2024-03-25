@@ -19,14 +19,14 @@ public class WarningDAO {
 	
 	private static final String SELECTONE = null;
 	
-	private static final String INSERT = "INSERT INTO WARNING (LOGIN_ID, COMMENT_ID) VALUES (?, ?)";
+	private static final String INSERT = "INSERT INTO WARNING (COMMENT_WRITER, COMMENT_ID) VALUES (?, ?)";
 	
 	private static final String UPDATE = null;
 	
 	private static final String DELETE = "DELETE FROM WARNING WHERE COMMENT_ID = ?";
 	
 	public boolean insert(WarningDTO wDTO){
-		int result = jdbcTemplate.update(INSERT, wDTO.getLoginId(), wDTO.getCommentId());
+		int result = jdbcTemplate.update(INSERT, wDTO.getCommentWriter(), wDTO.getCommentId());
 		if(result<=0) {
 			return false;
 		}
