@@ -17,16 +17,22 @@ public class CommentDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	// 해당 문제에 대한 댓글 전체출력 
+	// 해당 문제에 대한 댓글 전체출력
 	private static final String SELECTALL_QUESTION = "SELECT C.COMMENT_ID, C.QUESTION_ID, M.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
 			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID = M.LOGIN_ID WHERE C.QUESTION_ID=? ORDER BY C.COMMENT_DATE DESC";
 
-	// 회원이 작성한 모든 댓글 출력 
+	// 회원이 작성한 모든 댓글 출력
 	private static final String SELECTALL_MEMBER = "SELECT C.COMMENT_ID, C.QUESTION_ID, C.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
 			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=? ORDER BY C.COMMENT_DATE DESC";
 
-	// 댓글 작성 
+	// 댓글 작성
 	private static final String INSERT = "INSERT INTO COMMENT (QUESTION_ID, LOGIN_ID, COMMENTS) VALUES (?,?,?)";
+
+	// 댓글 수정
+	private static final String UPDATE = "UPDATE COMMENT SET COMMENTS = ? WHERE COMMENT_ID = ?";
+
+	// 댓글 삭제
+	private static final String DELETE = "DELETE FROM COMMENT WHERE COMMENT_ID = ?";
 
 	// 댓글 전체 출력하기
 	public List<CommentDTO> selectAll(CommentDTO cDTO) {
@@ -62,18 +68,19 @@ public class CommentDAO {
 	}
 
 	public boolean update(CommentDTO cDTO) {
-		if (cDTO.getSearchCondition().equals("댓글수정")) {
-			// 모델
-		} else if (cDTO.getSearchCondition().equals("회원탈퇴")) {
-			// 모델
+		int result = jdbcTemplate.update(UPDATE, cDTO.getComments(), cDTO.getCommentId());
+		if (result <= 0) {
+			return false;
 		}
-
-		return false;
+		return true;
 	}
 
 	public boolean delete(CommentDTO cDTO) {
-		// 댓글 삭제
-		return false;
+		int result = jdbcTemplate.update(DELETE, cDTO.getCommentId());
+		if (result <= 0) {
+			return false;
+		}
+		return true;
 	}
 
 }
