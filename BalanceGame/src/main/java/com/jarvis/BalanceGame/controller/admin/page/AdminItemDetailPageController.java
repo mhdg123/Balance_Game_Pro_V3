@@ -19,18 +19,19 @@ public class AdminItemDetailPageController {
 	private ItemService itemService;
 
 	@GetMapping("/itemDetailPage")
-	public String adminItemDetailPageController(ItemDTO lDTO, Model model) {
-
-		lDTO = itemService.selectOne(lDTO);
-		System.out.println("관리자 아이템 데이터 : " + lDTO);
-		if (lDTO == null) {
+	public String adminItemDetailPageController(ItemDTO iDTO, Model model) {
+		System.out.println("관리자 아이템 상세페이지 파라미터 데이터 :  " + iDTO);
+		iDTO.setSearchCondition("itemViewOne");
+		iDTO = itemService.selectOne(iDTO);
+		System.out.println("관리자 아이템 데이터 : " + iDTO);
+		if (iDTO == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "해당 데이터가 없습니다");
-			model.addAttribute("redirect", "/admin/adminPage");
+			model.addAttribute("redirect", "/admin/adminItemManagementPage");
 			return "alert";
 		}
 
-		model.addAttribute("itemData", lDTO);
+		model.addAttribute("itemData", iDTO);
 
 		return "admin/adminItemDetail";
 	}

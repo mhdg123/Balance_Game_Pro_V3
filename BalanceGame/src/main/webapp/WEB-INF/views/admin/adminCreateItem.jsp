@@ -125,56 +125,17 @@
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-
-
 			<!-- Main content -->
 			<section class="content">
 				<section class="content">
 					<div class="row" style="display: flex; justify-content: center">
 						<div class="col-md-6">
-							<!-- <div class="card card-primary">
-								<div class="card-header">
-									<h3 class="card-title">문제</h3>
-									<div class="card-tools">
-										<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-											<i class="fas fa-minus"></i>
-										</button>
-									</div>
-								</div>
 
-								<form action="/admin/titleCreate" method="POST" id="insertForm">
-									<div class="card-body">
-										<div class="form-group">
-
-											<input type="hidden" name="writer" value="관리자">
-
-											<label for="inputName">제목</label>
-											<input type="text" id="inputName" class="form-control" name="title">
-										</div>
-										<div class="form-group">
-											<label for="inputDescription">선택지A</label>
-											<textarea id="inputDescription" class="form-control" name="answerA" rows="2"></textarea>
-										</div>
-										<div class="form-group">
-											<label for="inputDescription">선택지B</label>
-											<textarea id="inputDescription" class="form-control" name="answerB" rows="2"></textarea>
-										</div>
-										<div class="form-group">
-											<label for="inputDescription">출제 이유</label>
-											<textarea id="inputDescription" class="form-control" name="explanation" rows="3"></textarea>
-										</div>
-										<button type="submit" class="btn btn-block btn-primary">문제출제</button>
-									</div>
-								</form>
-
-							</div> -->
 							<div class="card card-primary">
 								<div class="card-header">
 									<h3 class="card-title">아이템 관리</h3>
 								</div>
-
-
-								<form action="/admin/itemCreate" method="post">
+								<form action="/admin/adminItemCreate" method="post">
 									<div class="card-body">
 										<div class="form-group">
 											<label for="exampleInputEmail1">아이템 번호</label>
@@ -187,14 +148,14 @@
 										</div>
 										<div class="form-group">
 											<label for="exampleInputPassword1">가격</label>
-											<input type="number" class="form-control" id="itemPrice" name="itemPrice" placeholder="가격">
+											<input type="number" class="form-control" id="itemPrice" name="itemPrice" placeholder="가격" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
 										</div>
 										<div class="form-group">
 											<label for="exampleInputFile">아이템 이미지</label>
 											<div class="input-group">
 												<div class="custom-file">
-													<input type="file" class="custom-file-input" id="itemImg" name="itemImg">
-													<label class="custom-file-label" for="exampleInputFile">파일 선택</label>
+													<input type="file" class="custom-file-input" id="itemImg" name="itemImg" onchange="displayFileName()">
+													<label class="custom-file-label" for="itemImg" id="fileNameLabel">파일 선택</label>
 												</div>
 
 											</div>
@@ -284,60 +245,17 @@
 	<!-- 공백 폼 제출을 막아주는 js -->
 
 
-	<script>
-		document
-				.getElementById("insertForm")
-				.addEventListener(
-						"submit",
-						function(event) {
-							var title = document.getElementById("inputName").value
-									.trim();
-							var answerA = document.getElementsByName("answerA")[0].value
-									.trim();
-							var answerB = document.getElementsByName("answerB")[0].value
-									.trim();
-							var explanation = document
-									.getElementsByName("explanation")[0].value
-									.trim();
-							var errorMessage = "";
-
-							if (title === "") {
-								errorMessage += "제목을 입력해주세요.\n";
-								document.getElementById("inputName").focus();
-							}
-							if (answerA === "") {
-								errorMessage += "선택지A를 입력해주세요.\n";
-								document.getElementsByName("answerA")[0]
-										.focus();
-							}
-							if (answerB === "") {
-								errorMessage += "선택지B를 입력해주세요.\n";
-								document.getElementsByName("answerB")[0]
-										.focus();
-							}
-							if (explanation === "") {
-								errorMessage += "출제 이유를 입력해주세요.\n";
-								document.getElementsByName("explanation")[0]
-										.focus();
-							}
-
-							if (errorMessage !== "") {
-								alert(errorMessage);
-								event.preventDefault(); // 폼 제출 방지
-							}
-						});
-	</script>
 
 	<script>
-		$(document).ready(function() {
-			// 파일 선택이 변경되었을 때
-			$('#exampleInputFile').on('change', function() {
-				// 선택된 파일의 이름 가져오기
-				var fileName = $(this).val().split('\\').pop();
-				// 파일 이름 표시
-				$(this).next('.custom-file-label').html(fileName);
-			});
-		});
+    function displayFileName() {
+        var input = document.getElementById('itemImg');
+        var label = document.getElementById('fileNameLabel');
+        var fileName = input.files[0].name;
+        label.innerHTML = fileName;
+    }
+</script>
+	<script>
+		
 	</script>
 
 </body>
