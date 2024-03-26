@@ -39,7 +39,6 @@ public class MailService implements MailServiceImpl {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(qDTO.getEmail()));
 			message.setSubject("문제를 출제해주셔서 감사합니다");
 			message.setText(msg, "UTF-8", "html");
-			emailSender.send(message);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -21,12 +21,12 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public boolean update(CommentDTO cDTO) {
-		return false;
+		return commentDAO.update(cDTO);
 	}
 
 	@Override
 	public boolean delete(CommentDTO cDTO) {
-		return false;
+		return commentDAO.delete(cDTO);
 	}
 
 	@Override
