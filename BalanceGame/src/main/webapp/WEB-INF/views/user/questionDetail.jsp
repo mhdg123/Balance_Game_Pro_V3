@@ -153,7 +153,7 @@
 												<div class="d-flex align-items-center"></div>
 												<div class="reply-btn">
 													<div class="btn-reply text-uppercase"
-														style="display: inline-block;" onclick="commentWarning(${data.commentId})">신고</div>
+														style="display: inline-block;" onclick="commentWarning(${data.commentId},'${data.loginId}')">신고</div>
 													<c:if test="${data.loginId==loginId }">
 														<div class="btn-reply text-uppercase"
 															style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>

@@ -157,7 +157,7 @@
 										<div class="d-flex align-items-center"></div>
 										<div class="reply-btn">
 											<div class="btn-reply text-uppercase"
-												style="display: inline-block;">신고</div>
+												style="display: inline-block;" onclick="commentWarning(${data.commentId},'${data.loginId}')">신고</div>
 												<c:if test="${data.loginId==loginId }">
 											<div class="btn-reply text-uppercase"
 												style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>
@@ -274,7 +274,35 @@
 		});
 
 	}	
-	
+	function commentWarning(commentId,commentWriter) {
+		console.log(loginId+" "+questionId+" "+commentId);
+		$.ajax({
+			type: "POST",
+			url: "/user/CommentReportAsync",
+			data: {
+				'commentId': commentId,
+				'commentWriter':commentWriter
+			},
+			dataType: 'text',
+			success: function(data) {
+				console.log("성공 실패 : "+data);
+				if(data=="success"){
+					Swal.fire({
+					title: "신고",
+					text: "신고가 완료 되었습니다.",
+					icon: "success"
+				});
+				}
+			},
+			error: function(error) {
+
+				console.log('에러발생');
+				console.log('에러의 종류:' + error);
+			}
+
+		});
+
+	}
 	</script>
 
 </body>
