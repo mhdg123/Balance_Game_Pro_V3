@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jarvis.BalanceGame.model.dto.CommentDTO;
 import com.jarvis.BalanceGame.service.CommentService;
+
+import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/user")
 public class DeleteCommentAsync {
@@ -17,8 +19,10 @@ public class DeleteCommentAsync {
 	private CommentService commentService;
 
 	@PostMapping("/deleteCommentAsync")
-	public @ResponseBody String deleteCommentAsync(CommentDTO cDTO, Model model) {
-
+	public @ResponseBody String deleteCommentAsync(CommentDTO cDTO, Model model, HttpSession session) {
+		String loginId = (String)session.getAttribute("loginId");
+		cDTO.setLoginId(loginId);
+		System.out.println(cDTO.getCommentId());
 		boolean flag = commentService.delete(cDTO);
 
 		if (!flag) {
