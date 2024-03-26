@@ -58,7 +58,7 @@
 						<ul>
 							<!-- 포인트 금액 -->
 							<c:if test="${loginId != null }">
-								<li><span style="font-size: small">${point}p</span></li>
+								<li><span style="font-size: small">${coin}p</span></li>
 								<!-- 포인트 금액 -->
 
 								<!-- 메세지 아이콘  -->
