@@ -19,4 +19,5 @@ public class MemberItemDTO {
 	 
 	 //----------------------------------------
 	 private String itemName;
+	 private String searchCondition;
 }

@@ -27,7 +27,10 @@ public class MemberItemDAO {
 	private static final String INSERT = "INSERT INTO MEMBER_ITEM (LOGIN_ID, ITEM_ID, MEMBER_ITEM_COUNT) VALUES (?, ?, ?)";
 	
     // 해당 회원이 추가로 아이템을 구매 
-	private static final String UPDATE ="UPDATE MEMBER_ITEM SET MEMBER_ITEM_COUNT = MEMBER_ITEM_COUNT + 1 WHERE LOGIN_ID = ? AND ITEM_ID = ?";
+	private static final String UPDATE_ADDITIONAL_PURCHASE ="UPDATE MEMBER_ITEM SET MEMBER_ITEM_COUNT = MEMBER_ITEM_COUNT + 1 WHERE LOGIN_ID = ? AND ITEM_ID = ?";
+	
+	// 해당 회원이 아이템을 사용 
+	private static final String UPDATE_USE_ITEM = "UPDATE MEMBER_ITEM SET MEMBER_ITEM_COUNT = MEMBER_ITEM_COUNT - 1 WHERE LOGIN_ID = ? AND ITEM_ID = ?";
 	
 	
 	public List<MemberItemDTO> selectAll(MemberItemDTO miDTO){
@@ -57,7 +60,13 @@ public class MemberItemDAO {
 	}
 	
 	public boolean update(MemberItemDTO miDTO) {
-		int result = jdbcTemplate.update(UPDATE, miDTO.getLoginId(), miDTO.getItemId());
+		int result = 0;
+		if(miDTO.getSearchCondition().equals("additionalPurchaseItem")) {
+			result = jdbcTemplate.update(UPDATE_ADDITIONAL_PURCHASE, miDTO.getLoginId(), miDTO.getItemId());
+		}
+		else if(miDTO.getSearchCondition().equals("useItem")) {
+			result = jdbcTemplate.update(UPDATE_USE_ITEM, miDTO.getLoginId(), miDTO.getItemId());
+		}
 		if(result <= 0) {
 			return false;
 		}
