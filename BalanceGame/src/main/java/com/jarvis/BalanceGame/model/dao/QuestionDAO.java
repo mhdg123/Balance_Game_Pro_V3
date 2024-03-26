@@ -84,6 +84,9 @@ public class QuestionDAO {
 	// 관리자가 사용하는 문제 상세보기 
 	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_DATE, QUESTION_ACCESS  FROM QUESTION Q WHERE QUESTION_ID = ? ";
 	
+	// 문제 거부할 때 작성자에게 이메일 보내기
+	private static final String SELECT_ONE_EMAIL = "SELECT Q.WRITER, M.EMAIL FROM QUESTION Q JOIN MEMBER M ON Q.WRITER = M.LOGIN_ID WHERE Q.QUESTION_ID = ?";
+	
 	// 사용자가 질문 생성
 	private static final String INSERT = "INSERT INTO QUESTION (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION) VALUES(?,?,?,?,?)";
 	
@@ -160,7 +163,23 @@ public class QuestionDAO {
 		// 문제개수 
 		else if(qDTO.getSearchCondition().equals("questionCount")) {
 			Object[] args = {qDTO.getQuestionAccess()};
-			data = jdbcTemplate.queryForObject(SELECT_CNT, args, new QuestionRowMapperCnt());
+			try {
+				data = jdbcTemplate.queryForObject(SELECT_CNT, args, new QuestionRowMapperCnt());
+			} catch (Exception e) {
+				System.out.println("문제 개수 데이터가 없습니다");
+			}
+		}
+		// 회원 이메일, 회원 아이디 추출
+		else if(qDTO.getSearchCondition().equals("sendEmail")) {
+			Object[] args = {qDTO.getQuestionId()};
+			System.out.println(qDTO.getQuestionId());
+			try {
+				data = jdbcTemplate.queryForObject(SELECT_ONE_EMAIL, args, new QuestionRowMapperEmail());
+				System.out.println("이메일 data"+data);
+			} catch (Exception e) {
+				System.out.println("해당회원의 이메일을 찾을 수 없습니다");
+				e.printStackTrace();
+			}
 		}
 		return data;
 	}
@@ -298,5 +317,17 @@ class QuestionRowMapperAdminDetail implements RowMapper<QuestionDTO>{
 		data.setQuestionAccess(rs.getString("QUESTION_ACCESS"));
 		return data;
 	}
-	
+}
+
+class QuestionRowMapperEmail implements RowMapper<QuestionDTO>{
+
+	@Override
+	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("이메일로우매퍼진입");
+		QuestionDTO data = new QuestionDTO();
+		data.setWriter(rs.getString("WRITER"));
+		data.setEmail(rs.getString("EMAIL"));
+		System.out.println(data);
+		return data;
+	}
 }

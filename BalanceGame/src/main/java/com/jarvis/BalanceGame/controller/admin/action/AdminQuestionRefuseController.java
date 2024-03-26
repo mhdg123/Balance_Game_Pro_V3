@@ -21,12 +21,18 @@ public class AdminQuestionRefuseController {
 
 	@Autowired
 	private QuestionService questionService;
+	@Autowired
+	private MailService mailService;
 	
 	@PostMapping("/questionRefuse")
 	public String adminTitleRefuseController(QuestionDTO qDTO, Model model) {
 		
 		// qDTO.qeustionId를 모델로 보내주고 모델에서 join해서 해당 회원의 이메일을 가져오고 그 가져온 이메일을 인자로 집어넣음 
-		//MailService.sendMessage();
+		// MailService.sendMessage();
+		qDTO.setSearchCondition("sendEmail");
+		QuestionDTO data = questionService.selectOne(qDTO);
+		System.out.println(data);
+		mailService.sendMessage(data);
 		boolean flag = questionService.delete(qDTO);
 		
 		if(!flag) {

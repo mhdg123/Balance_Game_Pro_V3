@@ -34,4 +34,5 @@ public class QuestionDTO {
     private int answerBCount;
     private int likeCount;
     private int questionCount;
+    private String email; // 회원 이메일
 }
