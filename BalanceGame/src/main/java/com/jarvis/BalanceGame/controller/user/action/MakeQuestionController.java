@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 import com.jarvis.BalanceGame.service.QuestionService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -27,14 +28,21 @@ public class MakeQuestionController {
 
 	@PostMapping("/makeQuestion")
 	public String MakeTitleController(QuestionDTO qDTO, Model model, HttpSession session,
-			@RequestParam("file") List<MultipartFile> files) throws IOException {
+			@RequestParam("file") List<MultipartFile> files,HttpServletRequest request) throws IOException {
+		
+		//System.out.println("실제 파일이 저장되는 경로: " + request.getServletContext().getRealPath("/"));
+		
+		String realPath = request.getServletContext().getRealPath("/");
+		String rootDir = realPath.replace("webapp\\", "");
+		System.out.println("실제 파일이 저장되는 경로: " + rootDir);
+
 		// 나머지 데이터는 커멘드 객체인 DTO에 자동으로 저장되고
 		// MultipartFile인 이미지는 file이라는 이름으로 받아오게된다
 
 		// 절대경로로 저장하고 싶은 파일에 저장한다
 		// 절대 경로로 하는이유 :
 		// 서버 환경에서는 상대 경로를 사용할 경우 예상치 못한 문제가 발생할 수 있다
-		String uploadDir = "C:/phg/Balance_Game_Pro_V3/BalanceGame/src/main/resources/static/upload/";
+		String uploadDir = rootDir+"resources/static/upload/";
 
 		try {
 			// 파일 저장
