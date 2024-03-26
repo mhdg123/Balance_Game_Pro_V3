@@ -88,10 +88,10 @@ public class QuestionDAO {
 	private static final String SELECT_ONE_EMAIL = "SELECT Q.WRITER, M.EMAIL FROM QUESTION Q JOIN MEMBER M ON Q.WRITER = M.LOGIN_ID WHERE Q.QUESTION_ID = ?";
 	
 	// 사용자가 질문 생성
-	private static final String INSERT = "INSERT INTO QUESTION (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION) VALUES(?,?,?,?,?)";
+	private static final String INSERT = "INSERT INTO QUESTION (WRITER, TITLE, ANSWER_A, ANSWER_A_IMG, ANSWER_B, ANSWER_B_IMG, EXPLANATION) VALUES(?,?,?,?,?,?,?)";
 	
 	// 관리자가 질문 생성
-	private static final String INSERT_ADMIN = "INSERT INTO QUESTION (WRITER, TITLE, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_ACCESS) VALUES(?,?,?,?,?,'T')";
+	private static final String INSERT_ADMIN = "INSERT INTO QUESTION (WRITER, TITLE, ANSWER_A, ANSWER_A_IMG, ANSWER_B, ANSWER_B_IMG, EXPLANATION, QUESTION_ACCESS) VALUES(?,?,?,?,?,?,?,'T')";
 
 	// 관리자가 문제 수정
 	private static final String UPDATE = "UPDATE QUESTION SET TITLE=?,ANSWER_A=?,ANSWER_B=?,EXPLANATION=?, QUESTION_ACCESS=? WHERE QUESTION_ID=?";
@@ -187,14 +187,14 @@ public class QuestionDAO {
 	public boolean insert(QuestionDTO qDTO) {
 		int result = 0;
 		if (qDTO.getSearchCondition().equals("createQuestionUser")) {
-			result = jdbcTemplate.update(INSERT, qDTO.getWriter(), qDTO.getTitle(), qDTO.getAnswerA(),
-					qDTO.getAnswerB(), qDTO.getExplanation());
+			result = jdbcTemplate.update(INSERT, qDTO.getWriter(), qDTO.getTitle(), qDTO.getAnswerA(), qDTO.getAnswerAImg(),
+					qDTO.getAnswerB(), qDTO.getAnswerBImg(), qDTO.getExplanation());
 			if (result <= 0) {
 				return false;
 			}
 		} else if (qDTO.getSearchCondition().equals("createQuestionAdmin")) {
-			result = jdbcTemplate.update(INSERT_ADMIN, qDTO.getWriter(), qDTO.getTitle(), qDTO.getAnswerA(),
-					qDTO.getAnswerB(), qDTO.getExplanation());
+			result = jdbcTemplate.update(INSERT_ADMIN, qDTO.getWriter(), qDTO.getTitle(), qDTO.getAnswerA(), qDTO.getAnswerAImg(),
+					qDTO.getAnswerB(), qDTO.getAnswerBImg(), qDTO.getExplanation());
 			if (result <= 0) {
 				return false;
 			}
