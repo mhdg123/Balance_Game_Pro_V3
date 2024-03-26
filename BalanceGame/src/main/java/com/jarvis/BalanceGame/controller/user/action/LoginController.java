@@ -37,9 +37,17 @@ public class LoginController {
 			} else {
 				// 로그인 성공
 				session.setAttribute("loginId", mDTO.getLoginId());
+				String loginId = (String)session.getAttribute("loginId");
+				mDTO.setLoginId(loginId);
 				model.addAttribute("status", "success");
 				model.addAttribute("msg", mDTO.getLoginId() + "님 로그인 하셨습니다.");
 				model.addAttribute("redirect", "/");
+				
+				mDTO.setSearchCondition("viewCoin");
+				mDTO = memberService.selectOne(mDTO);
+				
+				session.setAttribute("coin", mDTO.getCoin());
+				
 				return "alert";
 			}
 		}
