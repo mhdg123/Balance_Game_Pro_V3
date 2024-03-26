@@ -23,7 +23,8 @@ public class AdvertisementDAO {
 	private static final String SELECTONE_DETAIL = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT WHERE ADVERTISEMENT_ID = ?";
 	private static final String SELECTONE_NEXT_ID = "SELECT MAX(ADVERTISEMENT_ID)+1 AS NEXT_AD_ID FROM ADVERTISEMENT";
 	private static final String INSERT = "INSERT INTO ADVERTISEMENT (ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE) VALUES (?, ?)";
-	private static final String UPDATE = "UPDATE ADVERTISEMENT SET ADVERTISEMENT_STATUS = CASE WHEN ADVERTISEMENT_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE ADVERTISEMENT_ID = ?";
+	private static final String UPDATE_SHOW_HIDE = "UPDATE ADVERTISEMENT SET ADVERTISEMENT_STATUS = CASE WHEN ADVERTISEMENT_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE ADVERTISEMENT_ID = ?";
+	private static final String UPDATE = "UPDATE ADVERTISEMENT SET ADVERTISEMENT_URL = ?, ADVERTISEMENT_IMAGE = ? WHERE ADVERTISEMENT_ID = ?";
 	private static final String DELETE = "DELETE FROM ADVERTISEMENT WHERE ADVERTISEMENT_ID = ?";
 	
 	public List<AdvertisementDTO> selectAll(AdvertisementDTO adDTO){
@@ -61,7 +62,13 @@ public class AdvertisementDAO {
 	}
 	
 	public boolean update(AdvertisementDTO adDTO) {
-		int result = jdbcTemplate.update(UPDATE, adDTO.getAdvertisementId());
+		int result = 0;
+		if(adDTO.getSearchCondition().equals("adShowAndHide")) {
+			result = jdbcTemplate.update(UPDATE_SHOW_HIDE, adDTO.getAdvertisementId());
+		}
+		else if(adDTO.getSearchCondition().equals("adModification")) {
+			result = jdbcTemplate.update(UPDATE, adDTO.getAdvertisementUrl(), adDTO.getAdvertisementImg(), adDTO.getAdvertisementId());
+		}
 		if(result <= 0) {
 			return false;
 		}
