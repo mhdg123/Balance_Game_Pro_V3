@@ -46,9 +46,9 @@ public class QuestionDAO {
 	private static final String SELECT_CNT = "SELECT COUNT(1) AS CNT FROM QUESTION WHERE QUESTION_ACCESS=?";
 	
 	// 사용자가 풀 문제를 랜덤으로 조회
-	private static final String SELECT_ONE_RANDOM = "SELECT IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.WRITER, Q.EXPLANATION, Q.QUESTION_DATE \r\n"
+	private static final String SELECT_ONE_RANDOM = "SELECT IFNULL(W.WISH_ID, 0) AS LIKE_ID, Q.QUESTION_ID, Q.TITLE, Q.ANSWER_A, ANSWER_A_IMG, Q.ANSWER_B, ANSWER_B_IMG, Q.WRITER, Q.EXPLANATION, Q.QUESTION_DATE \r\n"
 			+ "FROM (\r\n"
-			+ "    SELECT QUESTION_ID, TITLE, ANSWER_A, ANSWER_B, WRITER, EXPLANATION, QUESTION_DATE \r\n"
+			+ "    SELECT QUESTION_ID, TITLE, ANSWER_A, ANSWER_A_IMG, ANSWER_B, ANSWER_B_IMG, WRITER, EXPLANATION, QUESTION_DATE \r\n"
 			+ "    FROM QUESTION Q \r\n"
 			+ "    WHERE Q.QUESTION_ACCESS = 'T' \r\n"
 			+ "    ORDER BY RAND()\r\n"
@@ -62,8 +62,8 @@ public class QuestionDAO {
 			+ "    Q.QUESTION_ID, \r\n"
 			+ "    Q.WRITER, \r\n"
 			+ "    Q.TITLE, \r\n"
-			+ "    Q.ANSWER_A, \r\n"
-			+ "    Q.ANSWER_B, \r\n"
+			+ "    Q.ANSWER_A, Q.ANSWER_A_IMG, \r\n"
+			+ "    Q.ANSWER_B, Q.ANSWER_B_IMG, \r\n"
 			+ "    Q.EXPLANATION, \r\n"
 			+ "    Q.QUESTION_DATE, \r\n"
 			+ "    IFNULL(COUNT(CASE WHEN A.ANSWER = 'A' THEN 1 END), 0) AS COUNT_A, \r\n"
@@ -82,7 +82,7 @@ public class QuestionDAO {
 			+ "    Q.QUESTION_ID, Q.WRITER, Q.TITLE, Q.ANSWER_A, Q.ANSWER_B, Q.EXPLANATION, W.WISH_ID, Q.QUESTION_DATE";
 
 	// 관리자가 사용하는 문제 상세보기 
-	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_B, EXPLANATION, QUESTION_DATE, QUESTION_ACCESS  FROM QUESTION Q WHERE QUESTION_ID = ? ";
+	private static final String SELECT_ONE_ADMIN = "SELECT QUESTION_ID, TITLE, WRITER, ANSWER_A, ANSWER_A_IMG, ANSWER_B, ANSWER_B_IMG, EXPLANATION, QUESTION_DATE, QUESTION_ACCESS  FROM QUESTION Q WHERE QUESTION_ID = ? ";
 	
 	// 문제 거부할 때 작성자에게 이메일 보내기
 	private static final String SELECT_ONE_EMAIL = "SELECT Q.WRITER, M.EMAIL FROM QUESTION Q JOIN MEMBER M ON Q.WRITER = M.LOGIN_ID WHERE Q.QUESTION_ID = ?";
@@ -265,7 +265,9 @@ class QuestionRowMapperDetail implements RowMapper<QuestionDTO> {
 		data.setWriter(rs.getString("WRITER"));
 		data.setTitle(rs.getString("TITLE"));
 		data.setAnswerA(rs.getString("ANSWER_A"));
+		data.setAnswerAImg(rs.getString("ANSWER_A_IMG"));
 		data.setAnswerB(rs.getString("ANSWER_B"));
+		data.setAnswerBImg(rs.getString("ANSWER_B_IMG"));
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setAnswerACount(rs.getInt("COUNT_A"));
 		data.setAnswerBCount(rs.getInt("COUNT_B"));
@@ -284,7 +286,9 @@ class QuestionRowMapperShowToUser implements RowMapper<QuestionDTO> {
 		data.setTitle(rs.getString("TITLE"));
 		data.setWriter(rs.getString("WRITER"));
 		data.setAnswerA(rs.getString("ANSWER_A"));
+		data.setAnswerAImg(rs.getString("ANSWER_A_IMG"));
 		data.setAnswerB(rs.getString("ANSWER_B"));
+		data.setAnswerBImg(rs.getString("ANSWER_B_IMG"));
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setWishId(rs.getInt("LIKE_ID"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
@@ -311,7 +315,9 @@ class QuestionRowMapperAdminDetail implements RowMapper<QuestionDTO>{
 		data.setTitle(rs.getString("TITLE"));
 		data.setWriter(rs.getString("WRITER"));
 		data.setAnswerA(rs.getString("ANSWER_A"));
+		data.setAnswerAImg(rs.getString("ANSWER_A_IMG"));
 		data.setAnswerB(rs.getString("ANSWER_B"));
+		data.setAnswerBImg(rs.getString("ANSWER_B_IMG"));
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		data.setQuestionAccess(rs.getString("QUESTION_ACCESS"));
@@ -323,7 +329,6 @@ class QuestionRowMapperEmail implements RowMapper<QuestionDTO>{
 
 	@Override
 	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		System.out.println("이메일로우매퍼진입");
 		QuestionDTO data = new QuestionDTO();
 		data.setWriter(rs.getString("WRITER"));
 		data.setEmail(rs.getString("EMAIL"));
