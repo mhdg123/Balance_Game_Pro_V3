@@ -2740,9 +2740,6 @@ input:focus {
 .slider-active button.slick-arrow .secondary-img {
   right: 26px;
 }
-.slider-active button:hover img {
-  opacity: 0;
-}
 .slider-active button:hover .secondary-img {
   opacity: 1;
 }
@@ -5265,23 +5262,6 @@ del {
 .button-group-area .genric-btn:last-child {
   margin-right: 0;
 }
-/* 인증번호 재발송, 인증번호 확인 */
-.genric-btn-certificate {
-  display: inline-block;
-  outline: none;
-  line-height: 40px;
-  padding: 0 16px;
-  font-size: 0.8em;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 500;
-  cursor: pointer;
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
-}
-
 .genric-btn {
   display: inline-block;
   outline: none;
@@ -5319,10 +5299,6 @@ del {
   border-radius: 3px;
 }
 .genric-btn.circle {
-  border-radius: 20px;
-}
-/* 인증번호 재발송, 인증번호 확인 */
-.genric-btn.circle-certificate{
   border-radius: 20px;
 }
 .genric-btn.arrow {
@@ -5399,15 +5375,7 @@ del {
   background: #38a4ff;
   border: 1px solid transparent;
 }
-/* 인증번호 재발송, 인증번호 확인 */
-.genric-btn.info-certificate {
-  color: #fff;
-  background: #38a4ff;
-  border: 1px solid transparent;
-}
-
 .genric-btn.info:hover {
-
   color: #38a4ff;
   border: 1px solid #38a4ff;
   background: #fff;
@@ -8325,17 +8293,6 @@ input:focus {
   font-size: 14px;
   height: 40px;
 }
-/* 인증번호 입력창 사이즈 */
-.checkout_area .form-control-input {
-  font-size: 14px;
-  height: 40px;
-  width: 50%;
-}
-
-.checkout_area .form-control-input {
-  border: 1px solid #eee;
-}
-
 .checkout_area .form-control {
   border: 1px solid #eee;
 }
@@ -9761,14 +9718,14 @@ input:focus {
 @media screen and (max-width: 786px) and (min-width: 600px) {
   .logo a img {
     width: 30%;
-    content: url("/resources/assets/img/jarvis/logo_text_small.png");
+    content: url("/RefactoringHtml/timezone-master/assets/img/jarvis/logo_text_small.png");
   }
 }
 
 @media screen and (max-width: 600px) and (min-width: 0px) {
   .logo a img {
     width: 30%;
-    content: url("/resources/assets/img/jarvis/logo_text_small.png");
+    content: url("/RefactoringHtml/timezone-master/assets/img/jarvis/logo_text_small.png");
   }
   .header-right {
     display: none;

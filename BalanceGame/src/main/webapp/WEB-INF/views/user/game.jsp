@@ -7,7 +7,7 @@
 <%@ include file="../layout/header-fix.jsp"%>
 <title>Watch shop | eCommers</title>
 <!-- css -->
-    <script>
+<script>
         var loginId = "${loginId}";
         var questionId="${questionData.questionId}";
     </script>
@@ -31,7 +31,7 @@
 								<div class="hero__caption">
 									<!-- 메인페이지 헤드라인 -->
 									<div id="title">
-										<h1 style="display: inline-block; margin-right: 10px;">${questionData.title}</h1>
+										<h2 style="display: inline-block; margin-right: 10px;">${questionData.title}</h2>
 
 									</div>
 
@@ -41,12 +41,21 @@
 
 										<button id="answer_A"
 											class="genric-btn primary-border radius e-large game-button answer"
-											type="button" value="A">${questionData.answerA}</button>
-
+											type="button" value="A">
+											<c:if test="${not empty questionData.answerAImg }">
+												<img style="width: 100%; max-width: 200px; height: 200px"
+													src="/resources/upload/${questionData.answerAImg }" />
+											</c:if>
+											${questionData.answerA}
+										</button>
 
 										<button id="answer_B"
 											class="genric-btn primary-border radius e-large game-button answer"
-											type="button" value="B">${questionData.answerB}</button>
+											type="button" value="B">
+											<c:if test="${not empty questionData.answerBImg }">
+												<img style="width: 100%; max-width: 200px; height: 200px"
+													src="/resources/upload/${questionData.answerBImg }" />
+											</c:if>${questionData.answerB}</button>
 
 									</div>
 								</div>
@@ -55,11 +64,13 @@
 
 						<div class="container">
 							<c:if test="${questionData.wishId <= 0}">
-								<h2 style="color: #ff2020;" class="fa ti-heart wish" id="${questionData.questionId}"></h2>
+								<h2 style="color: #ff2020;" class="fa ti-heart wish"
+									id="${questionData.questionId}"></h2>
 								<!-- ti-heart 빈 하트 -->
 							</c:if>
 							<c:if test="${questionData.wishId > 0}">
-								<h2 style="color: #ff2020;" class="fa fa-heart wish" id="${questionData.questionId}"></h2>
+								<h2 style="color: #ff2020;" class="fa fa-heart wish"
+									id="${questionData.questionId}"></h2>
 								<!-- fa-heart 꽉 찬 하트 -->
 							</c:if>
 
@@ -82,8 +93,8 @@
 							cols="30" rows="3" placeholder="댓글을 입력하세요"></textarea>
 					</div>
 					<div class="form-group f-right">
-						<button type="submit" id="write" class="genric-btn info-border radius large">
-							댓글 입력</button>
+						<button type="submit" id="write"
+							class="genric-btn info-border radius large">댓글 입력</button>
 					</div>
 				</div>
 
@@ -91,8 +102,8 @@
 				<br /> <br /> <br />
 				<h4>댓글</h4>
 				<div id="comment-box"></div>
-				
-				
+
+
 
 
 
@@ -296,9 +307,9 @@ playElement.innerHTML = `
 
    
    </script>
-<!-- 찜 클릭 -->
+	<!-- 찜 클릭 -->
 
-<!-- 댓글입력 -->
+	<!-- 댓글입력 -->
 	<script type="text/javascript">
 		$("#write").on("click", function() {
 			var comments = $('#comment').val().trim();
