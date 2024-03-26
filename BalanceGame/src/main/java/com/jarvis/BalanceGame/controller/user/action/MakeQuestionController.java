@@ -30,12 +30,17 @@ public class MakeQuestionController {
 	public String MakeTitleController(QuestionDTO qDTO, Model model, HttpSession session,
 			@RequestParam("file") List<MultipartFile> files,HttpServletRequest request) throws IOException {
 		
-		//System.out.println("실제 파일이 저장되는 경로: " + request.getServletContext().getRealPath("/"));
 		
+		//절대 경로을 받아오기
+		//System.out.println("실제 파일이 저장되는 경로: " + request.getServletContext().getRealPath("/"));
+		//실제 파일이 저장되는 경로: C:\phg\Balance_Game_Pro_V3\BalanceGame\src\main\webapp\
+		//webapp을 때어내야함
 		String realPath = request.getServletContext().getRealPath("/");
 		String rootDir = realPath.replace("webapp\\", "");
 		System.out.println("실제 파일이 저장되는 경로: " + rootDir);
-
+		//실제 파일이 저장되는 경로: C:\phg\Balance_Game_Pro_V3\BalanceGame\src\main\
+		
+		
 		// 나머지 데이터는 커멘드 객체인 DTO에 자동으로 저장되고
 		// MultipartFile인 이미지는 file이라는 이름으로 받아오게된다
 
@@ -43,8 +48,15 @@ public class MakeQuestionController {
 		// 절대 경로로 하는이유 :
 		// 서버 환경에서는 상대 경로를 사용할 경우 예상치 못한 문제가 발생할 수 있다
 		String uploadDir = rootDir+"resources/static/upload/";
-
+		//받아온 경로와 저장할 경로 합치기
 		try {
+			
+			// 업로드 디렉토리가 존재하지 않으면 생성
+	        File uploadDirFile = new File(uploadDir);
+	        if (!uploadDirFile.exists()) {
+	            uploadDirFile.mkdirs(); // 디렉토리 생성
+	        }
+			
 			// 파일 저장
 			List<String> fileNames = new ArrayList<>();
 			for (MultipartFile file : files) {
