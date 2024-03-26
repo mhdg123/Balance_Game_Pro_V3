@@ -171,11 +171,11 @@
 											<input type="text" id="inputName" class="form-control" value="${questionData.title}" name="title">
 										</div>
 										<div class="form-group">
-											<label for="inputDescription">선택지A</label>
+											<label for="inputDescription">선택지A</label><img style="width: 100%; max-width:100px; height: 100px" src="/resources/upload/${questionData.answerAImg }"/>
 											<textarea id="inputDescription" class="form-control" rows="2" name="answer_A">${questionData.answerA}</textarea>
 										</div>
 										<div class="form-group">
-											<label for="inputDescription">선택지B</label>
+											<label for="inputDescription">선택지B</label><img style="width: 100%; max-width:100px; " src="/resources/upload/${questionData.answerBImg }"/>
 											<textarea id="inputDescription" class="form-control" rows="2" name="answer_B">${questionData.answerB }</textarea>
 										</div>
 										<div class="form-group">
