@@ -23,6 +23,7 @@ public class MyPageUpdateController {
 		model.addAttribute("UTF-8");
 		mDTO.setLoginId((String)session.getAttribute("loginId"));
 		
+		mDTO.setSearchCondition("midifyMyInfo");
 		if(!memberService.update(mDTO)) {
 			System.out.println("내정보 변경 실패");
 			model.addAttribute("status", "fail");			

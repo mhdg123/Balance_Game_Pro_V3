@@ -10,10 +10,12 @@ import com.jarvis.BalanceGame.model.dto.ItemDTO;
 import com.jarvis.BalanceGame.model.dto.ItemLogDTO;
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
 import com.jarvis.BalanceGame.model.dto.MemberItemDTO;
+import com.jarvis.BalanceGame.model.dto.PaymentDTO;
 import com.jarvis.BalanceGame.service.ItemLogService;
 import com.jarvis.BalanceGame.service.ItemService;
 import com.jarvis.BalanceGame.service.MemberItemService;
 import com.jarvis.BalanceGame.service.MemberService;
+import com.jarvis.BalanceGame.service.PaymentService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -33,6 +35,9 @@ public class ItemPurchase {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired
+	private PaymentService paymentService;
+	
 	@PostMapping("/itemPurchase")
 	public String itemPurchase(MemberDTO mDTO, MemberItemDTO miDTO, ItemDTO iDTO, ItemLogDTO ilDTO, Model model, HttpSession session) {
 		
@@ -49,15 +54,40 @@ public class ItemPurchase {
 		miDTO = memberItemService.selectOne(miDTO);
 		if(miDTO == null) {
 			memberItemService.insert(miDTO);
+			mDTO.setSearchCondition("decreaseMyCoin");
+			memberService.update(mDTO);
+			itemLogService.insert(ilDTO);
 			return "user/index";
 		}
-		memberItemService.update(miDTO);
 		
+		memberItemService.update(miDTO);
+		mDTO.setSearchCondition("decreaseMyCoin");
+		memberService.update(mDTO);
 		itemLogService.insert(ilDTO);
 		
+		return "user/index";
+	}
+	
+	@PostMapping("/coinpurchase")
+	public String coinpurchase(MemberDTO mDTO, PaymentDTO pDTO, Model model, HttpSession session) {
 		
+		
+		String loginId = (String)session.getAttribute("loginId");
+		mDTO.setLoginId(loginId);
+		
+		paymentService.insert(pDTO);
+		
+		mDTO.setSearchCondition("increaseMyCoin");
+		memberService.update(mDTO);
+		
+		mDTO.setSearchCondition("viewCoin");
+		mDTO = memberService.selectOne(mDTO);
+		
+		session.setAttribute("coin", mDTO.getCoin());
 		
 		
 		return "user/index";
 	}
+	
+	
 }
