@@ -79,6 +79,7 @@ $.ajax({
 		success: function(data) {
 			console.log("성공 실패 : "+data);
 			if(data=="1"){
+				console.log("댓글 다시 받아오기");
 			commentAll(questionId);
 			}
 		},

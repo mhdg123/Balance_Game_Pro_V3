@@ -131,6 +131,7 @@
 						<!-- 댓글 입력 End -->
 						<br /> <br /> <br />
 						<h4>댓글</h4>
+						<div id="comment-box">
 						<c:forEach var="data" items="${commentDatas}" varStatus="loop">
 							<div class="comment-list">
 								<div>
@@ -165,7 +166,7 @@
 								</div>
 							</div>
 						</c:forEach>
-
+					</div>
 
 
 						<nav class="blog-pagination justify-content-center d-flex">
