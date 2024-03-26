@@ -34,4 +34,5 @@ public class MemberDTO {
 	  private int memberCount; // 회원 수 
 	  private int total; // 구매 총금액 
 	  private int ranking; // 구매 등수
+	  private int memberItemId;
 }

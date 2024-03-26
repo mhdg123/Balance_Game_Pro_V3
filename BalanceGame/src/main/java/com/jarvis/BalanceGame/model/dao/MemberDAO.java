@@ -17,8 +17,6 @@ public class MemberDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	// 회원가입 SQL
-	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE) VALUES(?,?,?,?,?,?,?,?,?)";
 
 	// 아이디 중복 체크 SQL
 	private static final String SELECT_LOGIN_ID = "SELECT LOGIN_ID FROM MEMBER WHERE LOGIN_ID = ? ";
@@ -44,8 +42,6 @@ public class MemberDAO {
 	private static final String MY_INFO_UPDATE_VIEW = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, MEMBER_DATE "
 			+ "FROM MEMBER WHERE LOGIN_ID = ? AND PASSWORD = ?";
 
-	// 내정보 변경하기 SQL
-	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
 	// 유저 전체 조회
 	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
 			+ "    M.AGE," + "    M.ADDRESS, \r\n" + "    M.EMAIL, " + "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
@@ -61,6 +57,24 @@ public class MemberDAO {
 			+ " ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) "
 			+ " END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID";
 
+	// 회원가입 SQL
+	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE) VALUES(?,?,?,?,?,?,?,?,?)";
+	
+	// 내정보 변경하기 SQL
+	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
+	
+	// 코인 추가
+	private static final String MY_COIN_INCREASE = "UPDATE MEMBER\r\n"
+			+ "SET coin = coin + (SELECT AMOUNT * 0.1 FROM PAYMENT WHERE LOGIN_ID = ? ORDER BY PAYMENT_DATE DESC LIMIT 1)\r\n"
+			+ "WHERE LOGIN_ID = ?";
+	
+	// 코인 감소
+	private static final String MY_COIN_DECREASE = "UPDATE MEMBER AS M\r\n"
+			+ "JOIN MEMBER_ITEM AS MI ON M.LOGIN_ID = MI.LOGIN_ID\r\n"
+			+ "JOIN ITEM AS I ON MI.ITEM_ID = I.ITEM_ID\r\n"
+			+ "SET M.COIN = M.COIN - I.ITEM_PRICE \r\n"
+			+ "WHERE MI.MEMBER_ITEM_ID = ?";
+	
 	// 유저 삭제
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
 
@@ -170,7 +184,16 @@ public class MemberDAO {
 
 	// 개인정보 변경
 	public boolean update(MemberDTO mDTO) {
-		int result = jdbcTemplate.update(MY_INFO_UPDATE, mDTO.getName(), mDTO.getEmail(), mDTO.getLoginId());
+		int result = 0;
+		if(mDTO.getSearchCondition().equals("modifyMyInfo")) {
+			result = jdbcTemplate.update(MY_INFO_UPDATE, mDTO.getName(), mDTO.getEmail(), mDTO.getLoginId());
+		}
+		else if(mDTO.getSearchCondition().equals("increaseMyCoin")) {
+			result = jdbcTemplate.update(MY_COIN_INCREASE, mDTO.getLoginId(), mDTO.getLoginId());
+		}
+		else if(mDTO.getSearchCondition().equals("decreaseMyCoin")) {
+			result = jdbcTemplate.update(MY_COIN_DECREASE, mDTO.getMemberItemId());
+		}
 		if (result <= 0) {
 			return false;
 		}
