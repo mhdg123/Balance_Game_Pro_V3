@@ -29,10 +29,10 @@ public class CommentDAO {
 	private static final String INSERT = "INSERT INTO COMMENT (QUESTION_ID, LOGIN_ID, COMMENTS) VALUES (?,?,?)";
 
 	// 댓글 수정
-	private static final String UPDATE = "UPDATE COMMENT SET COMMENTS = ? WHERE COMMENT_ID = ?";
+	private static final String UPDATE = "UPDATE COMMENT SET COMMENTS = ? WHERE COMMENT_ID = ? AND LOGIN_ID =? ";
 
 	// 댓글 삭제
-	private static final String DELETE = "DELETE FROM COMMENT WHERE COMMENT_ID = ?";
+	private static final String DELETE = "DELETE FROM COMMENT WHERE COMMENT_ID = ? AND LOGIN_ID= ?";
 
 	// 댓글 전체 출력하기
 	public List<CommentDTO> selectAll(CommentDTO cDTO) {
@@ -68,7 +68,7 @@ public class CommentDAO {
 	}
 
 	public boolean update(CommentDTO cDTO) {
-		int result = jdbcTemplate.update(UPDATE, cDTO.getComments(), cDTO.getCommentId());
+		int result = jdbcTemplate.update(UPDATE, cDTO.getComments(), cDTO.getCommentId(), cDTO.getLoginId());
 		if (result <= 0) {
 			return false;
 		}
@@ -76,7 +76,7 @@ public class CommentDAO {
 	}
 
 	public boolean delete(CommentDTO cDTO) {
-		int result = jdbcTemplate.update(DELETE, cDTO.getCommentId());
+		int result = jdbcTemplate.update(DELETE, cDTO.getCommentId(), cDTO.getLoginId());
 		if (result <= 0) {
 			return false;
 		}
