@@ -299,9 +299,29 @@ keyframes spin { 0%{
 
 
 
+
+
+
+
+
+
+
+
+
+
 %
 {
 transform
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -327,6 +347,16 @@ transform
 
 
 
+
+
+
+
+
+
+
+
+
+
 rotate
 
 
@@ -338,7 +368,27 @@ rotate
 
 
 
+
+
+
+
+
+
+
+
+
+
 (
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -364,7 +414,27 @@ rotate
 
 
 
+
+
+
+
+
+
+
+
+
+
 )
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -470,7 +540,7 @@ rotate
 								<li class="nav-item"><a href="/admin/adminAdvertisementManagementPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
 										<p>광고관리</p>
 								</a></li>
-					</ul>
+							</ul>
 				</nav>
 			</div>
 		</aside>
@@ -481,70 +551,65 @@ rotate
 
 			<!-- Main content -->
 			<section class="content">
-				<section class="content">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="card card-primary">
-								<div class="card-header">
-									<h3 class="card-title">NO. ${adData.advertisementId }</h3>
-									<div class="card-tools">
-										<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-											<i class="fas fa-minus"></i>
-										</button>
-									</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card card-primary">
+							<div class="card-header">
+								<h3 class="card-title">NO. ${adData.advertisementId }</h3>
+								<div class="card-tools">
+									<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+										<i class="fas fa-minus"></i>
+									</button>
 								</div>
-
-								<form action="/admin/questionUpdate" method="POST" id="insertForm">
-									<div class="card-body">
-										<div class="form-group">
-											<label for="inputName">번호</label>
-											<input type="text" id="inputName" class="form-control" name="advertisementId" value="${adData.advertisementId}">
-										</div>
-										<div class="form-group">
-											<label for="inputDescription">URL</label>
-											<input type="text" id="inputName" class="form-control" name="advertisementUrl" value="${adData.advertisementUrl}">
-										</div>
-										<div class="form-group">
-											<label for="inputDescription">이미지</label>
-											<input type="text" id="inputName" class="form-control" name="advertisementImg" value="${adData.advertisementImg}">
-										</div>
-										<div class="form-group">
-											<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-												<input type="checkbox" class="custom-control-input" id="customSwitch${loop.index}">
-												<label class="custom-control-label" for="customSwitch${loop.index}">보임 / 숨김</label>
-											</div>
-										</div>
-										<button type="submit" class="btn btn-block btn-primary" style="margin-bottom: 10px; margin-top: 10px;">수정</button>
-								</form>
-								<form action="/admin/adminMemberDelete" method="POST">
-									<input type="hidden" name="questionId" value="${adData.advertisementId}" />
-									<button type="submit" class="btn btn-block btn-danger" style="margin-bottom: 10px;">삭제</button>
-								</form>
-								<div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap; height: 195px;">
-									<div class="filtr-item col-sm-2 filteredOut" data-category="1" data-sort="white sample"
-										style="opacity: 0; transform: scale(0.5) translate3d(0px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; z-index: -1000; width: 196.4px; transition: all 0.5s ease-out 0ms, width 1ms ease 0s;">
-										<a href="/resources/assets/img/jarvis/${adData.advertisementImg}" data-toggle="lightbox" data-title="${adData.advertisementId} 이미지"> <img src="/resources/assets/img/jarvis/logotext.png" class="img-fluid mb-2" alt="${adData.advertisementId }">
-										</a>
-									</div>
-
-								</div>
-
 							</div>
 
+							<form action="/admin/adminAdvertisementUpdate" method="POST" id="insertForm">
+								<div class="card-body">
+									<div class="form-group">
+										<label for="inputName">번호</label>
+										<input type="text" id="inputName" class="form-control" name="advertisementId" value="${adData.advertisementId}">
+									</div>
+									<div class="form-group">
+										<label for="inputDescription">URL</label>
+										<input type="text" id="inputName" class="form-control" name="advertisementUrl" value="${adData.advertisementUrl}">
+									</div>
+									<label for="inputDescription">이미지</label>
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="file" name="file" onchange="displayFileName()">
+										<label class="custom-file-label" for="file" id="fileNameLabel">${adData.advertisementImg}</label>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+											<input type="checkbox" class="custom-control-input" id="customSwitch${loop.index}">
+											<label class="custom-control-label" for="customSwitch${loop.index}">보임 / 숨김</label>
+									</div>
+									<input type="hidden" id="advertisementImg" name="advertisementImg">
+									<input type="hidden" id="advertisementImgOriginal" name="advertisementImgOriginal" value="${adData.advertisementImg}">
+									
+									<button type="submit" class="btn btn-block btn-primary" style="margin-bottom: 10px; margin-top: 10px;">수정</button>
+								</div>
+							</form>
+
+							<form action="/admin/adminItemDelete" method="POST">
+								<input type="hidden" name="itemId" value="${itemData.itemId}" />
+								<button  type="submit" class="btn btn-block btn-danger" style="margin-bottom: 10px;">삭제</button>
+							</form>
+							<div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap; height: 195px;">
+								<div class="filtr-item col-sm-2 filteredOut" data-category="1" data-sort="white sample"
+									style="opacity: 0; transform: scale(0.5) translate3d(0px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; z-index: -1000; width: 196.4px; transition: all 0.5s ease-out 0ms, width 1ms ease 0s;">
+									<a href="/resources/upload/${adData.advertisementImg}" data-toggle="lightbox" data-title="${adData.advertisementId} 이미지"> </a>
+								</div>
+							</div>
 						</div>
-
-
 					</div>
+				</div>
+				<div style="max-width: 30%;">
+					<label>미리보기</label> <a href="/resources/upload/${adData.advertisementImg}" data-toggle="lightbox" data-title="${adData.advertisementId} 이미지"><img src="/resources/upload/${adData.advertisementImg }" style="max-width: 30%; height: 30%;" class="img-fluid mb-2" alt="2"> </a>
+				</div>
+			</section>
 		</div>
 	</div>
 	<div class="row"></div>
-	</section>
-
-	<!-- /.container-fluid -->
-	</section>
-	<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<strong>자비스(주) &copy; 1234-5678 </strong> All rights reserved.
 		<div class="float-right d-none d-sm-inline-block">
@@ -552,21 +617,8 @@ rotate
 		</div>
 	</footer>
 
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark">
-		<!-- Control sidebar content goes here -->
-	</aside>
-	<!-- /.control-sidebar -->
-	</div>
 	<!-- ./wrapper -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-	<!-- <script src="js/blankSpace.js"></script>
-	공백을 막아주는 js
-	<script src="js/submitBlankCheck.js"></script>
-
-	<script src="js/categoryCheck.js"></script>
- -->
 
 	<script src="/resources/adminLte/plugins/jquery/jquery.min.js"></script>
 
@@ -638,6 +690,14 @@ rotate
 			}
 		}); 
 	}
+	
+	 function displayFileName() {
+		   var input = document.getElementById('file');
+	        var label = document.getElementById('fileNameLabel');
+	        var fileName = input.files[0].name;
+	        label.innerHTML = fileName;
+	        document.getElementById('advertisementImg').value = fileName;
+	    }
   </script>
 	<!-- sweetalert -->
 	<script src="/resources/common/js/alert.js"></script>

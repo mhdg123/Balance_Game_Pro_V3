@@ -24,6 +24,7 @@ public class AdminAdvertisementStatusAsync {
 	@PostMapping("/advertisementStatusAsync")
 	public @ResponseBody String adminAdvertisementStatusAsync(AdvertisementDTO aDTO) {
 		System.out.println("광고 보임 숨김 비동기 처리 기능 ");
+		aDTO.setSearchCondition("adShowAndHide");
 		if(!advertisementService.update(aDTO)) {
 			System.out.println("광고 노출 상태 변경 오류");
 			return "fail";

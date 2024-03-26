@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.ItemDTO;
-import com.jarvis.BalanceGame.model.dto.LetterDTO;
 import com.jarvis.BalanceGame.service.ItemService;
-import com.jarvis.BalanceGame.service.LetterService;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,6 +20,7 @@ public class AdminItemDetailPageController {
 	public String adminItemDetailPageController(ItemDTO iDTO, Model model) {
 		System.out.println("관리자 아이템 상세페이지 파라미터 데이터 :  " + iDTO);
 		iDTO.setSearchCondition("itemViewOne");
+		System.out.println("관리자 아이템 상세 페이지 이미지 상대 경로 : " + iDTO.getItemImg());
 		iDTO = itemService.selectOne(iDTO);
 		System.out.println("관리자 아이템 데이터 : " + iDTO);
 		if (iDTO == null) {
@@ -30,7 +29,6 @@ public class AdminItemDetailPageController {
 			model.addAttribute("redirect", "/admin/adminItemManagementPage");
 			return "alert";
 		}
-
 		model.addAttribute("itemData", iDTO);
 
 		return "admin/adminItemDetail";

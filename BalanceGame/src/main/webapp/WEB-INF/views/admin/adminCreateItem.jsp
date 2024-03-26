@@ -135,7 +135,7 @@
 								<div class="card-header">
 									<h3 class="card-title">아이템 관리</h3>
 								</div>
-								<form action="/admin/adminItemCreate" method="post">
+								<form action="/admin/adminItemCreate" method="post" enctype="multipart/form-data">
 									<div class="card-body">
 										<div class="form-group">
 											<label for="exampleInputEmail1">아이템 번호</label>
@@ -154,8 +154,9 @@
 											<label for="exampleInputFile">아이템 이미지</label>
 											<div class="input-group">
 												<div class="custom-file">
-													<input type="file" class="custom-file-input" id="itemImg" name="itemImg" onchange="displayFileName()">
-													<label class="custom-file-label" for="itemImg" id="fileNameLabel">파일 선택</label>
+													<input type="hidden" class="custom-file-input" id="itemImg" name="itemImg">
+													<input type="file" class="custom-file-input" id="file" name="file" onchange="displayFileName()">
+													<label class="custom-file-label" for="file" id="fileNameLabel">파일 선택</label>
 												</div>
 
 											</div>
@@ -247,16 +248,14 @@
 
 
 	<script>
+	// 파일 등록시 파일명 출력
     function displayFileName() {
-        var input = document.getElementById('itemImg');
+        var input = document.getElementById('file');
         var label = document.getElementById('fileNameLabel');
         var fileName = input.files[0].name;
         label.innerHTML = fileName;
     }
 </script>
-	<script>
-		
-	</script>
 
 </body>
 </html>
