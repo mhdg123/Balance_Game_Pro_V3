@@ -27,6 +27,9 @@ public class MemberDAO {
 	// 유저 수 조회
 	private static final String SELECT_CNT = "SELECT COUNT(1) AS MEMBER_CNT FROM MEMBER";
 
+	// 유저 코인 조회
+	private static final String SELECT_COIN = "SELECT COIN FROM MEMBER WHERE LOGIN_ID =?";
+	
 	// 유저 상세 조회
 	private static final String SELECTONE_USER = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
@@ -144,26 +147,41 @@ public class MemberDAO {
 			} catch (Exception e) {
 				System.out.println("내정보 결과 조회 실패");
 			}
-		} else if (mDTO.getSearchCondition().equals("myInfoUpdateView")) {
+		}
+		// 마이페이지 업데이트 페이지 조회
+		else if (mDTO.getSearchCondition().equals("myInfoUpdateView")) {
 			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
 			try {
 				member = jdbcTemplate.queryForObject(MY_INFO_UPDATE_VIEW, args, new MemberRowMapperDetail());
 			} catch (Exception e) {
 				System.out.println("내정보 결과 조회 실패");
 			}
-		} else if (mDTO.getSearchCondition().equals("memberCount")) {
+		} 
+		// 멤버 수 조회
+		else if (mDTO.getSearchCondition().equals("memberCount")) {
 			try {
 				member = jdbcTemplate.queryForObject(SELECT_CNT, new MemberRowMapperCnt());
 			} catch (Exception e) {
 				System.out.println("멤버수 결과 조회 실패");
 			}
-		} else if (mDTO.getSearchCondition().equals("socialLogin")) {
+		} 
+		// 소셜로그인
+		else if (mDTO.getSearchCondition().equals("socialLogin")) {
 			Object[] args = { mDTO.getLoginId() };
 			try {
 				System.out.println("소셜 로그인 dao");
 				member = jdbcTemplate.queryForObject(SOCIAL_LOGIN, args, new MemberRowMapperSocialLogin());
 			} catch (Exception e) {
 				System.out.println("소셜로그인 실패");
+			}
+		}
+		// 코인 조회
+		else if(mDTO.getSearchCondition().equals("viewCoin")) {
+			Object[] args = {mDTO.getLoginId()};
+			try {
+				member = jdbcTemplate.queryForObject(SELECT_COIN, args, new MemberRowMapperViewCoin());
+			} catch (Exception e) {
+				System.out.println("코인조회 실패");
 			}
 		}
 		return member;
@@ -304,5 +322,15 @@ class MemberRowMapperSocialLogin implements RowMapper<MemberDTO> {
 		member.setCoin(rs.getInt("COIN"));
 		return member;
 	}
+}
 
+class MemberRowMapperViewCoin implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setCoin(rs.getInt("COIN"));
+		return member;
+	}
+	
 }
