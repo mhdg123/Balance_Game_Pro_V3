@@ -1,4 +1,4 @@
-package com.jarvis.BalanceGame;
+package com.jarvis.BalanceGame.common;
 
 import java.util.Properties;
 

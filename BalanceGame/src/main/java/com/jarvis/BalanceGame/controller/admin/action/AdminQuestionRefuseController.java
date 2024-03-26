@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jarvis.BalanceGame.MailService;
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
+import com.jarvis.BalanceGame.service.MailService;
 import com.jarvis.BalanceGame.service.QuestionService;
 //한글코딩
 	//모델에서 사용자가 올리는 순간 기본값은 false로 승인되지 않게 해놈

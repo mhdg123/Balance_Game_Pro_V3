@@ -1,4 +1,4 @@
-package com.jarvis.BalanceGame;
+package com.jarvis.BalanceGame.service;
 
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 
