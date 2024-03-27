@@ -51,38 +51,51 @@ public class ItemPurchase {
 		mDTO.setLoginId(loginId);
 		miDTO.setLoginId(loginId);
 		
+		iDTO.setSearchCondition("itemViewOne");
+		itemService.selectOne(iDTO);
+		
 		
 		//포인트 비교
-
+		if(mDTO.getCoin() >= iDTO.getItemPrice()) {
+			
 		//막기
-		
-		
 		
 		if(memberItemService.selectOne(miDTO) == null) {
 			miDTO.setMemberItemCount(1);
 			memberItemService.insert(miDTO);
-			mDTO.setSearchCondition("decreaseMyCoin");
-			memberService.update(mDTO);
+			
+			// 멤버 포인트 에서 아이템 포인트 차감하기
+			int itemPoint = iDTO.getItemPrice();
+			int memberPoint = mDTO.getCoin();
+			int coinResult = itemPoint = memberPoint;
+			mDTO.setCoin(coinResult);
+			
 			itemLogService.insert(ilDTO);
 			return "user/index";
 		}
 		miDTO.setSearchCondition("additionalPurchaseItem");
 		memberItemService.update(miDTO);
-		mDTO.setSearchCondition("decreaseMyCoin");
-		memberService.update(mDTO);
 		itemLogService.insert(ilDTO);
 		
 		//한개라도 실패
 		
-		
-		
+		int itemPoint = iDTO.getItemPrice();
+		int memberPoint = mDTO.getCoin();
+		int coinResult = itemPoint = memberPoint;
+		mDTO.setCoin(coinResult);
+
 		mDTO.setSearchCondition("viewCoin");
 		mDTO = memberService.selectOne(mDTO);
 		session.setAttribute("coin", mDTO.getCoin());
 		//성공!
-		return "user/index";
+		return "user/shop";
+		}
+		model.addAttribute("status", "fail");
+		model.addAttribute("msg", "포인트가 부족합니다");
+		model.addAttribute("redirect", "/");
+		return "alert";
 	}
-	
+
 	@PostMapping("/coinpurchase")
 	public String coinpurchase(MemberDTO mDTO, PaymentDTO pDTO, Model model, HttpSession session) {
 		
@@ -101,7 +114,7 @@ public class ItemPurchase {
 		session.setAttribute("coin", mDTO.getCoin());
 		
 		
-		return "user/index";
+		return "user/shop";
 	}
 	
 	
