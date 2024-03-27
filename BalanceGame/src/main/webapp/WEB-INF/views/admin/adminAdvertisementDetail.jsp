@@ -563,7 +563,7 @@ rotate
 								</div>
 							</div>
 
-							<form action="/admin/adminAdvertisementUpdate" method="POST" id="insertForm">
+							<form action="/admin/adminAdvertisementUpdate" method="POST" id="insertForm"  enctype="multipart/form-data">
 								<div class="card-body">
 									<div class="form-group">
 										<label for="inputName">번호</label>

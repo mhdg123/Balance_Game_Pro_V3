@@ -188,15 +188,12 @@
 											<label for="exampleInputEmail1">URL</label>
 											<input type="text" class="form-control" id="advertisementUrl" name="advertisementUrl" placeholder="광고 URL">
 										</div>
-										<div class="form-group">
-											<label for="exampleInputPassword1">이미지</label>
-											<input type="text" class="form-control" id="advertisementImg" name="advertisementImg" placeholder="이미지">
-										</div>
+										
 										<div class="form-group">
 											<label for="exampleInputFile">광고 이미지</label>
 											<div class="input-group">
 												<div class="custom-file">
-													<input type="file" class="custom-file-input" id="advertisementImg" name="advertisementImg">
+													<input type="file" class="custom-file-input" id="file" name="file" onchange="displayFileName()">
 													<label class="custom-file-label" for="exampleInputFile">파일 선택</label>
 												</div>
 
@@ -279,60 +276,15 @@
 	<!-- 공백 폼 제출을 막아주는 js -->
 
 
-	<script>
-		document
-				.getElementById("insertForm")
-				.addEventListener(
-						"submit",
-						function(event) {
-							var title = document.getElementById("inputName").value
-									.trim();
-							var answerA = document.getElementsByName("answerA")[0].value
-									.trim();
-							var answerB = document.getElementsByName("answerB")[0].value
-									.trim();
-							var explanation = document
-									.getElementsByName("explanation")[0].value
-									.trim();
-							var errorMessage = "";
-
-							if (title === "") {
-								errorMessage += "제목을 입력해주세요.\n";
-								document.getElementById("inputName").focus();
-							}
-							if (answerA === "") {
-								errorMessage += "선택지A를 입력해주세요.\n";
-								document.getElementsByName("answerA")[0]
-										.focus();
-							}
-							if (answerB === "") {
-								errorMessage += "선택지B를 입력해주세요.\n";
-								document.getElementsByName("answerB")[0]
-										.focus();
-							}
-							if (explanation === "") {
-								errorMessage += "출제 이유를 입력해주세요.\n";
-								document.getElementsByName("explanation")[0]
-										.focus();
-							}
-
-							if (errorMessage !== "") {
-								alert(errorMessage);
-								event.preventDefault(); // 폼 제출 방지
-							}
-						});
-	</script>
+	
 
 	<script>
-		$(document).ready(function() {
-			// 파일 선택이 변경되었을 때
-			$('#exampleInputFile').on('change', function() {
-				// 선택된 파일의 이름 가져오기
-				var fileName = $(this).val().split('\\').pop();
-				// 파일 이름 표시
-				$(this).next('.custom-file-label').html(fileName);
-			});
-		});
+	 function displayFileName() {
+	        var input = document.getElementById('file');
+	        var label = document.getElementById('fileNameLabel');
+	        var fileName = input.files[0].name;
+	        label.innerHTML = fileName;
+	    }
 	</script>
 
 </body>

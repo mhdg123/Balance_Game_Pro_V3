@@ -423,10 +423,10 @@ rotate
 								<li class="nav-item"><a href="/admin/adminPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
 										<p>메인</p>
 								</a></li>
-								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>유저관리</p>
 								</a></li>
-								<li class="nav-item"><a href="/admin/questionManagementPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/questionManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>문제관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
@@ -437,6 +437,9 @@ rotate
 								</a></li>
 								<li class="nav-item"><a href="/admin/adminLetterListPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>건의사항관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/adminAdvertisementManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>광고관리</p>
 								</a></li>
 							</ul></li>
 					</ul>
@@ -460,7 +463,7 @@ rotate
 								</div>
 							</div>
 
-							<form action="/admin/adminItemUpdate" method="POST" id="insertForm">
+							<form action="/admin/adminItemUpdate" method="POST" id="insertForm" enctype="multipart/form-data">
 								<div class="card-body">
 									<div class="form-group">
 										<input type="hidden" value="${itemData.itemId}" name="itemId">
@@ -486,6 +489,7 @@ rotate
 										</c:if>
 									</div>
 									<input type="hidden" id="itemImg" name="itemImg">
+									<input type="hidden" id="itemImgOriginal" name="itemImgOriginal" value="${itemData.itemImg}">
 									<button type="submit" class="btn btn-block btn-primary" style="margin-bottom: 10px; margin-top: 10px;">수정</button>
 							</form>
 							<form action="/admin/adminItemDelete" method="POST">
