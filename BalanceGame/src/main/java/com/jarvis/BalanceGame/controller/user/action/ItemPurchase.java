@@ -51,6 +51,13 @@ public class ItemPurchase {
 		mDTO.setLoginId(loginId);
 		miDTO.setLoginId(loginId);
 		
+		
+		//포인트 비교
+		
+		//막기
+		
+		
+		
 		if(memberItemService.selectOne(miDTO) == null) {
 			miDTO.setMemberItemCount(1);
 			memberItemService.insert(miDTO);
@@ -65,10 +72,14 @@ public class ItemPurchase {
 		memberService.update(mDTO);
 		itemLogService.insert(ilDTO);
 		
+		//한개라도 실패
+		
+		
+		
 		mDTO.setSearchCondition("viewCoin");
 		mDTO = memberService.selectOne(mDTO);
 		session.setAttribute("coin", mDTO.getCoin());
-		
+		//성공!
 		return "user/index";
 	}
 	
