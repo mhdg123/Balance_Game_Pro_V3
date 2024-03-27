@@ -20,4 +20,5 @@ public class ItemDTO {
 	  //-----------------------------------------
 	  private String searchCondition;
 	  private int itemNextId; // 다음 pk
+	  
 }

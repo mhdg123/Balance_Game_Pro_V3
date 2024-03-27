@@ -71,6 +71,10 @@ public class MemberDAO {
 			+ "SET coin = coin + (SELECT AMOUNT * 0.1 FROM PAYMENT WHERE LOGIN_ID = ? ORDER BY PAYMENT_DATE DESC LIMIT 1)\r\n"
 			+ "WHERE LOGIN_ID = ?";
 	
+	// 코인 감소
+	private static final String MY_COIN_DECREASE = "UPDATE MEMBER AS M JOIN ITEM AS I ON I.ITEM_ID = ? SET M.COIN = M.COIN - I.ITEM_PRICE "
+			+ "WHERE M.LOGIN_ID = ?";
+	
 	// 유저 삭제
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
 
@@ -201,6 +205,9 @@ public class MemberDAO {
 		}
 		else if(mDTO.getSearchCondition().equals("increaseMyCoin")) {
 			result = jdbcTemplate.update(MY_COIN_INCREASE, mDTO.getLoginId(), mDTO.getLoginId());
+		}
+		else if(mDTO.getSearchCondition().equals("decreaseMyCoin")) {
+			result = jdbcTemplate.update(MY_COIN_DECREASE, mDTO.getItemId(), mDTO.getLoginId());
 		}
 		if (result <= 0) {
 			return false;
