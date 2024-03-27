@@ -25,6 +25,8 @@ public class SavePictures {
 				File dest = new File(filePath);
 				file.transferTo(dest);
 				fileNames.add(fileName);
+			}else {
+				fileNames.add(null);
 			}
 		}
 

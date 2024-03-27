@@ -30,18 +30,18 @@ public class MakeQuestionController {
 
 	@PostMapping("/makeQuestion")
 	public String MakeTitleController(QuestionDTO qDTO, Model model, HttpSession session,
-	        @RequestParam("file") List<MultipartFile> files, HttpServletRequest request) throws IOException {
+	        @RequestParam("file") List<MultipartFile> files, HttpServletRequest request)  {
 	    
 
 	    try {
 	        List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
 
 	        // 이미지 파일명을 DTO에 설정
-	        if (!fileNames.isEmpty()) {
-	        	System.out.println("이미지 파일 있음");
+	       
+	        	
 	            qDTO.setAnswerAImg(fileNames.get(0));
 	            qDTO.setAnswerBImg(fileNames.get(1));
-	        }
+	        
 			
 			qDTO.setSearchCondition("createQuestionUser");
 			qDTO.setWriter((String) session.getAttribute("loginId")); // 로그인 아이디
