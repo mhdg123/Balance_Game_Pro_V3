@@ -48,19 +48,19 @@ public class NameChangeCouponAsync {
 		return "success";
 	}
 	
-	@PostMapping("/nameChangeCoupon")
-	public @ResponseBody String nameChangeUpdate(MemberItemDTO miDTO, Gson gson, Model model, HttpSession session) {
-		
-		// 변경을 누르면 여기로 와서 변경권 1 차감시킴
-		String loginId = (String)session.getAttribute("loginId");
-		miDTO.setLoginId(loginId);
-		miDTO.setSearchCondition("useItem");
-		memberItemService.update(miDTO);
-		
-		
-		
-		return "success";
-	}
+//	@PostMapping("/nameChangeCoupon")
+//	public @ResponseBody String nameChangeUpdate(MemberItemDTO miDTO, Gson gson, Model model, HttpSession session) {
+//		
+//		// 변경을 누르면 여기로 와서 변경권 1 차감시킴
+//		String loginId = (String)session.getAttribute("loginId");
+//		miDTO.setLoginId(loginId);
+//		miDTO.setSearchCondition("useItem");
+//		memberItemService.update(miDTO);
+//		
+//		
+//		
+//		return "success";
+//	}
 	
 	
 	
