@@ -252,24 +252,12 @@ async function passwordSearchEmail() {
 		else{
 			Swal.fire("회원 정보가 일치하지 않습니다 다시 시도해주세요");
 		}
-  
-        
       }
       else{
       	return "서버 전송 에러";
       }	
-
-      // 성공적인 응답 처리 (원하는 논리로 변경)
-      const data = await response.json();
-      console.log("회원님의 아이디는 : " + data + "입니다.") 
-    //   console.log("서버 응답:", data); // 예시: 응답 데이터 기록
-      return formValues; // 추가 처리를 위해 formValues 반환
-    }
+     }
   });
-
-  if (formValues) {
-    Swal.fire(JSON.stringify(formValues));
-  }
 }
 
 // 아이디 & 전화번호 패스워드 찾기
