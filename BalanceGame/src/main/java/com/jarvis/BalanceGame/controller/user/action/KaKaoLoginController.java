@@ -124,7 +124,7 @@ public class KaKaoLoginController {
 		System.out.println("로그인 시 세션에 저장 될 포인트 : " + mDTO.getCoin());
 		System.out.println("로그인 시 세션에 저장 될 닉네임 : " + mDTO.getNickName());
 		session.setAttribute("loginId", mDTO.getLoginId());
-		session.setAttribute("point", mDTO.getCoin());
+		session.setAttribute("coin", mDTO.getCoin());
 		session.setAttribute("nickName", mDTO.getNickName());
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", mDTO.getLoginId() + "님 로그인 하셨습니다.");
