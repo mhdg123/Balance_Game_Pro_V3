@@ -212,7 +212,7 @@
 							</div>
 
 							<form action="/admin/questionUpdate" method="POST"
-								id="insertForm">
+								id="insertForm" enctype="multipart/form-data">
 								<div class="card-body">
 									<div class="form-group">
 										<input type="hidden" value="${questionData.questionId}"
@@ -244,7 +244,7 @@
 
 
 										<textarea id="inputDescription" class="form-control" rows="2"
-											name="answer_A">${questionData.answerA}</textarea>
+											name="answerA">${questionData.answerA}</textarea>
 
 
 										<!-- 이미지 변경 -->
@@ -284,7 +284,7 @@
 											name="retouch" id="chooseFileBRetouch">
 
 										<textarea id="inputDescription" class="form-control" rows="2"
-											name="answer_B">${questionData.answerB }</textarea>
+											name="answerB">${questionData.answerB }</textarea>
 
 
 										<!-- 이미지 변경 -->
