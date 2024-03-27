@@ -51,8 +51,8 @@ public class ItemPurchase {
 		mDTO.setLoginId(loginId);
 		miDTO.setLoginId(loginId);
 		
-		miDTO = memberItemService.selectOne(miDTO);
-		if(miDTO == null) {
+		if(memberItemService.selectOne(miDTO) == null) {
+			
 			memberItemService.insert(miDTO);
 			mDTO.setSearchCondition("decreaseMyCoin");
 			memberService.update(mDTO);
