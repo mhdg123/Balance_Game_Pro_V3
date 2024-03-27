@@ -29,7 +29,7 @@ public class AdminQuestionUpdateController {
 	
 	@PostMapping("/questionUpdate")
 	public String adminTitleUpdateController(QuestionDTO qDTO, Model model,
-			@RequestParam("questionImgOriginal") String originalImg, @RequestParam("file") List<MultipartFile> files,
+			@RequestParam("questionImgOriginal1") String originalImg1,@RequestParam("questionImgOriginal2") String originalImg2, @RequestParam("file") List<MultipartFile> files,
 			HttpServletRequest request) {
 		System.out.println("관리자 문제PK 파라미터 : " + qDTO.getQuestionId());
 		System.out.println("관리자 문제 출제 유저 아이디 :  " + qDTO.getWriter());
@@ -38,6 +38,8 @@ public class AdminQuestionUpdateController {
 		System.out.println("관리자 문제 답변B 파라미터 : " + qDTO.getAnswerB());
 		System.out.println("관리자 문제 설명 파라미터 : " + qDTO.getExplanation());
 		
+		
+		qDTO.setSearchCondition("questionDetail");
 		String originalImgSaveData1 = questionService.selectOne(qDTO).getAnswerAImg();
 		String originalImgSaveData2 = questionService.selectOne(qDTO).getAnswerBImg();
 
@@ -45,7 +47,7 @@ public class AdminQuestionUpdateController {
 			List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
 
 			if (qDTO.getAnswerAImg().isEmpty()) { // 이미지를 변경하지 않고 수정
-				qDTO.setAnswerAImg(originalImgSaveData1);
+				qDTO.setAnswerAImg(originalImg1);
 				System.out.println("관리자 아이템 이미지 파일 수정 안했으므로 원본 데이터 유지 : " + qDTO.getAnswerAImg());
 			} else if (!originalImgSaveData1.equals(fileNames.get(0))) { // 이미지를 변경하고 수정 -> 기존 이미지 삭제 후 새 이미지로 대체
 				System.out.println("기존 이미지 " + originalImgSaveData1 + "을(를) " + fileNames.get(0) + "으로 수정함");
@@ -55,7 +57,7 @@ public class AdminQuestionUpdateController {
 				qDTO.setAnswerAImg((fileNames.get(0)));
 			}
 			if (qDTO.getAnswerBImg().isEmpty()) { // 이미지를 변경하지 않고 수정
-				qDTO.setAnswerBImg(originalImgSaveData2);
+				qDTO.setAnswerBImg(originalImg2);
 				System.out.println("관리자 아이템 이미지 파일 수정 안했으므로 원본 데이터 유지 : " + qDTO.getAnswerBImg());
 			} else if (!originalImgSaveData2.equals(fileNames.get(1))) { // 이미지를 변경하고 수정 -> 기존 이미지 삭제 후 새 이미지로 대체
 				System.out.println("기존 이미지 " + originalImgSaveData2 + "을(를) " + fileNames.get(1) + "으로 수정함");
