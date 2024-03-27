@@ -69,10 +69,16 @@ public class ItemPurchase {
 			// 멤버 포인트 에서 아이템 포인트 차감하기
 			int itemPoint = iDTO.getItemPrice();
 			int memberPoint = mDTO.getCoin();
-			int coinResult = itemPoint - memberPoint;
+			int coinResult = memberPoint - itemPoint;
 			mDTO.setCoin(coinResult);
-			//맴버 업데이트
+			
+			//맴버 업데이트 쿼리문 필요
 			itemLogService.insert(ilDTO);
+			
+			mDTO.setSearchCondition("viewCoin");
+			mDTO = memberService.selectOne(mDTO);
+			session.setAttribute("coin", mDTO.getCoin());
+			
 			return "user/index";
 		}
 		miDTO.setSearchCondition("additionalPurchaseItem");
