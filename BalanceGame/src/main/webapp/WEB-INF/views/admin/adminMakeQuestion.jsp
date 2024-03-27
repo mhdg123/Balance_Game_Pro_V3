@@ -189,6 +189,14 @@
 											<label for="inputDescription">출제 이유</label>
 											<textarea id="inputDescription" class="form-control" name="explanation" rows="3"></textarea>
 										</div>
+										<div class="custom-file">
+										<input type="file" class="custom-file-input" id="fileFirst" name="fileFirst" onchange="displayFileName('First')">
+										<label class="custom-file-label" for="fileFirst" id="fileNameFirstLabel">${itemData.itemImg }</label>
+									</div>
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="fileSecond" name="fileSecond" onchange="displayFileName('Second')">
+										<label class="custom-file-label" for="fileSecond" id="fileNameSecondLabel">${itemData.itemImg }</label>
+									</div>
 										<button type="submit" class="btn btn-block btn-primary">문제출제</button>
 									</div>
 								</form>
@@ -295,6 +303,15 @@
             event.preventDefault(); // 폼 제출 방지
         }
     });
+    
+ // 파일 등록시 파일명 출력
+	   function displayFileName(location) {
+		 	var input = document.getElementById('file'+location);
+	        var label = document.getElementById('fileName'+ location + 'Label');
+	        var fileName = input.files[0].name;
+	        label.innerHTML = fileName;
+	    }
+	  
 </script>
 	
 </body>
