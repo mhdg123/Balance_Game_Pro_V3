@@ -77,7 +77,7 @@
 										</div>
 										<button type="submit" value="submit" class="btn_3">log
 											in</button>
-										<a href="mySearchInfo.html" class="lost_pass"
+										<a href="/user/searchMyInfoPage" class="lost_pass"
 											id="searchLoginPw"> 회원정보 찾기</a>
 										<!-- <a class="lost_pass"  id="searchLoginId" style="cursor: pointer;" >아이디 찾기 /</a> -->
 									</div>
