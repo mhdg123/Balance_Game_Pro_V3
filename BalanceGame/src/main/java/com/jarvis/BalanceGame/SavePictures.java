@@ -30,4 +30,25 @@ public class SavePictures {
 
 		return fileNames;
 	}
+	
+	 public  boolean deleteImage(String fileName, String realPath) {
+	        String rootDir = realPath.replace("webapp\\", "");
+	        String uploadDir = rootDir + "resources/static/upload/";
+	        String filePath = uploadDir + fileName;
+	        
+	        File file = new File(filePath);
+	        
+	        if (file.exists()) {
+	            if (file.delete()) {
+	                System.out.println("파일 삭제 성공: " + filePath);
+	                return true;
+	            } else {
+	                System.out.println("파일 삭제 실패: " + filePath);
+	                return false;
+	            }
+	        } else {
+	            System.out.println("삭제할 파일이 존재하지 않습니다: " + filePath);
+	            return false;
+	        }
+	    }
 }
