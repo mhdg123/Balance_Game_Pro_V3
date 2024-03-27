@@ -143,7 +143,7 @@
     title: "아이디 찾기",
     html: `
       <input id="swal-input1" class="swal2-input" placeholder="이름">
-      <input id="swal-input2" class="swal2-input" placeholder="가입시 이메일">
+      <input id="swal-input2" class="swal2-input" placeholder="이메일">
     `,
     focusConfirm: false,
     preConfirm: async () => {
@@ -231,7 +231,7 @@ async function passwordSearchEmail() {
       const email = document.getElementById("swal-input2").value;
 
       // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-      const response = await fetch("/user/isMemberInfoCorrect", {
+      const response = await fetch("/user/sendTempPwAsync", {
         method: "POST",
         body: JSON.stringify({loginId, email}),
         headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정

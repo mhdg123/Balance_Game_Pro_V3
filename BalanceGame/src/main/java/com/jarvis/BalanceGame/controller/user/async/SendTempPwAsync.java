@@ -2,11 +2,12 @@ package com.jarvis.BalanceGame.controller.user.async;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
 import com.jarvis.BalanceGame.service.MemberService;
 import com.jarvis.BalanceGame.service.SendTempPwService;
@@ -16,19 +17,27 @@ import com.jarvis.BalanceGame.service.SendTempPwService;
 public class SendTempPwAsync {
 	
 	@Autowired
-	private SendTempPwService tempPwService;
-	
-	@Autowired
 	private MemberService memberService;
 	
-	@PostMapping("/sendTempPwAsync")
-	public String mailConfirm(@RequestParam("loginId") String loginId, MemberDTO mDTO) {
-		
-		// 해당 전달받은 아이디로 아이디와 이메일을 조회
+	@Autowired
+	private SendTempPwService tempPwService;
+
+	@PostMapping("/isMemberInfoCorrect")
+	public @ResponseBody boolean isMemberInfoCorrectAsync(@RequestBody MemberDTO mDTO, Gson gson) {
+		System.out.println(mDTO);
+		mDTO.setSearchCondition("isMemberInfoCorrect");
 		mDTO = memberService.selectOne(mDTO);
-		String code = tempPwService.sendEmail(mDTO);
-		
-		// 전달받은 코드를 회원의 비밀번호로 설정 
-		return "login";
+		System.out.println(mDTO);
+		if(mDTO != null) {
+			String code = tempPwService.sendEmail(mDTO);
+			// 해당 코드로 회원 비밀번호 설정
+			mDTO.setMemberPassword(code);
+			mDTO.setSearchCondition("updateTempPw");
+			boolean flag = memberService.update(mDTO);
+			if(flag) {
+				return true;
+			}
+		}
+		return false;
 	}
-}		
+}
