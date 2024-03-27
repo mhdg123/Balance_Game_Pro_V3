@@ -41,13 +41,14 @@ public class AdminQuestionAccessController {
 			// 이미지 파일명을 DTO에 설정
 			if (retouch.get(0).equals("T")) {
 				//저장된 파일 삭제
-	        	System.out.println("이미지 파일 있음");
+				savePictures.deleteImage(qDTO.getAnswerAImg(),request.getServletContext().getRealPath("/"));
 	            qDTO.setAnswerAImg(fileNames.get(0));
 	            
 	        }
 			// 이미지 파일명을 DTO에 설정
 			if (retouch.get(1).equals("T")) {
 				//저장된 파일 삭제
+				savePictures.deleteImage(qDTO.getAnswerBImg(),request.getServletContext().getRealPath("/"));
 				qDTO.setAnswerBImg(fileNames.get(1));
 			}
 			System.out.println("승인할 문제 번호 : " + qDTO.getQuestionId());
