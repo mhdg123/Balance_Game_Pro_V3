@@ -71,13 +71,6 @@ public class MemberDAO {
 			+ "SET coin = coin + (SELECT AMOUNT * 0.1 FROM PAYMENT WHERE LOGIN_ID = ? ORDER BY PAYMENT_DATE DESC LIMIT 1)\r\n"
 			+ "WHERE LOGIN_ID = ?";
 	
-	// 코인 감소
-	private static final String MY_COIN_DECREASE = "UPDATE MEMBER AS M\r\n"
-			+ "JOIN MEMBER_ITEM AS MI ON M.LOGIN_ID = MI.LOGIN_ID\r\n"
-			+ "JOIN ITEM AS I ON MI.ITEM_ID = I.ITEM_ID\r\n"
-			+ "SET M.COIN = M.COIN - I.ITEM_PRICE \r\n"
-			+ "WHERE MI.MEMBER_ITEM_ID = ?";
-	
 	// 유저 삭제
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
 

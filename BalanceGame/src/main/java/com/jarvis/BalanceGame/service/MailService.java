@@ -19,6 +19,7 @@ public class MailService implements MailServiceImpl {
 	@Override
 	public MimeMessage createMessage(QuestionDTO qDTO) {
 
+		MimeMessage message = emailSender.createMimeMessage();
 		System.out.println("메일을 받을 회원: " + qDTO.getEmail());
 		String msg = "";
 		msg += "<h1>"+qDTO.getWriter()+"님 안녕하세요</h1>";
@@ -33,7 +34,6 @@ public class MailService implements MailServiceImpl {
 		msg += "다음에 다시 이용부탁드립니다</div><br/>"; 
 		msg += "</div>";
 
-		MimeMessage message = emailSender.createMimeMessage();
 		try {
 			message.setFrom(new InternetAddress("qkrgusrngus@naver.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(qDTO.getEmail()));
