@@ -64,6 +64,7 @@ public class ItemPurchase {
 		mDTO.setSearchCondition("decreaseMyCoin");
 		memberService.update(mDTO);
 		itemLogService.insert(ilDTO);
+		session.setAttribute("coin", mDTO.getCoin());
 		
 		return "user/index";
 	}
