@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/admin")
 public class AdminAdvertisementUpdateController {
-	
+
 	@Autowired
 	private SavePictures savePictures;
 
@@ -30,37 +30,44 @@ public class AdminAdvertisementUpdateController {
 
 	@PostMapping("/adminAdvertisementUpdate")
 	public String adminAdvertisementUpdateController(AdvertisementDTO aDTO, Model model,
-			@RequestParam("advertisementImgOriginal") String originalImg,
-			@RequestParam("file") List<MultipartFile> files, HttpServletRequest request) {
+			@RequestParam("itemImgOriginal") String originalImg, @RequestParam("file") List<MultipartFile> files,
+			HttpServletRequest request) {
 
-		
+		aDTO.setSearchCondition("adViewOne");
+		advertisementService.selectOne(aDTO);
+		String originalImgSaveData = advertisementService.selectOne(aDTO).getAdvertisementImg();
+
+		System.out.println("관리자 아이템 수정 파라미터 데이터 : " + aDTO);
+		System.out.println("관리자 아이템 수정 원본 이미지 데이터 : " + originalImg);
+
 		try {
 			List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
-			aDTO.setSearchCondition("adModification");
-			if (aDTO.getAdvertisementImg().equals("") || aDTO.getAdvertisementImg().equals(null)) {
+
+			if (aDTO.getAdvertisementImg().isEmpty()) { // 이미지를 변경하지 않고 수정
 				aDTO.setAdvertisementImg(originalImg);
-				System.out.println("파일명1 : " + fileNames.get(0));
-				System.out.println("관리자 아이템 이미지 파일 수정 안해서 원본 데이터 다시 넣어줌 : " + aDTO.getAdvertisementImg());
-			} else {
-				System.out.println("관리자 아이템 이미지 파일 처음 추가 ");
-				System.out.println("파일명2 : " + fileNames.get(0));
-				aDTO.setAdvertisementImg(aDTO.getAdvertisementImg());
+				System.out.println("관리자 아이템 이미지 파일 수정 안했으므로 원본 데이터 유지 : " + aDTO.getAdvertisementImg());
+			} else if (!originalImgSaveData.equals(fileNames.get(0))) { // 이미지를 변경하고 수정 -> 기존 이미지 삭제 후 새 이미지로 대체
+				System.out.println("기존 이미지 " + originalImgSaveData + "을(를) " + fileNames.get(0) + "으로 수정함");
+				savePictures.deleteImage(originalImgSaveData, request.getServletContext().getRealPath("/"));
+				System.out.println("기존 이미지가 새로운 이미지로 변경됨");
+				System.out.println("관리자 아이템 새 이미지 파일로 수정됨");
+				aDTO.setAdvertisementImg(fileNames.get(0));
 			}
 			boolean flag = advertisementService.update(aDTO);
+
 			if (!flag) {
 				model.addAttribute("status", "fail");
-				model.addAttribute("msg", "정보수정 실패했습니다");
-				model.addAttribute("redirect", "/admin/adminItemManagementPage");
+				model.addAttribute("msg", "정보 수정에 실패했습니다.");
+				model.addAttribute("redirect", "/admin/adminadvertisementManagement");
 				return "alert";
 			}
-
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", "아이템 정보가 수정되었습니다.");
-		model.addAttribute("redirect", "/admin/adminItemManagementPage");
+		model.addAttribute("redirect", "/admin/adminadvertisementManagement");
 		return "alert";
 
 		// System.out.println("관리자 광고 수정 파리미터 데이터 : " + aDTO);
