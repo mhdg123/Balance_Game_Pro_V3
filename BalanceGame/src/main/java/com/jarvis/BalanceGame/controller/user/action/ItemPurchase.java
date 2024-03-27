@@ -50,10 +50,12 @@ public class ItemPurchase {
 		String loginId = (String)session.getAttribute("loginId");
 		mDTO.setLoginId(loginId);
 		miDTO.setLoginId(loginId);
-		
+		int coin = (int)session.getAttribute("coin");
+		mDTO.setCoin(coin);
 		iDTO.setSearchCondition("itemViewOne");
 		itemService.selectOne(iDTO);
-		
+		System.out.println(mDTO.getCoin());
+		System.out.println(iDTO.getItemPrice());
 		
 		//포인트 비교
 		if(mDTO.getCoin() >= iDTO.getItemPrice()) {
