@@ -216,7 +216,7 @@
 								</div>
 							</div>
 							<form action="/admin/questionAccess" method="POST"
-								id="insertForm">
+								id="insertForm" enctype="multipart/form-data">
 								<div class="card-body">
 									<div class="form-group">
 										<label for="inputName">제목</label> <input type="text"
