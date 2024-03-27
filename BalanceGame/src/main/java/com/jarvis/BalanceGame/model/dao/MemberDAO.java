@@ -45,6 +45,9 @@ public class MemberDAO {
 	private static final String MY_INFO_UPDATE_VIEW = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, MEMBER_DATE "
 			+ "FROM MEMBER WHERE LOGIN_ID = ? AND PASSWORD = ?";
 
+	// 비밀번호 찾기에서 회원정보가 맞는 지 확인
+	private static final String IS_INFO_CORRECT = "SELECT LOGIN_ID, EMAIL FROM MEMBER WHERE LOGIN_ID=? AND EMAIL=?";
+	
 	// 유저 전체 조회
 	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
 			+ "    M.AGE," + "    M.ADDRESS, \r\n" + "    M.EMAIL, " + "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
@@ -179,6 +182,15 @@ public class MemberDAO {
 				member = jdbcTemplate.queryForObject(SELECT_COIN, args, new MemberRowMapperViewCoin());
 			} catch (Exception e) {
 				System.out.println("코인조회 실패");
+			}
+		}
+		// 회원 비밀번호 찾기 전 회원 정보 확인
+		else if(mDTO.getSearchCondition().equals("isMemberInfoCorrect")) {
+			Object[] args = {mDTO.getLoginId(), mDTO.getEmail()};
+			try {
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT, args, new MemberRowMapperIsInfoCorrect());
+			} catch (Exception e) {
+				System.out.println("회원정보가 일치하지 않습니다");
 			}
 		}
 		return member;
@@ -329,5 +341,15 @@ class MemberRowMapperViewCoin implements RowMapper<MemberDTO>{
 		member.setCoin(rs.getInt("COIN"));
 		return member;
 	}
-	
+}
+
+class MemberRowMapperIsInfoCorrect implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getString("LOGIN_ID"));
+		member.setEmail(rs.getString("EMAIL"));
+		return member;
+	}
 }

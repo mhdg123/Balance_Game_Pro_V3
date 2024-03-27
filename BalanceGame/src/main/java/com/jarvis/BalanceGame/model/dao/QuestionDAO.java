@@ -94,7 +94,7 @@ public class QuestionDAO {
 	private static final String INSERT_ADMIN = "INSERT INTO QUESTION (WRITER, TITLE, ANSWER_A, ANSWER_A_IMG, ANSWER_B, ANSWER_B_IMG, EXPLANATION, QUESTION_ACCESS) VALUES(?,?,?,?,?,?,?,'T')";
 
 	// 관리자가 문제 수정
-	private static final String UPDATE = "UPDATE QUESTION SET TITLE=?,ANSWER_A=?,ANSWER_B=?,EXPLANATION=?, QUESTION_ACCESS=? WHERE QUESTION_ID=?";
+	private static final String UPDATE = "UPDATE QUESTION SET TITLE=?,ANSWER_A=?, ANSWER_A_IMG=? ,ANSWER_B=?, ANSWER_B_IMG=?, EXPLANATION=?, QUESTION_ACCESS=? WHERE QUESTION_ID=?";
 
 	// 관리자가 문제 승인
 	private static final String UPDATE_ACCESS = "UPDATE QUESTION SET QUESTION_ACCESS='T' WHERE QUESTION_ID=?";
@@ -206,7 +206,7 @@ public class QuestionDAO {
 
 		int result = 0;
 		if (qDTO.getSearchCondition().equals("updateQuestion")) {
-			result = jdbcTemplate.update(UPDATE, qDTO.getTitle(), qDTO.getAnswerA(), qDTO.getAnswerB(),
+			result = jdbcTemplate.update(UPDATE, qDTO.getTitle(), qDTO.getAnswerA(), qDTO.getAnswerAImg(), qDTO.getAnswerB(), qDTO.getAnswerBImg(),
 					qDTO.getExplanation(), qDTO.getQuestionAccess(),qDTO.getQuestionId());
 			if (result <= 0) {
 				return false;
