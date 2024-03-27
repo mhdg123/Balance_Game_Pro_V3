@@ -42,11 +42,11 @@ public class ShopPageController {
 //       이미지 url
 //       유저 가지고 있는 포인트
       
-      iDTO.setItemType("item");
+      iDTO.setSearchCondition("itemType");
       List<ItemDTO> idata =  itemService.selectAll(iDTO);
       model.addAttribute("itemDatas", idata);
       
-      iDTO.setItemType("coin");
+      iDTO.setSearchCondition("pointType");
       List<ItemDTO> pdata =  itemService.selectAll(iDTO);
       model.addAttribute("paymentDatas", pdata);
       

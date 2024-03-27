@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.AdvertisementDTO;
@@ -16,7 +17,7 @@ public class AdminAdvertisementCreateController {
 	@Autowired
 	private AdvertisementService advertisementService;
 	
-	@GetMapping("/adminAdvertisementCreate")
+	@PostMapping("/adminAdvertisementCreate")
 	public String adminAdvertisementCreateController(AdvertisementDTO aDTO, Model model) {
 		
 		
