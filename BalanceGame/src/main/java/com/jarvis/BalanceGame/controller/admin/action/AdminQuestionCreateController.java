@@ -46,6 +46,8 @@ public class AdminQuestionCreateController {
 
 		try {
 			List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
+			System.out.println("이미지1 파일명 데이터 : " + fileNames.get(0));
+			System.out.println("이미지2 파일명 데이터 : " + fileNames.get(1));
 
 			// 이미지 파일명을 DTO에 설정
 			qDTO.setAnswerAImg(fileNames.get(0));
@@ -56,14 +58,14 @@ public class AdminQuestionCreateController {
 			// 문제 출제 성공
 			if (!questionService.insert(qDTO)) {
 				model.addAttribute("status", "fail");
-				model.addAttribute("msg", "실패");
+				model.addAttribute("msg", "문제출제 실패");
 				model.addAttribute("redirect", "/");
 				return "alert";
 
 			}
 
 			model.addAttribute("status", "success");
-			model.addAttribute("msg", "성공");
+			model.addAttribute("msg", "문제출제 성공");
 			model.addAttribute("redirect", "/admin/questionManagementPage");
 			return "alert";
 		} catch (IOException e) {

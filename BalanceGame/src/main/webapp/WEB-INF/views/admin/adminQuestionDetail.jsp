@@ -187,9 +187,15 @@
 											<label for="inputDescription">선택지A</label>
 											<input type="text" id="inputName" class="form-control" name="answerA" value="${questionData.answerA}">
 										</div>
+										<div style="max-width: 30%;">
+											 <a href="/resources/upload/${questionData.answerAImg}" data-toggle="lightbox" data-title="${questionData.answerAImg} 이미지"><img src="/resources/upload/${questionData.answerAImg}" style="max-width: 30%; height: 30%;" class="img-fluid mb-2" alt="2"> </a>
+										</div>
 										<div class="form-group">
 											<label for="inputDescription">선택지B</label>
 											<input type="text" id="inputName" class="form-control" name="answerB" value="${questionData.answerB}">
+										</div>
+										<div style="max-width: 30%;">
+											<a href="/resources/upload/${questionData.answerBImg}" data-toggle="lightbox" data-title="${questionData.answerBImg} 이미지"><img src="/resources/upload/${questionData.answerBImg}" style="max-width: 30%; height: 30%;" class="img-fluid mb-2" alt="2"> </a>
 										</div>
 										<div class="form-group">
 											<label for="inputDescription">설명</label>
@@ -210,7 +216,7 @@
 										<input type="hidden" name="questionId" value="${questionData.questionId}" />
 										<%-- <input type="text" name="questionAccess" value="${questionData.questionAccess}" /> --%>
 										출제
-										 <input type="checkbox" id="questionAccess" name="questionAccess" value="${questionData.questionAccess}" >
+										<input type="checkbox" id="questionAccess" name="questionAccess" value="${questionData.questionAccess}">
 										<button type="submit" class="btn btn-block btn-primary" style="margin-bottom: 10px; margin-top: 10px;">문제수정</button>
 								</form>
 								<form action="/admin/adminMemberDelete" method="POST">
@@ -292,34 +298,33 @@
 
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
-	
-	<script >
-	
-	
-	// 문제 출제 여부 체크 //
-	
-	// 페이지가 로드될 때 실행되는 함수
-	window.onload = function() {
-	    // questionAccess 요소의 값 가져오기
-	    var questionAccessValue = "${questionData.questionAccess}";
-	    
-	    // questionAccess 요소의 값이 "T"인 경우 체크
-	    if (questionAccessValue === "T") {
-	        document.getElementById("questionAccess").checked = true;
-	    }
-	};
 
-	// 체크박스가 변경될 때 실행되는 함수
-	document.getElementById("questionAccess").addEventListener("change", function() {
-	    // 체크박스가 체크되어 있는지 확인
-	    var isChecked = this.checked;
-	    
-	    // 컨트롤러에 전송할 값 설정
-	    var valueToSend = isChecked ? "T" : "F";
-	    
-	    // 여기서 컨트롤러에 값을 전송하는 코드를 추가하면 됩니다.
-	    console.log("전송할 값:", valueToSend);
-	});
+	<script>
+		// 문제 출제 여부 체크 //
+
+		// 페이지가 로드될 때 실행되는 함수
+		window.onload = function() {
+			// questionAccess 요소의 값 가져오기
+			var questionAccessValue = "${questionData.questionAccess}";
+
+			// questionAccess 요소의 값이 "T"인 경우 체크
+			if (questionAccessValue === "T") {
+				document.getElementById("questionAccess").checked = true;
+			}
+		};
+
+		// 체크박스가 변경될 때 실행되는 함수
+		document.getElementById("questionAccess").addEventListener("change",
+				function() {
+					// 체크박스가 체크되어 있는지 확인
+					var isChecked = this.checked;
+
+					// 컨트롤러에 전송할 값 설정
+					var valueToSend = isChecked ? "T" : "F";
+
+					// 여기서 컨트롤러에 값을 전송하는 코드를 추가하면 됩니다.
+					console.log("전송할 값:", valueToSend);
+				});
 	</script>
 </body>
 </html>
