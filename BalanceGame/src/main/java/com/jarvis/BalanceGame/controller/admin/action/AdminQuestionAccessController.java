@@ -41,7 +41,7 @@ public class AdminQuestionAccessController {
 			// 이미지 파일명을 DTO에 설정
 			if (retouch.get(0).equals("T")) {
 				//저장된 파일 삭제
-				//savePictures.deleteImage(qDTO.getAnswerAImg(),request.getServletContext().getRealPath("/"));
+				savePictures.deleteImage(qDTO.getAnswerAImg(),request.getServletContext().getRealPath("/"));
 				System.out.println("원래 파일 A" + qDTO.getAnswerAImg());
 				System.out.println("변경파일 A" +fileNames.get(0));
 	            qDTO.setAnswerAImg(fileNames.get(0));
@@ -51,16 +51,24 @@ public class AdminQuestionAccessController {
 			if (retouch.get(1).equals("T")) {
 				//저장된 파일 삭제
 				System.out.println("원래 파일 B" + qDTO.getAnswerBImg());
-				//savePictures.deleteImage(qDTO.getAnswerBImg(),request.getServletContext().getRealPath("/"));
+				savePictures.deleteImage(qDTO.getAnswerBImg(),request.getServletContext().getRealPath("/"));
 				System.out.println("변경파일 B" +fileNames.get(1));
 				qDTO.setAnswerBImg(fileNames.get(1));
 			}
 			System.out.println("승인할 문제 번호 : " + qDTO.getQuestionId());
-			qDTO.setSearchCondition("approveQuestion");
-
+			
+			System.out.println(qDTO.getAnswerA());
+			System.out.println(qDTO.getAnswerAImg());
+			System.out.println(qDTO.getAnswerB());
+			System.out.println(qDTO.getAnswerBImg());
+			
+			
+			qDTO.setQuestionAccess("T");
+			
+			qDTO.setSearchCondition("updateQuestion");
 			boolean flag = questionService.update(qDTO);
 			
-
+			
 			System.out.println("문제 승인 한 결과 데이터 : " + qDTO);
 			if (!flag) {
 				model.addAttribute("status", "fail");
