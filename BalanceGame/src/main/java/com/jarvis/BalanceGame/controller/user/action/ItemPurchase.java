@@ -52,7 +52,7 @@ public class ItemPurchase {
 		miDTO.setLoginId(loginId);
 		
 		if(memberItemService.selectOne(miDTO) == null) {
-			
+			miDTO.setMemberItemCount(1);
 			memberItemService.insert(miDTO);
 			mDTO.setSearchCondition("decreaseMyCoin");
 			memberService.update(mDTO);
@@ -64,6 +64,9 @@ public class ItemPurchase {
 		mDTO.setSearchCondition("decreaseMyCoin");
 		memberService.update(mDTO);
 		itemLogService.insert(ilDTO);
+		
+		mDTO.setSearchCondition("viewCoin");
+		mDTO = memberService.selectOne(mDTO);
 		session.setAttribute("coin", mDTO.getCoin());
 		
 		return "user/index";
