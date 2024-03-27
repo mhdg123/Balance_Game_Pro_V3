@@ -47,20 +47,22 @@
 								<!----------------------------------------문제 제목 입력창---------------------------------------->
 								<!----------------------------------------답변_A 입력창---------------------------------------->
 								<div>&nbsp&nbsp&nbsp&nbsp답변_A</div>
+								<div class="image-show" id="chooseFileAInput"></div>
 								<div class="col-md-12 form-group p_star">
 									<input type="text" class="form-control" id="answerA"
 										name="answerA" placeholder="답변_A 입력해주세요" />
 									<!-- 이미지 A 등록 input태그 -->	
-									<input type="file" accept="image/*" name="file"/>
+									<input type="file" accept="image/*" name="file" id="chooseFileA" onchange="loadFile(this)"/>
 								</div>
 								<!----------------------------------------답변_A 입력창---------------------------------------->
 								<!----------------------------------------답변_B 입력창---------------------------------------->
 								<div>&nbsp&nbsp&nbsp&nbsp답변_B</div>
+								<div class="image-show" id="chooseFileBInput"></div>
 								<div class="col-md-12 form-group p_star">
 									<input type="text" class="form-control" id="answerB"
 										name="answerB" placeholder="답변_B 입력" />
 										<!-- 이미지 B 등록 input태그 -->	
-										<input type="file" accept="image/*" name="file"/>
+										<input type="file" accept="image/*" name="file" id="chooseFileB" onchange="loadFile(this)"/>
 								</div>
 								<!----------------------------------------답변_B 입력창---------------------------------------->
 								<!----------------------------------------출제 이유 입력창---------------------------------------->
@@ -97,5 +99,12 @@
 	<!-- 푸터 고정 스크립트 공통 모음 -->
 	<%@ include file="../layout/footer-fix.jsp"%>
 	<!-- 푸터 고정 스크립트 공통 모음 -->
+	
+	
+	<!-- input 태그 사진 넣는 js  -->
+    <script src="/resources/user/js/image.js"></script>                    
+	
+	
+	
 </body>
 </html>

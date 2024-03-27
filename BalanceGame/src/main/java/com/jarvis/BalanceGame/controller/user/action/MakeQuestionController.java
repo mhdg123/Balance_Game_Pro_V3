@@ -37,8 +37,12 @@ public class MakeQuestionController {
 	        List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
 
 	        // 이미지 파일명을 DTO에 설정
-	        qDTO.setAnswerAImg(fileNames.get(0));
-			qDTO.setAnswerBImg(fileNames.get(1));
+	        if (!fileNames.isEmpty()) {
+	        	System.out.println("이미지 파일 있음");
+	            qDTO.setAnswerAImg(fileNames.get(0));
+	            qDTO.setAnswerBImg(fileNames.get(1));
+	        }
+			
 			qDTO.setSearchCondition("createQuestionUser");
 			qDTO.setWriter((String) session.getAttribute("loginId")); // 로그인 아이디
 
