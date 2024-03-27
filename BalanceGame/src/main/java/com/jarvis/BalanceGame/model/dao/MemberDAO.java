@@ -202,9 +202,6 @@ public class MemberDAO {
 		else if(mDTO.getSearchCondition().equals("increaseMyCoin")) {
 			result = jdbcTemplate.update(MY_COIN_INCREASE, mDTO.getLoginId(), mDTO.getLoginId());
 		}
-		else if(mDTO.getSearchCondition().equals("decreaseMyCoin")) {
-			result = jdbcTemplate.update(MY_COIN_DECREASE, mDTO.getMemberItemId());
-		}
 		if (result <= 0) {
 			return false;
 		}
