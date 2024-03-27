@@ -53,7 +53,7 @@ public class ItemPurchase {
 		int coin = (int)session.getAttribute("coin");
 		mDTO.setCoin(coin);
 		iDTO.setSearchCondition("itemViewOne");
-		itemService.selectOne(iDTO);
+		iDTO= itemService.selectOne(iDTO);
 		System.out.println(mDTO.getCoin());
 		System.out.println(iDTO.getItemPrice());
 		
@@ -69,9 +69,9 @@ public class ItemPurchase {
 			// 멤버 포인트 에서 아이템 포인트 차감하기
 			int itemPoint = iDTO.getItemPrice();
 			int memberPoint = mDTO.getCoin();
-			int coinResult = itemPoint = memberPoint;
+			int coinResult = itemPoint - memberPoint;
 			mDTO.setCoin(coinResult);
-			
+			//맴버 업데이트
 			itemLogService.insert(ilDTO);
 			return "user/index";
 		}
