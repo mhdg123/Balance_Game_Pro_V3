@@ -64,14 +64,14 @@ public class AdminQuestionCreateController {
 
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "성공");
-			model.addAttribute("redirect", "/user/questionListPage");
+			model.addAttribute("redirect", "/admin/questionManagementPage");
 			return "alert";
 		} catch (IOException e) {
 			e.printStackTrace();
 			// 파일 업로드 실패 처리
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "파일 업로드 실패");
-			model.addAttribute("redirect", "/");
+			model.addAttribute("redirect", "/admin/adminPage");
 			return "alert";
 		}
 	}

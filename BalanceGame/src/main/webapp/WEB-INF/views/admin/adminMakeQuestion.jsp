@@ -168,7 +168,7 @@
 									</div>
 								</div>
 
-								<form action="/admin/titleCreate" method="POST" id="insertForm">
+								<form action="/admin/titleCreate" method="POST" id="insertForm" enctype="multipart/form-data">
 									<div class="card-body">
 										<div class="form-group">
 
@@ -190,11 +190,11 @@
 											<textarea id="inputDescription" class="form-control" name="explanation" rows="3"></textarea>
 										</div>
 										<div class="custom-file">
-										<input type="file" class="custom-file-input" id="fileFirst" name="fileFirst" onchange="displayFileName('First')">
+										<input type="file" class="custom-file-input" id="fileFirst" name="file" onchange="displayFileName('First')">
 										<label class="custom-file-label" for="fileFirst" id="fileNameFirstLabel">${itemData.itemImg }</label>
 									</div>
 									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="fileSecond" name="fileSecond" onchange="displayFileName('Second')">
+										<input type="file" class="custom-file-input" id="fileSecond" name="file" onchange="displayFileName('Second')">
 										<label class="custom-file-label" for="fileSecond" id="fileNameSecondLabel">${itemData.itemImg }</label>
 									</div>
 										<button type="submit" class="btn btn-block btn-primary">문제출제</button>
