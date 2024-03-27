@@ -88,7 +88,7 @@ int totalPrice = 10;
 												<a href="#">${data.itemName }</a>
 											</h3>
 											<!--  -->
-											<span>${data.itemPrice }원</span>
+											<span>${data.itemPrice }point</span>
 										</div>
 									</div>
 								</div>
@@ -103,7 +103,7 @@ int totalPrice = 10;
 						aria-labelledby="nav-profile-tab">
 						<div class="row">
 							<!-- 포인트 탭 1번 포인트  -->
-							<c:forEach var="data" items="${coinItemDatas}">
+							<c:forEach var="data" items="${paymentDatas}">
 								<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
 									<!-- 반복문 돌리기 -->
 									<div class="single-popular-items mb-50 text-center">

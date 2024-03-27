@@ -55,42 +55,38 @@
 
 							<ul>
 								<li>
-									<p>이름</p> <span>: ${memberData.name}</span>
+									<p>이름</p> <span> ${memberData.name}</span>
 								</li>
 								<li>
-									<p>닉네임</p> <span>: ${memberData.nickName}</span>
+									<p>닉네임</p> <span> ${memberData.nickName}</span>
 								</li>
 								<li>
-									<p>이메일</p> <span>: ${memberData.email}</span>
+									<p>이메일</p> <span> ${memberData.email}</span>
 								</li>
 								<li>
-									<p>전화번호</p> <span>: ${memberData.cellPhone}</span>
+									<p>전화번호</p> <span> ${memberData.cellPhone}</span>
 								</li>
 								<li>
-									<p>주소</p> <span>: ${memberData.address}</span>
+									<p>주소</p> <span> ${memberData.address}</span>
 								</li>
 								<li>
-									<p>생년월일</p> <span>: ${memberData.age}</span>
+									<p>생년월일</p> <span> ${memberData.age}</span>
 								</li>
 								<li>
-									<p>성별</p> <span>: ${memberData.gender}</span>
+									<p>성별</p> <span> ${memberData.gender}</span>
 								</li>
 								<li>
-									<p>가입일</p> <span>: ${memberData.memberDate}</span>
+									<p>가입일</p> <span> ${memberData.memberDate}</span>
 								</li>
 							</ul>
 							<br>
-							<h4>사용중인 아이템</h4>
+							<br>
+							<h4>[사용중인 아이템]</h4>
 							<ul>
 								<li>
 									<p>광고제거</p> <span>&nbsp</span>
 								</li>
-								<li>
-									<p>광고제거</p> <span>&nbsp</span>
-								</li>
-								<li>
-									<p>광고제거</p> <span>&nbsp</span>
-								</li>
+							
 							</ul>
 
 						</div>
@@ -114,7 +110,7 @@
 											<li class="item-element">
 												<div >
 													<img src="assets/img/comment/comment_3.png" alt=""> <span>
-														&nbsp;&nbsp;${data.itemName}</span>
+														&nbsp;&nbsp;${data.itemName}  -  ${data.memberItemCount}</span>
 													<button type="button" class="genric-btn primary radius change-ck-button f-right small">사용</button>
 												</div>
 											</li>
