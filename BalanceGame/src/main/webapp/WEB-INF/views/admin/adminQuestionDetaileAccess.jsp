@@ -246,7 +246,7 @@
 										
 										
 										<textarea id="inputDescription" class="form-control" rows="2"
-											name="answer_A">${questionData.answerA}</textarea>
+											name="answerA">${questionData.answerA}</textarea>
 
 
 										<!-- 이미지 변경 -->
@@ -283,7 +283,7 @@
 										<input type="hidden" value="F" name="retouch" id="chooseFileBRetouch">
 										
 										<textarea id="inputDescription" class="form-control" rows="2"
-											name="answer_B">${questionData.answerB }</textarea>
+											name="answerB">${questionData.answerB }</textarea>
 
 
 										<!-- 이미지 변경 -->
@@ -299,13 +299,8 @@
 									<div class="form-group">
 										<label for="inputDescription">출제 이유</label>
 										<textarea id="inputDescription" class="form-control" rows="3"
-											name="Explanation">${questionData.explanation }</textarea>
+											name="explanation">${questionData.explanation }</textarea>
 									</div>
-									<!-- <div class="form-check">
-											<input type="hidden" name="category" id="YN" value="1">
-											<input type="checkbox" class="form-check-input" id="adultCheck">
-											<label class="form-check-label" for="adultCheck">19 문제</label>
-										</div> -->
 									<input type="hidden" name="questionId"
 										value="${questionData.questionId}" />
 									<button type="submit" class="btn btn-block btn-success"
