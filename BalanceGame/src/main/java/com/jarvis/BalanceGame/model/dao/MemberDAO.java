@@ -69,6 +69,10 @@ public class MemberDAO {
 	// 내정보 변경하기 SQL
 	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
 	
+	// 임시비밀번호로 변경
+	private static final String TEMP_PW_UPDATE = "UPDATE MEMBER SET MEMBER_PASSWORD=? WHERE LOGIN_ID = ?";
+	
+	
 	// 코인 추가
 	private static final String MY_COIN_INCREASE = "UPDATE MEMBER\r\n"
 			+ "SET coin = coin + (SELECT AMOUNT * 0.1 FROM PAYMENT WHERE LOGIN_ID = ? ORDER BY PAYMENT_DATE DESC LIMIT 1)\r\n"
@@ -220,6 +224,9 @@ public class MemberDAO {
 		}
 		else if(mDTO.getSearchCondition().equals("decreaseMyCoin")) {
 			result = jdbcTemplate.update(MY_COIN_DECREASE, mDTO.getItemId(), mDTO.getLoginId());
+		}
+		else if(mDTO.getSearchCondition().equals("updateTempPw")) {
+			result = jdbcTemplate.update(TEMP_PW_UPDATE, mDTO.getMemberPassword(), mDTO.getLoginId());
 		}
 		if (result <= 0) {
 			return false;

@@ -221,43 +221,23 @@
 async function passwordSearchEmail() {
     const { value: formValues } = await Swal.fire({
     title: "비밀번호 찾기",
-    html: `
-      <input id="swal-input1" class="swal2-input" placeholder="아이디">
-      <input id="swal-input2" class="swal2-input" placeholder="이메일">
-    `,
+    html: `<input id="swal-input1" class="swal2-input" placeholder="아이디">
+            <input id="swal-input2" class="swal2-input" placeholder="이메일">`,
     focusConfirm: false,
     preConfirm: async () => {
       const loginId = document.getElementById("swal-input1").value;
       const email = document.getElementById("swal-input2").value;
-
       // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
       const response = await fetch("/user/isMemberInfoCorrect", {
         method: "POST",
-        body: JSON.stringify({loginId, email}),
+        body: JSON.stringify({ loginId, email }),
         headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
       });
-
-      if (response.ok) {
-        const result = await response.json();
-		if(result){
-			Swal.fire("임시비밀번호를 이메일로 전송했습니다 다시 로그인해주세요");
-			//window.location.href = "/user/login"; // 로그인 페이지 경로로 변경
-			// 폼을 동적으로 생성합니다.
-			var form = document.createElement("form");
-			form.method = "GET";
-			form.action = "/user/loginPage"; // 이동할 URL을 지정합니다.
-			document.body.appendChild(form);
-			form.submit();
-		}
-		else{
-			Swal.fire("회원 정보가 일치하지 않습니다 다시 시도해주세요");
-		}
-  
-        
+       
+      if (!response.ok) {
+          return "서버 전송 실패";
+        // throw new Error("서버에 데이터 전송 실패!");
       }
-      else{
-      	return "서버 전송 에러";
-      }	
 
       // 성공적인 응답 처리 (원하는 논리로 변경)
       const data = await response.json();
@@ -286,14 +266,14 @@ async function passwordSearchCellPhone() {
       const cellPhone = document.getElementById("swal-input2").value;
 
       // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-       const response = await fetch("/api/find-id", {
+      const response = await fetch("/api/find-id", {
         method: "POST",
         body: JSON.stringify({ loginId, cellPhone }),
         headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
       });
 
       if (!response.ok) {
-          return "회원정보가 일치하지 않습니다";
+          return "서버 전송 실패";
         // throw new Error("서버에 데이터 전송 실패!");
       }
 
