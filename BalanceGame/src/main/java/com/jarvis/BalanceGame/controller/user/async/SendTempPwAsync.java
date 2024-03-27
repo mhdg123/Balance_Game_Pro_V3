@@ -23,7 +23,7 @@ public class SendTempPwAsync {
 	private SendTempPwService tempPwService;
 
 	@PostMapping("/isMemberInfoCorrect")
-	public @ResponseBody boolean isMemberInfoCorrectAsync(@RequestBody MemberDTO mDTO, Gson gson) {
+	public @ResponseBody boolean sendTempPwAsync(@RequestBody MemberDTO mDTO, Gson gson) {
 		System.out.println(mDTO);
 		mDTO.setSearchCondition("isMemberInfoCorrect");
 		mDTO = memberService.selectOne(mDTO);
