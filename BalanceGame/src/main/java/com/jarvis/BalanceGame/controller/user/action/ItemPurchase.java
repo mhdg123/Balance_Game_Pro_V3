@@ -53,7 +53,7 @@ public class ItemPurchase {
 		
 		
 		//포인트 비교
-		
+
 		//막기
 		
 		
@@ -66,7 +66,7 @@ public class ItemPurchase {
 			itemLogService.insert(ilDTO);
 			return "user/index";
 		}
-		
+		miDTO.setSearchCondition("additionalPurchaseItem");
 		memberItemService.update(miDTO);
 		mDTO.setSearchCondition("decreaseMyCoin");
 		memberService.update(mDTO);
