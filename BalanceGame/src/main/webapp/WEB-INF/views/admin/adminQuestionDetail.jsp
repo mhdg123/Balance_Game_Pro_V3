@@ -313,7 +313,7 @@
 										style="margin-bottom: 10px; margin-top: 10px;">문제수정</button>
 								</div>
 							</form>
-							<form action="/admin/adminMemberDelete" method="POST">
+							<form action="/admin/adminQuestionDelete" method="POST">
 								<input type="hidden" name="questionId"
 									value="${questionData.questionId}" />
 								<button type="submit" class="btn btn-block btn-danger"
