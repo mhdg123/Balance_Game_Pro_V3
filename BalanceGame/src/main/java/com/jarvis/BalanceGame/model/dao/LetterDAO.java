@@ -20,10 +20,18 @@ public class LetterDAO {
 	// 전체 편지함 조회
 	private static final String SELECTALL = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LOGIN_ID=? ORDER BY LETTER_DATE DESC";
 
+	// 전체 편지함 조회(관리자)
+	private static final String SELECTALL_ADMIN = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS "
+			+ "FROM LETTER L JOIN MEMBER M ON L.LOGIN_ID = M.ROLE WHERE M.LOGIN_ID= ? ORDER BY LETTER_DATE DESC";
+	
 	// 안읽은 편지 조회
-	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER L JOIN MEMBER M ON L.LOGIN_ID=M.ROLE "
-			+ "WHERE M.LOGIN_ID= ? AND LETTER_STATUS = 'F' ORDER BY LETTER_DATE DESC;";
+	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER, LETTER_STATUS, LETTER_DATE FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
 
+	// 안읽은 편지 조회(관리자)
+	private static final String SELECTALL_UNREAD_ADMIN = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS "
+			+ "FROM LETTER L JOIN MEMBER M ON L.LOGIN_ID=M.ROLE WHERE M.LOGIN_ID= ? AND LETTER_STATUS = 'F' ORDER BY LETTER_DATE DESC";
+	
+	
 	// 해당 메세지 조회
 	private static final String SELECTONE = "SELECT LETTER_ID,SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LETTER_ID = ?";
 
@@ -43,9 +51,16 @@ public class LetterDAO {
 		List<LetterDTO> datas = null;
 		Object[] args = { lDTO.getLoginId() };
 		if (lDTO.getSearchCondition().equals("unReadMessage")) {
-			datas = jdbcTemplate.query(SELECTALL_UNREAD, args, new UnReadLetterRowMapper());
-		} else if (lDTO.getSearchCondition().equals("viewAllMessage")) {
+			datas = jdbcTemplate.query(SELECTALL_UNREAD, args, new LetterRowMapper());
+		} 
+		else if(lDTO.getSearchCondition().equals("unReadMessageAdmin")) {
+			datas = jdbcTemplate.query(SELECTALL_UNREAD_ADMIN, args, new LetterRowMapper());
+		}
+		else if (lDTO.getSearchCondition().equals("viewAllMessage")) {
 			datas = jdbcTemplate.query(SELECTALL, args, new LetterRowMapper());
+		}
+		else if(lDTO.getSearchCondition().equals("viewAllMessageAdmin")) {
+			datas = jdbcTemplate.query(SELECTALL_ADMIN, args, new LetterRowMapper());
 		}
 		return datas;
 	}
@@ -88,20 +103,6 @@ public class LetterDAO {
 	}
 }
 
-class UnReadLetterRowMapper implements RowMapper<LetterDTO> {
-
-	@Override
-	public LetterDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		LetterDTO data = new LetterDTO();
-		data.setLetterId(rs.getInt("LETTER_ID"));
-		data.setSender(rs.getString("SENDER"));
-		data.setTitle(rs.getString("TITLE"));
-		data.setLetterDate(rs.getDate("LETTER_DATE"));
-		data.setLetterStatus(rs.getString("LETTER_STATUS"));
-		return data;
-	}
-}
-
 class LetterRowMapper implements RowMapper<LetterDTO> {
 
 	@Override
@@ -110,12 +111,12 @@ class LetterRowMapper implements RowMapper<LetterDTO> {
 		data.setLetterId(rs.getInt("LETTER_ID"));
 		data.setSender(rs.getString("SENDER"));
 		data.setTitle(rs.getString("TITLE"));
-		data.setLetterContents(rs.getString("LETTER_CONTENTS"));
 		data.setLetterDate(rs.getDate("LETTER_DATE"));
 		data.setLetterStatus(rs.getString("LETTER_STATUS"));
 		return data;
 	}
 }
+
 
 class LetterRowMapperViewOne implements RowMapper<LetterDTO> {
 
