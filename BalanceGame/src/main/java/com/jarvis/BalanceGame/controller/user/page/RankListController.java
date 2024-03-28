@@ -23,7 +23,7 @@ public class RankListController {
 	public String rankListPage(MemberDTO mDTO, Model model) {
 		System.out.println("랭킹페이지 이동");
 		
-		mDTO.setSearchCondition("ranking");
+		mDTO.setSearchCondition("rankingPoint");
 		List<MemberDTO> datas = memberService.selectAll(mDTO);
 		System.out.println(datas);
 		
