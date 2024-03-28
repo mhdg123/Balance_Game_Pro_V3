@@ -81,7 +81,11 @@ public class ItemPurchase {
 				mDTO = memberService.selectOne(mDTO);
 				session.setAttribute("coin", mDTO.getCoin());
 
-				return "user/index";
+				// 성공!
+				model.addAttribute("status", "success");
+				model.addAttribute("msg", "구매가 완료되었습니다");
+				model.addAttribute("redirect", "/user/shopPage");
+				return "alert";
 			}
 			miDTO.setSearchCondition("additionalPurchaseItem");
 			memberItemService.update(miDTO);
@@ -98,11 +102,14 @@ public class ItemPurchase {
 			mDTO = memberService.selectOne(mDTO);
 			session.setAttribute("coin", mDTO.getCoin());
 			// 성공!
-			return "user/shop";
+			model.addAttribute("status", "success");
+			model.addAttribute("msg", "구매가 완료되었습니다");
+			model.addAttribute("redirect", "/user/shopPage");
+			return "alert";
 		}
 		model.addAttribute("status", "fail");
 		model.addAttribute("msg", "포인트가 부족합니다");
-		model.addAttribute("redirect", "/");
+		model.addAttribute("redirect", "/user/shopPage");
 		return "alert";
 	}
 
