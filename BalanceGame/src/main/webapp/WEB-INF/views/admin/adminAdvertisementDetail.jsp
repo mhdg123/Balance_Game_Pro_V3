@@ -590,8 +590,8 @@ rotate
 								</div>
 							</form>
 
-							<form action="/admin/adminItemDelete" method="POST">
-								<input type="hidden" name="itemId" value="${itemData.itemId}" />
+							<form action="/admin/adminAdvertisementDelete" method="POST">
+								<input type="hidden" name="advertisementId" value="${adData.advertisementId}" />
 								<button  type="submit" class="btn btn-block btn-danger" style="margin-bottom: 10px;">삭제</button>
 							</form>
 							<div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap; height: 195px;">

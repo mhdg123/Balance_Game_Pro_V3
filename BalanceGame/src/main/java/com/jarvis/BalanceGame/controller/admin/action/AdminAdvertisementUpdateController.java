@@ -30,8 +30,10 @@ public class AdminAdvertisementUpdateController {
 
 	@PostMapping("/adminAdvertisementUpdate")
 	public String adminAdvertisementUpdateController(AdvertisementDTO aDTO, Model model,
-			@RequestParam("itemImgOriginal") String originalImg, @RequestParam("file") List<MultipartFile> files,
+			@RequestParam("advertisementImgOriginal") String originalImg, @RequestParam("file") List<MultipartFile> files,
 			HttpServletRequest request) {
+		
+		
 
 		aDTO.setSearchCondition("adViewOne");
 		advertisementService.selectOne(aDTO);
@@ -53,12 +55,13 @@ public class AdminAdvertisementUpdateController {
 				System.out.println("관리자 아이템 새 이미지 파일로 수정됨");
 				aDTO.setAdvertisementImg(fileNames.get(0));
 			}
+			//업데이트 불가 모델 확인해 보아야함
 			boolean flag = advertisementService.update(aDTO);
 
 			if (!flag) {
 				model.addAttribute("status", "fail");
 				model.addAttribute("msg", "정보 수정에 실패했습니다.");
-				model.addAttribute("redirect", "/admin/adminadvertisementManagement");
+				model.addAttribute("redirect", "/admin/adminPage");
 				return "alert";
 			}
 		} catch (IOException e) {
@@ -67,7 +70,7 @@ public class AdminAdvertisementUpdateController {
 
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", "아이템 정보가 수정되었습니다.");
-		model.addAttribute("redirect", "/admin/adminadvertisementManagement");
+		model.addAttribute("redirect", "/admin/adminAdvertisementManagement");
 		return "alert";
 
 		// System.out.println("관리자 광고 수정 파리미터 데이터 : " + aDTO);

@@ -177,7 +177,7 @@
 								</div>
 
 
-								<form action="/admin/itemCreate" method="post">
+								<form action="/admin/adminAdvertisementCreate" method="post" enctype="multipart/form-data">
 									<div class="card-body">
 										<div class="form-group">
 											<label for="exampleInputEmail1">광고 번호</label>
