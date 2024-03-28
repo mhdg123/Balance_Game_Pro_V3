@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
 import com.jarvis.BalanceGame.service.MemberService;
-import com.jarvis.BalanceGame.service.SendTempPwServiceImpl;
+import com.jarvis.BalanceGame.service.SendTempPwService;
 
 @Controller
 @RequestMapping("/user")
@@ -20,10 +20,10 @@ public class SendTempPwAsync {
 	private MemberService memberService;
 	
 	@Autowired
-	private SendTempPwServiceImpl tempPwService;
+	private SendTempPwService tempPwService;
 
 	@PostMapping("/isTempPwInfoCorrect")
-	public @ResponseBody boolean sendTempPwAsync(@RequestBody MemberDTO mDTO, Gson gson) {
+	public @ResponseBody boolean sendTempPwAsync(@RequestBody MemberDTO mDTO) {
 		System.out.println(mDTO);
 		mDTO.setSearchCondition("isTempPwInfoCorrect");
 		mDTO = memberService.selectOne(mDTO);

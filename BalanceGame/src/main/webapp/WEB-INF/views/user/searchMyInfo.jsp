@@ -137,6 +137,7 @@
     <%@ include file="../layout/footer-fix.jsp"%>
     <!-- 푸터 고정 스크립트 공통 모음 -->  
     <script>
+    
     // 이름 & 이메일로 아이디 찾기
     async function idSearchEmail() {
         const { value: formValues } = await Swal.fire({
@@ -151,29 +152,32 @@
       const email = document.getElementById("swal-input2").value;
 
       // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-      const response = await fetch("/api/find-id", {
+      const response = await fetch("/user/isIdInfoCorrect", {
         method: "POST",
         body: JSON.stringify({ name, email }),
         headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
       });
 
-      if (!response.ok) {
-          return "서버 전송 실패";
-        // throw new Error("서버에 데이터 전송 실패!");
+      if (response.ok) {
+	      const result = await response.json();
+	      if(result){
+	      	Swal.fire("아이디를 이메일로 전송했습니다 다시 로그인해주세요");
+	      	var form = document.createElement("form");
+	      	form.method = "GET";
+	      	form.action = "/user/loginPage";
+	      	document.body.appendChild(form);
+	      	form.submit();
+	      }
+	      else{
+	      	Swal.fire("회원정보가 일치하지 않습니다 다시 시도해주세요");
+	      }
       }
-
-      // 성공적인 응답 처리 (원하는 논리로 변경)
-      const data = await response.json();
-      console.log("회원님의 아이디는 : " + data + "입니다.") 
-    //   console.log("서버 응답:", data); // 예시: 응답 데이터 기록
-      return formValues; // 추가 처리를 위해 formValues 반환
+      else{
+      	return "서버 전송 실패";
+      }
     }
   });
-
-  if (formValues) {
-    Swal.fire(JSON.stringify(formValues));
-  }
-     }
+}
   
 
 

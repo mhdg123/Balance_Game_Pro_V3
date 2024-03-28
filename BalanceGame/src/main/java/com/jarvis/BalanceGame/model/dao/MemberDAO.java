@@ -203,7 +203,12 @@ public class MemberDAO {
 		// 회원 아이디 찾기 전 회원 정보 확인
 		else if(mDTO.getSearchCondition().equals("isIdInfoCorrect")) {
 			Object[] args = {mDTO.getName(), mDTO.getEmail()};
-			member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args, new MemberRowMapperIsIdInfoCorrect());
+			try {
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args, new MemberRowMapperIsIdInfoCorrect());
+			} catch (Exception e) {
+				System.out.println("회원정보가 일치하지 않습니다");
+				e.printStackTrace();
+			}
 		}
 		return member;
 	}
@@ -377,7 +382,7 @@ class MemberRowMapperIsIdInfoCorrect implements RowMapper<MemberDTO>{
 		MemberDTO member = new MemberDTO();
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setEmail(rs.getString("EMAIL"));
-		member.setName(rs.getString("NAME"));
+		member.setNickName(rs.getString("NICKNAME"));
 		return member;
 	}
 	
