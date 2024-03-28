@@ -38,7 +38,7 @@ public class MemberDAO {
 	private static final String SOCIAL_LOGIN = "SELECT LOGIN_ID, COIN, NICKNAME FROM MEMBER WHERE LOGIN_ID=?";
 
 	// 마이페이지 조회 SQL
-	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, MEMBER_DATE "
+	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, LOGIN_TYPE, MEMBER_DATE "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
 
 	// 마이페이지 변경 조회
@@ -46,7 +46,10 @@ public class MemberDAO {
 			+ "FROM MEMBER WHERE LOGIN_ID = ? AND PASSWORD = ?";
 
 	// 비밀번호 찾기에서 회원정보가 맞는 지 확인
-	private static final String IS_INFO_CORRECT = "SELECT LOGIN_ID, EMAIL FROM MEMBER WHERE LOGIN_ID=? AND EMAIL=?";
+	private static final String IS_INFO_CORRECT_TEMP_PW = "SELECT LOGIN_ID, EMAIL FROM MEMBER WHERE LOGIN_ID=? AND EMAIL=?";
+	
+	// 아이디 찾기에서 회원정보가 맞는 지 확인 
+	private static final String IS_INFO_CORRECT_SEARCH_ID = "SELECT LOGIN_ID, EMAIL, NICKNAME FROM MEMBER WHERE NAME=? AND EMAIL=?";
 	
 	// 유저 전체 조회
 	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
@@ -189,13 +192,18 @@ public class MemberDAO {
 			}
 		}
 		// 회원 비밀번호 찾기 전 회원 정보 확인
-		else if(mDTO.getSearchCondition().equals("isMemberInfoCorrect")) {
+		else if(mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) {
 			Object[] args = {mDTO.getLoginId(), mDTO.getEmail()};
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT, args, new MemberRowMapperIsInfoCorrect());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW, args, new MemberRowMapperIsPwInfoCorrect());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 			}
+		}
+		// 회원 아이디 찾기 전 회원 정보 확인
+		else if(mDTO.getSearchCondition().equals("isIdInfoCorrect")) {
+			Object[] args = {mDTO.getName(), mDTO.getEmail()};
+			member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args, new MemberRowMapperIsIdInfoCorrect());
 		}
 		return member;
 	}
@@ -298,6 +306,7 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 		member.setAddress(rs.getString("ADDRESS"));
 		member.setCellPhone(rs.getString("CELL_PHONE"));
 		member.setAdvertisementStatus(rs.getString("ADVERTISEMENT_STATUS"));
+		member.setLoginType(rs.getString("LOGIN_TYPE"));
 		member.setCoin(rs.getInt("COIN"));
 		member.setGrade(rs.getInt("GRADE"));
 		return member;
@@ -341,7 +350,7 @@ class MemberRowMapperSocialLogin implements RowMapper<MemberDTO> {
 }
 
 class MemberRowMapperViewCoin implements RowMapper<MemberDTO>{
-
+	
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
@@ -350,7 +359,7 @@ class MemberRowMapperViewCoin implements RowMapper<MemberDTO>{
 	}
 }
 
-class MemberRowMapperIsInfoCorrect implements RowMapper<MemberDTO>{
+class MemberRowMapperIsPwInfoCorrect implements RowMapper<MemberDTO>{
 
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -359,4 +368,17 @@ class MemberRowMapperIsInfoCorrect implements RowMapper<MemberDTO>{
 		member.setEmail(rs.getString("EMAIL"));
 		return member;
 	}
+}
+
+class MemberRowMapperIsIdInfoCorrect implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getString("LOGIN_ID"));
+		member.setEmail(rs.getString("EMAIL"));
+		member.setName(rs.getString("NAME"));
+		return member;
+	}
+	
 }

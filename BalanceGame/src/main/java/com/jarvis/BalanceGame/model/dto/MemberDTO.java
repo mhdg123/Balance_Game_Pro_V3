@@ -26,6 +26,7 @@ public class MemberDTO {
 	  private int coin; // 포인트
 	  private int grade; // 등급
 	  private String advertisementStatus; // 광고 상태(제거인지 아닌지)
+	  private String loginType;
 	  private String role; // 관리자 유무
 	  private Date memberDate; // 유저 등록시간
 

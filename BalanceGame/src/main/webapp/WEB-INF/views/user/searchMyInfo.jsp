@@ -231,7 +231,7 @@ async function passwordSearchEmail() {
       const email = document.getElementById("swal-input2").value;
 
       // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-      const response = await fetch("/user/sendTempPwAsync", {
+      const response = await fetch("/user/isTempPwInfoCorrect", {
         method: "POST",
         body: JSON.stringify({loginId, email}),
         headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정

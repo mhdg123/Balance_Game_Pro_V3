@@ -4,14 +4,11 @@ import com.jarvis.BalanceGame.model.dto.MemberDTO;
 
 import jakarta.mail.internet.MimeMessage;
 
-public interface SendTempPwService {
+public interface SendMemberIdService {
 	
-	// 메일작성
+	// 메시지 작성
 	public MimeMessage createMessage(MemberDTO mDTO);
 	
-	// 임시비밀번호 작성
-	public String tempPassword();
-	
-	// 메일 보내기 
-	public String sendEmail(MemberDTO mDTO);
+	// 메일발송
+	public void sendMessage(MemberDTO mDTO);
 }
