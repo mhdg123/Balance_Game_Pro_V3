@@ -65,17 +65,15 @@ public class ItemPurchase {
 		if (mDTO.getCoin() >= iDTO.getItemPrice()) {
 
 			// 막기
-
+			
 			if (memberItemService.selectOne(miDTO) == null) {
 				miDTO.setMemberItemCount(1);
 				memberItemService.insert(miDTO);
 
 				// 멤버 포인트 에서 아이템 포인트 차감하기
-				int itemPoint = iDTO.getItemPrice();
-				int memberPoint = mDTO.getCoin();
-				int coinResult = memberPoint - itemPoint;
-				mDTO.setCoin(coinResult);
-
+				mDTO.setSearchCondition("decreaseMyCoin");
+				memberService.update(mDTO);
+				
 				// 맴버 업데이트 쿼리문 필요
 				itemLogService.insert(ilDTO);
 
@@ -88,13 +86,13 @@ public class ItemPurchase {
 			miDTO.setSearchCondition("additionalPurchaseItem");
 			memberItemService.update(miDTO);
 			itemLogService.insert(ilDTO);
-
+			
 			// 한개라도 실패
+			
+			mDTO.setSearchCondition("decreaseMyCoin");
+			memberService.update(mDTO);
+			
 
-			int itemPoint = iDTO.getItemPrice();
-			int memberPoint = mDTO.getCoin();
-			int coinResult = itemPoint = memberPoint;
-			mDTO.setCoin(coinResult);
 
 			mDTO.setSearchCondition("viewCoin");
 			mDTO = memberService.selectOne(mDTO);
