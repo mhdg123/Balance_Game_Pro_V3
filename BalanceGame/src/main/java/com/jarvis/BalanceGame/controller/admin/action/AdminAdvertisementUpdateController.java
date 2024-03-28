@@ -56,6 +56,8 @@ public class AdminAdvertisementUpdateController {
 				aDTO.setAdvertisementImg(fileNames.get(0));
 			}
 			//업데이트 불가 모델 확인해 보아야함
+			
+			aDTO.setSearchCondition("adModification");
 			boolean flag = advertisementService.update(aDTO);
 
 			if (!flag) {
@@ -70,7 +72,7 @@ public class AdminAdvertisementUpdateController {
 
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", "아이템 정보가 수정되었습니다.");
-		model.addAttribute("redirect", "/admin/adminAdvertisementManagement");
+		model.addAttribute("redirect", "/admin/adminAdvertisementManagementPage");
 		return "alert";
 
 		// System.out.println("관리자 광고 수정 파리미터 데이터 : " + aDTO);
