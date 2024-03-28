@@ -24,7 +24,7 @@ public class AdminMemberDeleteController {
 	
 	@PostMapping("/adminMemberDelete")
 	public String adminMemberDeleteController(MemberDTO mDTO, Model model, HttpSession session) {
-		mDTO.setLoginId((String)session.getAttribute("loginId"));
+		System.out.println(mDTO);
 		
 		boolean flag = memberService.delete(mDTO);
 		
@@ -32,13 +32,13 @@ public class AdminMemberDeleteController {
 		      System.out.println("삭제 실패");
 		      model.addAttribute("status", "fail");
 		      model.addAttribute("msg", "잘못된 요청입니다.");
-		      model.addAttribute("redirect", "adminMain");
+		      model.addAttribute("redirect", "/admin/memberManagementPage");
 		      return "alert";
 		   }
 		   System.out.println("삭제 성공");
 		   model.addAttribute("status", "success");
 		   model.addAttribute("msg", "삭제되었습니다");
-		   model.addAttribute("redirect", "adminMain");
+		   model.addAttribute("redirect", "/admin/memberManagementPage");
 		return "alert";
 	}
 }

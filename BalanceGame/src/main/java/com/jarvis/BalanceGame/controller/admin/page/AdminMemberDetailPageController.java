@@ -37,7 +37,7 @@ public class AdminMemberDetailPageController {
 		if (member == null) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("fail", "회원이 존재하지 않습니다.");
-			model.addAttribute("redirect", "adminPage");
+			model.addAttribute("redirect", "/admin/memberManagementPage");
 			return "alert";
 		}
 

@@ -245,7 +245,7 @@ th {
 
 							<div class="card-footer">
 								<div class="float-left">
-									<form action="adminMemberDelete.do" method="post">
+									<form action="/admin/adminMemberDelete" method="post">
 										<input type="hidden" name="loginId" value="${memberData.loginId}">
 										<button type="submit" class="btn btn-block btn-danger">회원삭제</button>
 									</form>
