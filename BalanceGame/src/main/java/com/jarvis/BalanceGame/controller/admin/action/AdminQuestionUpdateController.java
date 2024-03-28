@@ -37,6 +37,7 @@ public class AdminQuestionUpdateController {
 		System.out.println("관리자 문제 답변A 파라미터 : " + qDTO.getAnswerA());
 		System.out.println("관리자 문제 답변B 파라미터 : " + qDTO.getAnswerB());
 		System.out.println("관리자 문제 설명 파라미터 : " + qDTO.getExplanation());
+		System.out.println("관리자 문제 출제 유무 파라미터 : " + qDTO.getQuestionAccess());
 		
 		try {
 			List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
@@ -66,17 +67,17 @@ public class AdminQuestionUpdateController {
 			System.out.println(qDTO.getAnswerBImg());
 			
 			
-			qDTO.setQuestionAccess("T");
+			
 			
 			qDTO.setSearchCondition("updateQuestion");
 			boolean flag = questionService.update(qDTO);
 			
 			
-			System.out.println("문제 승인 한 결과 데이터 : " + qDTO);
+			System.out.println("문제 업데이트 한 결과 데이터 : " + qDTO);
 			if (!flag) {
 				model.addAttribute("status", "fail");
 				model.addAttribute("msg", "실패했습니다");
-				model.addAttribute("redirect", "/admin/adminPage");
+				model.addAttribute("redirect", "/admin/questionManagementPage");
 				return "alert";
 
 			}
@@ -89,7 +90,7 @@ public class AdminQuestionUpdateController {
 	        // 파일 업로드 실패 처리
 	        model.addAttribute("status", "fail");
 	        model.addAttribute("msg", "파일 업로드 실패");
-	        model.addAttribute("redirect", "/");
+	        model.addAttribute("redirect", "/admin/questionManagementPage");
 	        return "alert";
 	    }
 }

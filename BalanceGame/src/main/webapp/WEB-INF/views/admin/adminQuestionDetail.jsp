@@ -304,11 +304,11 @@
 									</div>
 
 
-									<input type="hidden" name="questionId"
-										value="${questionData.questionId}" />
+									<input type="hidden" name="questionId" value="${questionData.questionId}" />
+									<input type="hidden" id="questionAccessHidden" name="questionAccess" value="${questionData.questionAccess}" />
 									<%-- <input type="text" name="questionAccess" value="${questionData.questionAccess}" /> --%>
-									출제 <input type="checkbox" id="questionAccess"
-										name="questionAccess" value="${questionData.questionAccess}">
+									출제 <input type="checkbox" id="questionAccess">
+										
 									<button type="submit" class="btn btn-block btn-primary"
 										style="margin-bottom: 10px; margin-top: 10px;">문제수정</button>
 								</div>
@@ -408,28 +408,32 @@
 		// 문제 출제 여부 체크 //
 
 		// 페이지가 로드될 때 실행되는 함수
-		window.onload = function() {
-			// questionAccess 요소의 값 가져오기
-			var questionAccessValue = "${questionData.questionAccess}";
+window.onload = function() {
+    // questionAccess 요소의 값 가져오기
+    var questionAccessValue = "${questionData.questionAccess}";
 
-			// questionAccess 요소의 값이 "T"인 경우 체크
-			if (questionAccessValue === "T") {
-				document.getElementById("questionAccess").checked = true;
-			}
-		};
+    // questionAccess 요소의 값이 "T"인 경우 체크
+    if (questionAccessValue === "T") {
+        document.getElementById("questionAccess").checked = true;
+    } else {
+        document.getElementById("questionAccess").checked = false;
+    }
+    // questionAccess 요소의 값 설정
+    document.getElementById("questionAccess").value = questionAccessValue;
 
-		// 체크박스가 변경될 때 실행되는 함수
-		document.getElementById("questionAccess").addEventListener("change",
-				function() {
-					// 체크박스가 체크되어 있는지 확인
-					var isChecked = this.checked;
+    // 체크박스가 변경될 때 실행되는 함수
+    document.getElementById("questionAccess").addEventListener("change", function() {
+        // 체크박스가 체크되어 있는지 확인
+        var isChecked = this.checked;
 
-					// 컨트롤러에 전송할 값 설정
-					var valueToSend = isChecked ? "T" : "F";
+        // 컨트롤러에 전송할 값 설정
+        var valueToSend = isChecked ? "T" : "F";
 
-					// 여기서 컨트롤러에 값을 전송하는 코드를 추가하면 됩니다.
-					console.log("전송할 값:", valueToSend);
-				});
+        // 여기서 컨트롤러에 값을 전송하는 코드를 추가하면 됩니다.
+        console.log("전송할 값:", valueToSend);
+        document.getElementById("questionAccessHidden").value = valueToSend;
+    });
+};
 	</script>
 	
 		<!-- input 태그 사진 넣는 js  -->
