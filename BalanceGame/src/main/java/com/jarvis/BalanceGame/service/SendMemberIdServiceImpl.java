@@ -25,7 +25,7 @@ public class SendMemberIdServiceImpl implements SendMemberIdService {
 		String msg = "";
 		msg += "<h1>BALANCE GAME 입니다</h1>";
 		msg += "<br>";
-		msg += "<p>" + mDTO.getNickName() + "님, 안녕하세요</p>";
+		msg += "<h2>" + mDTO.getNickName() + "님, 안녕하세요</h2>";
 		msg += "<br>";
 		msg += "<br>";
 		msg += "<div align='center' style='border:1px solid black'>";

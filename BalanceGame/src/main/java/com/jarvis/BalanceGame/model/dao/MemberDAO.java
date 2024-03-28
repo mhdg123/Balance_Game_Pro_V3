@@ -60,12 +60,18 @@ public class MemberDAO {
 			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n" + "GROUP BY \r\n" + "    M.LOGIN_ID, \r\n"
 			+ "    M.GENDER, \r\n" + "    M.AGE," + "    M.ADDRESS," + "	   M.EMAIL";
 
-	// 유저 랭킹 조회
-	private static final String SELECTALL_RANKING = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, "
+	// 유저 랭킹 조회(관리자)
+	private static final String SELECTALL_RANKING_ADMIN = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, "
 			+ " CASE WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL "
 			+ " ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) "
 			+ " END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID";
 
+	// 유저 포인트 조회(회원)
+	private static final String SELECTALL_RANKING_MEMBER = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(TRUNCATE(SUM(P.AMOUNT/10), 1),0) AS TOTAL, CASE WHEN IFNULL(SUM(P.AMOUNT/10), 0) = 0 THEN NULL \r\n"
+			+ "ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT/10), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
+			+ "END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID";
+	
+	
 	// 회원가입 SQL
 	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE) VALUES(?,?,?,?,?,?,?,?,?)";
 	
@@ -94,7 +100,10 @@ public class MemberDAO {
 		if (mDTO.getSearchCondition().equals("viewAll")) {
 			members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
 		} else if (mDTO.getSearchCondition().equals("ranking")) {
-			members = jdbcTemplate.query(SELECTALL_RANKING, new MemberRowMapperRank());
+			members = jdbcTemplate.query(SELECTALL_RANKING_ADMIN, new MemberRowMapperRank());
+		}
+		else if(mDTO.getSearchCondition().equals("rankingPoint")) {
+			members = jdbcTemplate.query(SELECTALL_RANKING_MEMBER, new MemberRowMapperRank());
 		}
 		return members;
 	}
@@ -385,5 +394,4 @@ class MemberRowMapperIsIdInfoCorrect implements RowMapper<MemberDTO>{
 		member.setNickName(rs.getString("NICKNAME"));
 		return member;
 	}
-	
 }

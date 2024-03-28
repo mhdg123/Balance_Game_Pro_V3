@@ -26,8 +26,9 @@ public class SendTempPwServiceImpl implements SendTempPwService {
 		System.out.println("메일 받을 회원" + mDTO.getEmail());
 		String msg = "";
 		msg += "<h1>BALANCE GAME 입니다</h1>";
+		msg += "<h2>"+mDTO.getLoginId()+"님, 안녕하세요<h2>";
 		msg += "<br>";
-		msg += "<p>임시 비밀번호를 보내드립니다</p>";
+		msg += "<h2>임시 비밀번호를 보내드립니다</h2>";
 		msg += "<br>";
 		msg += "<br>";
 		msg += "<div align='center' style='border:1px solid black'>";
