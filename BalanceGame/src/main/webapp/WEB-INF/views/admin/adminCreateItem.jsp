@@ -166,7 +166,7 @@
 											<label for="customRadio2" class="custom-control-label">아이템</label>
 										</div>
 										<div class="custom-control custom-radio">
-											<input class="custom-control-input" type="radio" id="customRadio1" name="itemType" value="coin">
+											<input class="custom-control-input" type="radio" id="customRadio1" name="itemType" value="point">
 											<label for="customRadio1" class="custom-control-label">포인트</label>
 										</div>
 									</div>
