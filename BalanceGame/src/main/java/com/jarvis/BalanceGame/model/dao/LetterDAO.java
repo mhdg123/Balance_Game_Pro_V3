@@ -26,9 +26,11 @@ public class LetterDAO {
 	// 해당 메세지 조회
 	private static final String SELECTONE = "SELECT LETTER_ID,SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LETTER_ID = ?";
 
-	// 메세지 발송
+	// 메세지 발송(관리자)
 	private static final String INSERT = "INSERT INTO LETTER(SENDER, LOGIN_ID, TITLE, LETTER_CONTENTS) VALUES (?,?,?,?)";
 
+	// 메세지 발송 
+	
 	// 메세지 읽음 유무
 	private static final String UPDATE = "UPDATE LETTER SET LETTER_STATUS = CASE WHEN LETTER_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE LETTER_ID = ?";
 
