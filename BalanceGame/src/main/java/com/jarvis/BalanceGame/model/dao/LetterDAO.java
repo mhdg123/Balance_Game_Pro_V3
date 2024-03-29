@@ -50,6 +50,48 @@ public class LetterDAO {
 	// 메세지 읽음 유무
 	private static final String UPDATE = "UPDATE LETTER SET LETTER_STATUS = CASE WHEN LETTER_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE LETTER_ID = ?";
 
+	// 메세지 전부 읽음
+	private static final String UPDATE_ALL_READ = "UPDATE LETTER SET LETTER_STATUS = 'T' WHERE LOGIN_ID = ?";
+	
+	// 메세지 전부 안읽음
+	private static final String UPDATE_ALL_UNREAD = "UPDATE LETTER SET LETTER_STATUS = 'F' WHERE LOGIN_ID = ?";
+	
+	// 메세지 전부 읽음(관리자 - 건의사항)
+	private static final String UPDATE_ALL_READ_SUGGESTION_ADMIN = "UPDATE LETTER \r\n"
+			+ "SET LETTER_STATUS = 'F' \r\n"
+			+ "WHERE LOGIN_ID IN (\r\n"
+			+ "    SELECT ROLE \r\n"
+			+ "    FROM MEMBER \r\n"
+			+ "    WHERE LOGIN_ID = '?') \r\n"
+			+ "AND LETTER_TYPE = 'SUGGESTION'";
+	
+	// 메세지 전부 읽음(관리자 - 건의사항)
+	private static final String UPDATE_ALL_UNREAD_SUGGESTION_ADMIN = "UPDATE LETTER \r\n"
+			+ "SET LETTER_STATUS = 'T' \r\n"
+			+ "WHERE LOGIN_ID IN (\r\n"
+			+ "    SELECT ROLE \r\n"
+			+ "    FROM MEMBER \r\n"
+			+ "    WHERE LOGIN_ID = '?') \r\n"
+			+ "AND LETTER_TYPE = 'SUGGESTION'";
+	
+	// 메세지 전부 읽음(관리자 - 건의사항)
+	private static final String UPDATE_ALL_READ_REPORT_ADMIN = "UPDATE LETTER \r\n"
+			+ "SET LETTER_STATUS = 'F' \r\n"
+			+ "WHERE LOGIN_ID IN (\r\n"
+			+ "    SELECT ROLE \r\n"
+			+ "    FROM MEMBER \r\n"
+			+ "    WHERE LOGIN_ID = '?') \r\n"
+			+ "AND LETTER_TYPE = 'REPORT'";
+	
+	// 메세지 전부 읽음(관리자 - 건의사항)
+	private static final String UPDATE_ALL_UNREAD_REPORT_ADMIN = "UPDATE LETTER \r\n"
+			+ "SET LETTER_STATUS = 'T' \r\n"
+			+ "WHERE LOGIN_ID IN (\r\n"
+			+ "    SELECT ROLE \r\n"
+			+ "    FROM MEMBER \r\n"
+			+ "    WHERE LOGIN_ID = '?') \r\n"
+			+ "AND LETTER_TYPE = 'REPORT'";
+	
 	// 메세지 삭제
 	private static final String DELETE = "DELETE FROM LETTER WHERE LETTER_ID = ?";
 
@@ -97,7 +139,29 @@ public class LetterDAO {
 	}
 
 	public boolean update(LetterDTO lDTO) {
-		int result = jdbcTemplate.update(UPDATE, lDTO.getLetterId());
+		int result =0;
+		if(lDTO.getSearchCondition().equals("updateReadStatus")) {
+			result = jdbcTemplate.update(UPDATE, lDTO.getLetterId());
+		}
+		else if(lDTO.getSearchCondition().equals("updateAllRead")) {
+			result = jdbcTemplate.update(UPDATE_ALL_READ, lDTO.getLoginId());
+		}
+		else if(lDTO.getSearchCondition().equals("updateAllUnRead")) {
+			result = jdbcTemplate.update(UPDATE_ALL_UNREAD, lDTO.getLoginId());
+		}
+		else if(lDTO.getSearchCondition().equals("updateAllReadSuggestion")) {
+			result = jdbcTemplate.update(UPDATE_ALL_READ_SUGGESTION_ADMIN, lDTO.getLoginId());
+		}
+		else if(lDTO.getSearchCondition().equals("updateAllUnReadSuggestion")) {
+			result = jdbcTemplate.update(UPDATE_ALL_UNREAD_SUGGESTION_ADMIN, lDTO.getLoginId());
+		}
+		else if(lDTO.getSearchCondition().equals("updateAllReadReport")) {
+			result = jdbcTemplate.update(UPDATE_ALL_READ_REPORT_ADMIN, lDTO.getLoginId());
+		}
+		else if(lDTO.getSearchCondition().equals("updateAllUnReadReport")) {
+			result = jdbcTemplate.update(UPDATE_ALL_UNREAD_REPORT_ADMIN, lDTO.getLoginId());
+		}
+		
 		if (result <= 0) {
 			return false;
 		}
