@@ -20,9 +20,15 @@ public class LetterDAO {
 	// 전체 편지함 조회
 	private static final String SELECTALL = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LOGIN_ID=? ORDER BY LETTER_DATE DESC";
 
-	// 전체 편지함 조회(관리자)
-	private static final String SELECTALL_ADMIN = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS "
-			+ "FROM LETTER L JOIN MEMBER M ON L.LOGIN_ID = M.ROLE WHERE M.LOGIN_ID= ? ORDER BY LETTER_DATE DESC";
+	// 전체 편지함 조회(관리자 - 건의사항)
+	private static final String SELECTALL_ADMIN_SUGGESTION = "SELECT LETTER_ID, SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS \r\n"
+			+ "FROM LETTER L JOIN MEMBER M ON L.LOGIN_ID = M.ROLE WHERE M.LOGIN_ID= ? AND LETTER_TYPE='SUGGESTION'\r\n"
+			+ "ORDER BY LETTER_DATE DESC";
+	
+	// 전체 편지함 조회(관리자 - 신고)
+	private static final String SELECTALL_ADMIN_REPORT = "SELECT LETTER_ID, TITLE, LETTER_STATUS, LETTER_DATE "
+			+ "FROM LETTER L JOIN MEMBER M ON L.LOGIN_ID = M.ROLE WHERE M.LOGIN_ID= ? AND LETTER_TYPE='REPORT' "
+			+ "ORDER BY LETTER_DATE DESC";
 	
 	// 안읽은 편지 조회
 	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER, LETTER_STATUS, LETTER_DATE FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
@@ -37,6 +43,9 @@ public class LetterDAO {
 
 	// 메세지 발송(관리자)
 	private static final String INSERT = "INSERT INTO LETTER(SENDER, LOGIN_ID, TITLE, LETTER_CONTENTS) VALUES (?,?,?,?)";
+	
+	// 메세지 발송(회원)
+	private static final String INSERT_SUGGESTION = "INSERT INTO LETTER (SENDER, LOGIN_ID, TITLE, LETTER_CONTENTS, LETTER_TYPE) VALUES(?,?,?,?,'SUGGESTION')";
 	
 	// 메세지 읽음 유무
 	private static final String UPDATE = "UPDATE LETTER SET LETTER_STATUS = CASE WHEN LETTER_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE LETTER_ID = ?";
@@ -58,7 +67,10 @@ public class LetterDAO {
 			datas = jdbcTemplate.query(SELECTALL, args, new LetterRowMapper());
 		}
 		else if(lDTO.getSearchCondition().equals("viewAllMessageAdmin")) {
-			datas = jdbcTemplate.query(SELECTALL_ADMIN, args, new LetterRowMapper());
+			datas = jdbcTemplate.query(SELECTALL_ADMIN_SUGGESTION, args, new LetterRowMapper());
+		}
+		else if(lDTO.getSearchCondition().equals("viewAllReportMessageAdmin")) {
+			datas = jdbcTemplate.query(SELECTALL_ADMIN_REPORT, args, new LetterRowMapperReport());
 		}
 		return datas;
 	}
@@ -129,4 +141,18 @@ class LetterRowMapperViewOne implements RowMapper<LetterDTO> {
 		data.setLetterStatus(rs.getString("LETTER_STATUS"));
 		return data;
 	}
+}
+
+class LetterRowMapperReport implements RowMapper<LetterDTO>{
+
+	@Override
+	public LetterDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		LetterDTO data = new LetterDTO();
+		data.setLetterId(rs.getInt("LETTER_ID")); // 추가 필요
+		data.setTitle(rs.getString("TITLE"));
+		data.setLetterDate(rs.getDate("LETTER_DATE"));
+		data.setLetterStatus(rs.getString("LETTER_STATUS"));
+		return data;
+	}
+	
 }
