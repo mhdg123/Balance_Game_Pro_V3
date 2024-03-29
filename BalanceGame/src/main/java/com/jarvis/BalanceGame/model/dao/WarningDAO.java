@@ -21,7 +21,7 @@ public class WarningDAO {
 	
 	private static final String SELECTONE = "SELECT COMMENT_ID FROM WARNING WHERE REPORTER = ? AND COMMENT_ID = ?";
 	
-	private static final String INSERT = "INSERT INTO WARNING (COMMENT_WRITER, COMMENT_ID) VALUES (?, ?)";
+	private static final String INSERT = "INSERT INTO WARNING (COMMENT_WRITER,REPORTER, COMMENT_ID) VALUES (?, ?, ?)";
 	
 	private static final String UPDATE = null;
 	
@@ -30,18 +30,19 @@ public class WarningDAO {
 	
 	public WarningDTO selectOne(WarningDTO wDTO) {
 		WarningDTO data = null;
+		WarningDTO reSet = new WarningDTO();
 		Object[] args = {wDTO.getRepoter(), wDTO.getCommentId()};
 		try {
 			data = jdbcTemplate.queryForObject(SELECTONE, args, new WarningRowMapperIsData());
 		} catch (Exception e) {
 			System.out.println("경고테이블에 맞는 데이터가 없습니다");
-			e.printStackTrace();
+			return reSet;
 		}
 		return data;
 	}
 	
 	public boolean insert(WarningDTO wDTO){
-		int result = jdbcTemplate.update(INSERT, wDTO.getCommentWriter(), wDTO.getCommentId());
+		int result = jdbcTemplate.update(INSERT, wDTO.getCommentWriter(), wDTO.getRepoter(), wDTO.getCommentId());
 		if(result<=0) {
 			return false;
 		}

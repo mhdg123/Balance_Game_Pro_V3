@@ -11,7 +11,7 @@ function commentAll(questionId) {
 		},
 		dataType: 'json',
 		success: function(data) {
-
+			alert(data);
 			var elem = "";
 			$.each(data, function(index, data) {
 				
@@ -95,13 +95,15 @@ $.ajax({
 
 
 function commentWarning(commentId,commentWriter) {
-	console.log(loginId+" "+questionId+" "+commentId);
+	var loginId = $("#loginId").val();
+	alert(loginId)
 	$.ajax({
 		type: "POST",
-		url: "/user/CommentReportAsync",
+		url: "/user/commentReportAsync",
 		data: {
 			'commentId': commentId,
-			'commentWriter':commentWriter
+			'commentWriter':commentWriter,
+			repoter : loginId
 		},
 		dataType: 'text',
 		success: function(data) {

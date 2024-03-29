@@ -11,14 +11,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class WarningDTO {
-	 @NotNull
 	 private int warningId; // 신고 PK
-	 @NotNull
 	 private String repoter; // 신고한사람 
-	 @NotNull
 	 private String commentWriter; // 신고당한 ID FK
-	 @NotNull
 	 private int commentId; // 신고당한 댓글ID FK
-	 @NotNull
 	 private Date warningDate; // 댓글 신고시간
 }

@@ -19,6 +19,7 @@
 	<!-- 헤너 네비 바 -->
 
 	<main>
+	<input type="hidden" id="loginId" value="${loginId }">
 		<div class="slider-area">
 			<div class="slider-active">
 				<!-- Single Slider -->
