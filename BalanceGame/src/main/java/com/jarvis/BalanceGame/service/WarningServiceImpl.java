@@ -24,8 +24,7 @@ public class WarningServiceImpl implements WarningService{
 
 	@Override
 	public WarningDTO selectOne(WarningDTO wDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		return warningDAO.selectOne(wDTO);
 	}
 
 }
