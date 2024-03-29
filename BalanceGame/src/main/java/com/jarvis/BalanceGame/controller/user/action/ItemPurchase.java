@@ -63,8 +63,40 @@ public class ItemPurchase {
 
 		// 포인트 비교
 		if (mDTO.getCoin() >= iDTO.getItemPrice()) {
-
+			
 			// 막기
+			
+			// 만약 선택한 아이템이 광고 제거라면?
+			// 유저가 광고제거 아이템을 사용한적이 있는지 확인
+			// 있으면 구매가 안되게 만들어야함
+			
+			if(iDTO.getItemId() == 2) {
+				mDTO.setLoginId(loginId);
+				mDTO.setSearchCondition("viewOne");
+				mDTO = memberService.selectOne(mDTO);
+				
+				if(mDTO.getAdvertisementStatus()=="T") {
+					// 아이템 구매 가능한지 포인트 확인
+					// 포인트 있으면 바로 구매
+					// 구매후 바로 광고제거 해주기
+					mDTO.setAdvertisementStatus("F");
+//					mDTO.setSearchCondition("");<< 이걸 못함
+//					memberService.update(mDTO);
+					
+				}
+				else {
+					// 이미 적용이 되어있는지 확인(광고제거가
+					// 이미 광고제거가 되어있어 구매가 불가하다고 알려주기
+					model.addAttribute("status", "fail");
+					model.addAttribute("msg", "광고제거가 적용되어있습니다.");
+					model.addAttribute("redirect","/user/shopPage");
+					return "alert";
+				}
+				
+				
+				return "";
+			}
+			
 			
 			if (memberItemService.selectOne(miDTO) == null) {
 				miDTO.setMemberItemCount(1);
@@ -81,11 +113,7 @@ public class ItemPurchase {
 				mDTO = memberService.selectOne(mDTO);
 				session.setAttribute("coin", mDTO.getCoin());
 
-				// 성공!
-				model.addAttribute("status", "success");
-				model.addAttribute("msg", "구매가 완료되었습니다");
-				model.addAttribute("redirect", "/user/shopPage");
-				return "alert";
+				return "user/index";
 			}
 			miDTO.setSearchCondition("additionalPurchaseItem");
 			memberItemService.update(miDTO);
@@ -102,14 +130,11 @@ public class ItemPurchase {
 			mDTO = memberService.selectOne(mDTO);
 			session.setAttribute("coin", mDTO.getCoin());
 			// 성공!
-			model.addAttribute("status", "success");
-			model.addAttribute("msg", "구매가 완료되었습니다");
-			model.addAttribute("redirect", "/user/shopPage");
-			return "alert";
+			return "user/shop";
 		}
 		model.addAttribute("status", "fail");
 		model.addAttribute("msg", "포인트가 부족합니다");
-		model.addAttribute("redirect", "/user/shopPage");
+		model.addAttribute("redirect", "/");
 		return "alert";
 	}
 
