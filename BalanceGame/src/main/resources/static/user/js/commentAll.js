@@ -114,6 +114,12 @@ function commentWarning(commentId,commentWriter) {
 				text: "신고가 완료 되었습니다.",
 				icon: "success"
 			});
+			}else if(data == "fail") {
+				Swal.fire({
+				title: "신고",
+				text: "이미 신고 하였습니다",
+				icon: "success"
+			});
 			}
 		},
 		error: function(error) {
