@@ -177,7 +177,7 @@
 								</div>
 
 
-								<form action="/admin/adminAdvertisementCreate" method="post" enctype="multipart/form-data">
+								<form action="/admin/adminAdvertisementCreate" method="post" enctype="multipart/form-data" onsubmit="return advertisementCreateForm()">
 									<div class="card-body">
 										<div class="form-group">
 											<label for="exampleInputEmail1">광고 번호</label>
@@ -188,7 +188,7 @@
 											<label for="exampleInputEmail1">URL</label>
 											<input type="text" class="form-control" id="advertisementUrl" name="advertisementUrl" placeholder="광고 URL">
 										</div>
-										
+
 										<div class="form-group">
 											<label for="exampleInputFile">광고 이미지</label>
 											<div class="input-group">
@@ -276,15 +276,34 @@
 	<!-- 공백 폼 제출을 막아주는 js -->
 
 
-	
+
 
 	<script>
-	 function displayFileName() {
-	        var input = document.getElementById('file');
-	        var label = document.getElementById('fileNameLabel');
-	        var fileName = input.files[0].name;
-	        label.innerHTML = fileName;
-	    }
+		function displayFileName() {
+			var input = document.getElementById('file');
+			var label = document.getElementById('fileNameLabel');
+			var fileName = input.files[0].name;
+			label.innerHTML = fileName;
+		}
+
+		function advertisementCreateForm() {
+			var advertisementUrl = $("#advertisementUrl").val();
+			var file = $("#file").val();
+
+			// URL이 비어 있는지 확인
+			if (advertisementUrl.trim() === "") {
+				alert("URL을 입력해주세요.");
+				return false; // 폼 제출을 막기 위해 false를 반환합니다.
+			}
+
+			// 파일이 선택되었는지 확인
+			if (file.trim() === "") {
+				alert("파일을 선택해주세요.");
+				return false; // 폼 제출을 막기 위해 false를 반환합니다.
+			}
+
+			return true; // 모든 유효성 검사를 통과한 경우 폼을 제출할 수 있도록 true를 반환합니다.
+		}
 	</script>
 
 </body>
