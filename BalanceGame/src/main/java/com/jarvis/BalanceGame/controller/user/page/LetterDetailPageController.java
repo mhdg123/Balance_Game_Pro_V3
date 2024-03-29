@@ -21,6 +21,8 @@ public class LetterDetailPageController {
 		
 		
 		lDTO = letterService.selectOne(lDTO);
+		lDTO.setSearchCondition("updateReadStatus");
+		letterService.update(lDTO);
 		
 		model.addAttribute("letterData",lDTO);
 		
