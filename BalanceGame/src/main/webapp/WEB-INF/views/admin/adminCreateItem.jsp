@@ -135,7 +135,7 @@
 								<div class="card-header">
 									<h3 class="card-title">아이템 관리</h3>
 								</div>
-								<form action="/admin/adminItemCreate" method="post" enctype="multipart/form-data">
+								<form action="/admin/adminItemCreate" method="post" enctype="multipart/form-data" onsubmit="return pointCreateForm()">
 									<div class="card-body">
 										<div class="form-group">
 											<label for="exampleInputEmail1">아이템 번호</label>
@@ -161,12 +161,12 @@
 
 											</div>
 										</div>
-										<div class="custom-control custom-radio">
+										<!-- <div class="custom-control custom-radio d-none"> 필요시 살리기
 											<input class="custom-control-input" type="radio" id="customRadio2" name="itemType" value="item">
 											<label for="customRadio2" class="custom-control-label">아이템</label>
-										</div>
+										</div> -->
 										<div class="custom-control custom-radio">
-											<input class="custom-control-input" type="radio" id="customRadio1" name="itemType" value="point">
+											<input class="custom-control-input" type="radio" id="customRadio1" name="itemType" value="point" checked>
 											<label for="customRadio1" class="custom-control-label">포인트</label>
 										</div>
 									</div>
@@ -255,6 +255,33 @@
         var fileName = input.files[0].name;
         label.innerHTML = fileName;
     }
+	
+    function pointCreateForm() {
+        var itemName = $("#itemName").val();
+        var itemPrice = $("#itemPrice").val();
+        var file = $("#file").val();
+
+        // 아이템 명이 비어 있는지 확인
+        if (itemName.trim() === "") {
+            alert("아이템 명을 입력해주세요.");
+            return false; // 폼 제출을 막기 위해 false를 반환합니다.
+        }
+
+        // 가격이 비어 있는지 및 유효한지 확인
+        if (itemPrice.trim() === "" || isNaN(itemPrice) || parseInt(itemPrice) <= 0) {
+            alert("가격을 올바르게 입력해주세요.");
+            return false; // 폼 제출을 막기 위해 false를 반환합니다.
+        }
+
+        // 파일이 선택되었는지 확인
+        if (file.trim() === "") {
+            alert("파일을 선택해주세요.");
+            return false; // 폼 제출을 막기 위해 false를 반환합니다.
+        }
+
+        return true; // 모든 유효성 검사를 통과한 경우 폼을 제출할 수 있도록 true를 반환합니다.
+    }
+
 </script>
 
 </body>
