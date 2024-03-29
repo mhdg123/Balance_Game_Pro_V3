@@ -22,4 +22,10 @@ public class WarningServiceImpl implements WarningService{
 		return warningDAO.delete(wDTO);
 	}
 
+	@Override
+	public WarningDTO selectOne(WarningDTO wDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
