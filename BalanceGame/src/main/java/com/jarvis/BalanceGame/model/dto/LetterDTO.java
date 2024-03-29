@@ -23,6 +23,8 @@ public class LetterDTO {
 	  private String letterContents; // 쪽지내용
 	  @NotNull
 	  private String letterStatus; // 읽음 유무
+	
+	  private String letterType; // 신고인지 건의사항인지 
 	  @NotNull
 	  private Date letterDate; // 쪽지 보낸시간
 
