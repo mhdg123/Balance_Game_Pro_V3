@@ -1,6 +1,5 @@
 package com.jarvis.BalanceGame.controller.user.action;
 
-import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Base64.Encoder;
@@ -14,15 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.tags.form.AbstractFormTag;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.Gson;
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
 import com.jarvis.BalanceGame.service.MemberService;
 
 import jakarta.servlet.http.HttpSession;
-import retrofit2.http.POST;
 
 @Controller
 @RequestMapping("/user")
@@ -106,6 +102,7 @@ public class KaKaoLoginController {
 		// 회원 조회해서 회원이면 데이터 설정
 		if (memberData == null) { // 카카오로 로그인시 조회된 데이터가 없으면 카카오데이터 파싱한 데이터로 데이터 넘겨주기
 			System.out.println("회원가입");
+			System.out.println("회원가입 시 저장될 데이터 : " + mDTO);
 			mDTO.setSearchCondition("join");
 			return gson.toJson(mDTO);
 			// 비회원이면

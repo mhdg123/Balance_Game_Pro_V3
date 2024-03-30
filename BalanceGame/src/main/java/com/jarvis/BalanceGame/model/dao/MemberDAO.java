@@ -73,7 +73,7 @@ public class MemberDAO {
 	
 	
 	// 회원가입 SQL
-	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE) VALUES(?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE, LOGIN_TYPE) VALUES(?,?,?,?,?,?,?,?,?,?)";
 	
 	// 내정보 변경하기 SQL
 	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
@@ -228,7 +228,7 @@ public class MemberDAO {
 		System.out.println(mDTO);
 		int result = jdbcTemplate.update(INSERT, mDTO.getLoginId(), mDTO.getMemberPassword(), mDTO.getName(),
 				mDTO.getNickName(), mDTO.getEmail(), mDTO.getAddress(), mDTO.getGender(), mDTO.getCellPhone(),
-				mDTO.getAge());
+				mDTO.getAge(), mDTO.getLoginType());
 		if (result <= 0) {
 			return false;
 		}

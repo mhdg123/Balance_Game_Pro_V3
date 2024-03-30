@@ -36,7 +36,7 @@
 							<div style="width: 50%; margin: 0 auto">
 								<h2>회원가입</h2>
 								<form class="row contact_form" action="/user/join" method="POST" onsubmit="return joinFormAction();" name="joinForm">
-
+									<input type="hidden" name="loginType" value="ORIGINAL">
 									<input id="role" type="hidden" name="role" value="USER">
 									<input id="advertisementStatus" type="hidden" name="advertisementStatus" value="T">
 									<!----------------------------------------이름 입력창---------------------------------------->
@@ -156,6 +156,7 @@
 							<div style="width: 50%; margin: 0 auto">
 								<h2>카카오 회원가입</h2>
 								<form class="row contact_form" action="/user/join" method="POST" onsubmit="return socialFormAction();" name="joinForm">
+									<input type="hidden" name="loginType" value="SOCIAL">
 									<input type="hidden" name="memberPassword" value="${memberData.memberPassword }">
 									<input id="role" type="hidden" name="role" value="USER">
 									<input id="advertisementStatus" type="hidden" name="advertisementStatus" value="T">
