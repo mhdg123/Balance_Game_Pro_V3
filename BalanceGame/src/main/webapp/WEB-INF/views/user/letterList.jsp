@@ -265,17 +265,10 @@ function letterUnRead(){
 function letterRead(){
 	console.log("읽음 처리");
 	
-	// 체크된 편지 ID를 담을 배열
-    var checkedLetters = [];
-    
-    // 체크된 편지의 ID를 배열에 추가
-    var letterCheckboxes = document.getElementsByName("lettercheck");
-    for (var i = 0; i < letterCheckboxes.length; i++) {
-        if (letterCheckboxes[i].checked) {
-            checkedLetters.push(letterCheckboxes[i].id);
-        }
-    }
+	var checkedLetters =letterArr();
 	console.log("체크 된거 : "+checkedLetters);
+	
+	
 	$.ajax({
 		type: "POST",
 		url: "/user/letterCheckRead",
