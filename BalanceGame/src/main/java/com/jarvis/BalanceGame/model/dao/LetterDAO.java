@@ -50,47 +50,11 @@ public class LetterDAO {
 	// 메세지 읽음 유무
 	private static final String UPDATE = "UPDATE LETTER SET LETTER_STATUS = CASE WHEN LETTER_STATUS = 'F' THEN 'T' ELSE 'F' END WHERE LETTER_ID = ?";
 
-	// 메세지 전부 읽음
-	private static final String UPDATE_ALL_READ = "UPDATE LETTER SET LETTER_STATUS = 'T' WHERE LOGIN_ID = ?";
+	// 메세지 읽음 처리
+	private static final String UPDATE_ALL_READ = "UPDATE LETTER SET LETTER_STATUS = 'T' WHERE LETTER_ID = ?";
 	
-	// 메세지 전부 안읽음
-	private static final String UPDATE_ALL_UNREAD = "UPDATE LETTER SET LETTER_STATUS = 'F' WHERE LOGIN_ID = ?";
-	
-	// 메세지 전부 읽음(관리자 - 건의사항)
-	private static final String UPDATE_ALL_READ_SUGGESTION_ADMIN = "UPDATE LETTER \r\n"
-			+ "SET LETTER_STATUS = 'F' \r\n"
-			+ "WHERE LOGIN_ID IN (\r\n"
-			+ "    SELECT ROLE \r\n"
-			+ "    FROM MEMBER \r\n"
-			+ "    WHERE LOGIN_ID = '?') \r\n"
-			+ "AND LETTER_TYPE = 'SUGGESTION'";
-	
-	// 메세지 전부 읽음(관리자 - 건의사항)
-	private static final String UPDATE_ALL_UNREAD_SUGGESTION_ADMIN = "UPDATE LETTER \r\n"
-			+ "SET LETTER_STATUS = 'T' \r\n"
-			+ "WHERE LOGIN_ID IN (\r\n"
-			+ "    SELECT ROLE \r\n"
-			+ "    FROM MEMBER \r\n"
-			+ "    WHERE LOGIN_ID = '?') \r\n"
-			+ "AND LETTER_TYPE = 'SUGGESTION'";
-	
-	// 메세지 전부 읽음(관리자 - 건의사항)
-	private static final String UPDATE_ALL_READ_REPORT_ADMIN = "UPDATE LETTER \r\n"
-			+ "SET LETTER_STATUS = 'F' \r\n"
-			+ "WHERE LOGIN_ID IN (\r\n"
-			+ "    SELECT ROLE \r\n"
-			+ "    FROM MEMBER \r\n"
-			+ "    WHERE LOGIN_ID = '?') \r\n"
-			+ "AND LETTER_TYPE = 'REPORT'";
-	
-	// 메세지 전부 읽음(관리자 - 건의사항)
-	private static final String UPDATE_ALL_UNREAD_REPORT_ADMIN = "UPDATE LETTER \r\n"
-			+ "SET LETTER_STATUS = 'T' \r\n"
-			+ "WHERE LOGIN_ID IN (\r\n"
-			+ "    SELECT ROLE \r\n"
-			+ "    FROM MEMBER \r\n"
-			+ "    WHERE LOGIN_ID = '?') \r\n"
-			+ "AND LETTER_TYPE = 'REPORT'";
+	// 메세지 안읽음 처리 
+	private static final String UPDATE_ALL_UNREAD = "UPDATE LETTER SET LETTER_STATUS = 'F' WHERE LETTER_ID =?";
 	
 	// 메세지 삭제
 	private static final String DELETE = "DELETE FROM LETTER WHERE LETTER_ID = ?";
