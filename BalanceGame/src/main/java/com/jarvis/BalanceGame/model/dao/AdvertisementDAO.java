@@ -19,7 +19,7 @@ public class AdvertisementDAO {
 	
 	private static final String SELECTALL = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT "
 			+ "ORDER BY ADVERTISEMENT_ID DESC";
-	private static final String SELECTONE_RANDOM = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE FROM ADVERTISEMENT ORDER BY RAND() LIMIT 1";
+	private static final String SELECTONE_RANDOM = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT ORDER BY RAND() LIMIT 1";
 	private static final String SELECTONE_DETAIL = "SELECT ADVERTISEMENT_ID, ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE, ADVERTISEMENT_STATUS FROM ADVERTISEMENT WHERE ADVERTISEMENT_ID = ?";
 	private static final String SELECTONE_NEXT_ID = "SELECT MAX(ADVERTISEMENT_ID)+1 AS NEXT_AD_ID FROM ADVERTISEMENT";
 	private static final String INSERT = "INSERT INTO ADVERTISEMENT (ADVERTISEMENT_URL, ADVERTISEMENT_IMAGE) VALUES (?, ?)";
@@ -38,7 +38,7 @@ public class AdvertisementDAO {
 		try {
 			if(adDTO.getSearchCondition().equals("adRandomChoice")) {
 				Object[] args = {};
-				ad = jdbcTemplate.queryForObject(SELECTONE_RANDOM, args, new AdvertisementRowMapperRandomChoice());
+				ad = jdbcTemplate.queryForObject(SELECTONE_RANDOM, args, new AdvertisementRowMapper());
 			}
 			else if(adDTO.getSearchCondition().equals("adViewOne")) {
 				Object[] args = {adDTO.getAdvertisementId()};
@@ -93,18 +93,6 @@ class AdvertisementRowMapper implements RowMapper<AdvertisementDTO>{
 		ad.setAdvertisementUrl(rs.getString("ADVERTISEMENT_URL"));
 		ad.setAdvertisementImg(rs.getString("ADVERTISEMENT_IMAGE"));
 		ad.setAdvertisementStatus(rs.getString("ADVERTISEMENT_STATUS"));
-		return ad;
-	}
-}
-
-class AdvertisementRowMapperRandomChoice implements RowMapper<AdvertisementDTO>{
-
-	@Override
-	public AdvertisementDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		AdvertisementDTO ad = new AdvertisementDTO();
-		ad.setAdvertisementId(rs.getInt("ADVERTISEMENT_ID"));
-		ad.setAdvertisementUrl(rs.getString("ADVERTISEMENT_URL"));
-		ad.setAdvertisementImg(rs.getString("ADVERTISEMENT_IMAGE"));
 		return ad;
 	}
 }
