@@ -79,7 +79,7 @@
 										id="cellPhone" name="cellPhone"
 										value="${memberData.cellPhone}"
 										${memberData.loginType == 'SOCIAL' ? 'disabled' : ''} />
-									<button class="genric-btn primary radius change-ck-button"
+									<button type="button" class="genric-btn primary radius change-ck-button"
 										${memberData.loginType == 'SOCIAL' ? 'style="display:none;"' : ''}>문자발송</button>
 								</div>
 
@@ -95,7 +95,7 @@
 										class="form-control ${memberData.loginType != 'SOCIAL' ? 'input-field' : ''}"
 										id="email" name="email" value="${memberData.email}"
 										${memberData.loginType == 'SOCIAL' ? 'disabled' : ''} />
-									<button class="genric-btn primary radius change-ck-button"
+									<button type="button" class="genric-btn primary radius change-ck-button"
 										${memberData.loginType == 'SOCIAL' ? 'style="display:none;"' : ''}>이메일
 										인증</button>
 								</div>
