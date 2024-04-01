@@ -40,7 +40,7 @@
 						<div style="width: 50%; margin: 0 auto;">
 							<h2>변경</h2>
 							<form class="row contact_form" action="/user/myInfoChangePage"
-								method="post" novalidate="novalidate">
+								method="post" name="joinForm" novalidate="novalidate">
 								<!----------------------------------------이름 입력창---------------------------------------->
 								<div>&nbsp&nbsp&nbsp&nbsp이름</div>
 								<div class="col-md-12 form-group p_star">
@@ -114,7 +114,7 @@
 								<div class="col-md-12 form-group p_star input-button-container">
 									<input type="text" class="form-control input-field"
 										id="address" name="address" value="${memberData.address}" />
-									<button class="genric-btn primary radius change-ck-button">주소찾기</button>
+									<button type="button" class="genric-btn primary radius change-ck-button" onClick="addressSearch();">주소찾기</button>
 								</div>
 
 								<!----------------------------------------주소 입력---------------------------------------->
@@ -154,5 +154,7 @@
             genderElement.value = '여';
         }
     </script>
+    	<!-- 회원가입 -->
+    <script src="/resources/user/js/join.js"></script>
 </body>
 </html>
