@@ -44,20 +44,6 @@ cursor: pointer;
 			<div class="container">
 				<div class="cart_inner">
 
-					<!-- <div class="table-responsive">
-						<div class="d-flex align-items-center justify-content-between">
-							내 찜보기 필터 토글 버튼
-							<a href="/user/makeQuestionPage" class="genric-btn info radius"
-								style="margin-right: 12px;">건의하기</a>
-							<div class="switch-wrap d-flex align-items-center">
-								<p style="margin-right: 6px; margin-bottom: 0;">읽지 않은 메일</p>
-								<div class="primary-switch">
-									<input type="checkbox" id="default-switch" /> <label
-										for="default-switch"></label>
-								</div>
-							</div>
-						</div>
-					</div> -->
 
 					<!-- 내 찜보기 필터 토글 버튼 -->
 
@@ -387,7 +373,29 @@ function letterArr(){
 }
 
 </script>
-	
+
+
+	<script>
+	//안읽은 목록
+    // 체크박스 요소 가져오기
+    var checkbox = document.getElementById('default-switch');
+
+    // 체크박스에 이벤트 리스너 추가하기
+    checkbox.addEventListener('change', function() {
+        // 체크박스가 선택되었는지 확인하기
+        if (this.checked) {
+            // 선택되었을 경우, 어떤 동작 수행 (예: 메시지 표시)
+            alert('체크박스가 선택되었습니다!');
+            // 여기에 추가적인 동작이나 함수 호출할 수 있습니다
+        } else {
+            // 선택이 해제되었을 경우, 다른 동작 수행
+            alert('체크박스가 해제되었습니다!');
+            // 여기에 추가적인 동작이나 함수 호출할 수 있습니다
+        }
+    });
+</script>
+
+
 </body>
 
 </html>
