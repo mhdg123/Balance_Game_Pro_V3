@@ -79,8 +79,18 @@
 										id="cellPhone" name="cellPhone"
 										value="${memberData.cellPhone}"
 										${memberData.loginType == 'SOCIAL' ? 'disabled' : ''} />
-									<button type="button" class="genric-btn primary radius change-ck-button"
-										${memberData.loginType == 'SOCIAL' ? 'style="display:none;"' : ''}>문자발송</button>
+									<button type="button" class="genric-btn primary radius change-ck-button" onclick="sendAuthNum()"
+										${memberData.loginType == 'SOCIAL' ? 'style="display:none;"' : ''}>인증번호 발송</button>
+								</div>
+								
+								<!-- 인증하기 -->
+								
+								<div class="col-md-12 form-group1 p_star input-button-container">
+									<input type="text"
+										class="form-control input-field"
+										id="certification" name="certification"
+										placeholder="인증번호 입력" />
+									<button type="button" onclick="authNumCheck()" class="genric-btn primary radius change-ck-button">인증번호 확인</button>
 								</div>
 
 								<!----------------------------------------폰번호 입력창---------------------------------------->
