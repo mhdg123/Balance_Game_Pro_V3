@@ -40,11 +40,19 @@ public class LetterStatusCheck {
             letterService.update(lDTO);
             
         }
-        
         // Gson을 사용하여 결과 데이터를 다시 로드해야 함
         // 결과 데이터를 함께 반환해야 함
         String jsonResult = gson.toJson("success"); // 결과값을 JSON 형태로 변환
         return jsonResult;
+    }
+    
+    @PostMapping("letterCheckSelectAll")
+    public @ResponseBody String letterCheckSelectAll (LetterDTO lDTO, HttpSession session) {
+    	String loginId = (String)session.getAttribute("loginId");
+    	lDTO.setLoginId(loginId);
+    	lDTO.setSearchCondition("viewAllMessage");
+    	letterService.selectAll(lDTO);
+    	return "success";
     }
     
     @PostMapping("/letterCheckRead")
@@ -65,7 +73,7 @@ public class LetterStatusCheck {
             lDTO.setLetterId(letterDatas);
             lDTO.setSearchCondition("updateAllRead");
             System.out.println("체크된 pk 확인 : "+pk);
-//            letterService.update(lDTO);
+            letterService.update(lDTO);
         }
         
         // Gson을 사용하여 결과 데이터를 다시 로드해야 함
