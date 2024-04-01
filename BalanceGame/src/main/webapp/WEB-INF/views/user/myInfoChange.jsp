@@ -7,7 +7,10 @@
 <%@ include file="../layout/header-fix.jsp"%>
 <title>Watch shop | eCommers</title>
 <!-- css -->
-
+<!-- SweetAlert2 CSS -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"> -->
+<!-- SweetAlert2 JS -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
 </head>
 
 <body>
@@ -63,7 +66,9 @@
 									<input type="text" class="form-control input-field"
 										id="nikeName" name="nikeName" value="${memberData.nickName}"
 										disabled />
-									<button class="genric-btn primary radius change-ck-button">쿠폰사용</button>
+									<button type="button"
+										class="genric-btn primary radius change-ck-button"
+										id="couponButton">쿠폰사용</button>
 								</div>
 								<!----------------------------------------닉네임 입력창---------------------------------------->
 								<!----------------------------------------폰번호 입력창---------------------------------------->
@@ -114,7 +119,9 @@
 								<div class="col-md-12 form-group p_star input-button-container">
 									<input type="text" class="form-control input-field"
 										id="address" name="address" value="${memberData.address}" />
-									<button type="button" class="genric-btn primary radius change-ck-button" onClick="addressSearch();">주소찾기</button>
+									<button type="button"
+										class="genric-btn primary radius change-ck-button"
+										onClick="addressSearch();">주소찾기</button>
 								</div>
 
 								<!----------------------------------------주소 입력---------------------------------------->
@@ -146,15 +153,57 @@
 	<%@ include file="../layout/footer-fix.jsp"%>
 	<!-- 푸터 고정 스크립트 공통 모음 -->
 
- <script>
-        var genderElement = document.getElementById('gender');
-        if (genderElement.value === 'M') {
-            genderElement.value = '남';
-        } else if (genderElement.value === 'F') {
-            genderElement.value = '여';
-        }
-    </script>
-    	<!-- 회원가입 -->
-    <script src="/resources/user/js/join.js"></script>
+	<script>
+		var genderElement = document.getElementById('gender');
+		if (genderElement.value === 'M') {
+			genderElement.value = '남';
+		} else if (genderElement.value === 'F') {
+			genderElement.value = '여';
+		}
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#couponButton').click(function() {
+				console.log("닉네임 변경 시도");
+				$.ajax({
+					type : "POST",
+					url : "/user/nameChangeCouponAsync",
+					data : {
+						'itemId':1
+					},
+					dataType : 'text',
+					success : function(data) {
+						if(data=='success'){
+							
+							Swal.fire({
+		                        icon: 'success',
+		                        title: '닉네임 변경이 가능합니다',
+		                        showConfirmButton: true // 확인 버튼을 보여줍니다.
+		                    });
+						$('#nikeName').prop('disabled', false); // 닉네임 입력 필드를 활성화합니다.
+						}
+						else {
+							
+							// 스위트 알림으로 '쿠폰이 없습니다' 메시지를 표시합니다.
+							Swal.fire({
+		                        icon: 'error',
+		                        title: '쿠폰이 없습니다',
+		                        showConfirmButton: true // 확인 버튼을 보여줍니다.
+		                    });
+						}
+					},
+					error : function(error) {
+						console.log('에러발생');
+						console.log('에러의 종류:' + error);
+					}
+				});
+			});
+		});
+	</script>
+
+
+
+	<!-- 회원가입 -->
+	<script src="/resources/user/js/join.js"></script>
 </body>
 </html>
