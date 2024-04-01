@@ -39,8 +39,8 @@
 					<div class="row">
 						<div style="width: 50%; margin: 0 auto;">
 							<h2>변경</h2>
-							<form class="row contact_form" action="#" method="post"
-								novalidate="novalidate">
+							<form class="row contact_form" action="/user/myInfoChangePage"
+								method="post" novalidate="novalidate">
 								<!----------------------------------------이름 입력창---------------------------------------->
 								<div>&nbsp&nbsp&nbsp&nbsp이름</div>
 								<div class="col-md-12 form-group p_star">
@@ -56,22 +56,28 @@
 										name="loginId" value="${memberData.loginId}" disabled />
 								</div>
 								<!----------------------------------------아이디 입력창---------------------------------------->
-								<!----------------------------------------비밀번호 입력창---------------------------------------->
+								<!----------------------------------------닉네임 입력창---------------------------------------->
 								<div>&nbsp&nbsp&nbsp&nbsp닉네임</div>
 								<!-- 버튼옆으로 -->
 								<div class="col-md-12 form-group p_star input-button-container">
 									<input type="text" class="form-control input-field"
-										id="nikeName" name="nikeName" value="${memberData.nickName}" />
-									<button class="genric-btn primary radius change-ck-button">변경</button>
+										id="nikeName" name="nikeName" value="${memberData.nickName}"
+										disabled />
+									<button class="genric-btn primary radius change-ck-button">쿠폰사용</button>
 								</div>
-								<!----------------------------------------비밀번호 입력창---------------------------------------->
+								<!----------------------------------------닉네임 입력창---------------------------------------->
 								<!----------------------------------------폰번호 입력창---------------------------------------->
 								<div>&nbsp&nbsp&nbsp&nbsp휴대폰 번호</div>
 								<div class="col-md-12 form-group1 p_star input-button-container">
-									<input type="tel" class="form-control input-field" id="cellPhone"
-										name="cellPhone" value="${memberData.cellPhone}" />
-									<button class="genric-btn primary radius change-ck-button">문자발송</button>
+									<input type="tel"
+										class="form-control ${memberData.loginType != 'SOCIAL' ? 'input-field' : ''}"
+										id="cellPhone" name="cellPhone"
+										value="${memberData.cellPhone}"
+										${memberData.loginType == 'SOCIAL' ? 'disabled' : ''} />
+									<button class="genric-btn primary radius change-ck-button"
+										${memberData.loginType == 'SOCIAL' ? 'style="display:none;"' : ''}>문자발송</button>
 								</div>
+
 								<!----------------------------------------폰번호 입력창---------------------------------------->
 
 								<!----------------------------------------이메일 입력창---------------------------------------->
@@ -80,9 +86,12 @@
 									<br> &nbsp&nbsp&nbsp&nbsp이메일
 								</div>
 								<div class="col-md-12 form-group p_star input-button-container">
-									<input type="email" class="form-control input-field"
-										id="email" name="email" value="${memberData.email}" />
-									<button class="genric-btn primary radius change-ck-button">이메일
+									<input type="email"
+										class="form-control ${memberData.loginType != 'SOCIAL' ? 'input-field' : ''}"
+										id="email" name="email" value="${memberData.email}"
+										${memberData.loginType == 'SOCIAL' ? 'disabled' : ''} />
+									<button class="genric-btn primary radius change-ck-button"
+										${memberData.loginType == 'SOCIAL' ? 'style="display:none;"' : ''}>이메일
 										인증</button>
 								</div>
 								<!----------------------------------------이메일 입력창---------------------------------------->
@@ -137,5 +146,13 @@
 	<%@ include file="../layout/footer-fix.jsp"%>
 	<!-- 푸터 고정 스크립트 공통 모음 -->
 
+ <script>
+        var genderElement = document.getElementById('gender');
+        if (genderElement.value === 'M') {
+            genderElement.value = '남';
+        } else if (genderElement.value === 'F') {
+            genderElement.value = '여';
+        }
+    </script>
 </body>
 </html>
