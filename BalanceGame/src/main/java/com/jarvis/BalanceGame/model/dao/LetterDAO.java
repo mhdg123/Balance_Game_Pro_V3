@@ -113,18 +113,6 @@ public class LetterDAO {
 		else if(lDTO.getSearchCondition().equals("updateAllUnRead")) {
 			result = jdbcTemplate.update(UPDATE_ALL_UNREAD, lDTO.getLoginId());
 		}
-		else if(lDTO.getSearchCondition().equals("updateAllReadSuggestion")) {
-			result = jdbcTemplate.update(UPDATE_ALL_READ_SUGGESTION_ADMIN, lDTO.getLoginId());
-		}
-		else if(lDTO.getSearchCondition().equals("updateAllUnReadSuggestion")) {
-			result = jdbcTemplate.update(UPDATE_ALL_UNREAD_SUGGESTION_ADMIN, lDTO.getLoginId());
-		}
-		else if(lDTO.getSearchCondition().equals("updateAllReadReport")) {
-			result = jdbcTemplate.update(UPDATE_ALL_READ_REPORT_ADMIN, lDTO.getLoginId());
-		}
-		else if(lDTO.getSearchCondition().equals("updateAllUnReadReport")) {
-			result = jdbcTemplate.update(UPDATE_ALL_UNREAD_REPORT_ADMIN, lDTO.getLoginId());
-		}
 		
 		if (result <= 0) {
 			return false;
