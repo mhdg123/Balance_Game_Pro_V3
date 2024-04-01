@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>
@@ -19,15 +18,14 @@
 	<!-- 헤너 네비 바 -->
 
 	<main>
-	<input type="hidden" id="loginId" value="${loginId }">
+		<input type="hidden" id="loginId" value="${loginId }">
 		<div class="slider-area">
 			<div class="slider-active">
 				<!-- Single Slider -->
 				<div class="single-slider align-items-center slide-bg">
 					<div class="container">
 
-						<div id="play"
-							style="text-align: center; padding-top: 10vh; padding-bottom: 10vh;">
+						<div id="play" style="text-align: center; padding-top: 10vh; padding-bottom: 10vh;">
 							<div>
 								<div class="hero__caption">
 									<!-- 메인페이지 헤드라인 -->
@@ -40,22 +38,16 @@
 									<div class="button-container">
 										<br /> <br />
 
-										<button id="answer_A"
-											class="genric-btn primary-border radius e-large game-button answer"
-											type="button" value="A">
+										<button id="answer_A" class="genric-btn primary-border radius e-large game-button answer" type="button" value="A">
 											<c:if test="${not empty questionData.answerAImg }">
-												<img style="width: 100%; max-width: 200px; height: 200px"
-													src="/resources/upload/${questionData.answerAImg }" />
+												<img style="width: 100%; max-width: 200px; height: 200px" src="/resources/upload/${questionData.answerAImg }" />
 											</c:if>
 											${questionData.answerA}
 										</button>
 
-										<button id="answer_B"
-											class="genric-btn primary-border radius e-large game-button answer"
-											type="button" value="B">
+										<button id="answer_B" class="genric-btn primary-border radius e-large game-button answer" type="button" value="B">
 											<c:if test="${not empty questionData.answerBImg }">
-												<img style="width: 100%; max-width: 200px; height: 200px"
-													src="/resources/upload/${questionData.answerBImg }" />
+												<img style="width: 100%; max-width: 200px; height: 200px" src="/resources/upload/${questionData.answerBImg }" />
 											</c:if>${questionData.answerB}</button>
 
 									</div>
@@ -65,23 +57,24 @@
 
 						<div class="container">
 							<c:if test="${questionData.wishId <= 0}">
-								<h2 style="color: #ff2020;" class="fa ti-heart wish"
-									id="${questionData.questionId}"></h2>
+								<h2 style="color: #ff2020;" class="fa ti-heart wish" id="${questionData.questionId}"></h2>
 								<!-- ti-heart 빈 하트 -->
 							</c:if>
 							<c:if test="${questionData.wishId > 0}">
-								<h2 style="color: #ff2020;" class="fa fa-heart wish"
-									id="${questionData.questionId}"></h2>
+								<h2 style="color: #ff2020;" class="fa fa-heart wish" id="${questionData.questionId}"></h2>
 								<!-- fa-heart 꽉 찬 하트 -->
 							</c:if>
 
-							<button class="genric-btn default f-right large click"
-								style="font-size: 30px;" id="next">Next ></button>
+							<button class="genric-btn default f-right large click" style="font-size: 30px;" id="next">Next ></button>
 						</div>
+
 					</div>
+
 				</div>
 				<!-- Single Slider -->
 			</div>
+			<!-- 광고 이미지 -->
+			<%@ include file="../layout/advertisement.jsp"%>
 		</div>
 
 		<!-- Comments -->
@@ -90,12 +83,10 @@
 				<!-- 댓글 입력 Start -->
 				<div class="col-12">
 					<div class="form-group" id="comment-insert-box">
-						<textarea class="form-control w-100" name="comment" id="comment"
-							cols="30" rows="3" placeholder="댓글을 입력하세요"></textarea>
+						<textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="3" placeholder="댓글을 입력하세요"></textarea>
 					</div>
 					<div class="form-group f-right">
-						<button type="submit" id="write"
-							class="genric-btn info-border radius large">댓글 입력</button>
+						<button type="submit" id="write" class="genric-btn info-border radius large">댓글 입력</button>
 					</div>
 				</div>
 
@@ -113,14 +104,11 @@
 
 				<nav class="blog-pagination justify-content-center d-flex">
 					<ul class="pagination">
-						<li class="page-item"><a href="#" class="page-link"
-							aria-label="Previous"> <i class="ti-angle-left"></i>
+						<li class="page-item"><a href="#" class="page-link" aria-label="Previous"> <i class="ti-angle-left"></i>
 						</a></li>
 						<li class="page-item"><a href="#" class="page-link">1</a></li>
-						<li class="page-item active"><a href="#" class="page-link">2</a>
-						</li>
-						<li class="page-item"><a href="#" class="page-link"
-							aria-label="Next"> <i class="ti-angle-right"></i>
+						<li class="page-item active"><a href="#" class="page-link">2</a></li>
+						<li class="page-item"><a href="#" class="page-link" aria-label="Next"> <i class="ti-angle-right"></i>
 						</a></li>
 					</ul>
 				</nav>

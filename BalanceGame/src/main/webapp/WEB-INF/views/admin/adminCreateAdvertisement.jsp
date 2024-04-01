@@ -194,7 +194,7 @@
 											<div class="input-group">
 												<div class="custom-file">
 													<input type="file" class="custom-file-input" id="file" name="file" onchange="displayFileName()">
-													<label class="custom-file-label" for="exampleInputFile">파일 선택</label>
+													<label class="custom-file-label" for="exampleInputFile" id="fileNameLabel">파일 선택</label>
 												</div>
 
 											</div>

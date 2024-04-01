@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jarvis.BalanceGame.model.dto.AdvertisementDTO;
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
+import com.jarvis.BalanceGame.service.AdvertisementService;
 import com.jarvis.BalanceGame.service.QuestionService;
 
 import jakarta.servlet.http.HttpSession;
@@ -21,8 +23,14 @@ public class GamePageController {
 	@Autowired
 	private QuestionService questionService;
 	
+	@Autowired
+	private AdvertisementService advertisementService;
+	
 	@GetMapping("/gamePage")
-	public String gamePageController(QuestionDTO qDTO, Model model, HttpSession session) {
+	public String gamePageController(QuestionDTO qDTO, Model model, HttpSession session, AdvertisementDTO aDTO) {
+		aDTO.setSearchCondition("adRandomChoice");
+		AdvertisementDTO adData = advertisementService.selectOne(aDTO);
+		System.out.println("게임 페이지 광고 데이터 : " + adData );
 		
 		List<Integer> list; // 지금까지 풀었던 리스트 
 		System.out.println("컨트롤 리스트"+session.getAttribute("qList"));
@@ -62,6 +70,8 @@ public class GamePageController {
 			list.add(qDTO.getQuestionId()); // 이미 푼 문제 pk를 리스트에 올림 
 			session.setAttribute("qList", list); // 새로운 리스트니까 세션에 다시 저장 
 			model.addAttribute("questionData", qDTO); // 뷰한테 주는 것 
+			model.addAttribute("advertisementData", adData); // 뷰한테 주는 것 
+			
 			return "user/game";
 			}
 			else {

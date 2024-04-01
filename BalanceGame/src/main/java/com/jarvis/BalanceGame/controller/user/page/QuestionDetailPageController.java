@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jarvis.BalanceGame.model.dto.AdvertisementDTO;
 import com.jarvis.BalanceGame.model.dto.CommentDTO;
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
+import com.jarvis.BalanceGame.service.AdvertisementService;
 import com.jarvis.BalanceGame.service.CommentService;
 import com.jarvis.BalanceGame.service.QuestionService;
 
@@ -20,12 +22,19 @@ import jakarta.servlet.http.HttpSession;
 public class QuestionDetailPageController {
 
 	@Autowired
+	private AdvertisementService advertisementService;
+	
+	@Autowired
 	private QuestionService questionService;
 	@Autowired
 	private CommentService commentService;
 	
 	@GetMapping("/questionDetailPage")
-	public String titleDetailPageController(QuestionDTO qDTO, CommentDTO cDTO, Model model, HttpSession session) {
+	public String titleDetailPageController(QuestionDTO qDTO, CommentDTO cDTO, Model model, HttpSession session, AdvertisementDTO aDTO) {
+		
+		aDTO.setSearchCondition("adRandomChoice");
+		AdvertisementDTO adData = advertisementService.selectOne(aDTO);
+		System.out.println("게임 페이지 광고 데이터 : " + adData );
 		
 		String loginId = (String) session.getAttribute("loginId");
 		qDTO.setWriter(loginId);
@@ -45,6 +54,7 @@ public class QuestionDetailPageController {
 			model.addAttribute("commentDatas", commentDatas);
 			System.out.println("체크 2"+commentDatas);
 		}
+		model.addAttribute("advertisementData",adData); // 광고 데이터
 		return "user/questionDetail";
 	}
 }

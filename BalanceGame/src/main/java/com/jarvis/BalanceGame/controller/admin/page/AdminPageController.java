@@ -57,7 +57,7 @@ public class AdminPageController {
 		String loginId = (String)session.getAttribute("loginId");
 		
 		lDTO.setLoginId(loginId);
-		lDTO.setSearchCondition("unReadMessage");
+		lDTO.setSearchCondition("viewAllMessageAdmin");
 		List<LetterDTO> lDatas = letterService.selectAll(lDTO);
 		System.out.println(lDatas);
 		if (lDatas.size() <= 0) {

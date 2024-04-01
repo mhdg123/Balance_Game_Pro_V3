@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -7,7 +6,7 @@
 <%@ include file="../layout/header-fix.jsp"%>
 <title>Watch shop | eCommers</title>
 <!-- css -->
-    <script>
+<script>
         var loginId = "${loginId}";
         var questionId="${questionData.questionId}";
     </script>
@@ -40,11 +39,9 @@
 				<!-- 결과 -->
 				<div style="height: 80px; margin-top: 40px">
 					<!-- 필터 -->
-					<div
-						style="display: flex; justify-content: space-between; align-items: center;">
+					<div style="display: flex; justify-content: space-between; align-items: center;">
 						<a href="/user/questionListPage"><p>< 문제목록</p></a>
-						<div class="row f-right"
-							style="display: flex; align-items: center; gap: 10px;">
+						<div class="row f-right" style="display: flex; align-items: center; gap: 10px;">
 							<div>필터</div>
 							<div class="default-select col-md-3" id="default-select">
 								<select>
@@ -62,18 +59,14 @@
 					<c:if test="${questionData.wishId > 0}">
 						<div style="margin-bottom: 5px;" class="f-right">
 							<div style="cursor: pointer;">
-								<img src="/resources/assets/img/thumb/fill-hearts.png"
-									height="20px;" width="20px;" style="margin-right: 15px;"
-									class="wish" id="${questionData.questionId}">
+								<img src="/resources/assets/img/thumb/fill-hearts.png" height="20px;" width="20px;" style="margin-right: 15px;" class="wish" id="${questionData.questionId}">
 							</div>
 						</div>
 					</c:if>
 					<c:if test="${questionData.wishId <= 0}">
 						<div style="margin-bottom: 5px;" class="f-right">
 							<div style="cursor: pointer;">
-								<img src="/resources/assets/img/thumb/empty-hearts.png"
-									height="20px;" width="20px;" style="margin-right: 15px;"
-									class="wish" id="${questionData.questionId}">
+								<img src="/resources/assets/img/thumb/empty-hearts.png" height="20px;" width="20px;" style="margin-right: 15px;" class="wish" id="${questionData.questionId}">
 							</div>
 						</div>
 					</c:if>
@@ -84,12 +77,9 @@
 							<!-- 답변A -->
 							<div>
 								<div class="serial">${questionData.answerA}</div>
-								<div class="percentage"
-									style="width: 80%; display: inline-block">
+								<div class="percentage" style="width: 80%; display: inline-block">
 									<div class="progress">
-										<div class="progress-bar color-1" id="answer_A"
-											role="progressbar" style="width: 0%" aria-valuenow="80"
-											aria-valuemin="0" aria-valuemax="100"></div>
+										<div class="progress-bar color-1" id="answer_A" role="progressbar" style="width: 0%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
 									</div>
 								</div>
 								<div id="answer_A_percent" style="display: inline-block">0%</div>
@@ -100,12 +90,9 @@
 							<!-- 답변B -->
 							<div>
 								<div class="serial">${questionData.answerB}</div>
-								<div class="percentage"
-									style="width: 80%; display: inline-block">
+								<div class="percentage" style="width: 80%; display: inline-block">
 									<div class="progress">
-										<div class="progress-bar color-1" id="answer_B"
-											role="progressbar" style="width: 0%" aria-valuenow="80"
-											aria-valuemin="0" aria-valuemax="100"></div>
+										<div class="progress-bar color-1" id="answer_B" role="progressbar" style="width: 0%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
 									</div>
 								</div>
 								<div id="answer_B_percent" style="display: inline-block">0%</div>
@@ -117,68 +104,65 @@
 				<div class="container">
 					<div class="comments-area">
 						<!-- 댓글 입력 Start -->
+						<!-- 광고 이미지 -->
+						<%@ include file="../layout/advertisement.jsp"%>
 						<div class="col-12">
 							<div class="form-group">
-								<textarea class="form-control w-100" name="comment" id="comment"
-									cols="30" rows="3" placeholder="댓글을 입력하세요"></textarea>
+								<textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="3" placeholder="댓글을 입력하세요"></textarea>
 							</div>
 							<div class="form-group f-right">
-								<button type="submit" id="write"
-									class="genric-btn info-border radius large">댓글 입력</button>
+								<button type="submit" id="write" class="genric-btn info-border radius large">댓글 입력</button>
 							</div>
 						</div>
 
 						<!-- 댓글 입력 End -->
-						<br /> <br /> <br />
+						<br /> <br />
+						<br />
+
 						<h4>댓글</h4>
 						<div id="comment-box">
-						<c:forEach var="data" items="${commentDatas}" varStatus="loop">
-							<div class="comment-list">
-								<div>
+							<c:forEach var="data" items="${commentDatas}" varStatus="loop">
+								<div class="comment-list">
 									<div>
-										<div class="desc">
-											<div class="d-flex">
-												<div class="d-flex align-items-center">
-													<h5>
-														<a href="#" style="color: black">${data.loginId}</a>
-													</h5>
-													<p class="date">${data.commentDate}</p>
+										<div>
+											<div class="desc">
+												<div class="d-flex">
+													<div class="d-flex align-items-center">
+														<h5>
+															<a href="#" style="color: black">${data.loginId}</a>
+														</h5>
+														<p class="date">${data.commentDate}</p>
+													</div>
+												</div>
+												<div>
+													<p class="comment">${data.comments}</p>
+												</div>
+												<!-- 이름 날짜 삭제 -->
+												<div class="d-flex justify-content-between">
+													<div class="d-flex align-items-center"></div>
+													<div class="reply-btn">
+														<div class="btn-reply text-uppercase" style="display: inline-block;" onclick="commentWarning(${data.commentId},'${data.loginId}')">신고</div>
+														<c:if test="${data.loginId==loginId }">
+															<div class="btn-reply text-uppercase" style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>
+														</c:if>
+													</div>
 												</div>
 											</div>
-											<div>
-												<p class="comment">${data.comments}</p>
-											</div>
-											<!-- 이름 날짜 삭제 -->
-											<div class="d-flex justify-content-between">
-												<div class="d-flex align-items-center"></div>
-												<div class="reply-btn">
-													<div class="btn-reply text-uppercase"
-														style="display: inline-block;" onclick="commentWarning(${data.commentId},'${data.loginId}')">신고</div>
-													<c:if test="${data.loginId==loginId }">
-														<div class="btn-reply text-uppercase"
-															style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>
-													</c:if>
-												</div>
-											</div>
+											<hr />
 										</div>
-										<hr />
 									</div>
 								</div>
-							</div>
-						</c:forEach>
-					</div>
+							</c:forEach>
+						</div>
 
 
 						<nav class="blog-pagination justify-content-center d-flex">
 							<ul class="pagination">
-								<li class="page-item"><a href="#" class="page-link"
-									aria-label="Previous"> <i class="ti-angle-left"></i>
+								<li class="page-item"><a href="#" class="page-link" aria-label="Previous"> <i class="ti-angle-left"></i>
 								</a></li>
 								<li class="page-item"><a href="#" class="page-link">1</a></li>
-								<li class="page-item active"><a href="#" class="page-link">2</a>
-								</li>
-								<li class="page-item"><a href="#" class="page-link"
-									aria-label="Next"> <i class="ti-angle-right"></i>
+								<li class="page-item active"><a href="#" class="page-link">2</a></li>
+								<li class="page-item"><a href="#" class="page-link" aria-label="Next"> <i class="ti-angle-right"></i>
 								</a></li>
 							</ul>
 						</nav>
