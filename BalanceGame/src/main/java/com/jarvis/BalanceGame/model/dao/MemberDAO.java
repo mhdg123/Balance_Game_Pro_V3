@@ -51,6 +51,12 @@ public class MemberDAO {
 	// 아이디 찾기에서 회원정보가 맞는 지 확인 
 	private static final String IS_INFO_CORRECT_SEARCH_ID = "SELECT LOGIN_ID, EMAIL, NICKNAME FROM MEMBER WHERE NAME=? AND EMAIL=?";
 	
+	// 비밀번호 찾기에서 회원정보가 맞는 지 확인(전화번호)
+	private static final String IS_INFO_CORRECT_TEMP_PW_CELLPHONE = "SELECT LOGIN_ID, EMAIL FROM MEMBER WHERE LOGIN_ID=? AND CELL_PHONE=?";
+	
+	// 아이디 찾기에서 회원정보가 맞는 지 확인(전화번호)
+	private static final String IS_INFO_CORRECT_SEARCH_ID_CELLPHONE = "SELECT LOGIN_ID, EMAIL, NICKNAME FROM MEMBER WHERE NAME=? AND CELL_PHONE=?";
+	
 	// 유저 전체 조회
 	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
 			+ "    M.AGE," + "    M.ADDRESS, \r\n" + "    M.EMAIL, " + "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
@@ -118,9 +124,7 @@ public class MemberDAO {
 			if (args != null) {
 				try {
 					member = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
-					System.out.println("유저 조회 쿼리 try / catch11" + member);
 				} catch (Exception e) {
-					System.out.println("유저 조회 쿼리 try / catch222" + member);
 					e.printStackTrace();
 				}
 			}
@@ -214,6 +218,26 @@ public class MemberDAO {
 			Object[] args = {mDTO.getName(), mDTO.getEmail()};
 			try {
 				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args, new MemberRowMapperIsIdInfoCorrect());
+			} catch (Exception e) {
+				System.out.println("회원정보가 일치하지 않습니다");
+				e.printStackTrace();
+			}
+		}
+		// 회원 비밀번호 찾기 전 회원 정보 확인 (전화번호)
+		else if(mDTO.getSearchCondition().equals("isTempPwInfoCorrectCellPhone")) {
+			Object[] args = {mDTO.getLoginId(), mDTO.getCellPhone()};
+			try {
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW_CELLPHONE, args, new MemberRowMapperIsPwInfoCorrectCellPhone());
+			} catch (Exception e) {
+				System.out.println("회원정보가 일치하지 않습니다");
+				e.printStackTrace();
+			}
+		}
+		// 회원 아이디 찾기 전 회원 정보 확인 (전화번호)
+		else if(mDTO.getSearchCondition().equals("isIdInfoCorrectCellPhone")) {
+			Object[] args = {mDTO.getName(), mDTO.getCellPhone()};
+			try {
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID_CELLPHONE, args, new MemberRowMapperIsIdInfoCorrectCellPhone());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
@@ -391,6 +415,29 @@ class MemberRowMapperIsIdInfoCorrect implements RowMapper<MemberDTO>{
 		MemberDTO member = new MemberDTO();
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setEmail(rs.getString("EMAIL"));
+		member.setNickName(rs.getString("NICKNAME"));
+		return member;
+	}
+}
+
+class MemberRowMapperIsPwInfoCorrectCellPhone implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getString("LOGIN_ID"));
+		member.setCellPhone(rs.getString("CELL_PHONE"));
+		return member;
+	}
+}
+
+class MemberRowMapperIsIdInfoCorrectCellPhone implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO member = new MemberDTO();
+		member.setLoginId(rs.getString("LOGIN_ID"));
+		member.setEmail(rs.getString("CELL_PHONE"));
 		member.setNickName(rs.getString("NICKNAME"));
 		return member;
 	}
