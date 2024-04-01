@@ -37,6 +37,7 @@ public class LetterBoxAsync {
 	public @ResponseBody String mailCheck(LetterDTO lDTO, Model model, Gson gson, HttpSession session) {
 		String loginId = (String)session.getAttribute("loginId");
 		lDTO.setLoginId(loginId);
+		lDTO.setSearchCondition("updateReadStatus");
 		letterService.update(lDTO);
 
 		return gson.toJson(letterService.selectOne(lDTO));

@@ -39,10 +39,14 @@ public class MyPageController {
 		
 		mDTO.setSearchCondition("myInfo");
 		System.out.println(session.getAttribute("loginId"));
-		System.out.println(memberService.selectOne(mDTO));
+		
+		String loginId = (String)session.getAttribute("loginId");
+		mDTO.setLoginId(loginId);
 		model.addAttribute("memberData", memberService.selectOne(mDTO));
+		System.out.println(memberService.selectOne(mDTO)+"<<<<<<");
 		
 		cDTO.setSearchCondition("userComments");
+		cDTO.setLoginId(loginId);
 		List<CommentDTO> datas = commentService.selectAll(cDTO);
 		
 		List<MemberItemDTO> midatas = memberItemService.selectAll(miDTO);
