@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
@@ -22,22 +23,21 @@ public class MyPageUpdateController {
 
 	@Autowired
 	private MemberItemService memberItemService;
-
-	@GetMapping("/myInfoChangePage")
+	
+	@PostMapping("/myInfoChangePage")
 	public String MyPageUpdateController(MemberDTO mDTO, MemberItemDTO miDTO, Model model, HttpSession session) {
 		String loginId = (String)session.getAttribute("loginId");
 		mDTO.setLoginId(loginId);
 		mDTO.setSearchCondition("viewOne");
-		memberService.selectOne(mDTO);
 
-		String oldName = mDTO.getNickName();
+		String oldName = memberService.selectOne(mDTO).getNickName();
 
 		mDTO.setSearchCondition("midifyMyInfo");
 		if (!memberService.update(mDTO)) {
 			System.out.println("내정보 변경 실패");
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "정보 변경에 실패하였습니다.");
-			model.addAttribute("redirect", "myInfo");
+			model.addAttribute("redirect", "/user/myInfoPage");
 			return "alert";
 
 		}
@@ -45,7 +45,7 @@ public class MyPageUpdateController {
 		System.out.println("내정보 변경 성공");
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", "정보변경 성공");
-		model.addAttribute("redirect", "");
+		model.addAttribute("redirect", "/user/myInfoPage");
 
 		if (oldName != mDTO.getNickName()) {
 
