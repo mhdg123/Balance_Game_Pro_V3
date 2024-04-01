@@ -58,7 +58,7 @@
 			<section class="content">
 				<div class="container-fluid">
 					<!-- Small boxes (Stat box) -->
-					
+
 
 					<!-- /.row -->
 					<!-- 건의 사항 데이터 시작 -->
@@ -104,17 +104,19 @@
 											</c:if>
 										<tbody id="suggestionTableBody">
 											<c:forEach var="data" items="${letterDatas}">
-												<tr onclick="location.href = '/admin/letterDetailPage?letterId=${data.letterId}'">
-													<td id="loginIdData">${data.sender}</td>
-													<td id="titleData">${data.title}</td>
-													<c:if test="${data.letterStatus == 'T' }">
-													<td id="titleData">읽음</td>
-													</c:if>
-													<c:if test="${data.letterStatus == 'F' }">
-													<td id="titleData">읽지 않음</td>
-													</c:if>
-													<td id="titleData">${data.letterDate}</td>
-												</tr>
+												<c:if test="${data.letterType = 'SUGGESTION' }">
+													<tr onclick="location.href = '/admin/letterDetailPage?letterId=${data.letterId}'">
+														<td id="loginIdData">${data.sender}</td>
+														<td id="titleData">${data.title}</td>
+														<c:if test="${data.letterStatus == 'T' }">
+															<td id="titleData">읽음</td>
+														</c:if>
+														<c:if test="${data.letterStatus == 'F' }">
+															<td id="titleData">읽지 않음</td>
+														</c:if>
+														<td id="titleData">${data.letterDate}</td>
+													</tr>
+												</c:if>
 											</c:forEach>
 										</tbody>
 										</tbody>
