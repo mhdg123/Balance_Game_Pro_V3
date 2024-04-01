@@ -48,14 +48,13 @@ public class SendMemberIdAsync {
 
 		mDTO.setSearchCondition("isIdInfoCorrectCellPhone");
 		mDTO = memberService.selectOne(mDTO);
-		if (mDTO != null) {
-			sendMemberIdService.sendMessage(mDTO);
-			return "fail";
+		if(mDTO.getLoginType().equals("SOCIAL")) {
+			return "social";
 		}
 
 		String phone = mDTO.getCellPhone();
 		String userId = mDTO.getLoginId();
-
+		if(mDTO != null) {
 		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCS6ZHPOOM5UZPWE",
 				"UG5ONIDCC9V05JCNXNXFSMYYZOMHCYOH", "https://api.coolsms.co.kr"); // Message
 		Message message = new Message();
@@ -74,6 +73,7 @@ public class SendMemberIdAsync {
 
 		System.out.println("문자 아이디: " + userId);
 		return "success";
-
+		}
+		return "fail";
 	}
 }
