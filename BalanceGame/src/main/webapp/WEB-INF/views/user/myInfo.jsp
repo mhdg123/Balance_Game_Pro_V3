@@ -90,9 +90,17 @@
 							</ul>
 
 						</div>
+						<c:if test="${memberData.loginType == 'ORIGINAL'}">
 						<a href="javascript:changeInfo();"
 							class="genric-btn primary radius change-ck-button f-right">
 							정보 변경 </a>
+						</c:if>
+						
+						<c:if test="${memberData.loginType == 'SOCIAL'}">
+						<a href="/user/myPageUpdatePageController"
+							class="genric-btn primary radius change-ck-button f-right">
+							정보 변경 </a>
+						</c:if>
 					</div>
 
 
