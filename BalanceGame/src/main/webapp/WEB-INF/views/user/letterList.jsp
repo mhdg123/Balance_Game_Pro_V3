@@ -96,7 +96,15 @@ cursor: pointer;
 											<!-- loop.index는 0부터 시작하므로 +1을 해서 순번을 출력합니다. -->
 											<tr>
 												<td style="padding: 10px;"><input type="checkbox" name="lettercheck" id="${data.letterId}"></td>
-												<td style="padding: 10px;"><p style="margin: 0;">${data.letterStatus}</p></td>
+												<td style="padding: 10px;">
+												<c:if test="${data.letterStatus=='T'}">
+												<img onclick="unRead(${data.letterId})" style="width: 15px; margin-bottom: 10px ;" src="/resources/assets/img/jarvis/letterRead.png">
+												</c:if>
+												<c:if test="${data.letterStatus=='F'}">
+												<img onclick="read(${data.letterId})" style="width: 15px; margin-bottom: 10px ;" src="/resources/assets/img/jarvis/letterUnRead.png">
+												</c:if>
+												 
+												</td>
 
 												<td style="padding: 10px;"
 													onClick="location.href='letterDetailPage?letterId=${data.letterId}'"><p
@@ -262,6 +270,32 @@ function letterUnRead(){
 	});
 	
 }
+
+function unRead(letterId){
+	console.log("안읽음 처리");
+	
+	var checkedLetters = [];
+	 checkedLetters.push(letterId);
+	
+ 	$.ajax({
+		type: "POST",
+		url: "/user/letterCheckUnRead",
+		data: {
+			'letterCheck': checkedLetters
+		},
+		dataType: 'text',
+		success: function(data) {
+			console.log(data);
+
+		},
+		error: function(error) {
+			console.log('에러발생');
+			console.log('에러의 종류:' + error);
+		}
+
+	}); 
+	
+}
 function letterRead(){
 	console.log("읽음 처리");
 	
@@ -288,6 +322,34 @@ function letterRead(){
 	});
 	
 }
+
+function read(letterId){
+	console.log("읽음 처리");
+	
+	var checkedLetters = [];
+	 checkedLetters.push(letterId);
+	
+$.ajax({
+		type: "POST",
+		url: "/user/letterCheckRead",
+		data: {
+			"letterCheck": checkedLetters
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data);
+
+		},
+		error: function(error) {
+			console.log('에러발생');
+			console.log('에러의 종류:' + error);
+		}
+
+	});
+	
+}
+
+
 function letterDelete(){
 	console.log("삭제 처리");
 	var checkedLetters =letterArr();
