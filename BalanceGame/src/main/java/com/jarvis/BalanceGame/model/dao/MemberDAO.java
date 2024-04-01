@@ -55,7 +55,7 @@ public class MemberDAO {
 	private static final String IS_INFO_CORRECT_TEMP_PW_CELLPHONE = "SELECT LOGIN_ID, EMAIL FROM MEMBER WHERE LOGIN_ID=? AND CELL_PHONE=?";
 	
 	// 아이디 찾기에서 회원정보가 맞는 지 확인(전화번호)
-	private static final String IS_INFO_CORRECT_SEARCH_ID_CELLPHONE = "SELECT LOGIN_ID, EMAIL, NICKNAME FROM MEMBER WHERE NAME=? AND CELL_PHONE=?";
+	private static final String IS_INFO_CORRECT_SEARCH_ID_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, NICKNAME FROM MEMBER WHERE NAME=? AND CELL_PHONE=?";
 	
 	// 유저 전체 조회
 	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
@@ -437,7 +437,7 @@ class MemberRowMapperIsIdInfoCorrectCellPhone implements RowMapper<MemberDTO>{
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
 		member.setLoginId(rs.getString("LOGIN_ID"));
-		member.setEmail(rs.getString("CELL_PHONE"));
+		member.setCellPhone(rs.getString("CELL_PHONE"));
 		member.setNickName(rs.getString("NICKNAME"));
 		return member;
 	}
