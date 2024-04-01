@@ -182,10 +182,10 @@
 
 
 
-// 이름 & 전화번호로 아이디 찾기
+// 이름 & 전화번호로 아이디 찾기 지훈
  async function idSearchCellPhone() {
-    const { value: formValues } = await Swal.fire({
-    title: "비밀번호 찾기",
+        const { value: formValues } = await Swal.fire({
+    title: "아이디 찾기",
     html: `
       <input id="swal-input1" class="swal2-input" placeholder="이름">
       <input id="swal-input2" class="swal2-input" placeholder="전화번호">
@@ -196,28 +196,32 @@
       const cellPhone = document.getElementById("swal-input2").value;
 
       // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-      const response = await fetch("/api/find-id", {
+      const response = await fetch("/user/sendMemberIdNumberAsync", {
         method: "POST",
         body: JSON.stringify({ name, cellPhone }),
         headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
       });
 
-      if (!response.ok) {
-          return "서버 전송 실패";
-        // throw new Error("서버에 데이터 전송 실패!");
+      if (response.ok) {
+	      const result = await response.json();
+	      if(result){
+	    	alert("데이터 보내기 성공")
+	       Swal.fire("아이디를 전화번호로 전송했습니다 다시 로그인해주세요");
+	      	var form = document.createElement("form");
+	      	form.method = "GET";
+	      	form.action = "/user/loginPage";
+	      	document.body.appendChild(form);
+	      	form.submit(); 
+	      }
+	      else{
+	      	Swal.fire("회원정보가 일치하지 않습니다 다시 시도해주세요");
+	      }
       }
-
-      // 성공적인 응답 처리 (원하는 논리로 변경)
-      const data = await response.json();
-      console.log("회원님의 아이디는 : " + data + "입니다.") 
-    //   console.log("서버 응답:", data); // 예시: 응답 데이터 기록
-      return formValues; // 추가 처리를 위해 formValues 반환
+      else{
+      	return "서버 전송 실패";
+      }
     }
   });
-
-  if (formValues) {
-    Swal.fire(JSON.stringify(formValues));
-  }
 }
 
 
@@ -264,7 +268,7 @@ async function passwordSearchEmail() {
   });
 }
 
-// 아이디 & 전화번호 패스워드 찾기
+// 아이디 & 전화번호 패스워드 찾기 지훈
 async function passwordSearchCellPhone() {
     const { value: formValues } = await Swal.fire({
     title: "비밀번호 찾기",
@@ -278,28 +282,33 @@ async function passwordSearchCellPhone() {
       const cellPhone = document.getElementById("swal-input2").value;
 
       // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-       const response = await fetch("/api/find-id", {
+      const response = await fetch("/user/testPw", {
         method: "POST",
-        body: JSON.stringify({ loginId, cellPhone }),
+        body: JSON.stringify({loginId, cellPhone}),
         headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
       });
 
-      if (!response.ok) {
-          return "회원정보가 일치하지 않습니다";
-        // throw new Error("서버에 데이터 전송 실패!");
+      if (response.ok) {
+        const result = await response.json();
+		if(result){
+			Swal.fire("임시비밀번호를 이메일로 전송했습니다 다시 로그인해주세요");
+			//window.location.href = "/user/login"; // 로그인 페이지 경로로 변경
+			// 폼을 동적으로 생성합니다.
+			var form = document.createElement("form");
+			form.method = "GET";
+			form.action = "/user/loginPage"; // 이동할 URL을 지정합니다.
+			document.body.appendChild(form);
+			form.submit();
+		}
+		else{
+			Swal.fire("회원 정보가 일치하지 않습니다 다시 시도해주세요");
+		}
       }
-
-      // 성공적인 응답 처리 (원하는 논리로 변경)
-      const data = await response.json();
-      console.log("회원님의 아이디는 : " + data + "입니다.") 
-    //   console.log("서버 응답:", data); // 예시: 응답 데이터 기록
-      return formValues; // 추가 처리를 위해 formValues 반환
-    }
+      else{
+      	return "서버 전송 에러";
+      }	
+     }
   });
-
-  if (formValues) {
-    Swal.fire(JSON.stringify(formValues));
-  }
 }
   
 
