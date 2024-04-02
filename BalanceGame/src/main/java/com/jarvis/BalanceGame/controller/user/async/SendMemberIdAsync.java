@@ -42,38 +42,44 @@ public class SendMemberIdAsync {
 
 	@PostMapping("/sendMemberIdNumberAsync")
 	public @ResponseBody String sendMemberIdNumberAsync(@RequestBody MemberDTO mDTO) {
+		String phone = mDTO.getCellPhone();
 		System.out.println("전화번호로 아이디 찾기 이름 데이터 : " + mDTO.getName());
 		System.out.println("전화번호로 아이디 찾기 전화번호 데이터 : " + mDTO.getCellPhone());
 		System.out.println("문자 인증 기능 실행");
 
 		mDTO.setSearchCondition("isIdInfoCorrectCellPhone");
 		mDTO = memberService.selectOne(mDTO);
-		if(mDTO.getLoginType().equals("SOCIAL")) {
-			return "social";
+
+		if (mDTO == null) { // 찾는 회원정보가 없을때
+			return "fail";
 		}
+		System.out.println("전화번호로 아이디 찾기 조회된 데이터 : " + mDTO);
+		if (mDTO != null) { // 찾는 회원정보가 있을때
+			if (mDTO.getLoginType().equals("SOCIAL")) { // 찾는 회원이 소셜로그인 일때
+				System.out.println("소셜 회원입니다.");
+				return "social";
+			}
 
-		String phone = mDTO.getCellPhone();
-		String userId = mDTO.getLoginId();
-		if(mDTO != null) {
-		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCS6ZHPOOM5UZPWE",
-				"UG5ONIDCC9V05JCNXNXFSMYYZOMHCYOH", "https://api.coolsms.co.kr"); // Message
-		Message message = new Message();
-		message.setFrom("01087937953");
-		message.setTo(phone);
-		message.setText(userId);
+			DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCS6ZHPOOM5UZPWE",
+					"UG5ONIDCC9V05JCNXNXFSMYYZOMHCYOH", "https://api.coolsms.co.kr");
+			Message message = new Message();
+			message.setFrom("01087937953");
+			message.setTo(phone);
+			message.setText("회원님의 아이디는 : " + "[" +  mDTO.getLoginId() +"] 입니다.");
 
-		try { // send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
-			messageService.send(message);
-		} catch (NurigoMessageNotReceivedException exception) { // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
-			System.out.println(exception.getFailedMessageList());
-			System.out.println(exception.getMessage());
-		} catch (Exception exception) {
-			System.out.println(exception.getMessage());
+			try {
+				messageService.send(message);
+				System.out.println("문자 아이디: " + mDTO.getLoginId());
+			} catch (NurigoMessageNotReceivedException exception) {
+				System.out.println(exception.getFailedMessageList());
+				System.out.println(exception.getMessage());
+				return "fail";
+			} catch (Exception exception) {
+				System.out.println(exception.getMessage());
+				return "fail";
+			}
 		}
-
-		System.out.println("문자 아이디: " + userId);
 		return "success";
-		}
-		return "fail";
 	}
+
 }

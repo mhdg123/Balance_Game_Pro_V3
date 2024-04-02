@@ -182,47 +182,43 @@
 
 
 
-// 이름 & 전화번호로 아이디 찾기 지훈
- async function idSearchCellPhone() {
-        const { value: formValues } = await Swal.fire({
-    title: "아이디 찾기",
-    html: `
-      <input id="swal-input1" class="swal2-input" placeholder="이름">
-      <input id="swal-input2" class="swal2-input" placeholder="전화번호">
-    `,
-    focusConfirm: false,
-    preConfirm: async () => {
-      const name = document.getElementById("swal-input1").value;
-      const cellPhone = document.getElementById("swal-input2").value;
+ // 이름 & 전화번호로 아이디 찾기 지훈
+    async function idSearchCellPhone() {
+           const { value: formValues } = await Swal.fire({
+       title: "아이디 찾기",
+       html: `
+         <input id="swal-input1" class="swal2-input" placeholder="이름">
+         <input id="swal-input2" class="swal2-input" placeholder="전화번호">
+       `,
+       focusConfirm: false,
+       preConfirm: async () => {
+         const name = document.getElementById("swal-input1").value;
+         const cellPhone = document.getElementById("swal-input2").value;
 
-      // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-      const response = await fetch("/user/sendMemberIdNumberAsync", {
-        method: "POST",
-        body: JSON.stringify({ name, cellPhone }),
-        headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
-      });
+         // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
+         const response = await fetch("/user/sendMemberIdNumberAsync", {
+           method: "POST",
+           body: JSON.stringify({ name, cellPhone }),
+           headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
+         });
 
-      if (response.ok) {
-	      const result = await response.json();
-	      if(result){
-	    	alert("데이터 보내기 성공")
-	       Swal.fire("아이디를 전화번호로 전송했습니다 다시 로그인해주세요");
-	      	var form = document.createElement("form");
-	      	form.method = "GET";
-	      	form.action = "/user/loginPage";
-	      	document.body.appendChild(form);
-	      	form.submit(); 
-	      }
-	      else{
-	      	Swal.fire("회원정보가 일치하지 않습니다 다시 시도해주세요");
-	      }
-      }
-      else{
-      	return "서버 전송 실패";
-      }
-    }
-  });
-}
+         if (response.ok) {
+   	      const result = await response.text(); // 응답받은 데이터 >> text() 가져오기 
+   	      if(result === "success"){
+   	    	redirectToSuccessPage("아이디를 회원번호로 전송했습니다."); // 로그인 페이지 이동
+   	      }else if(result === "social") {
+   	    	  redirectToErrorPage("소셜 회원 입니다. 다시 한번 확인해주세요"); // 새로고침
+   	      }
+   	      else{
+   	    	  redirectToErrorPage("회원정보가 일치하지 않습니다 다시 시도해주세요"); // 새로고침
+   	      }
+         }else{
+         	return "서버 전송 실패";
+         }
+       }
+     });
+   }
+     
 
 
 // 아이디 & 이메일 패스워드 찾기
@@ -262,7 +258,7 @@ async function passwordSearchEmail() {
   });
 }
 
-// 아이디 & 전화번호 패스워드 찾기 지훈
+//아이디 & 전화번호 패스워드 찾기 지훈
 async function passwordSearchCellPhone() {
     const { value: formValues } = await Swal.fire({
     title: "비밀번호 찾기",
@@ -276,35 +272,62 @@ async function passwordSearchCellPhone() {
       const cellPhone = document.getElementById("swal-input2").value;
 
       // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
-      const response = await fetch("/user/testPw", {
+      const response = await fetch("/user/sendMemberPwNumberAsync", {
         method: "POST",
         body: JSON.stringify({loginId, cellPhone}),
         headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
       });
 
       if (response.ok) {
-        const result = await response.json();
-		if(result){
-			Swal.fire("임시비밀번호를 이메일로 전송했습니다 다시 로그인해주세요");
-			//window.location.href = "/user/login"; // 로그인 페이지 경로로 변경
-			// 폼을 동적으로 생성합니다.
-			var form = document.createElement("form");
-			form.method = "GET";
-			form.action = "/user/loginPage"; // 이동할 URL을 지정합니다.
-			document.body.appendChild(form);
-			form.submit();
-		}
-		else{
-			Swal.fire("회원 정보가 일치하지 않습니다 다시 시도해주세요");
-		}
-      }
-      else{
+        const result = await response.text();
+        if(result === "success"){
+	    	redirectToSuccessPage("비밀번호를 회원번호로 전송했습니다."); // 로그인 페이지 이동
+	      }else if(result === "social") {
+	    	  redirectToErrorPage("소셜 회원 입니다. 다시 한번 확인해주세요"); // 새로고침
+	      }else{
+	    	  redirectToErrorPage("회원정보가 일치하지 않습니다 다시 시도해주세요"); // 새로고침
+	      }
+      }else{
       	return "서버 전송 에러";
       }	
      }
   });
 }
   
+  
+var decodedMsg; // 컨트롤러에 데이터넘길때 인코딩메세지를 디코딩 해줘야 함
+function redirectToSuccessPage(msg) {
+	decodedMsg = decodeURIComponent(msg)
+	Swal.fire({
+		title: "로그인을 이용해주세요!",
+		text: msg,
+		imageWidth: 360,
+		imageHeight: 360,
+		imageAlt: "Custom image"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			// location.href='/alert/' + decodedMsg + '/success/' + 'main' ; // 파라미터 포함 메인 페이지 이동
+			location.href = '/user/loginPage'; //  메인 페이지 이동
+		}
+	});
+}
+
+function redirectToErrorPage(msg) {
+	decodedMsg = decodeURIComponent(msg)
+	Swal.fire({
+		title: "불일치",
+		text: msg,
+		imageWidth: 360,
+		imageHeight: 360,
+		imageAlt: "Custom image"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			location.href = location.href; // 새로고침
+		}
+	});
+}
+
+
 
 </script>
 </body>

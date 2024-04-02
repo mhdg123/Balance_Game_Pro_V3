@@ -55,17 +55,14 @@ function itemBuy(itemId, itemName, itemPrice) { // 결제할 포인트 아이템
 	var decodedMsg; // 컨트롤러에 데이터넘길때 인코딩메세지를 디코딩 해줘야 함
 	function redirectToSuccessPage(msg) {
 		decodedMsg = decodeURIComponent(msg)
-		// location.href = 'alert.do?msg=' + msg + '&status=success&redirect=main.do'; 
 		Swal.fire({
 			title: "감사합니다!",
 			text: msg,
-			// imageUrl: "images/thankyou.gif",
 			imageWidth: 360,
 			imageHeight: 360,
 			imageAlt: "Custom image"
 		}).then((result) => {
 			if (result.isConfirmed) {
-				// 확인 버튼이 눌렸을 때 실행할 코드
 				// location.href='/alert/' + decodedMsg + '/success/' + 'main' ; // 파라미터 포함 메인 페이지 이동
 				location.href = '/'; //  메인 페이지 이동
 			}

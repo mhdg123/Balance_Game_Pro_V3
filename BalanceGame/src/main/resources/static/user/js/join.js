@@ -269,11 +269,11 @@ function checkPassword() {
 
     if (memberPassword !== passwordCheck) {
         errorDiv.html(`<div style="color: red;">[비밀번호가 일치하지 않습니다.]</div>`);
-        var passwordCheckResult = false;
+        passwordCheckResult = false;
         console.log("다름");
     } else {
         errorDiv.html(`<div style="color: green;">[비밀번호가 일치합니다.]</div>`);
-        var passwordCheckResult = true;
+        passwordCheckResult = true;
     }
     return passwordCheckResult;
 }
