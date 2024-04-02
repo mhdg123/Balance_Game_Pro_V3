@@ -82,7 +82,7 @@ public class MemberDAO {
 	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE, LOGIN_TYPE) VALUES(?,?,?,?,?,?,?,?,?,?)";
 	
 	// 내정보 변경하기 SQL
-	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET NAME = ?, EMAIL = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
+	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET CELL_PHONE = ?, EMAIL = ?, ADDRESS = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
 	
 	// 임시비밀번호로 변경
 	private static final String TEMP_PW_UPDATE = "UPDATE MEMBER SET MEMBER_PASSWORD=? WHERE LOGIN_ID = ?";
@@ -263,7 +263,7 @@ public class MemberDAO {
 	public boolean update(MemberDTO mDTO) {
 		int result = 0;
 		if(mDTO.getSearchCondition().equals("modifyMyInfo")) {
-			result = jdbcTemplate.update(MY_INFO_UPDATE, mDTO.getName(), mDTO.getEmail(), mDTO.getLoginId());
+			result = jdbcTemplate.update(MY_INFO_UPDATE, mDTO.getCellPhone(), mDTO.getEmail(),mDTO.getAddress(),mDTO.getNickName(), mDTO.getLoginId());
 		}
 		else if(mDTO.getSearchCondition().equals("increaseMyCoin")) {
 			result = jdbcTemplate.update(MY_COIN_INCREASE, mDTO.getLoginId(), mDTO.getLoginId());

@@ -29,10 +29,11 @@ public class MyPageUpdateController {
 		String loginId = (String)session.getAttribute("loginId");
 		mDTO.setLoginId(loginId);
 		mDTO.setSearchCondition("viewOne");
-
 		String oldName = memberService.selectOne(mDTO).getNickName();
-
-		mDTO.setSearchCondition("midifyMyInfo");
+		
+		mDTO.setSearchCondition("modifyMyInfo");
+		System.out.println("mDTO"+mDTO);
+		
 		if (!memberService.update(mDTO)) {
 			System.out.println("내정보 변경 실패");
 			model.addAttribute("status", "fail");
