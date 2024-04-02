@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jarvis.BalanceGame.model.dto.PageInfoDTO;
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
+import com.jarvis.BalanceGame.service.PageInfoService;
 import com.jarvis.BalanceGame.service.QuestionService;
 
 import jakarta.servlet.http.HttpSession;
@@ -20,12 +22,27 @@ public class QuestionListPageController {
 	@Autowired
 	private QuestionService questionService;
 	
+	@Autowired
+	private PageInfoService pageInfoService;
+	
 	@GetMapping("/questionListPage")
-	public String titleLisgtPageControllter(QuestionDTO qDTO, Model model, HttpSession session) {
+	public String titleLisgtPageControllter(QuestionDTO qDTO,PageInfoDTO pDTO, Model model, HttpSession session) {
 		
-		qDTO.setSearchCondition("viewAllOfQuestionList");
-		qDTO.setWriter((String)session.getAttribute("loginId"));
-		List<QuestionDTO> datas = questionService.selectAll(qDTO);
+		pDTO.setPasingnationSize(10);
+		pageInfoService.calculateOffset(pDTO);
+		pDTO.setSearchCondition("viewAllOfQuestionList");
+		List<QuestionDTO> datas = pageInfoService.selectAll(pDTO);
+		
+		qDTO.setSearchCondition("questionCount");
+		qDTO = questionService.selectOne(qDTO);
+		pDTO.setTotalRows(qDTO.getQuestionCount());
+		pageInfoService.calcTotalPages(pDTO);	// 총페이지 수
+		
+		
+		
+//		qDTO.setSearchCondition("viewAllOfQuestionList");
+//		qDTO.setWriter((String)session.getAttribute("loginId"));
+//		List<QuestionDTO> datas = questionService.selectAll(qDTO);
 		System.out.println(datas);
 		
 		if(datas != null) {
