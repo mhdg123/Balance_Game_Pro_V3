@@ -28,10 +28,14 @@ public class QuestionListPageController {
 	@GetMapping("/questionListPage")
 	public String titleLisgtPageControllter(QuestionDTO qDTO,PageInfoDTO pDTO, Model model, HttpSession session) {
 		
+		if(Integer.valueOf(pDTO.getCurrentPage()) == null) {
+			pDTO.setCurrentPage(1);
+		}
+		
 		pDTO.setPasingnationSize(10);
 		pageInfoService.calculateOffset(pDTO);
 		pDTO.setSearchCondition("viewAllOfQuestionList");
-		List<QuestionDTO> datas = pageInfoService.selectAll(pDTO);
+		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
 		
 		
 		
