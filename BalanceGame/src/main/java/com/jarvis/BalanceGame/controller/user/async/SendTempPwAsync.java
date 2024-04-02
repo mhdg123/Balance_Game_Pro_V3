@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
 import com.jarvis.BalanceGame.service.MemberService;
 import com.jarvis.BalanceGame.service.SendTempPwService;
 
+import jakarta.servlet.http.HttpSession;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
 import net.nurigo.sdk.message.model.Message;
@@ -29,14 +29,12 @@ public class SendTempPwAsync {
 
 	@PostMapping("/isTempPwInfoCorrect")
 	public @ResponseBody boolean sendTempPwAsync(@RequestBody MemberDTO mDTO) {
-		System.out.println(mDTO);
+		
 		mDTO.setSearchCondition("isTempPwInfoCorrect");
-		mDTO = memberService.selectOne(mDTO);
+		
 		System.out.println(mDTO);
-		if (mDTO.getLoginType().equals("SOCIAL")) {
-			return false;
-		}
-		if (mDTO != null) {
+		if (memberService.selectOne(mDTO) != null) {
+			System.out.println(mDTO);
 			String code = tempPwService.sendEmail(mDTO);
 			// 해당 코드로 회원 비밀번호 설정
 			mDTO.setMemberPassword(code);
@@ -47,6 +45,22 @@ public class SendTempPwAsync {
 			}
 		}
 		return false;
+	}
+
+	
+	@PostMapping("/isEmailCodeCorrect")
+	public @ResponseBody String emailCodeAsync(MemberDTO mDTO,HttpSession session) {
+		mDTO.setLoginId((String)session.getAttribute("loginId"));
+
+		System.out.println(mDTO);
+
+			mDTO.setSearchCondition("isEmailCodeCorrect");
+			System.out.println(mDTO);
+			String code = tempPwService.sendEmail(mDTO);
+			
+
+			return code;
+
 	}
 
 	@PostMapping("/sendMemberPwNumberAsync")
