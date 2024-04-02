@@ -33,10 +33,12 @@ public class QuestionListPageController {
 		pDTO.setSearchCondition("viewAllOfQuestionList");
 		List<QuestionDTO> datas = pageInfoService.selectAll(pDTO);
 		
+		
+		
 		qDTO.setSearchCondition("questionCount");
 		qDTO = questionService.selectOne(qDTO);
 		pDTO.setTotalRows(qDTO.getQuestionCount());
-		pageInfoService.calcTotalPages(pDTO);	// 총페이지 수
+		int totalPage = pageInfoService.calcTotalPages(pDTO);	// 총페이지 수
 		
 		
 		
@@ -47,6 +49,7 @@ public class QuestionListPageController {
 		
 		if(datas != null) {
 			model.addAttribute("questionDatas", datas);
+			model.addAttribute("totalPage", totalPage);
 		}else {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "등록된 문제가 없습니다.");
