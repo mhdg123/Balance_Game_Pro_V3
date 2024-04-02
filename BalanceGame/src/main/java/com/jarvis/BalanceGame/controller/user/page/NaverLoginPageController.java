@@ -105,16 +105,16 @@ public class NaverLoginPageController {
 		}
 		mDTO.setSearchCondition("socialLogin");
 		mDTO.setLoginId(loginId);
+		mDTO.setName(name);
+		mDTO.setNickName(nickname);
+		mDTO.setGender(gender);
+		mDTO.setEmail(email);
+		mDTO.setCellPhone(mobile);
+		mDTO.setAge(birthyear+"-"+birthday);
 		MemberDTO memberData = memberService.selectOne(mDTO);
 		
 		//회원가입 페이지 이동
 		if(memberData == null) {
-			mDTO.setName(name);
-			mDTO.setNickName(nickname);
-			mDTO.setGender(gender);
-			mDTO.setEmail(email);
-			mDTO.setCellPhone(mobile);
-			mDTO.setAge(birthyear+"-"+birthday);
 			model.addAttribute("memberData", mDTO);
 			model.addAttribute("status", "socialJoin");
 			return "user/join";
@@ -123,7 +123,7 @@ public class NaverLoginPageController {
 		// 로그인 성공
 		session.setAttribute("loginId", mDTO.getLoginId());
 		model.addAttribute("status", "success");
-		model.addAttribute("msg", mDTO.getLoginId() + "님 로그인 하셨습니다.");
+		model.addAttribute("msg", mDTO.getName() + "님 로그인 하셨습니다.");
 		model.addAttribute("redirect", "/");
 		return "alert";
 	}

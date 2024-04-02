@@ -124,7 +124,7 @@ public class KaKaoLoginController {
 		session.setAttribute("coin", mDTO.getCoin());
 		session.setAttribute("nickName", mDTO.getNickName());
 		model.addAttribute("status", "success");
-		model.addAttribute("msg", mDTO.getLoginId() + "님 로그인 하셨습니다.");
+		model.addAttribute("msg", mDTO.getNickName() + "님 로그인 하셨습니다.");
 		model.addAttribute("redirect", "/");
 		return "alert"; // 메인페이지
 	}
