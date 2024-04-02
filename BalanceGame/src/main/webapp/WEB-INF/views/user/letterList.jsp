@@ -395,7 +395,18 @@ function letterArr(){
     });
 </script>
 
-
+<!-- 페이징 js -->
+	<script type="text/javascript">
+	var currentPage = ${page};
+	var totalPage = ${totalPage};
+	document.addEventListener('DOMContentLoaded', function() {
+	    // 페이지 업데이트 실행
+	    pageName='letterListPage';
+	    updatePagination();
+	});
+	</script>
+	<script src="/resources/user/js/currentPage.js"></script>
+	<!-- 페이징 js -->
 </body>
 
 </html>

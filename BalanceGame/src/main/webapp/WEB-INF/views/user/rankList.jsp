@@ -100,21 +100,17 @@
 	<!-- 푸터 고정 스크립트 공통 모음 -->
 	<%@ include file="../layout/footer-fix.jsp"%>
 	<!-- 푸터 고정 스크립트 공통 모음 -->
-	<script>
-		function test() {
-			alert("좋아요 누름");
-		}
-
-		function test1() {
-			alert("문제 상세페이지 이동")
-		}
-		function nextData() {
-			alert("다음 페이지")
-		}
-
-		function beforeData() {
-			alert("이전 페이지 ")
-		}
+<!-- 페이징 js -->
+	<script type="text/javascript">
+	var currentPage = ${page};
+	var totalPage = ${totalPage};
+	document.addEventListener('DOMContentLoaded', function() {
+	    // 페이지 업데이트 실행
+	    pageName='rankListPage';
+	    updatePagination();
+	});
 	</script>
+	<script src="/resources/user/js/currentPage.js"></script>
+	<!-- 페이징 js -->
 </body>
 </html>
