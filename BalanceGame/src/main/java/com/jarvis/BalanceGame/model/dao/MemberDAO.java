@@ -17,7 +17,6 @@ public class MemberDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-
 	// 아이디 중복 체크 SQL
 	private static final String SELECT_LOGIN_ID = "SELECT LOGIN_ID FROM MEMBER WHERE LOGIN_ID = ? ";
 
@@ -29,12 +28,12 @@ public class MemberDAO {
 
 	// 유저 코인 조회
 	private static final String SELECT_COIN = "SELECT COIN FROM MEMBER WHERE LOGIN_ID =?";
-	
+
 	// 유저 상세 조회
 	private static final String SELECTONE_USER = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, LOGIN_TYPE "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
 
-	// 소셜 로그인 
+	// 소셜 로그인
 	private static final String SOCIAL_LOGIN = "SELECT LOGIN_ID, COIN, NICKNAME FROM MEMBER WHERE LOGIN_ID=?";
 
 	// 마이페이지 조회 SQL
@@ -47,72 +46,70 @@ public class MemberDAO {
 
 	// 비밀번호 찾기에서 회원정보가 맞는 지 확인
 	private static final String IS_INFO_CORRECT_TEMP_PW = "SELECT LOGIN_ID, EMAIL, LOGIN_TYPE FROM MEMBER WHERE LOGIN_ID=? AND EMAIL=?";
-	
-	// 아이디 찾기에서 회원정보가 맞는 지 확인 
+
+	// 아이디 찾기에서 회원정보가 맞는 지 확인
 	private static final String IS_INFO_CORRECT_SEARCH_ID = "SELECT LOGIN_ID, EMAIL, NICKNAME, LOGIN_TYPE FROM MEMBER WHERE NAME=? AND EMAIL=?";
-	
+
 	// 비밀번호 찾기에서 회원정보가 맞는 지 확인(전화번호)
 	private static final String IS_INFO_CORRECT_TEMP_PW_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, LOGIN_TYPE FROM MEMBER WHERE LOGIN_ID=? AND CELL_PHONE=?";
-	
+
 	// 아이디 찾기에서 회원정보가 맞는 지 확인(전화번호)
 	private static final String IS_INFO_CORRECT_SEARCH_ID_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, NICKNAME, LOGIN_TYPE FROM MEMBER WHERE NAME=? AND CELL_PHONE=?";
-	
+
 	// 유저 전체 조회
-	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
-			+ "    M.AGE," + "    M.ADDRESS, \r\n" + "    M.EMAIL, " + "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
-			+ "    CASE \r\n" + "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
-			+ "        ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
-			+ "    END AS RANKING \r\n" + "FROM \r\n" + "    MEMBER M \r\n" + "LEFT JOIN \r\n"
-			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n" + "GROUP BY \r\n" + "    M.LOGIN_ID, \r\n"
-			+ "    M.GENDER, \r\n" + "    M.AGE," + "    M.ADDRESS," + "	   M.EMAIL";
+//	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
+//			+ "    M.AGE," + "    M.ADDRESS, \r\n" + "    M.EMAIL, " + "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
+//			+ "    CASE \r\n" + "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
+//			+ "        ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
+//			+ "    END AS RANKING \r\n" + "FROM \r\n" + "    MEMBER M \r\n" + "LEFT JOIN \r\n"
+//			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n" + "GROUP BY \r\n" + "    M.LOGIN_ID, \r\n"
+//			+ "    M.GENDER, \r\n" + "    M.AGE," + "    M.ADDRESS," + "	   M.EMAIL";
 
 	// 유저 랭킹 조회(관리자)
-	private static final String SELECTALL_RANKING_ADMIN = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, "
-			+ " CASE WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL "
-			+ " ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) "
-			+ " END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID";
+//	private static final String SELECTALL_RANKING_ADMIN = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, "
+//			+ " CASE WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL "
+//			+ " ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) "
+//			+ " END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID";
 
 	// 유저 포인트 조회(회원)
-	private static final String SELECTALL_RANKING_MEMBER = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(TRUNCATE(SUM(P.AMOUNT/10), 1),0) AS TOTAL, CASE WHEN IFNULL(SUM(P.AMOUNT/10), 0) = 0 THEN NULL \r\n"
-			+ "ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT/10), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
-			+ "END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID";
-	
-	
+//	private static final String SELECTALL_RANKING_MEMBER = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(TRUNCATE(SUM(P.AMOUNT/10), 1),0) AS TOTAL, CASE WHEN IFNULL(SUM(P.AMOUNT/10), 0) = 0 THEN NULL \r\n"
+//			+ "ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT/10), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
+//			+ "END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID";
+
 	// 회원가입 SQL
 	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE, LOGIN_TYPE) VALUES(?,?,?,?,?,?,?,?,?,?)";
-	
+
 	// 내정보 변경하기 SQL
 	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET CELL_PHONE = ?, EMAIL = ?, ADDRESS = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
-	
+
 	// 임시비밀번호로 변경
 	private static final String TEMP_PW_UPDATE = "UPDATE MEMBER SET MEMBER_PASSWORD=? WHERE LOGIN_ID = ?";
-	
-	
+
 	// 코인 추가
 	private static final String MY_COIN_INCREASE = "UPDATE MEMBER\r\n"
 			+ "SET coin = coin + (SELECT AMOUNT * 0.1 FROM PAYMENT WHERE LOGIN_ID = ? ORDER BY PAYMENT_DATE DESC LIMIT 1)\r\n"
 			+ "WHERE LOGIN_ID = ?";
-	
+
 	// 코인 감소
 	private static final String MY_COIN_DECREASE = "UPDATE MEMBER AS M JOIN ITEM AS I ON I.ITEM_ID = ? SET M.COIN = M.COIN - I.ITEM_PRICE "
 			+ "WHERE M.LOGIN_ID = ?";
-	
+
 	// 유저 삭제
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
 
 	// 회원 전체 검색
-	public List<MemberDTO> selectAll(MemberDTO mDTO) {
-		List<MemberDTO> members = null;
-		if (mDTO.getSearchCondition().equals("viewAll")) {
-			members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
-		} else if (mDTO.getSearchCondition().equals("ranking")) {
-			members = jdbcTemplate.query(SELECTALL_RANKING_ADMIN, new MemberRowMapperRank());
-		}
-		else if(mDTO.getSearchCondition().equals("rankingPoint")) {
-			members = jdbcTemplate.query(SELECTALL_RANKING_MEMBER, new MemberRowMapperRank());
-		}
-		return members;
-	}
+//	public List<MemberDTO> selectAll(MemberDTO mDTO) {
+//		List<MemberDTO> members = null;
+//		if (mDTO.getSearchCondition().equals("viewAll")) {
+//			members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
+//		} else if (mDTO.getSearchCondition().equals("ranking")) {
+//			members = jdbcTemplate.query(SELECTALL_RANKING_ADMIN, new MemberRowMapperRank());
+//		}
+//		else if(mDTO.getSearchCondition().equals("rankingPoint")) {
+//			members = jdbcTemplate.query(SELECTALL_RANKING_MEMBER, new MemberRowMapperRank());
+//		}
+//		return members;
+//	}
 
 	// 회원 단일 검색
 	public MemberDTO selectOne(MemberDTO mDTO) {
@@ -176,7 +173,7 @@ public class MemberDAO {
 			} catch (Exception e) {
 				System.out.println("내정보 결과 조회 실패");
 			}
-		} 
+		}
 		// 멤버 수 조회
 		else if (mDTO.getSearchCondition().equals("memberCount")) {
 			try {
@@ -184,7 +181,7 @@ public class MemberDAO {
 			} catch (Exception e) {
 				System.out.println("멤버수 결과 조회 실패");
 			}
-		} 
+		}
 		// 소셜로그인
 		else if (mDTO.getSearchCondition().equals("socialLogin")) {
 			Object[] args = { mDTO.getLoginId() };
@@ -196,8 +193,8 @@ public class MemberDAO {
 			}
 		}
 		// 코인 조회
-		else if(mDTO.getSearchCondition().equals("viewCoin")) {
-			Object[] args = {mDTO.getLoginId()};
+		else if (mDTO.getSearchCondition().equals("viewCoin")) {
+			Object[] args = { mDTO.getLoginId() };
 			try {
 				member = jdbcTemplate.queryForObject(SELECT_COIN, args, new MemberRowMapperViewCoin());
 			} catch (Exception e) {
@@ -205,39 +202,43 @@ public class MemberDAO {
 			}
 		}
 		// 회원 비밀번호 찾기 전 회원 정보 확인
-		else if(mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) {
-			Object[] args = {mDTO.getLoginId(), mDTO.getEmail()};
+		else if (mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) {
+			Object[] args = { mDTO.getLoginId(), mDTO.getEmail() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW, args, new MemberRowMapperIsPwInfoCorrect());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW, args,
+						new MemberRowMapperIsPwInfoCorrect());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 			}
 		}
 		// 회원 아이디 찾기 전 회원 정보 확인
-		else if(mDTO.getSearchCondition().equals("isIdInfoCorrect")) {
-			Object[] args = {mDTO.getName(), mDTO.getEmail()};
+		else if (mDTO.getSearchCondition().equals("isIdInfoCorrect")) {
+			Object[] args = { mDTO.getName(), mDTO.getEmail() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args, new MemberRowMapperIsIdInfoCorrect());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args,
+						new MemberRowMapperIsIdInfoCorrect());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
 			}
 		}
 		// 회원 비밀번호 찾기 전 회원 정보 확인 (전화번호)
-		else if(mDTO.getSearchCondition().equals("isTempPwInfoCorrectCellPhone")) {
-			Object[] args = {mDTO.getLoginId(), mDTO.getCellPhone()};
+		else if (mDTO.getSearchCondition().equals("isTempPwInfoCorrectCellPhone")) {
+			Object[] args = { mDTO.getLoginId(), mDTO.getCellPhone() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW_CELLPHONE, args, new MemberRowMapperIsPwInfoCorrectCellPhone());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW_CELLPHONE, args,
+						new MemberRowMapperIsPwInfoCorrectCellPhone());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
 			}
 		}
 		// 회원 아이디 찾기 전 회원 정보 확인 (전화번호)
-		else if(mDTO.getSearchCondition().equals("isIdInfoCorrectCellPhone")) {
-			Object[] args = {mDTO.getName(), mDTO.getCellPhone()};
+		else if (mDTO.getSearchCondition().equals("isIdInfoCorrectCellPhone")) {
+			Object[] args = { mDTO.getName(), mDTO.getCellPhone() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID_CELLPHONE, args, new MemberRowMapperIsIdInfoCorrectCellPhone());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID_CELLPHONE, args,
+						new MemberRowMapperIsIdInfoCorrectCellPhone());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
@@ -262,16 +263,14 @@ public class MemberDAO {
 	// 개인정보 변경
 	public boolean update(MemberDTO mDTO) {
 		int result = 0;
-		if(mDTO.getSearchCondition().equals("modifyMyInfo")) {
-			result = jdbcTemplate.update(MY_INFO_UPDATE, mDTO.getCellPhone(), mDTO.getEmail(),mDTO.getAddress(),mDTO.getNickName(), mDTO.getLoginId());
-		}
-		else if(mDTO.getSearchCondition().equals("increaseMyCoin")) {
+		if (mDTO.getSearchCondition().equals("modifyMyInfo")) {
+			result = jdbcTemplate.update(MY_INFO_UPDATE, mDTO.getCellPhone(), mDTO.getEmail(), mDTO.getAddress(),
+					mDTO.getNickName(), mDTO.getLoginId());
+		} else if (mDTO.getSearchCondition().equals("increaseMyCoin")) {
 			result = jdbcTemplate.update(MY_COIN_INCREASE, mDTO.getLoginId(), mDTO.getLoginId());
-		}
-		else if(mDTO.getSearchCondition().equals("decreaseMyCoin")) {
+		} else if (mDTO.getSearchCondition().equals("decreaseMyCoin")) {
 			result = jdbcTemplate.update(MY_COIN_DECREASE, mDTO.getItemId(), mDTO.getLoginId());
-		}
-		else if(mDTO.getSearchCondition().equals("updateTempPw")) {
+		} else if (mDTO.getSearchCondition().equals("updateTempPw")) {
 			result = jdbcTemplate.update(TEMP_PW_UPDATE, mDTO.getMemberPassword(), mDTO.getLoginId());
 		}
 		if (result <= 0) {
@@ -304,7 +303,6 @@ class MemberRowMapper implements RowMapper<MemberDTO> {
 		member.setEmail(rs.getString("EMAIL"));
 		return member;
 	}
-
 }
 
 class MemberRowMapperLogin implements RowMapper<MemberDTO> {
@@ -387,8 +385,8 @@ class MemberRowMapperSocialLogin implements RowMapper<MemberDTO> {
 	}
 }
 
-class MemberRowMapperViewCoin implements RowMapper<MemberDTO>{
-	
+class MemberRowMapperViewCoin implements RowMapper<MemberDTO> {
+
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
@@ -397,7 +395,7 @@ class MemberRowMapperViewCoin implements RowMapper<MemberDTO>{
 	}
 }
 
-class MemberRowMapperIsPwInfoCorrect implements RowMapper<MemberDTO>{
+class MemberRowMapperIsPwInfoCorrect implements RowMapper<MemberDTO> {
 
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -409,7 +407,7 @@ class MemberRowMapperIsPwInfoCorrect implements RowMapper<MemberDTO>{
 	}
 }
 
-class MemberRowMapperIsIdInfoCorrect implements RowMapper<MemberDTO>{
+class MemberRowMapperIsIdInfoCorrect implements RowMapper<MemberDTO> {
 
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -422,7 +420,7 @@ class MemberRowMapperIsIdInfoCorrect implements RowMapper<MemberDTO>{
 	}
 }
 
-class MemberRowMapperIsPwInfoCorrectCellPhone implements RowMapper<MemberDTO>{
+class MemberRowMapperIsPwInfoCorrectCellPhone implements RowMapper<MemberDTO> {
 
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -434,7 +432,7 @@ class MemberRowMapperIsPwInfoCorrectCellPhone implements RowMapper<MemberDTO>{
 	}
 }
 
-class MemberRowMapperIsIdInfoCorrectCellPhone implements RowMapper<MemberDTO>{
+class MemberRowMapperIsIdInfoCorrectCellPhone implements RowMapper<MemberDTO> {
 
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

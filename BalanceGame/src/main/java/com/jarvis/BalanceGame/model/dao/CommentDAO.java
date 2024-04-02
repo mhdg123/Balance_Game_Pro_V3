@@ -18,12 +18,12 @@ public class CommentDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 해당 문제에 대한 댓글 전체출력
-	private static final String SELECTALL_QUESTION = "SELECT C.COMMENT_ID, C.QUESTION_ID, M.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
-			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID = M.LOGIN_ID WHERE C.QUESTION_ID=? ORDER BY C.COMMENT_DATE DESC";
+//	private static final String SELECTALL_QUESTION = "SELECT C.COMMENT_ID, C.QUESTION_ID, M.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
+//			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID = M.LOGIN_ID WHERE C.QUESTION_ID=? ORDER BY C.COMMENT_DATE DESC";
 
 	// 회원이 작성한 모든 댓글 출력
-	private static final String SELECTALL_MEMBER = "SELECT C.COMMENT_ID, C.QUESTION_ID, C.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
-			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=? ORDER BY C.COMMENT_DATE DESC";
+//	private static final String SELECTALL_MEMBER = "SELECT C.COMMENT_ID, C.QUESTION_ID, C.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
+//			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=? ORDER BY C.COMMENT_DATE DESC";
 
 	// 댓글 작성
 	private static final String INSERT = "INSERT INTO COMMENT (QUESTION_ID, LOGIN_ID, COMMENTS) VALUES (?,?,?)";
@@ -35,21 +35,21 @@ public class CommentDAO {
 	private static final String DELETE = "DELETE FROM COMMENT WHERE COMMENT_ID = ? AND LOGIN_ID= ?";
 
 	// 댓글 전체 출력하기
-	public List<CommentDTO> selectAll(CommentDTO cDTO) {
-
-		List<CommentDTO> datas = null;
-		// 질문에 대한 댓글
-		if (cDTO.getSearchCondition().equals("questionComments")) {
-			Object[] args = { cDTO.getQuestionId() };
-			datas = jdbcTemplate.query(SELECTALL_QUESTION, args, new CommentRowMapper());
-		}
-		// 유저에 대한 댓글
-		else if (cDTO.getSearchCondition().equals("userComments")) {
-			Object[] args = { cDTO.getLoginId() };
-			datas = jdbcTemplate.query(SELECTALL_MEMBER, args, new CommentRowMapper());
-		}
-		return datas;
-	}
+//	public List<CommentDTO> selectAll(CommentDTO cDTO) {
+//
+//		List<CommentDTO> datas = null;
+//		// 질문에 대한 댓글
+//		if (cDTO.getSearchCondition().equals("questionComments")) {
+//			Object[] args = { cDTO.getQuestionId() };
+//			datas = jdbcTemplate.query(SELECTALL_QUESTION, args, new CommentRowMapper());
+//		}
+//		// 유저에 대한 댓글
+//		else if (cDTO.getSearchCondition().equals("userComments")) {
+//			Object[] args = { cDTO.getLoginId() };
+//			datas = jdbcTemplate.query(SELECTALL_MEMBER, args, new CommentRowMapper());
+//		}
+//		return datas;
+//	}
 
 	private CommentDTO selectOne(CommentDTO cDTO) {
 		return null;

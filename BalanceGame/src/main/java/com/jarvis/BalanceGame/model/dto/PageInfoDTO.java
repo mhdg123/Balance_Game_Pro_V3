@@ -1,5 +1,7 @@
 package com.jarvis.BalanceGame.model.dto;
 
+import java.sql.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,4 +18,33 @@ public class PageInfoDTO {
 	//-----------------------------
 	private int offset;
 	private String searchCondition;
+	
+	//question--------------------------
+	private int questionId;
+	private String title;
+	private int likeCount;
+	private int wishId;
+	private Date questionDate;
+	
+	//Member----------------------------
+	private String loginId;
+	private String nickName;
+	private int total;
+	private int ranking;
+	private String age;
+	private String gender;
+	private String address;
+	private String email;
+	
+	//Letter-----------------------------
+	private int letterId;
+	private String sender;
+	private Date letterDate;
+	private String letterStatus;
+	
+	//Comment
+	private int commentId;
+	private String comments;
+	private int memberGrade;
+	private Date commentDate;
 }
