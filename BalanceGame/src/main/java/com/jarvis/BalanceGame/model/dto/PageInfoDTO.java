@@ -15,4 +15,5 @@ public class PageInfoDTO {
 	private int pasingnationSize; //페이지 처리할 개수
 	//-----------------------------
 	private int offset;
+	private String searchCondition;
 }

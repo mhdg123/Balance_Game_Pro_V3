@@ -18,20 +18,20 @@ public class QuestionDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	// 승인된 전체 문제 조회
-	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT \r\n"
-			+ "    Q.QUESTION_ID, \r\n"
-			+ "    Q.TITLE, \r\n"
-			+ "    Q.QUESTION_DATE, \r\n"
-			+ "    COUNT(DISTINCT W.LOGIN_ID) AS LIKE_COUNT, \r\n"
-			+ "    MAX(CASE WHEN W.LOGIN_ID = ? THEN 1 ELSE 0 END) AS LIKE_ID\r\n"
-			+ "FROM \r\n"
-			+ "    QUESTION Q \r\n"
-			+ "LEFT JOIN \r\n"
-			+ "    WISH W ON W.QUESTION_ID = Q.QUESTION_ID\r\n"
-			+ "WHERE \r\n"
-			+ "    Q.QUESTION_ACCESS = 'T' \r\n"
-			+ "GROUP BY \r\n"
-			+ "    Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE";
+//	private static final String SELECTALL_APPROVED_QUESTIONlIST = "SELECT \r\n"
+//			+ "    Q.QUESTION_ID, \r\n"
+//			+ "    Q.TITLE, \r\n"
+//			+ "    Q.QUESTION_DATE, \r\n"
+//			+ "    COUNT(DISTINCT W.LOGIN_ID) AS LIKE_COUNT, \r\n"
+//			+ "    MAX(CASE WHEN W.LOGIN_ID = ? THEN 1 ELSE 0 END) AS LIKE_ID\r\n"
+//			+ "FROM \r\n"
+//			+ "    QUESTION Q \r\n"
+//			+ "LEFT JOIN \r\n"
+//			+ "    WISH W ON W.QUESTION_ID = Q.QUESTION_ID\r\n"
+//			+ "WHERE \r\n"
+//			+ "    Q.QUESTION_ACCESS = 'T' \r\n"
+//			+ "GROUP BY \r\n"
+//			+ "    Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE";
 
 	// 크롤링한 문제 조회
 	private static final String SELECTALL_CRAWLLING = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER, Q.ANSWER_A, Q.ANSWER_B , EXPLANATION, QUESTION_DATE FROM QUESTION Q";
@@ -106,13 +106,13 @@ public class QuestionDAO {
 
 		List<QuestionDTO> datas = null;
 		// 문제 모두 조회
-		if (qDTO.getSearchCondition().equals("viewAllOfQuestionList")) {
-			System.out.println("모든문제조회DAO");
-			Object[] args = { qDTO.getWriter() };
-			datas = jdbcTemplate.query(SELECTALL_APPROVED_QUESTIONlIST, args, new QuestionRowMapperList());
-		}
+//		if (qDTO.getSearchCondition().equals("viewAllOfQuestionList")) {
+//			System.out.println("모든문제조회DAO");
+//			Object[] args = { qDTO.getWriter() };
+//			datas = jdbcTemplate.query(SELECTALL_APPROVED_QUESTIONlIST, args, new QuestionRowMapperList());
+//		}
 		// 크롤링 문제조회
-		else if (qDTO.getSearchCondition().equals("crawling")) {
+		if (qDTO.getSearchCondition().equals("crawling")) {
 			System.out.println("로그 qDAO: 크롤링");
 			datas = jdbcTemplate.query(SELECTALL_CRAWLLING, new QuestionRowMapper());
 		}

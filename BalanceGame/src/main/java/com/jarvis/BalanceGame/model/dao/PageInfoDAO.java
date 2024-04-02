@@ -27,8 +27,10 @@ public class PageInfoDAO {
 	
 	public List<QuestionDTO> selectAll(PageInfoDTO pDTO){
 		List<QuestionDTO> datas = null;
-		Object[] args = {pDTO.getOffset(), pDTO.getPasingnationSize()};
-		datas = jdbcTemplate.query(SELECTALL, args, new PageInfoRowMapper());
+		if(pDTO.getSearchCondition().equals("viewAllOfQuestionList")) {
+			Object[] args = {pDTO.getOffset(), pDTO.getPasingnationSize()};
+			datas = jdbcTemplate.query(SELECTALL, args, new PageInfoRowMapper());
+		}
 		return datas;
 	}
 	
