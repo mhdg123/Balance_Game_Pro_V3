@@ -33,7 +33,7 @@ public class AdminWarningManagementPageController {
 			loginId = "admin"; // 관리자 아이디 고정 
 		}
 		lDTO.setLoginId(loginId);
-		lDTO.setSearchCondition("viewAllMessage");
+		lDTO.setSearchCondition("viewAllReportMessageAdmin");
 		List<LetterDTO> lDatas = letterService.selectAll(lDTO);
 		System.out.println("신고 내역 데이터 :  " + lDatas);
 		model.addAttribute("letterDatas", lDatas);

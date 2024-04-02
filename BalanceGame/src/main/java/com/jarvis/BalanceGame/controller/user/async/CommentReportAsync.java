@@ -15,6 +15,8 @@ import com.jarvis.BalanceGame.service.LetterService;
 import com.jarvis.BalanceGame.service.MemberService;
 import com.jarvis.BalanceGame.service.WarningService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/user")
 public class CommentReportAsync {
@@ -29,17 +31,24 @@ public class CommentReportAsync {
 	private MemberService memberService;
 
 	@PostMapping("/commentReportAsync")
-	public @ResponseBody String commentReportAsync(WarningDTO wDTO, MemberDTO mDTO, LetterDTO lDTO) {
+	public @ResponseBody String commentReportAsync(WarningDTO wDTO, MemberDTO mDTO, LetterDTO lDTO, HttpSession session) {
 		// 신고자하고 댓글 id 비교
+		String loginId = (String)session.getAttribute("loginId");
+ 		wDTO.setRepoter(loginId);
 		String originReporter = wDTO.getRepoter(); // 신고한 유저 데이터 임시 저장
 		String originCommentWriter = wDTO.getCommentWriter(); // 댓글 단 유저 데이터 임시 저장
 		int originCommentId = wDTO.getCommentId(); // 댓글 PK 데이터 임시 저장
 
+		lDTO.setLetterType("REPORT");
+		
+		System.out.println(wDTO.getCommentWriter()+"<<<<<<<<<<<<<<<<<<<<<<<<<<댓글작성자");
+		
 		System.out.println("신고할때 넘어온 데이터 : " + wDTO);
 		System.out.println("유저가 신고한 비동기 기능 실행");
 		System.out.println("신고한 유저 데이터 : " + wDTO.getRepoter());
 		System.out.println("댓글 PK : " + wDTO.getCommentId());
-
+		
+		
 		wDTO = warningService.selectOne(wDTO); // 처음 신고는 빈 객체를 wDTO저장
 		System.out.println("신고를 한적이 있는지 데이터 :  " + wDTO);
 		if (wDTO.getCommentId() <= 0) {
@@ -59,7 +68,7 @@ public class CommentReportAsync {
 			}
 			if (datas.size() >= 3) { // 신고회수 3번 이상인지 확인
 				// 신고를 3번 당해서 관리자에게 메세지를 보냄
-
+				
 				// 신고하는사람
 				lDTO.setSender(originReporter);
 
