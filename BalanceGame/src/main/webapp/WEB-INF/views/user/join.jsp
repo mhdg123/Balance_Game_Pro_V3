@@ -154,7 +154,7 @@
 					<div class="comments-area">
 						<div class="row">
 							<div style="width: 50%; margin: 0 auto">
-								<h2>카카오 회원가입</h2>
+								<h2>소셜 회원가입</h2>
 								<form class="row contact_form" action="/user/join" method="POST" onsubmit="return socialFormAction();" name="joinForm">
 									<input type="hidden" name="loginType" value="SOCIAL">
 									<input type="hidden" name="memberPassword" value="${memberData.memberPassword }">

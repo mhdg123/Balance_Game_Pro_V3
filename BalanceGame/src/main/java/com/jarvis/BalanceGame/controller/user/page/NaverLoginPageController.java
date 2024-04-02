@@ -98,10 +98,17 @@ public class NaverLoginPageController {
 		//mDTO.setSearchCondition("전화번호회원조회");
 		//mDTO.setEmail(email);
 		//mDTO = memberService.selectOne(mDTO);
-	
+		String loginId="";
+		int atIndex = email.indexOf('@');
+		if (atIndex != -1) {
+			loginId = email.substring(0, atIndex);
+		}
+		mDTO.setSearchCondition("socialLogin");
+		mDTO.setLoginId(loginId);
+		MemberDTO memberData = memberService.selectOne(mDTO);
+		
 		//회원가입 페이지 이동
-		if(mDTO == null) {
-			mDTO=new MemberDTO();
+		if(memberData == null) {
 			mDTO.setName(name);
 			mDTO.setNickName(nickname);
 			mDTO.setGender(gender);
@@ -112,7 +119,7 @@ public class NaverLoginPageController {
 			model.addAttribute("status", "socialJoin");
 			return "user/join";
 		}
-		mDTO.setLoginId("test");
+		
 		// 로그인 성공
 		session.setAttribute("loginId", mDTO.getLoginId());
 		model.addAttribute("status", "success");
