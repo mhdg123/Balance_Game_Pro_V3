@@ -35,9 +35,9 @@ public class CommentDAO {
 	private static final String DELETE = "DELETE FROM COMMENT WHERE COMMENT_ID = ? AND LOGIN_ID= ?";
 
 	// 댓글 전체 출력하기
-//	public List<CommentDTO> selectAll(CommentDTO cDTO) {
-//
-//		List<CommentDTO> datas = null;
+	public List<CommentDTO> selectAll(CommentDTO cDTO) {
+
+		List<CommentDTO> datas = null;
 //		// 질문에 대한 댓글
 //		if (cDTO.getSearchCondition().equals("questionComments")) {
 //			Object[] args = { cDTO.getQuestionId() };
@@ -48,8 +48,8 @@ public class CommentDAO {
 //			Object[] args = { cDTO.getLoginId() };
 //			datas = jdbcTemplate.query(SELECTALL_MEMBER, args, new CommentRowMapper());
 //		}
-//		return datas;
-//	}
+		return datas;
+	}
 
 	private CommentDTO selectOne(CommentDTO cDTO) {
 		return null;
