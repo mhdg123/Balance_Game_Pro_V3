@@ -16,13 +16,15 @@ function joinFormAction() {
 	let authNumCk = $("#certification").val(); // 입력된 인증번호
 
 
-	// 이름 유효성 검사
-	let namePattern = /^[가-힣]{2,4}$/; // 이름은 한글로 2글자 이상 4글자 이하
-	if (!namePattern.test(name)) {
-		showError("이름", "한글로 2글자 이상 4글자 이하로 입력해주세요.");
+
+	// 이름 유효성 검사 (영어로만 또는 한글로만 구성된 이름)
+	let namePattern = /^[a-zA-Z\s]+$/; // 영어로만 구성된 이름
+	let koreanNamePattern = /^[가-힣]{2,4}$/; // 한글로만 구성된 이름
+
+	if (!(namePattern.test(name) || koreanNamePattern.test(name))) {
+		showError("이름", "영어로만 또는 한글로 2글자 이상 4글자 이하로만 구성된 이름을 입력해주세요.");
 		return false;
 	}
-
 	// 나이 유효성 검사
 	if (age === "") {
 		showError("나이", "생년월일을 입력해주세요");
@@ -247,8 +249,22 @@ function authNumCheck() {
 	if (authNum == authNumCk) {
 		showSuccess("인증확인", "인증번호가 확인되었습니다.");
 		authStatus = 1; // 인증번호 확인 성공시 회원가입 가능 상태값 부여
+		
 	} else {
 		authStatus = 0; // 인증번호 확인 실패시 회원가입 불가능 상태값 부여
+		showError("인증확인", "인증번호가 일치하지 않습니다. 다시 확인해주세요");
+	}
+}
+// 인증번호 확인 함수
+function myAuthNumCheck() {
+	let authNumCk = $("#certification").val();
+	if (authNum == authNumCk) {
+		showSuccess("인증확인", "인증번호가 확인되었습니다.");
+		myAuthStatus = 1; // 인증번호 확인 성공시 회원가입 가능 상태값 부여
+		$('#cellPhone').prop('readonly', true);
+		
+	} else {
+		myAuthStatus = 0; // 인증번호 확인 실패시 회원가입 불가능 상태값 부여
 		showError("인증확인", "인증번호가 일치하지 않습니다. 다시 확인해주세요");
 	}
 }
@@ -260,22 +276,22 @@ var passwordCheckResult;
 
 // 비밀번호 확인 하는 함수	
 function checkPassword() {
-    var memberPassword = $("#memberPassword").val();
-    var passwordCheck = $("#passwordCheck").val();
-    var errorDiv = $("#passwordError");
-    console.log(memberPassword);
-    console.log(passwordCheck);
-    console.log(errorDiv);
+	var memberPassword = $("#memberPassword").val();
+	var passwordCheck = $("#passwordCheck").val();
+	var errorDiv = $("#passwordError");
+	console.log(memberPassword);
+	console.log(passwordCheck);
+	console.log(errorDiv);
 
-    if (memberPassword !== passwordCheck) {
-        errorDiv.html(`<div style="color: red;">[비밀번호가 일치하지 않습니다.]</div>`);
-        passwordCheckResult = false;
-        console.log("다름");
-    } else {
-        errorDiv.html(`<div style="color: green;">[비밀번호가 일치합니다.]</div>`);
-        passwordCheckResult = true;
-    }
-    return passwordCheckResult;
+	if (memberPassword !== passwordCheck) {
+		errorDiv.html(`<div style="color: red;">[비밀번호가 일치하지 않습니다.]</div>`);
+		passwordCheckResult = false;
+		console.log("다름");
+	} else {
+		errorDiv.html(`<div style="color: green;">[비밀번호가 일치합니다.]</div>`);
+		passwordCheckResult = true;
+	}
+	return passwordCheckResult;
 }
 
 
@@ -347,7 +363,86 @@ function timer() {
 
 
 
+function myjoinFormAction() {
 
+	// 입력된 값 가져오기
+	let nickName = $('#nickName').val(); // 이름
+
+	let cellPhone = $("#cellPhone").val(); // 핸드폰 번호
+	let email = $('#email').val(); // 이메일
+
+	let address = $('#address').val(); // 주소
+	let authNumCk = $("#certification").val(); // 입력된 인증번호
+	var userCode = document.getElementById("emailCheck").value;
+
+
+
+console.log(myAuthStatus);
+
+
+
+	// 닉네임 미 입력시 예외처리
+	if (!nickName) {
+		showError("닉네임", "닉네임을 입력해주세요");
+		return false;
+	}
+
+
+
+
+
+	// 이메일 유효성 검사
+	let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // 이메일 형식
+	if (!emailPattern.test(email)) {
+		showError("이메일", "이메일 형식이 맞지 않습니다.");
+		return false;
+	}
+
+	// 주소 입력 확인
+	if (!address) {
+		showError("주소", "주소를 입력해주세요.");
+		return false;
+	}
+
+
+
+	// 핸드폰 번호 유효성 검사
+	let phonePattern = /^01[016789]\d{8}$/; // 숫자로만 이루어진 11자리 번호
+	if (!phonePattern.test(cellPhone)) {
+		showError("핸드폰번호", "숫자만 입력 가능합니다.");
+		return false;
+	}
+
+
+	// 핸드폰 번호 입력 확인
+	if (!cellPhone) {
+		showError("휴대폰 번호", "휴대폰 번호를 입력해주세요");
+		return false;
+	}
+
+	// 인증번호 확인
+	if (myAuthStatus == 0) { // authStatus: 인증 성공 여부
+		showError("인증확인", "인증번호가 일치하지 않습니다. 다시 확인해주세요");
+		return false;
+	}
+
+	// 인증번호 미 입력시 예외처리
+	if (!authNumCk &&myAuthStatus == 0) {
+		showError("인증확인", "인증번호를 입력해주세요");
+		return false;
+	}
+	// 인증번호 미 입력시 예외처리
+	if (!userCode &&emailCodeStatus == 0) {
+		showError("인증확인", "인증번호를 입력해주세요");
+		return false;
+	}
+	if (emailCodeStatus == 0) { // authStatus: 인증 성공 여부
+		showError("인증확인", "인증번호가 일치하지 않습니다. 다시 확인해주세요");
+		return false;
+	}
+	
+	return true; // 모든 유효성 검사 통과
+}
 
 
 
