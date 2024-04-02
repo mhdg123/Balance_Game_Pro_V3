@@ -46,16 +46,16 @@ public class MemberDAO {
 			+ "FROM MEMBER WHERE LOGIN_ID = ? AND PASSWORD = ?";
 
 	// 비밀번호 찾기에서 회원정보가 맞는 지 확인
-	private static final String IS_INFO_CORRECT_TEMP_PW = "SELECT LOGIN_ID, EMAIL FROM MEMBER WHERE LOGIN_ID=? AND EMAIL=?";
+	private static final String IS_INFO_CORRECT_TEMP_PW = "SELECT LOGIN_ID, EMAIL, LOGIN_TYPE FROM MEMBER WHERE LOGIN_ID=? AND EMAIL=?";
 	
 	// 아이디 찾기에서 회원정보가 맞는 지 확인 
-	private static final String IS_INFO_CORRECT_SEARCH_ID = "SELECT LOGIN_ID, EMAIL, NICKNAME FROM MEMBER WHERE NAME=? AND EMAIL=?";
+	private static final String IS_INFO_CORRECT_SEARCH_ID = "SELECT LOGIN_ID, EMAIL, NICKNAME, LOGIN_TYPE FROM MEMBER WHERE NAME=? AND EMAIL=?";
 	
 	// 비밀번호 찾기에서 회원정보가 맞는 지 확인(전화번호)
-	private static final String IS_INFO_CORRECT_TEMP_PW_CELLPHONE = "SELECT LOGIN_ID, EMAIL FROM MEMBER WHERE LOGIN_ID=? AND CELL_PHONE=?";
+	private static final String IS_INFO_CORRECT_TEMP_PW_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, LOGIN_TYPE FROM MEMBER WHERE LOGIN_ID=? AND CELL_PHONE=?";
 	
 	// 아이디 찾기에서 회원정보가 맞는 지 확인(전화번호)
-	private static final String IS_INFO_CORRECT_SEARCH_ID_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, NICKNAME FROM MEMBER WHERE NAME=? AND CELL_PHONE=?";
+	private static final String IS_INFO_CORRECT_SEARCH_ID_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, NICKNAME, LOGIN_TYPE FROM MEMBER WHERE NAME=? AND CELL_PHONE=?";
 	
 	// 유저 전체 조회
 	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
@@ -404,6 +404,7 @@ class MemberRowMapperIsPwInfoCorrect implements RowMapper<MemberDTO>{
 		MemberDTO member = new MemberDTO();
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setEmail(rs.getString("EMAIL"));
+		member.setLoginType(rs.getString("LOGIN_TYPE"));
 		return member;
 	}
 }
@@ -416,6 +417,7 @@ class MemberRowMapperIsIdInfoCorrect implements RowMapper<MemberDTO>{
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setEmail(rs.getString("EMAIL"));
 		member.setNickName(rs.getString("NICKNAME"));
+		member.setLoginType(rs.getString("LOGIN_TYPE"));
 		return member;
 	}
 }
@@ -427,6 +429,7 @@ class MemberRowMapperIsPwInfoCorrectCellPhone implements RowMapper<MemberDTO>{
 		MemberDTO member = new MemberDTO();
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setCellPhone(rs.getString("CELL_PHONE"));
+		member.setLoginType(rs.getString("LOGIN_TYPE"));
 		return member;
 	}
 }
@@ -439,6 +442,7 @@ class MemberRowMapperIsIdInfoCorrectCellPhone implements RowMapper<MemberDTO>{
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setCellPhone(rs.getString("CELL_PHONE"));
 		member.setNickName(rs.getString("NICKNAME"));
+		member.setLoginType(rs.getString("LOGIN_TYPE"));
 		return member;
 	}
 }

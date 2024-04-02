@@ -33,6 +33,9 @@ public class SendTempPwAsync {
 		mDTO.setSearchCondition("isTempPwInfoCorrect");
 		mDTO = memberService.selectOne(mDTO);
 		System.out.println(mDTO);
+		if(mDTO.getLoginType().equals("SOCIAL")) {
+			return false;
+		}
 		if (mDTO != null) {
 			String code = tempPwService.sendEmail(mDTO);
 			// 해당 코드로 회원 비밀번호 설정
@@ -46,7 +49,7 @@ public class SendTempPwAsync {
 		return false;
 	}
 
-	@PostMapping("sendMemberPwNumberAsync")
+	@PostMapping("/sendMemberPwNumberAsync")
 	public @ResponseBody String sendMemberPwNumberAsync(@RequestBody MemberDTO mDTO) {
 		System.out.println("전화번호로 비번 찾기 이름 데이터 : " + mDTO.getLoginId());
 		System.out.println("전화번호로 아이디 찾기 전화번호 데이터 : " + mDTO.getCellPhone());

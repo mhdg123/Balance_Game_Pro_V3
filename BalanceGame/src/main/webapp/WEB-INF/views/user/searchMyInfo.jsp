@@ -249,16 +249,10 @@ async function passwordSearchEmail() {
         const result = await response.json();
 		if(result){
 			Swal.fire("임시비밀번호를 이메일로 전송했습니다 다시 로그인해주세요");
-			//window.location.href = "/user/login"; // 로그인 페이지 경로로 변경
-			// 폼을 동적으로 생성합니다.
-			var form = document.createElement("form");
-			form.method = "GET";
-			form.action = "/user/loginPage"; // 이동할 URL을 지정합니다.
-			document.body.appendChild(form);
-			form.submit();
+			window.location.href = "/user/loginPage"; // 로그인 페이지 경로로 변경
 		}
 		else{
-			Swal.fire("회원 정보가 일치하지 않습니다 다시 시도해주세요");
+			Swal.fire("회원 정보가 일치하지 않거나 소셜로그인 사용자입니다 다시 시도해주세요");
 		}
       }
       else{
