@@ -65,12 +65,14 @@
 										</tr>
 									</thead>
 									<tbody>
-
+										<c:set var="startIndex" value="${(page-1)*10}" />
 										<c:forEach var="data" items="${questionDatas}"
 											varStatus="loop">
 											<tr>
 												<td
-													onClick="location.href='questionDetailPage?questionId=${data.questionId}'"><p>${loop.index + 1}</p></td>
+													onClick="location.href='questionDetailPage?questionId=${data.questionId}'">
+													<p>${startIndex + loop.index + 1}</p>
+												</td>
 												<!-- loop.index는 0부터 시작하므로 +1을 해서 순번을 출력합니다. -->
 												<td class="qTitle"
 													onClick="location.href='questionDetailPage?questionId=${data.questionId}'"><p>${data.title}</p></td>
@@ -85,16 +87,17 @@
 															<div style="cursor: pointer;">
 																<img src="/resources/assets/img/thumb/fill-hearts.png"
 																	height="20px;" width="20px;"
-																	style="margin-right: 15px;"class="wish"  id="${data.questionId}">
+																	style="margin-right: 15px;" class="wish"
+																	id="${data.questionId}">
 															</div>
 														</div>
-													</c:if> 
-													<c:if test="${data.wishId <= 0}">
-														<div style="margin-bottom: 5px;" >
+													</c:if> <c:if test="${data.wishId <= 0}">
+														<div style="margin-bottom: 5px;">
 															<div style="cursor: pointer;">
 																<img src="/resources/assets/img/thumb/empty-hearts.png"
 																	height="20px;" width="20px;"
-																	style="margin-right: 15px;" class="wish" id="${data.questionId}">
+																	style="margin-right: 15px;" class="wish"
+																	id="${data.questionId}">
 															</div>
 														</div>
 													</c:if></td>
@@ -126,9 +129,9 @@
 					class="page-link" aria-label="Previous"> <i
 						class="ti-angle-left"></i>
 				</a></li>
-				<li class="page-item"><a href="#" class="page-link">1</a></li>
-				<li class="page-item active"><a href="#" class="page-link">2</a>
-				</li>
+				<li class="page-item active"><a href="#" class="page-link">${page}</a></li>
+				<li class="page-item "><a href="#" class="page-link">2</a></li>
+				<li class="page-item "><a href="#" class="page-link">3</a></li>
 				<li class="page-item"><a onclick="nextData();"
 					class="page-link" aria-label="Next"> <i class="ti-angle-right"></i>
 				</a></li>
@@ -147,6 +150,9 @@
 	<!-- 푸터 고정 스크립트 공통 모음 -->
 	<!-- 찜 하기 스크립트 -->
 	<script>
+	
+	console.log("얀여"+`${totalPage}`);
+	
 	   $(".wish").on("click", function() {
 			console.log("[성공]");
 			var loginId =`${loginId}`;
@@ -202,17 +208,65 @@
 				});
 			}
 		});
-	   <!-- 찜 하기 스크립트 -->
-		function test1() {
-			alert("문제 상세페이지 이동");
-		}
-		function nextData() {
-			alert("다음 페이지");
-		}
 
-		function beforeData() {
-			alert("이전 페이지 ");
-		}
+	</script>
+
+	<script type="text/javascript">
+	// 현재 페이지 및 총 페이지 수
+	var currentPage = ${page};
+	var totalPage = ${totalPage};
+
+	// 페이지 번호 노출 범위 설정 (5개씩)
+	var paginationRange = 5;
+
+	// 페이지 번호 목록 생성 함수
+	function generatePagination() {
+	    var paginationHTML = '<nav class="blog-pagination justify-content-center d-flex"><ul class="pagination">';
+
+	    // 이전 페이지 링크 추가
+	    paginationHTML += '<li class="page-item"><a onclick="beforeData();" class="page-link" aria-label="Previous"><i class="ti-angle-left"></i></a></li>';
+
+	 // 페이지 번호 목록 추가
+	    for (var i = Math.max(1, Math.min(currentPage - Math.floor(paginationRange / 2), totalPage - paginationRange + 1)); i <= Math.min(totalPage, Math.max(currentPage + Math.floor(paginationRange / 2), paginationRange)); i++) {
+	        if (i === currentPage) {
+	            paginationHTML += '<li class="page-item active"><a href="/user/questionListPage?currentPage=' + i + '" class="page-link">' + i + '</a></li>';
+	        } else {
+	            paginationHTML += '<li class="page-item"><a href="/user/questionListPage?currentPage=' + i + '" class="page-link">' + i + '</a></li>';
+	        }
+	    }
+
+	    // 다음 페이지 링크 추가
+	    paginationHTML += '<li class="page-item"><a onclick="nextData();" class="page-link" aria-label="Next"><i class="ti-angle-right"></i></a></li>';
+
+	    paginationHTML += '</ul></nav>';
+
+	    return paginationHTML;
+	}
+
+	// 페이지 목록 업데이트 함수
+	function updatePagination() {
+	    var paginationContainer = document.querySelector('.blog-pagination');
+	    if (paginationContainer) {
+	        paginationContainer.innerHTML = generatePagination();
+	    }
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+	    // 페이지 업데이트 실행
+	    updatePagination();
+	});
+	function nextData() {
+		
+	    if ((currentPage + 1) <= totalPage) {
+	        location.href = '/user/questionListPage?currentPage=' + (currentPage + 1);
+	    }
+	}
+
+	function beforeData() {
+	    if ((currentPage - 1) >= 1) {
+	        location.href = '/user/questionListPage?currentPage=' + (currentPage - 1);
+	    }
+	}
 	</script>
 </body>
 

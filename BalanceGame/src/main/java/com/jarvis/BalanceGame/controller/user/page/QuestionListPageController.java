@@ -36,7 +36,9 @@ public class QuestionListPageController {
 		
 		
 		qDTO.setSearchCondition("questionCount");
+		qDTO.setQuestionAccess("T");
 		qDTO = questionService.selectOne(qDTO);
+		System.out.println(qDTO);
 		pDTO.setTotalRows(qDTO.getQuestionCount());
 		int totalPage = pageInfoService.calcTotalPages(pDTO);	// 총페이지 수
 		
@@ -45,11 +47,12 @@ public class QuestionListPageController {
 //		qDTO.setSearchCondition("viewAllOfQuestionList");
 //		qDTO.setWriter((String)session.getAttribute("loginId"));
 //		List<QuestionDTO> datas = questionService.selectAll(qDTO);
-		System.out.println(datas);
+		System.out.println(totalPage);
 		
 		if(datas != null) {
 			model.addAttribute("questionDatas", datas);
 			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("page", pDTO.getCurrentPage());
 		}else {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "등록된 문제가 없습니다.");

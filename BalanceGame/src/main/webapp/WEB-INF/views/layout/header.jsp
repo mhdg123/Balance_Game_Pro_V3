@@ -32,7 +32,7 @@
 							<ul id="navigation">
 								<!-- 비로그인 시 -->
 								<li><a href="/user/gamePage">게임하기</a></li>
-								<li><a href="/user/questionListPage">문제목록</a></li>
+								<li><a href="/user/questionListPage?currentPage=1">문제목록</a></li>
 								<li><a href="/user/rankListPage">포인트 랭킹</a></li>
 								<li><a href="/user/shopPage" class="hiddenText">상점</a></li>
 								<!-- 로그인 시 -->
