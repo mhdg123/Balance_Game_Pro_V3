@@ -98,8 +98,8 @@ public class MemberDAO {
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
 
 	// 회원 전체 검색
-//	public List<MemberDTO> selectAll(MemberDTO mDTO) {
-//		List<MemberDTO> members = null;
+	public List<MemberDTO> selectAll(MemberDTO mDTO) {
+		List<MemberDTO> members = null;
 //		if (mDTO.getSearchCondition().equals("viewAll")) {
 //			members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
 //		} else if (mDTO.getSearchCondition().equals("ranking")) {
@@ -108,8 +108,8 @@ public class MemberDAO {
 //		else if(mDTO.getSearchCondition().equals("rankingPoint")) {
 //			members = jdbcTemplate.query(SELECTALL_RANKING_MEMBER, new MemberRowMapperRank());
 //		}
-//		return members;
-//	}
+		return members;
+	}
 
 	// 회원 단일 검색
 	public MemberDTO selectOne(MemberDTO mDTO) {

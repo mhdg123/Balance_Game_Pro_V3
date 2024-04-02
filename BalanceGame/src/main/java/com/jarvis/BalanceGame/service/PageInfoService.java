@@ -6,7 +6,7 @@ import com.jarvis.BalanceGame.model.dto.PageInfoDTO;
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 
 public interface PageInfoService {
-	public List<QuestionDTO> selectAll(PageInfoDTO pDTO);
+	public List<PageInfoDTO> selectAll(PageInfoDTO pDTO);
 	
 	// 토탈 페이지 계산
 	public int calcTotalPages(PageInfoDTO pDTO);

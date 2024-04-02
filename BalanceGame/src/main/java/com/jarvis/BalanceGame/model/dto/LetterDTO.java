@@ -30,4 +30,5 @@ public class LetterDTO {
 
 	  //----------------------------------------
 	  private String searchCondition;
+	  private int cnt;
 }
