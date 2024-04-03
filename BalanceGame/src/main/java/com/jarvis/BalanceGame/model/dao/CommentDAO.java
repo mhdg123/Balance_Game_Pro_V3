@@ -25,8 +25,11 @@ public class CommentDAO {
 //	private static final String SELECTALL_MEMBER = "SELECT C.COMMENT_ID, C.QUESTION_ID, C.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
 //			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=? ORDER BY C.COMMENT_DATE DESC";
 
-	// 총 댓글 수 
-	private static final String SELECTONE_COMMENT_CNT = "SELECT COUNT(1) AS COMMENT_CNT FROM COMMENT";
+	// 총 댓글 수 (문제)
+	private static final String SELECTONE_COMMENT_CNT_QUESTION = "SELECT COUNT(1) AS COMMENT_CNT FROM COMMENT WHERE QUESTION_ID = ?";
+	
+	// 총 댓글 수 (회원)
+	private static final String SELECTONE_COMMENT_CNT_MEMBER = "SELECT COUNT(1) AS COMMENT_CNT FROM COMMENT WHERE LOGIN_ID = ?";
 	
 	// 댓글 작성
 	private static final String INSERT = "INSERT INTO COMMENT (QUESTION_ID, LOGIN_ID, COMMENTS) VALUES (?,?,?)";
@@ -57,8 +60,13 @@ public class CommentDAO {
 	public CommentDTO selectOne(CommentDTO cDTO) {
 		CommentDTO data = null;
 		try {
-			if(cDTO.getSearchCondition().equals("commentsCnt")) {
-				
+			if(cDTO.getSearchCondition().equals("commentsCntQuestion")) {
+				Object[] args = {cDTO.getQuestionId()};
+				data = jdbcTemplate.queryForObject(SELECTONE_COMMENT_CNT_QUESTION, args, new CommentRowMapperCnt());
+			}
+			else if(cDTO.getSearchCondition().equals("commentsCntMember")) {
+				Object[] args = {cDTO.getLoginId()};
+				data = jdbcTemplate.queryForObject(SELECTONE_COMMENT_CNT_MEMBER, args, new CommentRowMapperCnt());
 			}
 		} catch (Exception e) {
 		}
@@ -107,5 +115,16 @@ class CommentRowMapper implements RowMapper<CommentDTO> {
 		data.setCommentDate(rs.getDate("COMMENT_DATE"));
 		return data;
 	}
+}
 
+
+class CommentRowMapperCnt implements RowMapper<CommentDTO> {
+
+	@Override
+	public CommentDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		CommentDTO data = new CommentDTO();
+		data.setCnt(rs.getInt("COMMENT_CNT"));
+		return data;
+	}
+	
 }
