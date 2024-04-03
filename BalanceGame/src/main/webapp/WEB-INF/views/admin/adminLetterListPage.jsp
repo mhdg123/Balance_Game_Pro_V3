@@ -100,6 +100,7 @@
 												<th>읽음 상태</th>
 												<th>날짜</th>
 											</tr>
+${letterDatas}
 										</thead>
 										<tbody>
 											<c:if test="${empty letterDatas}">
@@ -110,7 +111,7 @@
 											</c:if>
 										<tbody id="suggestionTableBody">
 											<c:forEach var="data" items="${letterDatas}">
-												<c:if test="${data.letterType = 'SUGGESTION' }">
+												
 													<tr onclick="location.href = '/admin/letterDetailPage?letterId=${data.letterId}'">
 														<td id="loginIdData">${data.sender}</td>
 														<td id="titleData">${data.title}</td>
@@ -122,7 +123,7 @@
 														</c:if>
 														<td id="titleData">${data.letterDate}</td>
 													</tr>
-												</c:if>
+												
 											</c:forEach>
 										</tbody>
 										</tbody>

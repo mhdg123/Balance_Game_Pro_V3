@@ -43,6 +43,7 @@ public class PageInfoDTO {
 	private String sender;
 	private Date letterDate;
 	private String letterStatus;
+	private String letterType;
 	
 	//Comment
 	private int commentId;
