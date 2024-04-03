@@ -102,7 +102,7 @@
 				</div>
 				<!-- Comments -->
 				<div class="container">
-					<div class="comments-area">
+					<div class="comments-area" id="comments-area">
 						<!-- 댓글 입력 Start -->
 						<!-- 광고 이미지 -->
 						<%@ include file="../layout/advertisement.jsp"%>
@@ -121,7 +121,7 @@
 
 						<h4>댓글</h4>
 						<div id="comment-box">
-							<c:forEach var="data" items="${commentDatas}" varStatus="loop">
+							<%-- <c:forEach var="data" items="${commentDatas}" varStatus="loop">
 								<div class="comment-list">
 									<div>
 										<div>
@@ -152,7 +152,7 @@
 										</div>
 									</div>
 								</div>
-							</c:forEach>
+							</c:forEach> --%>
 						</div>
 
 
@@ -185,6 +185,12 @@
 
 	<!-- 문제 세팅 -->
 	<script type="text/javascript">
+	   var pageName;
+       // 현재 페이지 및 총 페이지 수
+
+	var currentPage = `${page}`;
+	var totalPage = `${totalPage}`;
+	var questionId=${questionData.questionId};
 		$(document).ready(
 				function() {
 					var answerACount = Number("${questionData.answerACount}");
@@ -208,6 +214,8 @@
 						$("#answer_B_percent").text(answerBPercentage + "%");
 
 					}, 100); // 100ms 후에 실행됩니다.
+					
+					commentAll();
 				});
 	</script>
 	<!-- 문제 세팅 -->
@@ -235,7 +243,9 @@
 				dataType : 'text',
 				success : function(data) {
 					if (data == "success") {
-						location.reload();
+						$('#comment').val("");
+						currentPage=1;
+						commentAll();
 					}
 
 				},
@@ -324,9 +334,13 @@
 										});
 							}
 						});
+		
 	</script>
+	<script src="/resources/user/js/currentAsyncPage.js"></script>
+	<!-- 페이징 js -->
 	<!-- 찜 하기 스크립트 -->
 	<script src="/resources/user/js/commentAll.js"></script>
+		
 
 </body>
 </html>

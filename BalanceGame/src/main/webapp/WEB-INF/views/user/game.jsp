@@ -353,20 +353,6 @@ playElement.innerHTML = `
 	
 	
 
-<script>
-function commentPage(id){
-	console.log("다음 번호 클릭");
-	currentPage = id;
-	console.log("해당 번호"+currentPage);
-	var commentBox = document.getElementById('comments-area');
-    if (commentBox) {
-        // comment-box로 이동
-        commentBox.scrollIntoView({ behavior: 'smooth' });
-    }
-	
-	commentAll();
-}
-</script>
 
 	<script src="/resources/user/js/currentAsyncPage.js"></script>
 	<!-- 페이징 js -->
