@@ -44,7 +44,7 @@ public class LetterDAO {
 	private static final String SELECTONE_CNT_MEMBER = "SELECT COUNT(1) AS CNT FROM LETTER";
 	
 	// 해당 메세지 조회
-	private static final String SELECTONE = "SELECT LETTER_ID,SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LETTER_ID = ?";
+	private static final String SELECTONE = "SELECT LETTER_ID,SENDER,LOGIN_ID  ,TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LETTER_ID = ?";
 
 	// 메세지 발송(관리자)
 	private static final String INSERT = "INSERT INTO LETTER(SENDER, LOGIN_ID, TITLE, LETTER_CONTENTS) VALUES (?,?,?,?)";
@@ -167,6 +167,7 @@ class LetterRowMapperViewOne implements RowMapper<LetterDTO> {
 	public LetterDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		LetterDTO data = new LetterDTO();
 		data.setLetterId(rs.getInt("LETTER_ID")); // 추가 필요
+		data.setLoginId(rs.getString("LOGIN_ID"));
 		data.setSender(rs.getString("SENDER"));
 		data.setTitle(rs.getString("TITLE"));
 		data.setLetterContents(rs.getString("LETTER_CONTENTS"));

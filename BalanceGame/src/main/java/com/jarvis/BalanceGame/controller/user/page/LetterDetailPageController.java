@@ -18,11 +18,11 @@ public class LetterDetailPageController {
 	
 	@GetMapping("/letterDetailPage")
 	public String letterDetailPageController(LetterDTO lDTO, Model model) {
-		
-		
-		lDTO = letterService.selectOne(lDTO);
 		lDTO.setSearchCondition("updateReadStatus");
 		letterService.update(lDTO);
+		lDTO.setSearchCondition("viewOneMessage");
+		lDTO = letterService.selectOne(lDTO);
+		
 		
 		model.addAttribute("letterData",lDTO);
 		
