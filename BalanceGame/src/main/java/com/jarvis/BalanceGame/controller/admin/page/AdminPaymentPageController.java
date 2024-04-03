@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
+import com.jarvis.BalanceGame.model.dto.PageInfoDTO;
 import com.jarvis.BalanceGame.model.dto.PaymentDTO;
 import com.jarvis.BalanceGame.service.MemberService;
+import com.jarvis.BalanceGame.service.PageInfoService;
 import com.jarvis.BalanceGame.service.PaymentService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
  @RequestMapping("/admin")
@@ -21,28 +25,47 @@ import com.jarvis.BalanceGame.service.PaymentService;
   	private PaymentService paymentService;
   	@Autowired
   	private MemberService memberService;
+  	@Autowired
+  	private PageInfoService pageInfoService;
   	
   	@GetMapping("/paymentManagementPage")
-  	public String adminSupportPageController(PaymentDTO pDTO,MemberDTO mDTO, Model model) {
+  	public String adminSupportPageController(PaymentDTO pDTO, PageInfoDTO pIDTO,MemberDTO mDTO, Model model, HttpSession session) {
+  		String loginId = (String)session.getAttribute("loginId");
   		System.out.println("관리자 결제 관리 페이지 이동");
-  		mDTO.setSearchCondition("ranking");
-  		List<MemberDTO> mdatas = memberService.selectAll(mDTO);
-  		System.out.println("관리자 결제 회원 조회된 데이터 : " + mdatas);
-  		PaymentDTO totalAmount = paymentService.selectOne(pDTO);
-  		System.out.println("관리자 결제 금액 조회된 데이터 : " + totalAmount);
   		
-  		if(mdatas == null) {
-  
-  			model.addAttribute("status", "fail");
-  			model.addAttribute("msg", "해당 데이터가 없습니다");
-  			model.addAttribute("redirect", "adminPage");
-  			return "alert";
-  		}
+  		if(pIDTO.getCurrentPage() == 0) {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
+			pIDTO.setCurrentPage(1);
+		}
+		
+  		pIDTO.setLoginId(loginId);
+  		pIDTO.setPasingnationSize(10);
+		
+  		pIDTO.setOffset(pageInfoService.calculateOffset(pIDTO));
+		System.out.println(pIDTO.getOffset());
+		pIDTO.setSearchCondition("ranking");
+		System.out.println("pDTO" + pDTO);
+		List<PageInfoDTO> datas = pageInfoService.selectAll(pIDTO);
   		
-  		model.addAttribute("memberDatas", mdatas);
-  		model.addAttribute("totalAmount", totalAmount);
+		mDTO.setSearchCondition("memberCnt");
+		mDTO = memberService.selectOne(mDTO);
+		System.out.println(mDTO);
+		pIDTO.setTotalRows(mDTO.getMemberCount());
+		int totalPage = pageInfoService.calcTotalPages(pIDTO);	// 총페이지 수
   		
-  
+		PaymentDTO totalAmount = paymentService.selectOne(pDTO);
+		if(datas != null) {
+			model.addAttribute("memberDatas", datas);
+			model.addAttribute("totalPage", totalPage);
+	  		model.addAttribute("totalAmount", totalAmount);
+			model.addAttribute("page", pIDTO.getCurrentPage());
+		}else {
+			model.addAttribute("status", "fail");
+			model.addAttribute("msg", "등록된 정보가 없습니다.");
+			model.addAttribute("redirect", "/adminPaymentManagement");
+			return "alert";
+		}
+
   		return "admin/adminPaymentManagement";
   	}
   	

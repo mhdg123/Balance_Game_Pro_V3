@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.LetterDTO;
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
+import com.jarvis.BalanceGame.model.dto.PageInfoDTO;
 import com.jarvis.BalanceGame.model.dto.PaymentDTO;
 import com.jarvis.BalanceGame.model.dto.QuestionDTO;
 import com.jarvis.BalanceGame.service.LetterService;
 import com.jarvis.BalanceGame.service.MemberService;
+import com.jarvis.BalanceGame.service.PageInfoService;
 import com.jarvis.BalanceGame.service.PaymentService;
 import com.jarvis.BalanceGame.service.QuestionService;
 
@@ -32,9 +34,12 @@ public class AdminPageController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private PageInfoService pageInfoService;
+	
 	
 	@GetMapping("/adminPage")
-	public String adminPageController(LetterDTO lDTO, QuestionDTO qDTO, MemberDTO mDTO, PaymentDTO pDTO, Model model, HttpSession session) {
+	public String adminPageController(LetterDTO lDTO, QuestionDTO qDTO, PageInfoDTO piDTO, MemberDTO mDTO, PaymentDTO pDTO, Model model, HttpSession session) {
 		
 		qDTO.setSearchCondition("questionCount");
 		qDTO.setQuestionAccess("F");
@@ -56,20 +61,40 @@ public class AdminPageController {
 		
 		String loginId = (String)session.getAttribute("loginId");
 		
-		lDTO.setLoginId(loginId);
-		lDTO.setSearchCondition("viewAllMessageAdmin");
-		List<LetterDTO> lDatas = letterService.selectAll(lDTO);
-		System.out.println(lDatas);
-		if (lDatas.size() <= 0) {
-			System.out.println("건의사항 : null");
+		if(piDTO.getCurrentPage() == 0) {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
+			piDTO.setCurrentPage(1);
 		}
-		System.out.println("건의사항 데이터는 있음");
-		model.addAttribute("qDTOApproveCnt", qDTOApproveCnt);
-		model.addAttribute("qDTOTotalCnt", qDTOTotalCnt);
-		model.addAttribute("memberDatas", mDTO);
-		model.addAttribute("paymentDatas", pDTO);
-		model.addAttribute("letterDatas", lDatas);
 		
+		piDTO.setLoginId(loginId);
+		piDTO.setPasingnationSize(10);
+		
+		piDTO.setOffset(pageInfoService.calculateOffset(piDTO));
+		System.out.println(piDTO.getOffset());
+		piDTO.setSearchCondition("viewAllSuggestionMessageAdmin");
+		System.out.println("pDTO" + piDTO);
+		List<PageInfoDTO> datas = pageInfoService.selectAll(piDTO);
+		
+		
+		lDTO.setLetterType("suggestion");
+		lDTO.setSearchCondition("messageCntAdmin");
+		lDTO = letterService.selectOne(lDTO);
+		System.out.println(lDTO);
+		piDTO.setTotalRows(lDTO.getCnt());
+		int totalPage = pageInfoService.calcTotalPages(piDTO);	// 총페이지 수
+		
+
+		System.out.println(totalPage);
+		
+			model.addAttribute("letterDatas", datas);
+			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("page", piDTO.getCurrentPage());
+			System.out.println("건의사항 데이터는 있음");
+			model.addAttribute("qDTOApproveCnt", qDTOApproveCnt);
+			model.addAttribute("qDTOTotalCnt", qDTOTotalCnt);
+			model.addAttribute("memberDatas", mDTO);
+			model.addAttribute("paymentDatas", pDTO);
+
 		return "admin/adminMain";
 	}
 }
