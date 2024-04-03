@@ -74,6 +74,7 @@ public class AdminPageController {
 		piDTO.setSearchCondition("viewAllSuggestionMessageAdmin");
 		System.out.println("pDTO" + piDTO);
 		List<PageInfoDTO> datas = pageInfoService.selectAll(piDTO);
+		System.out.println("datas"+datas);
 		
 		
 		lDTO.setLetterType("suggestion");

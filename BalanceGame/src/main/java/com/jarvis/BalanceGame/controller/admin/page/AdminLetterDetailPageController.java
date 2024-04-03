@@ -21,6 +21,7 @@ public class AdminLetterDetailPageController {
 		System.out.println("편지 PK id값 : " + lDTO.getLetterId());
 		lDTO.setSearchCondition("updateReadStatus");
 		letterService.update(lDTO); // 건의사항 상세페이지 확인시 읽음처리하기
+		lDTO.setSearchCondition("viewOneMessage");
 		lDTO = letterService.selectOne(lDTO);
 		System.out.println("편지 데이터 : " + lDTO);
 		if (lDTO == null) {

@@ -41,6 +41,7 @@ public class AdminLetterListPageController {
 		pDTO.setSearchCondition("viewAllSuggestionMessageAdmin");
 		System.out.println("pDTO" + pDTO);
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
+		System.out.println("datas"+datas);
 		
 		lDTO.setLetterType("suggestion");
 		lDTO.setSearchCondition("messageCntAdmin");
