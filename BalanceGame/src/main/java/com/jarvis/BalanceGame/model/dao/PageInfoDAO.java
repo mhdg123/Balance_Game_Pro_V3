@@ -91,7 +91,7 @@ public class PageInfoDAO {
 
 		// 문제 리스트 (회원)
 		if (pDTO.getSearchCondition().equals("viewAllOfQuestionList")) {
-			Object[] args = { pDTO.getWriter(), pDTO.getOffset(), pDTO.getPasingnationSize() };
+			Object[] args = { pDTO.getLoginId(), pDTO.getOffset(), pDTO.getPasingnationSize() };
 			datas = jdbcTemplate.query(SELECTALL_QUESTION, args, new PageInfoRowMapperQuestion());
 		}
 		// 문제 리스트 (관리자 - 승인한 문제)
