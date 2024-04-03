@@ -20,6 +20,7 @@
     <input type="hidden" value="${memberData.name }" name="name">
     <input type="hidden" value="${memberData.nickName }" name="nickName">
     <input type="hidden" value="${memberData.grade }" name="grade">
+    <input type="hidden" value="${memberData.gender }" name="gender">
     <input type="hidden" value="${memberData.email }" name="email">
     <input type="hidden" value="${memberData.cellPhone }" name="cellPhone">
     <input type="hidden" value="${memberData.age }" name="age">
