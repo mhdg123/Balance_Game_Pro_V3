@@ -1,5 +1,7 @@
 package com.jarvis.BalanceGame.model.dto;
 
+import java.sql.Date;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,4 +14,9 @@ public class TotalDTO {
 	  @NotNull
 	  private int totalAmountID; // 총계 ID PK
 	  private int totalAmount; // 총금액
+	  private Date totalDate;
+	  
+	  //------------------------
+	  private String month;
+	  
 }

@@ -373,7 +373,6 @@ class MemberRowMapperCnt implements RowMapper<MemberDTO> {
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO member = new MemberDTO();
 		member.setMemberCount(rs.getInt("MEMBER_CNT"));
-		;
 		return member;
 	}
 }
