@@ -21,12 +21,18 @@ public class PageInfoDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	// 문제목록
+	// 문제목록 (회원)
 	private static final String SELECTALL_QUESTION = "SELECT Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE, "
 			+ "COUNT(DISTINCT W.LOGIN_ID) AS LIKE_COUNT, "
-			+ "MAX(CASE WHEN W.LOGIN_ID = 'user1' THEN 1 ELSE 0 END) AS LIKE_ID\r\n"
+			+ "MAX(CASE WHEN W.LOGIN_ID = ? THEN 1 ELSE 0 END) AS LIKE_ID\r\n"
 			+ "FROM QUESTION Q LEFT JOIN WISH W ON W.QUESTION_ID = Q.QUESTION_ID "
 			+ "WHERE Q.QUESTION_ACCESS = 'T' GROUP BY Q.QUESTION_ID, Q.TITLE, Q.QUESTION_DATE\r\n" + "LIMIT ?, ?";
+
+	// 문제목록 (관리자가 사용하는 승인한 전체 문제 조회)
+	private static final String SELECTALL_ADMIN_APPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER, Q.EXPLANATION, Q.QUESTION_DATE FROM QUESTION Q WHERE QUESTION_ACCESS = 'T' ";
+
+	// 문제목록 (관리자가 사용하는 승인하지 않은 전체 문제 조회)
+	private static final String SELECTALL_ADMIN_UNAPPROVED_QUESTIONS = "SELECT Q.QUESTION_ID, Q.TITLE, Q.WRITER, Q.EXPLANATION, Q.QUESTION_DATE FROM QUESTION Q WHERE QUESTION_ACCESS = 'F' ";
 
 	// 회원 랭킹 (포인트로 조회)
 	private static final String SELECTALL_RANKING_USER = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(TRUNCATE(SUM(P.AMOUNT/10), 1),0) AS TOTAL, CASE WHEN IFNULL(SUM(P.AMOUNT/10), 0) = 0 THEN NULL \r\n"
@@ -69,7 +75,7 @@ public class PageInfoDAO {
 	// 안 읽은 쪽지 목록 (회원)
 	private static final String SELECTALL_UNREAD_LETTER_LIST = "SELECT LETTER_ID, TITLE, SENDER, LETTER_STATUS, LETTER_DATE "
 			+ "FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=? ORDER BY LETTER_DATE DESC LIMIT ?, ?";
-	
+
 	// 문제에 대한 댓글 목록
 	private static final String SELECTALL_COMMENTS_OF_QUESTION = "SELECT C.COMMENT_ID, C.QUESTION_ID, M.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE "
 			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID = M.LOGIN_ID "
@@ -83,10 +89,20 @@ public class PageInfoDAO {
 	public List<PageInfoDTO> selectAll(PageInfoDTO pDTO) {
 		List<PageInfoDTO> datas = null;
 
-		// 문제 리스트
+		// 문제 리스트 (회원)
 		if (pDTO.getSearchCondition().equals("viewAllOfQuestionList")) {
 			Object[] args = { pDTO.getOffset(), pDTO.getPasingnationSize() };
 			datas = jdbcTemplate.query(SELECTALL_QUESTION, args, new PageInfoRowMapperQuestion());
+		}
+		// 문제 리스트 (관리자 - 승인한 문제)
+		else if (pDTO.getSearchCondition().equals("adminViewAllOfApprovedQuestions")) {
+			Object[] args = { pDTO.getOffset(), pDTO.getPasingnationSize() };
+			datas = jdbcTemplate.query(SELECTALL_ADMIN_APPROVED_QUESTIONS, args, new PageInfoRowMapperQuestionAdmin());
+		}
+		// 문제 리스트 (관리자 - 승인하지 않은 문제)
+		else if (pDTO.getSearchCondition().equals("adminViewAllOfUnapprovedQuestions")) {
+			Object[] args = { pDTO.getOffset(), pDTO.getPasingnationSize() };
+			datas = jdbcTemplate.query(SELECTALL_ADMIN_UNAPPROVED_QUESTIONS, args, new PageInfoRowMapperQuestionAdmin());
 		}
 		// 랭킹(회원)
 		else if (pDTO.getSearchCondition().equals("rankingPoint")) {
@@ -105,7 +121,7 @@ public class PageInfoDAO {
 		}
 		// 쪽지 리스트(회원)
 		else if (pDTO.getSearchCondition().equals("viewAllMessage")) {
-			System.out.println("쪽지리스트"+pDTO);
+			System.out.println("쪽지리스트" + pDTO);
 			Object[] args = { pDTO.getLoginId(), pDTO.getOffset(), pDTO.getPasingnationSize() };
 			datas = jdbcTemplate.query(SELECTALL_LETTER_LIST, args, new PageInfoRowMapperLetter());
 		}
@@ -170,6 +186,20 @@ class PageInfoRowMapperQuestion implements RowMapper<PageInfoDTO> {
 		data.setTitle(rs.getString("TITLE"));
 		data.setLikeCount(rs.getInt("LIKE_COUNT"));
 		data.setWishId(rs.getInt("LIKE_ID"));
+		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
+		return data;
+	}
+}
+
+class PageInfoRowMapperQuestionAdmin implements RowMapper<PageInfoDTO> {
+
+	@Override
+	public PageInfoDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		PageInfoDTO data = new PageInfoDTO();
+		data.setQuestionId(rs.getInt("QUESTION_ID"));
+		data.setTitle(rs.getString("TITLE"));
+		data.setWriter(rs.getString("WRITER"));
+		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
 		return data;
 	}

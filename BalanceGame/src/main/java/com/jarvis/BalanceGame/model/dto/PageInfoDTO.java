@@ -25,6 +25,8 @@ public class PageInfoDTO {
 	private int likeCount;
 	private int wishId;
 	private Date questionDate;
+	private String writer;
+	private String explanation;
 	
 	//Member----------------------------
 	private String loginId;
