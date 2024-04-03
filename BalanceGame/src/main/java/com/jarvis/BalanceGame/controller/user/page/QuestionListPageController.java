@@ -34,8 +34,9 @@ public class QuestionListPageController {
 		}
 		pDTO.setLoginId(loginId);
 		pDTO.setPasingnationSize(10);
-		pageInfoService.calculateOffset(pDTO);
+		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
 		pDTO.setSearchCondition("viewAllOfQuestionList");
+		System.out.println("pDTO 로그 : "+pDTO);
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
 		
 		
