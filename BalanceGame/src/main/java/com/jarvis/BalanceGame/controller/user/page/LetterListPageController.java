@@ -31,7 +31,7 @@ public class LetterListPageController {
 	
 	
 	@GetMapping("/letterListPage")
-	public @ResponseBody String letterListPageController(LetterDTO lDTO, PageInfoDTO pDTO, Model model, HttpSession session, Gson gson) {
+	public String letterListPageController(LetterDTO lDTO, PageInfoDTO pDTO, Model model, HttpSession session, Gson gson) {
 		// 페이징 처리 해야한다
 		// 뷰에서 데이터를 받는다 몇페이지 클릭하는지 데이터 받음
 		// 그걸 모델에 보내준다
@@ -71,7 +71,7 @@ public class LetterListPageController {
 			return "alert";
 		}
 		
-		return gson.toJson(datas);
+		return "/user/letterList";
 
 	}
 }
