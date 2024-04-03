@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
+import com.jarvis.BalanceGame.model.dto.PageInfoDTO;
 import com.jarvis.BalanceGame.service.MemberService;
+import com.jarvis.BalanceGame.service.PageInfoService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,20 +22,47 @@ public class AdminMemberManagementPageController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private PageInfoService pageInfoService;
+	
 	@GetMapping("/memberManagementPage")
-	public String adminMemberManagementPageController(MemberDTO mDTO, Model model) {
+	public String adminMemberManagementPageController(MemberDTO mDTO, PageInfoDTO pDTO, Model model, HttpSession session) {
 		
-		mDTO.setSearchCondition("viewAll");
-		List<MemberDTO> mDatas = memberService.selectAll(mDTO);
-		System.out.println("memberDatas" + mDatas);
+		String loginId = (String)session.getAttribute("loginId");
 		
-		if (mDatas == null) {
+		if(pDTO.getCurrentPage() == 0) {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
+			pDTO.setCurrentPage(1);
+		}
+		
+		pDTO.setLoginId(loginId);
+		pDTO.setPasingnationSize(10);
+		
+		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
+		System.out.println(pDTO.getOffset());
+		pDTO.setSearchCondition("viewAllOfMemberList");
+		System.out.println("pDTO" + pDTO);
+		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
+		
+		
+		
+		mDTO.setSearchCondition("memberCnt");
+		mDTO = memberService.selectOne(mDTO);
+		System.out.println(mDTO);
+		pDTO.setTotalRows(mDTO.getMemberCount());
+		int totalPage = pageInfoService.calcTotalPages(pDTO);	// 총페이지 수
+		
+		if(datas != null) {
+			model.addAttribute("memberDatas", datas);
+			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("page", pDTO.getCurrentPage());
+		}else {
 			model.addAttribute("status", "fail");
-			model.addAttribute("fail", "회원이 존재하지 않습니다.");
-			model.addAttribute("redirect", "adminPage");
+			model.addAttribute("msg", "등록된 회원이 없습니다.");
+			model.addAttribute("redirect", "");
 			return "alert";
 		}
-		model.addAttribute("memberDatas", mDatas);
+
 		return "admin/adminMemberManagement";
 	}
 		

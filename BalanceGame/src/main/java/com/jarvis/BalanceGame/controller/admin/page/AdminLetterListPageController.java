@@ -27,28 +27,31 @@ public class AdminLetterListPageController {
 	
 	@GetMapping("/adminLetterListPage")
 	public String adminLetterListPageController(LetterDTO lDTO,PageInfoDTO pDTO, Model model,HttpSession session) {
-		String loginId = (String)session.getAttribute("loginId");
 		
-		if(Integer.valueOf(pDTO.getCurrentPage()) == null) {
+		String loginId = (String)session.getAttribute("loginId");
+		if(pDTO.getCurrentPage() == 0) {
 			pDTO.setCurrentPage(1);
 		}
+		
 		pDTO.setLoginId(loginId);
 		pDTO.setPasingnationSize(10);
-		pageInfoService.calculateOffset(pDTO);
+		
+		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
+		System.out.println(pDTO.getOffset());
 		pDTO.setSearchCondition("viewAllSuggestionMessageAdmin");
+		System.out.println("pDTO" + pDTO);
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
 		
-		lDTO.setSearchCondition("questionCount");
+		lDTO.setLetterType("suggestion");
+		lDTO.setSearchCondition("messageCntAdmin");
 		lDTO = letterService.selectOne(lDTO);
 		System.out.println(lDTO);
-		pDTO.setTotalRows(qDTO.getQuestionCount());
+		pDTO.setTotalRows(lDTO.getCnt());
 		int totalPage = pageInfoService.calcTotalPages(pDTO);	// 총페이지 수
 		
 		
-		System.out.println(totalPage);
-		
 		if(datas != null) {
-			model.addAttribute("questionDatas", datas);
+			model.addAttribute("letterDatas", datas);
 			model.addAttribute("totalPage", totalPage);
 			model.addAttribute("page", pDTO.getCurrentPage());
 		}else {
@@ -58,11 +61,7 @@ public class AdminLetterListPageController {
 			return "alert";
 		}
 		
-		return "user/questionList";
-		
-		
-		model.addAttribute("letterDatas", lDatas);
-		
 		return "admin/adminLetterListPage";
+
 	}
 }
