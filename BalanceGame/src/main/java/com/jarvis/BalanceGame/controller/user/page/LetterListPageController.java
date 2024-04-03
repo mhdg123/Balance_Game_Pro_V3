@@ -47,6 +47,7 @@ public class LetterListPageController {
 		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
 		System.out.println(pDTO.getOffset());
 		pDTO.setSearchCondition("viewAllMessage");
+		System.out.println("pDTO" + pDTO);
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
 		
 		

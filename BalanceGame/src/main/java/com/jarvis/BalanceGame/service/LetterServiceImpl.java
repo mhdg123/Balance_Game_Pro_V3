@@ -34,5 +34,4 @@ public class LetterServiceImpl implements LetterService{
 	public LetterDTO selectOne(LetterDTO lDTO) {
 		return letterDAO.selectOne(lDTO);
 	}
-
 }

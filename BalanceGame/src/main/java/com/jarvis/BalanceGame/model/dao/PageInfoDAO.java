@@ -105,6 +105,7 @@ public class PageInfoDAO {
 		}
 		// 쪽지 리스트(회원)
 		else if (pDTO.getSearchCondition().equals("viewAllMessage")) {
+			System.out.println("쪽지리스트"+pDTO);
 			Object[] args = { pDTO.getLoginId(), pDTO.getOffset(), pDTO.getPasingnationSize() };
 			datas = jdbcTemplate.query(SELECTALL_LETTER_LIST, args, new PageInfoRowMapperLetter());
 		}
