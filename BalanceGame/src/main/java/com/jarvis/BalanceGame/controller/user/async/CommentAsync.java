@@ -45,7 +45,7 @@ public class CommentAsync {
 		
 		
 		if(datas != null) {
-			model.addAttribute("letterDatas", datas);
+			model.addAttribute("commentDatas", datas);
 			datas.get(0).setCurrentPage(pDTO.getCurrentPage());
 			datas.get(0).setTotalPages(totalPage);
 		}else {

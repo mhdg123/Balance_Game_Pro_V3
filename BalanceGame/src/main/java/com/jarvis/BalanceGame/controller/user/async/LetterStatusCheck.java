@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.jarvis.BalanceGame.model.dto.LetterDTO;
+import com.jarvis.BalanceGame.model.dto.PageInfoDTO;
 import com.jarvis.BalanceGame.service.LetterService;
+import com.jarvis.BalanceGame.service.PageInfoService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -21,6 +24,9 @@ public class LetterStatusCheck {
 
     @Autowired
     private LetterService letterService;
+    
+    @Autowired
+    private PageInfoService pageInfoService;
     
     // 사용자가 받은 편지의 상태를 확인하는 메서드
     @PostMapping("/letterCheckUnRead")
@@ -109,5 +115,44 @@ public class LetterStatusCheck {
         String jsonResult = gson.toJson(flag); // 결과값을 JSON 형태로 변환
         return jsonResult;
     }
+ 
+    @PostMapping("/letterAsync")
+	public @ResponseBody String letterAsync(LetterDTO lDTO,PageInfoDTO pDTO, Model model, Gson gson, HttpSession session) {
+		String loginId = (String)session.getAttribute("loginId");
+		pDTO.setLoginId(loginId);
+		if(pDTO.getCurrentPage() == 0) {
+			pDTO.setCurrentPage(1);
+		}
+		pDTO.setPasingnationSize(10);
+		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
+		pDTO.setSearchCondition("viewAllMessage");
+		List<PageInfoDTO> datas=pageInfoService.selectAll(pDTO);
+		
+		lDTO.setSearchCondition("messageCntMember");
+		lDTO = letterService.selectOne(lDTO);
+		System.out.println(lDTO);
+		pDTO.setTotalRows(lDTO.getCnt());
+		int totalPage = pageInfoService.calcTotalPages(pDTO);	// 총페이지 수
+		
+		
+		if(datas != null) {
+			model.addAttribute("letterDatas", datas);
+			datas.get(0).setCurrentPage(pDTO.getCurrentPage());
+			datas.get(0).setTotalPages(totalPage);
+		}else {
+			model.addAttribute("status", "fail");
+			model.addAttribute("msg", "등록된 문제가 없습니다.");
+			model.addAttribute("redirect", "");
+			return "alert";
+		}
+		String json =gson.toJson(datas);
+		if (datas.isEmpty()) {
+			System.out.println("실패");
+		}else {
+			System.out.println(json);
+		}
+		return gson.toJson(datas);
+
+	}
     
 }
