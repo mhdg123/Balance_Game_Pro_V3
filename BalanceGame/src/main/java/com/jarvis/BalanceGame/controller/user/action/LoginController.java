@@ -30,7 +30,7 @@ public class LoginController {
 			if ("ADMIN".equals(mDTO.getRole())) {
 				session.setAttribute("loginId", mDTO.getLoginId());
 				model.addAttribute("status", "success");
-				model.addAttribute("msg", mDTO.getName() + " 관리자님 로그인 하셨습니다.");
+				model.addAttribute("msg", mDTO.getNickName() + " 관리자님 로그인 하셨습니다.");
 				model.addAttribute("redirect", "/admin/adminPage");
 				return "alert";
 				
@@ -40,7 +40,7 @@ public class LoginController {
 				String loginId = (String)session.getAttribute("loginId");
 				mDTO.setLoginId(loginId);
 				model.addAttribute("status", "success");
-				model.addAttribute("msg", mDTO.getName() + "님 로그인 하셨습니다.");
+				model.addAttribute("msg", mDTO.getNickName() + "님 로그인 하셨습니다.");
 				model.addAttribute("redirect", "/");
 				
 				mDTO.setSearchCondition("viewCoin");
