@@ -35,13 +35,13 @@ public class LetterDAO {
 //			+ "FROM LETTER L JOIN MEMBER M ON L.LOGIN_ID=M.ROLE WHERE M.LOGIN_ID= ? AND LETTER_STATUS = 'F' ORDER BY LETTER_DATE DESC";
 	
 	// 안읽은 편지 조회
-	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER, LETTER_STATUS, LETTER_DATE FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
+	//private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER, LETTER_STATUS, LETTER_DATE FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
 	
 	// 총 편지 수 (관리자)
-	private static final String SELECTALL_CNT_ADMIN = "SELECT COUNT(1) AS CNT FROM QUESTION WHERE LETTER_TYPE=? ";
+	private static final String SELECTONE_CNT_ADMIN = "SELECT COUNT(1) AS CNT FROM QUESTION WHERE LETTER_TYPE=? ";
 	
 	// 총 편지 수 (회원)
-	private static final String SELECTALL_CNT_MEMBER = "SELECT COUNT(1) AS CNT FROM QUESTION";
+	private static final String SELECTONE_CNT_MEMBER = "SELECT COUNT(1) AS CNT FROM QUESTION";
 	
 	// 해당 메세지 조회
 	private static final String SELECTONE = "SELECT LETTER_ID,SENDER, TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LETTER_ID = ?";
@@ -64,18 +64,14 @@ public class LetterDAO {
 	// 메세지 삭제
 	private static final String DELETE = "DELETE FROM LETTER WHERE LETTER_ID = ?";
 
-	public List<LetterDTO> selectAll(LetterDTO lDTO) {
+	private List<LetterDTO> selectAll(LetterDTO lDTO) {
 
 		List<LetterDTO> datas = null;
 		// 총 메세지 수(관리자)
-		if (lDTO.getSearchCondition().equals("messageCntAdmin")) {
-			Object[] args = { lDTO.getLetterType() };
-			datas = jdbcTemplate.query(SELECTALL_CNT_ADMIN, args, new LetterRowMapper());
-		}
-		// 총 메세지 수(회원)
-		else if(lDTO.getSearchCondition().equals("messageCntMember")) {
-			datas = jdbcTemplate.query(SELECTALL_CNT_MEMBER, new LetterRowMapper());
-		}
+//		if (lDTO.getSearchCondition().equals("unreadMemberMessage")) {
+//			Object[] args = { lDTO.getLetterType() };
+//			datas = jdbcTemplate.query(SELECTALL_UNREAD, args, new LetterRowMapper());
+//		}
 //		else if(lDTO.getSearchCondition().equals("unReadMessageAdmin")) {
 //			datas = jdbcTemplate.query(SELECTALL_UNREAD_ADMIN, args, new LetterRowMapper());
 //		}
@@ -94,9 +90,20 @@ public class LetterDAO {
 	public LetterDTO selectOne(LetterDTO lDTO) {
 		LetterDTO data = null;
 		System.out.println("편지 PK id값 DAO: " + lDTO.getLetterId());
-		Object[] args = { lDTO.getLetterId() };
 		try {
-			data = jdbcTemplate.queryForObject(SELECTONE, args, new LetterRowMapperViewOne());
+			if(lDTO.getSearchCondition().equals("viewOneMessage")) {
+				Object[] args = { lDTO.getLetterId() };
+				data = jdbcTemplate.queryForObject(SELECTONE, args, new LetterRowMapperViewOne());
+			}
+			// 총 메세지 수(관리자)
+			else if(lDTO.getSearchCondition().equals("messageCntAdmin")) {
+				Object[] args = { lDTO.getLetterType() };
+				data = jdbcTemplate.queryForObject(SELECTONE_CNT_ADMIN, args, new LetterRowMapperCnt());
+			}
+			// 총 메세지 수(회원)
+			else if(lDTO.getSearchCondition().equals("messageCntMember")) {
+				data = jdbcTemplate.queryForObject(SELECTONE_CNT_MEMBER, new LetterRowMapperCnt());
+			}
 		} catch (Exception e) {
 			System.out.println("해당 편지 데이터가 없습니다");
 		}
