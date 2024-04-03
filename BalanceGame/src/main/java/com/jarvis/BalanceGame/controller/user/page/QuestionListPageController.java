@@ -27,11 +27,12 @@ public class QuestionListPageController {
 	
 	@GetMapping("/questionListPage")
 	public String titleLisgtPageControllter(QuestionDTO qDTO,PageInfoDTO pDTO, Model model, HttpSession session) {
-		
-		if(Integer.valueOf(pDTO.getCurrentPage()) == null) {
+		String loginId = (String)session.getAttribute("loginId");
+		if(pDTO.getCurrentPage() == 0) {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
 			pDTO.setCurrentPage(1);
 		}
-		
+		pDTO.setLoginId(loginId);
 		pDTO.setPasingnationSize(10);
 		pageInfoService.calculateOffset(pDTO);
 		pDTO.setSearchCondition("viewAllOfQuestionList");
