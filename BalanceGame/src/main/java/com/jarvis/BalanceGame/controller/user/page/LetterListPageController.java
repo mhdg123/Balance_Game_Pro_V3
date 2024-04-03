@@ -35,13 +35,17 @@ public class LetterListPageController {
 		// 페이징 처리 해야한다
 		// 뷰에서 데이터를 받는다 몇페이지 클릭하는지 데이터 받음
 		// 그걸 모델에 보내준다
-		
-		if(Integer.valueOf(pDTO.getCurrentPage()) == null) {
+		String loginId = (String)session.getAttribute("loginId");
+		if(pDTO.getCurrentPage() == 0) {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
 			pDTO.setCurrentPage(1);
 		}
 		
+		pDTO.setLoginId(loginId);
 		pDTO.setPasingnationSize(10);
-		pageInfoService.calculateOffset(pDTO);
+		
+		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
+		System.out.println(pDTO.getOffset());
 		pDTO.setSearchCondition("viewAllMessage");
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
 		
