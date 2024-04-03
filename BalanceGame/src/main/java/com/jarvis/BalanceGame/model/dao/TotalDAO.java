@@ -52,7 +52,7 @@ class TotalRowMapper implements RowMapper<TotalDTO>{
 	public TotalDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		TotalDTO data = new TotalDTO();
 		data.setMonth(rs.getString("Month"));
-		data.setTotalAmount(rs.getInt("Total_Amount"));
+		data.setTotalAmount(rs.getInt("TotalAmount"));
 		return data;
 	}
 }

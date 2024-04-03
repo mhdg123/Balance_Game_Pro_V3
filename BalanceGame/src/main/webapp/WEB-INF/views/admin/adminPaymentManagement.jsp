@@ -188,7 +188,7 @@ th {
 											<tr>
 												<th>번호</th>
 												<th>ID(닉네임)</th>
-												<th>후원금액</th>
+												<th>충전금액</th>
 												<th>날짜</th>
 											</tr>
 										</thead>

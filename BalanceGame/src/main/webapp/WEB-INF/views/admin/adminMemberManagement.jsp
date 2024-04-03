@@ -93,7 +93,7 @@
 												<th>이메일</th>
 												<th>나이</th>
 												<th>성별</th>
-												<th>후원금액</th>
+												<th>충전금액</th>
 												<th>후원랭킹</th>
 											</tr>
 										</thead>
