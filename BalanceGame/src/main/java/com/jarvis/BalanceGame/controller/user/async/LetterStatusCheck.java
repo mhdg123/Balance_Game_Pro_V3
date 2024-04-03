@@ -46,14 +46,14 @@ public class LetterStatusCheck {
         return jsonResult;
     }
     
-    @PostMapping("letterCheckSelectAll")
-    public @ResponseBody String letterCheckSelectAll (LetterDTO lDTO, HttpSession session) {
-    	String loginId = (String)session.getAttribute("loginId");
-    	lDTO.setLoginId(loginId);
-    	lDTO.setSearchCondition("viewAllMessage");
-    	letterService.selectAll(lDTO);
-    	return "success";
-    }
+//    @PostMapping("letterCheckSelectAll")
+//    public @ResponseBody String letterCheckSelectAll (LetterDTO lDTO, HttpSession session) {
+//    	String loginId = (String)session.getAttribute("loginId");
+//    	lDTO.setLoginId(loginId);
+//    	lDTO.setSearchCondition("viewAllMessage");
+//    	letterService.selectAll(lDTO);
+//    	return "success";
+//    }
     
     @PostMapping("/letterCheckRead")
     public @ResponseBody String letterCheckRead(@RequestParam(value="letterCheck[]") List<String> letterCheck ,
