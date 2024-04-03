@@ -178,6 +178,7 @@
 					dataType: 'text',
 					success: function(data) {
 						console.log(data);
+						
 						if (data == "실패") {
 							console.log("실패");
 						} 

@@ -119,39 +119,13 @@
 										</tbody>
 									</table>
 
-
-
+							<!-- 페이징 들어갈 영역 -->
 									<nav class="blog-pagination justify-content-center d-flex">
 										<ul class="pagination">
-                              <li class="paginate_button page-item previous" id="example2_previous">
-                                 <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-                              </li>
-                              <li class="paginate_button page-item ">
-                                 <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                              </li>
-                              <li class="paginate_button page-item ">
-                                 <a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                              </li>
-                              <li class="paginate_button page-item ">
-                                 <a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                              </li>
-                              <li class="paginate_button page-item ">
-                                 <a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-                              </li>
-                              <li class="paginate_button page-item active">
-                                 <a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-                              </li>
-                              <li class="paginate_button page-item ">
-                                 <a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-                              </li>
-                              <li class="paginate_button page-item next" id="example2_next">
-                                 <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-                              </li>
-                           </ul>
+
+                          				 </ul>
 									</nav>
-
-
-
+							<!-- 페이징 들어갈 영역 -->
 
 								</div>
 
@@ -198,6 +172,8 @@
 		});
 	</script>
 	<script src="/resources/user/js/currentAdminPage.js"></script>
+		<!-- 페이징 js -->
+	
 	<!-- ./wrapper -->
 
 	<!-- jQuery -->
