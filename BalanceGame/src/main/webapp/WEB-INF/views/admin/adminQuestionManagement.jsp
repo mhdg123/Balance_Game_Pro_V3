@@ -102,32 +102,25 @@
 											</c:forEach>
 										</tbody>
 									</table>
-             								<ul class="pagination">
-										<li class="paginate_button page-item previous" id="example2_previous">
-											<a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+
+
+                                                                                              
+			                                                           		<ul class="pagination">
+										<li class="page-item"><a onclick="beforeData();"
+										class="page-link" aria-label="Previous"> <i
+										class="ti-angle-left"></i>
+										</a></li>
+										<li class="page-item"><a href="#" class="page-link">1</a></li>
+										<li class="page-item active"><a href="#" class="page-link">2</a>
 										</li>
-										<li class="paginate_button page-item ">
-											<a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-										</li>
-										<li class="paginate_button page-item ">
-											<a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-										</li>
-										<li class="paginate_button page-item ">
-											<a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-										</li>
-										<li class="paginate_button page-item ">
-											<a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-										</li>
-										<li class="paginate_button page-item active">
-											<a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-										</li>
-										<li class="paginate_button page-item ">
-											<a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-										</li>
-										<li class="paginate_button page-item next" id="example2_next">
-											<a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-										</li>
+										<li class="page-item"><a onclick="nextData();"
+										class="page-link" aria-label="Next"> <i class="ti-angle-right"></i>
+										</a></li>
 									</ul>
+								
+
+									
+             								
 								</div>
 
 							</div>
@@ -160,6 +153,19 @@
 		</aside>
 		<!-- /.control-sidebar -->
 	</div>
+
+<!-- 페이징 js -->
+	<script type="text/javascript">
+	var currentPage = ${page};
+	var totalPage = ${totalPage};
+	console.log(currentPage);
+	document.addEventListener('DOMContentLoaded', function() {
+	    // 페이지 업데이트 실행
+	    pageName='adminQuestionManegement';
+	    updatePagination();
+	});
+	</script>
+	<script src="/resources/user/js/currentPage.js"></script>
 	<!-- ./wrapper -->
 
 	<!-- jQuery -->
@@ -198,5 +204,7 @@
 	<script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
 	<!-- 인공지능 -->
 	<script src="/resources/adminLte/dist/js/ai.js"></script>
+
+
 </body>
 </html>
