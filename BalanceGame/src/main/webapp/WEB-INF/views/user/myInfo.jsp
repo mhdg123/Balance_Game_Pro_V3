@@ -90,14 +90,25 @@
 							</ul>
 
 						</div>
+						
+						<a href="#"  style="margin: 5px"
+							class="genric-btn primary radius change-ck-button f-right">
+							회원 탈퇴</a>
+							
+						<a href="#" style="margin: 5px"
+							class="genric-btn primary radius change-ck-button f-right">
+							비밀번호 변경</a>
+							
+						
+						
 						<c:if test="${memberData.loginType == 'ORIGINAL'}">
-						<a href="javascript:changeInfo();"
+						<a href="javascript:changeInfo();"  style="margin: 5px"
 							class="genric-btn primary radius change-ck-button f-right">
 							정보 변경 </a>
 						</c:if>
 						
 						<c:if test="${memberData.loginType == 'SOCIAL'}">
-						<a href="/user/myPageUpdatePageController"
+						<a href="/user/myPageUpdatePageController"  style="margin: 5px"
 							class="genric-btn primary radius change-ck-button f-right">
 							정보 변경 </a>
 						</c:if>
@@ -136,10 +147,9 @@
 		</section>
 		<!-- 해당 유저 댓글 -->
 		<div class="container">
+		<h4>댓글</h4>
+		<c:if test="${not empty commentDatas}">
 			<div class="comments-area">
-
-
-				<h4>댓글</h4>
 				<c:forEach var="data" items="${commentDatas}" varStatus="loop">
 					<div class="comment-list">
 						<div>
@@ -190,6 +200,11 @@
 					</ul>
 				</nav>
 			</div>
+			
+			</c:if>
+			<c:if test="${empty commentDatas}">
+			<div>출력할 댓글이 없습니다</div>
+			</c:if>
 		</div>
 
 

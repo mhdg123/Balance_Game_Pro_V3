@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
@@ -117,7 +118,7 @@ public class NaverLoginPageController {
 		if(memberData == null) {
 			model.addAttribute("memberData", mDTO);
 			model.addAttribute("status", "socialJoin");
-			return "user/join";
+			return "user/naverLogin";
 		}
 		
 		// 로그인 성공
@@ -127,6 +128,26 @@ public class NaverLoginPageController {
 		model.addAttribute("redirect", "/");
 		return "alert";
 	}
+	
+	
+	
+	
+	
+	
+	@PostMapping("/naver/join")
+	public String naverJoinPageController(MemberDTO mDTO,Model model) throws UnsupportedEncodingException {
+		System.out.println("회원가입하러 들어옴 : "+mDTO);
+		mDTO.setSearchCondition("socialLogin");
+		model.addAttribute("memberData", mDTO);
+		model.addAttribute("status", "socialJoin");
+		
+		return "user/join";
+	}
+	
+	
+	
+	
+	
 
 	//로그인 후 토큰 반환 메서드
 	private String LoginConnection(String code,String state) throws UnsupportedEncodingException {
