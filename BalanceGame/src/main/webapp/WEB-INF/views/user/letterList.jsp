@@ -83,10 +83,10 @@ cursor: pointer;
 											<tr>
 												<td style="padding: 10px;"><input type="checkbox" name="lettercheck" id="${data.letterId}"></td>
 												<td style="padding: 10px;">
-												<c:if test="${data.letterStatus=='T'}"><p style="margin: 0; display: none;">${data.letterStatus}</p>
+												<c:if test="${data.letterStatus=='T'}">
 												<img onclick="unRead(${data.letterId})" style="width: 15px; margin-bottom: 10px ;" src="/resources/assets/img/jarvis/letterRead.png">
 												</c:if>
-												<c:if test="${data.letterStatus=='F'}"><p style="margin: 0; display: none;">${data.letterStatus}</p>
+												<c:if test="${data.letterStatus=='F'}">
 												<img onclick="read(${data.letterId})" style="width: 15px; margin-bottom: 10px ;" src="/resources/assets/img/jarvis/letterUnRead.png">
 												</c:if>
 												 
@@ -224,7 +224,7 @@ function updateFilterButtonText() {
 </script>
 <script>
 function letterUnRead(){
-	console.log("체크 안읽음 처리");
+	console.log("안읽음 처리");
 	var checkedLetters =letterArr();
 	$.ajax({
 		type: "POST",
@@ -247,7 +247,7 @@ function letterUnRead(){
 }
 
 function unRead(letterId){
-	console.log("단일 안읽음 처리");
+	console.log("안읽음 처리");
 	
 	var checkedLetters = [];
 	 checkedLetters.push(letterId);
@@ -272,7 +272,7 @@ function unRead(letterId){
 	
 }
 function letterRead(){
-	console.log("체크 읽음 처리");
+	console.log("읽음 처리");
 	
 	var checkedLetters =letterArr();
 	console.log("체크 된거 : "+checkedLetters);
@@ -299,7 +299,7 @@ function letterRead(){
 }
 
 function read(letterId){
-	console.log("단일 읽음 처리");
+	console.log("읽음 처리");
 	
 	var checkedLetters = [];
 	 checkedLetters.push(letterId);
@@ -326,7 +326,7 @@ $.ajax({
 
 
 function letterDelete(){
-	console.log("체크 삭제 처리");
+	console.log("삭제 처리");
 	var checkedLetters =letterArr();
 	$.ajax({
 		type: "POST",
