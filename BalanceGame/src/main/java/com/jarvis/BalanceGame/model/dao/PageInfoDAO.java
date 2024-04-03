@@ -117,7 +117,7 @@ public class PageInfoDAO {
 		// 회원 리스트
 		else if (pDTO.getSearchCondition().equals("viewAllOfMemberList")) {
 			Object[] args = { pDTO.getOffset(), pDTO.getPasingnationSize() };
-			datas = jdbcTemplate.query(SELECTALL_MEMBER_LIST, args, new PageInfoRowMapperRanking());
+			datas = jdbcTemplate.query(SELECTALL_MEMBER_LIST, args, new PageInfoRowMapperMember());
 		}
 		// 쪽지 리스트(회원)
 		else if (pDTO.getSearchCondition().equals("viewAllMessage")) {

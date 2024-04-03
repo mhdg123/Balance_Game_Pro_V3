@@ -115,20 +115,12 @@ public class MemberDAO {
 	public MemberDTO selectOne(MemberDTO mDTO) {
 
 		MemberDTO member = null;
-		if (mDTO.getSearchCondition().equals("viewOne")) {
-			Object[] args = {mDTO.getLoginId()};
-			System.out.println("" + mDTO.getLoginId());
-			if (args != null) {
-				try {
-					if(mDTO.getSearchCondition().equals("viewOneMember")) {
-						member = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
-					}
-					else if(mDTO.getSearchCondition().equals("memberCnt")) {
-						member = jdbcTemplate.queryForObject(SELECT_CNT, args, new MemberRowMapperCnt());
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		if (mDTO.getSearchCondition().equals("viewOneMember")) {
+			Object[] args = { mDTO.getLoginId() };
+			try {
+				member = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		// 로그인
@@ -136,13 +128,11 @@ public class MemberDAO {
 			System.out.println("loginDAO 실행");
 			Object[] args = { mDTO.getLoginId(), mDTO.getMemberPassword() };
 			System.out.println("loginDAO 실행2");
-			if (args != null) {
-				try {
-					member = jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
-				} catch (Exception e) {
-					// 조회 결과가 없을 때 예외처리
-					System.out.println("로그인 실패: 사용자가 존재하지 않습니다.");
-				}
+			try {
+				member = jdbcTemplate.queryForObject(LOGIN, args, new MemberRowMapperLogin());
+			} catch (Exception e) {
+				// 조회 결과가 없을 때 예외처리
+				System.out.println("로그인 실패: 사용자가 존재하지 않습니다.");
 			}
 		}
 		// 아이디 중복확인
@@ -210,8 +200,7 @@ public class MemberDAO {
 		else if (mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) {
 			Object[] args = { mDTO.getLoginId(), mDTO.getEmail() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW, args,
-						new MemberRowMapperIsPwInfoCorrect());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW, args, new MemberRowMapperIsPwInfoCorrect());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 			}
@@ -220,8 +209,7 @@ public class MemberDAO {
 		else if (mDTO.getSearchCondition().equals("isIdInfoCorrect")) {
 			Object[] args = { mDTO.getName(), mDTO.getEmail() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args,
-						new MemberRowMapperIsIdInfoCorrect());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args, new MemberRowMapperIsIdInfoCorrect());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
@@ -231,8 +219,7 @@ public class MemberDAO {
 		else if (mDTO.getSearchCondition().equals("isTempPwInfoCorrectCellPhone")) {
 			Object[] args = { mDTO.getLoginId(), mDTO.getCellPhone() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW_CELLPHONE, args,
-						new MemberRowMapperIsPwInfoCorrectCellPhone());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW_CELLPHONE, args, new MemberRowMapperIsPwInfoCorrectCellPhone());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
@@ -242,11 +229,18 @@ public class MemberDAO {
 		else if (mDTO.getSearchCondition().equals("isIdInfoCorrectCellPhone")) {
 			Object[] args = { mDTO.getName(), mDTO.getCellPhone() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID_CELLPHONE, args,
-						new MemberRowMapperIsIdInfoCorrectCellPhone());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID_CELLPHONE, args, new MemberRowMapperIsIdInfoCorrectCellPhone());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
+			}
+		}
+		// 멤버 수
+		else if (mDTO.getSearchCondition().equals("memberCnt")) {
+			try {
+				member = jdbcTemplate.queryForObject(SELECT_CNT, new MemberRowMapperCnt());
+			} catch (Exception e) {
+				System.out.println("회원 수가 없습니다");
 			}
 		}
 		return member;
