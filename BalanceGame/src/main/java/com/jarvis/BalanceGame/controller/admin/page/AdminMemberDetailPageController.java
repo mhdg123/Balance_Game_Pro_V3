@@ -39,13 +39,11 @@ public class AdminMemberDetailPageController {
 		cDTO.setSearchCondition("userComments");
 		MemberDTO member = memberService.selectOne(mDTO);
 
-		String loginId = (String) session.getAttribute("loginId");
 		if (pDTO.getCurrentPage() == 0) {
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
 			pDTO.setCurrentPage(1);
 		}
 
-		pDTO.setLoginId(loginId);
 		pDTO.setPasingnationSize(10);
 
 		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
