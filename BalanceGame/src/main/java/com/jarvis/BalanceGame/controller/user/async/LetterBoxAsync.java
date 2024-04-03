@@ -32,30 +32,21 @@ public class LetterBoxAsync {
 			HttpSession session) {
 
 		String loginId = (String) session.getAttribute("loginId");
-		pDTO.setLoginId(loginId);
-		pDTO.setPasingnationSize(10);
-		pageInfoService.calculateOffset(pDTO);
-		pDTO.setSearchCondition("unReadMessageMember");
-		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
+		lDTO.setLoginId(loginId);
+		lDTO.setSearchCondition("unreadMemberMessage");
+		List<LetterDTO> datas = letterService.selectAll(lDTO);
 
-		lDTO.setSearchCondition("messageCntMember");
-		lDTO = letterService.selectOne(lDTO);
-		System.out.println(lDTO);
-		pDTO.setTotalRows(lDTO.getCnt());
-		int totalPage = pageInfoService.calcTotalPages(pDTO); // 총페이지 수
 
-		System.out.println(totalPage);
 
-		if (datas != null) {
-			model.addAttribute("letterDatas", datas);
-			model.addAttribute("totalPage", totalPage);
-			model.addAttribute("page", pDTO.getCurrentPage());
-		} else {
-			model.addAttribute("status", "fail");
-			model.addAttribute("msg", "등록된 문제가 없습니다.");
-			model.addAttribute("redirect", "");
-			return "alert";
-		}
+//		if (datas != null) {
+//
+//
+//		} else {
+//			model.addAttribute("status", "fail");
+//			model.addAttribute("msg", "등록된 문제가 없습니다.");
+//			model.addAttribute("redirect", "");
+//			return "alert";
+//		}
 
 		return gson.toJson(datas);
 	}
@@ -66,7 +57,7 @@ public class LetterBoxAsync {
 		lDTO.setLoginId(loginId);
 		lDTO.setSearchCondition("updateReadStatus");
 		letterService.update(lDTO);
-
+		lDTO.setSearchCondition("viewOneMessage");
 		return gson.toJson(letterService.selectOne(lDTO));
 	}
 
@@ -74,13 +65,13 @@ public class LetterBoxAsync {
 	public @ResponseBody String mailCount(LetterDTO lDTO, PageInfoDTO pDTO, Model model, Gson gson,
 			HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
-		pDTO.setLoginId(loginId);
+		lDTO.setLoginId(loginId);
 
-		pDTO.setSearchCondition("unReadMessageMember");
+		lDTO.setSearchCondition("unreadMemberMessage");
 		// 읽지 않은 편지 수를 조회하여 반환
-		List<PageInfoDTO> unreadLetters = pageInfoService.selectAll(pDTO);
+		List<LetterDTO> unreadLetters = letterService.selectAll(lDTO);
 		int unreadCount = unreadLetters.size();
-
+		System.out.println("편지 개수"+unreadCount);
 		return Integer.toString(unreadCount);
 	}
 

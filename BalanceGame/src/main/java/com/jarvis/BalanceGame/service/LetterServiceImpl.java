@@ -34,4 +34,10 @@ public class LetterServiceImpl implements LetterService{
 	public LetterDTO selectOne(LetterDTO lDTO) {
 		return letterDAO.selectOne(lDTO);
 	}
+
+	@Override
+	public List<LetterDTO> selectAll(LetterDTO lDTO) {
+		// TODO Auto-generated method stub
+		return letterDAO.selectAll(lDTO);
+	}
 }

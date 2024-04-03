@@ -9,4 +9,5 @@ public interface LetterService {
 	public boolean update(LetterDTO lDTO);
 	public boolean delete(LetterDTO lDTO);
 	public LetterDTO selectOne(LetterDTO lDTO);
+	public List<LetterDTO>selectAll(LetterDTO lDTO);
 }
