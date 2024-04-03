@@ -51,6 +51,7 @@
 									</thead>
 									<tbody>
 									<c:forEach var="data" items="${memberDatas}" varStatus="loop">
+									<c:if test="${data.total >0}">
 										<tr>
 											<td>
 												<p>${data.ranking}</p>
@@ -62,6 +63,7 @@
 												<p>${data.total}p</p>
 											</td>
 										</tr>
+										</c:if>
 										</c:forEach>
 										
 
