@@ -33,16 +33,17 @@ public class LetterStatusCheck {
         // 편지 목록이 리스트로 전달됨
         // 우편의 주요 키(primary key)도 함께 전달됨
         // 반복문을 사용하여 읽음 또는 안 읽음 상태를 처리하고 삭제도 가능함
+        boolean flag=false;
         for (String pk : letterCheck) {
             Integer letterDatas = Integer.valueOf(pk); // 문자열을 정수형으로 변환
             lDTO.setLetterId(letterDatas);
             lDTO.setSearchCondition("updateAllUnRead");
-            letterService.update(lDTO);
+            flag=letterService.update(lDTO);
             
         }
         // Gson을 사용하여 결과 데이터를 다시 로드해야 함
         // 결과 데이터를 함께 반환해야 함
-        String jsonResult = gson.toJson("success"); // 결과값을 JSON 형태로 변환
+        String jsonResult = gson.toJson(flag); // 결과값을 JSON 형태로 변환
         return jsonResult;
     }
     
@@ -68,17 +69,18 @@ public class LetterStatusCheck {
         // 편지 목록이 리스트로 전달됨
         // 우편의 주요 키(primary key)도 함께 전달됨
         // 반복문을 사용하여 읽음 또는 안 읽음 상태를 처리하고 삭제도 가능함
+        boolean flag=false;
         for (String pk : letterCheck) {
             Integer letterDatas = Integer.valueOf(pk); // 문자열을 정수형으로 변환
             lDTO.setLetterId(letterDatas);
             lDTO.setSearchCondition("updateAllRead");
             System.out.println("체크된 pk 확인 : "+pk);
-            letterService.update(lDTO);
+            flag=letterService.update(lDTO);
         }
         
         // Gson을 사용하여 결과 데이터를 다시 로드해야 함
         // 결과 데이터를 함께 반환해야 함
-        String jsonResult = gson.toJson("success"); // 결과값을 JSON 형태로 변환
+        String jsonResult = gson.toJson(flag); // 결과값을 JSON 형태로 변환
         
         return jsonResult;
         
@@ -94,16 +96,17 @@ public class LetterStatusCheck {
         // 편지 목록이 리스트로 전달됨
         // 우편의 주요 키(primary key)도 함께 전달됨
         // 반복문을 사용하여 읽음 또는 안 읽음 상태를 처리하고 삭제도 가능함
+        boolean flag=false;
         for (String pk : letterCheck) {
             Integer letterDatas = Integer.valueOf(pk); // 문자열을 정수형으로 변환
             lDTO.setLetterId(letterDatas);
-            letterService.delete(lDTO);
+            flag=letterService.delete(lDTO);
             
         }
         
         // Gson을 사용하여 결과 데이터를 다시 로드해야 함
         // 결과 데이터를 함께 반환해야 함
-        String jsonResult = gson.toJson("success"); // 결과값을 JSON 형태로 변환
+        String jsonResult = gson.toJson(flag); // 결과값을 JSON 형태로 변환
         return jsonResult;
     }
     

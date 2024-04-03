@@ -125,10 +125,10 @@ public class LetterDAO {
 			result = jdbcTemplate.update(UPDATE, lDTO.getLetterId());
 		}
 		else if(lDTO.getSearchCondition().equals("updateAllRead")) {
-			result = jdbcTemplate.update(UPDATE_ALL_READ, lDTO.getLoginId());
+			result = jdbcTemplate.update(UPDATE_ALL_READ, lDTO.getLetterId());
 		}
 		else if(lDTO.getSearchCondition().equals("updateAllUnRead")) {
-			result = jdbcTemplate.update(UPDATE_ALL_UNREAD, lDTO.getLoginId());
+			result = jdbcTemplate.update(UPDATE_ALL_UNREAD, lDTO.getLetterId());
 		}
 		
 		if (result <= 0) {
