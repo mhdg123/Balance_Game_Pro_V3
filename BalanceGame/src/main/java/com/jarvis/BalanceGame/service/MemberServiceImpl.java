@@ -30,11 +30,6 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<MemberDTO> selectAll(MemberDTO mDTO) {
-		return memberDAO.selectAll(mDTO);
-	}
-
-	@Override
 	public MemberDTO selectOne(MemberDTO mDTO) {
 		return memberDAO.selectOne(mDTO);
 	}

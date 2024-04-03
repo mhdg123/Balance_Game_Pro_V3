@@ -98,7 +98,7 @@ public class MemberDAO {
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
 
 	// 회원 전체 검색
-	public List<MemberDTO> selectAll(MemberDTO mDTO) {
+	private List<MemberDTO> selectAll(MemberDTO mDTO) {
 		List<MemberDTO> members = null;
 //		if (mDTO.getSearchCondition().equals("viewAll")) {
 //			members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
