@@ -13,6 +13,8 @@ import com.jarvis.BalanceGame.model.dto.PageInfoDTO;
 import com.jarvis.BalanceGame.service.MemberService;
 import com.jarvis.BalanceGame.service.PageInfoService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/user")
 public class RankListController {
@@ -24,20 +26,22 @@ public class RankListController {
 	private PageInfoService pageInfoService;
 
 	@GetMapping("/rankListPage")
-	public String rankListPage(MemberDTO mDTO, PageInfoDTO pDTO, Model model) {
+	public String rankListPage(MemberDTO mDTO, PageInfoDTO pDTO, Model model, HttpSession session) {
 		System.out.println("랭킹페이지 이동");
-
-		if (Integer.valueOf(pDTO.getCurrentPage()) == null) {
+		String loginId = (String)session.getAttribute("loginId");
+		
+		if (pDTO.getCurrentPage() == 0) {
 			pDTO.setCurrentPage(1);
 		}
+		pDTO.setLoginId(loginId);
 		pDTO.setPasingnationSize(10);
-		pageInfoService.calculateOffset(pDTO);
+		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
 		pDTO.setSearchCondition("rankingPoint");
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
 
 		System.out.println(datas);
 
-		mDTO.setSearchCondition("memberCnt");
+		mDTO.setSearchCondition("memberCount");
 		mDTO = memberService.selectOne(mDTO);
 		System.out.println(mDTO);
 		pDTO.setTotalRows(mDTO.getMemberCount());
