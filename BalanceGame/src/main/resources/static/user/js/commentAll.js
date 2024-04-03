@@ -1,21 +1,30 @@
 
-function commentAll(questionId) {
+function commentAll() {
 
 	console.log("loginId : "+loginId);
-	console.log("commentAll"+questionId);
+	console.log("commentAll "+currentPage);
+	
+	if(currentPage==''){
+		currentPage=1;
+	}
+	console.log("commentAll "+currentPage);
 	$.ajax({
 		type: "POST",
 		url: "/user/commentAsync",
 		data: {
-			'questionId': questionId
+			'questionId': questionId,
+			'currentPage': currentPage
 		},
 		dataType: 'json',
 		success: function(data) {
-			alert(data);
+			console.log('data 현재페이지'+data[0].currentPage);
+				console.log('data 총페이지'+data[0].totalPages);
+			currentPage=data[0].currentPage;
+			totalPage=data[0].totalPages;
 			var elem = "";
 			$.each(data, function(index, data) {
-				
 
+				
 				
 					elem += `<div class="comment-list">
 						<div>
@@ -53,6 +62,9 @@ function commentAll(questionId) {
 					</div>`;
 				
 			});
+
+			pageName='commentPage';
+			updatePagination();
 			$("#comment-box").html(elem);
 			//document.getElementById(".save").src="images/찜o.png";
 		},

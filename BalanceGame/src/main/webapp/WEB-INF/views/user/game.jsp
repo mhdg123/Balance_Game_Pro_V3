@@ -79,7 +79,7 @@
 
 		<!-- Comments -->
 		<div class="container click">
-			<div class="comments-area">
+			<div class="comments-area" id="comments-area">
 				<!-- 댓글 입력 Start -->
 				<div class="col-12">
 					<div class="form-group" id="comment-insert-box">
@@ -128,7 +128,13 @@
 
 
 	<!-- 게임 세팅 -->
-	<script type="text/javascript">
+	<script type="text/javascript">	
+	   var pageName;
+       // 현재 페이지 및 총 페이지 수
+
+	var currentPage = `${page}`;
+	var totalPage = `${totalPage}`;
+	var questionId=${questionData.questionId};
     $(document).ready(function() {
     	$(".click").hide();
 
@@ -228,7 +234,7 @@ playElement.innerHTML = `
     
 }, 100); // 100ms 후에 실행됩니다.
 
-    	commentAll(`${questionData.questionId}`);
+    	commentAll();
 
 	$(".click").show();
     });
@@ -321,7 +327,8 @@ playElement.innerHTML = `
 				success : function(data) {
 					console.log(data);
 					$('#comment').val("");
-					commentAll(`${questionData.questionId}`);
+					currentPage=1;
+					commentAll();
 				},
 				error : function(error) {
 
@@ -343,8 +350,27 @@ playElement.innerHTML = `
 		
 	</script>
 	<!-- 댓글입력 -->
+	
+	
 
+<script>
+function commentPage(id){
+	console.log("다음 번호 클릭");
+	currentPage = id;
+	console.log("해당 번호"+currentPage);
+	var commentBox = document.getElementById('comments-area');
+    if (commentBox) {
+        // comment-box로 이동
+        commentBox.scrollIntoView({ behavior: 'smooth' });
+    }
+	
+	commentAll();
+}
+</script>
 
+	<script src="/resources/user/js/currentAsyncPage.js"></script>
+	<!-- 페이징 js -->
+	
 
 	<script src="/resources/user/js/commentAll.js"></script>
 	<script src="/resources/user/js/blankSpace.js"></script>
