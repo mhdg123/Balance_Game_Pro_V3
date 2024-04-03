@@ -116,11 +116,16 @@ public class MemberDAO {
 
 		MemberDTO member = null;
 		if (mDTO.getSearchCondition().equals("viewOne")) {
-			Object[] args = { mDTO.getLoginId() };
+			Object[] args = {mDTO.getLoginId()};
 			System.out.println("" + mDTO.getLoginId());
 			if (args != null) {
 				try {
-					member = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
+					if(mDTO.getSearchCondition().equals("viewOneMember")) {
+						member = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
+					}
+					else if(mDTO.getSearchCondition().equals("memberCnt")) {
+						member = jdbcTemplate.queryForObject(SELECT_CNT, args, new MemberRowMapperCnt());
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

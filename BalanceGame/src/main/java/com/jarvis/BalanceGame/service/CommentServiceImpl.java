@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public List<CommentDTO> selectAll(CommentDTO cDTO) {
-		return commentDAO.selectAll(cDTO);
+	public CommentDTO selectOne(CommentDTO cDTO) {
+		return commentDAO.selectOne(cDTO);
 	}
 }

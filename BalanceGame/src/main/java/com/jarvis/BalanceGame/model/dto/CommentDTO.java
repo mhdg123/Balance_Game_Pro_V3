@@ -27,4 +27,5 @@ public class CommentDTO {
 	//------------------------------
 	private String searchCondition;
 	private int memberGrade;
+	private int cnt;
 }

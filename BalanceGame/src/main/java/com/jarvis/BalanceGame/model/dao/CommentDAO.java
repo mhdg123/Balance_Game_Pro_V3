@@ -25,6 +25,7 @@ public class CommentDAO {
 //	private static final String SELECTALL_MEMBER = "SELECT C.COMMENT_ID, C.QUESTION_ID, C.LOGIN_ID, C.COMMENTS, C.COMMENT_DATE, M.NAME, M.GRADE\r\n"
 //			+ "FROM COMMENT C LEFT OUTER JOIN MEMBER M ON C.LOGIN_ID =M.LOGIN_ID WHERE C.LOGIN_ID=? ORDER BY C.COMMENT_DATE DESC";
 
+	
 	// 댓글 작성
 	private static final String INSERT = "INSERT INTO COMMENT (QUESTION_ID, LOGIN_ID, COMMENTS) VALUES (?,?,?)";
 
@@ -35,7 +36,7 @@ public class CommentDAO {
 	private static final String DELETE = "DELETE FROM COMMENT WHERE COMMENT_ID = ? AND LOGIN_ID= ?";
 
 	// 댓글 전체 출력하기
-	public List<CommentDTO> selectAll(CommentDTO cDTO) {
+	private List<CommentDTO> selectAll(CommentDTO cDTO) {
 
 		List<CommentDTO> datas = null;
 //		// 질문에 대한 댓글
@@ -51,8 +52,15 @@ public class CommentDAO {
 		return datas;
 	}
 
-	private CommentDTO selectOne(CommentDTO cDTO) {
-		return null;
+	public CommentDTO selectOne(CommentDTO cDTO) {
+		CommentDTO data = null;
+		try {
+			if(cDTO.getSearchCondition().equals("commentsCnt")) {
+				
+			}
+		} catch (Exception e) {
+		}
+		return data;
 	}
 
 	// 댓글 추가하기
@@ -82,7 +90,6 @@ public class CommentDAO {
 		}
 		return true;
 	}
-
 }
 
 class CommentRowMapper implements RowMapper<CommentDTO> {
