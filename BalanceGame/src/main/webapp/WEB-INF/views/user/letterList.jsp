@@ -235,7 +235,7 @@ function letterUnRead(){
 		dataType: 'text',
 		success: function(data) {
 			console.log(data);
-
+			location.reload();
 		},
 		error: function(error) {
 			console.log('에러발생');
@@ -261,7 +261,7 @@ function unRead(letterId){
 		dataType: 'text',
 		success: function(data) {
 			console.log(data);
-
+			location.reload();
 		},
 		error: function(error) {
 			console.log('에러발생');
@@ -287,7 +287,7 @@ function letterRead(){
 		dataType: 'json',
 		success: function(data) {
 			console.log(data);
-
+			location.reload();
 		},
 		error: function(error) {
 			console.log('에러발생');
@@ -313,7 +313,7 @@ $.ajax({
 		dataType: 'json',
 		success: function(data) {
 			console.log(data);
-
+			location.reload();
 		},
 		error: function(error) {
 			console.log('에러발생');
@@ -337,7 +337,7 @@ function letterDelete(){
 		dataType: 'text',
 		success: function(data) {
 			console.log(data);
-
+			location.reload();
 		},
 		error: function(error) {
 			console.log('에러발생');
@@ -361,10 +361,9 @@ function letterArr(){
     return checkedLetters;
 }
 
-</script>
 
 
-	<script>
+
 	//안읽은 목록
     // 체크박스 요소 가져오기
     var checkbox = document.getElementById('default-switch');
