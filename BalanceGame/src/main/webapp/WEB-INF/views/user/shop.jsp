@@ -109,7 +109,7 @@ int totalPrice = 10;
                            <!-- 반복문 돌리기 -->
                            <div class="single-popular-items mb-50 text-center">
                               <div class="popular-img">
-                                 <img src="/resources/assets/img/gallery/popular2.png" alt="">
+                                 <img src="/resources/upload/${data.itemImg }" alt="포인트 이미지">
                                  <!-- 포인트 충전 이미지 url -->
                                  <div class="img-cap">
                                     <a href="javascript:itemBuy('${data.itemId }', '${data.itemName }', '${data.itemPrice }');"><span>구매하기</span></a>
