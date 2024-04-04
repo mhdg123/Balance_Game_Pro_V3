@@ -199,7 +199,6 @@ th {
 											</tr>
 										</thead>
 
-
 										<tbody>
 											<c:if test="${empty memberDatas}">
 												<tr>
@@ -208,7 +207,6 @@ th {
 
 											</c:if>
 
-
 											<c:forEach var="data" items="${memberDatas}" varStatus="loop">
 												<tr onclick="location.href = '/admin/adminMemberDetailPage?loginId=${data.loginId}'">
 													<td>${loop.index + 1}</td>
@@ -216,8 +214,7 @@ th {
 													<td>
 														<fmt:formatNumber value="${data.total}" currencyCode="KRW" />
 													</td>
-													<td>${data.total}</td>
-												</tr>
+													<td>${data.paymentDate}</td> 
 
 											</c:forEach>
 										</tbody>
@@ -287,19 +284,12 @@ th {
 	<script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
 	<!-- 인공지능 -->
 	<script src="/resources/adminLte/dist/js/ai.js"></script>
-	''
 	<script src="/resources/adminLte/dist/js/adminlte.min.js?v=3.2.0"></script>
-	''
 	<script src="/resources/adminLte/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-	''
 	<script src="/resources/adminLte/plugins/bootstrap-slider/bootstrap-slider.min.js"></script>
-	''
 	<script src="/resources/adminLte/js/rangeSlider.js"></script>
-	//
 	<script src="/resources/adminLte/js/sponsorListDate.js"></script>
-	//
 	<script src="/resources/adminLte/js/sponsorListRank.js"></script>
-	//
 	<script>
 		$(function() {
 			/* BOOTSTRAP SLIDER */
