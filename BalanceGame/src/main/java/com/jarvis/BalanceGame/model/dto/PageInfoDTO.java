@@ -50,4 +50,7 @@ public class PageInfoDTO {
 	private String comments;
 	private int memberGrade;
 	private Date commentDate;
+	
+	//payment----------------------------
+	private Date paymentDate;
 }

@@ -41,10 +41,10 @@ public class PageInfoDAO {
 			+ "LIMIT ?,?";
 
 	// 회원 랭킹 (결제금액으로 조회)
-	private static final String SELECTALL_RANKING_ADMIN = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, "
+	private static final String SELECTALL_RANKING_ADMIN = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, P.PAYMENT_DATE"
 			+ "CASE WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL "
 			+ "ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) "
-			+ "END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID "
+			+ "END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID, P.PAYMENT_DATE "
 			+ "LIMIT ?, ?";
 
 	// 회원 목록
@@ -112,7 +112,7 @@ public class PageInfoDAO {
 		// 랭킹(관리자)
 		else if (pDTO.getSearchCondition().equals("ranking")) {
 			Object[] args = { pDTO.getOffset(), pDTO.getPasingnationSize() };
-			datas = jdbcTemplate.query(SELECTALL_RANKING_ADMIN, args, new PageInfoRowMapperRanking());
+			datas = jdbcTemplate.query(SELECTALL_RANKING_ADMIN, args, new PageInfoRowMapperRankingAdmin());
 		}
 		// 회원 리스트
 		else if (pDTO.getSearchCondition().equals("viewAllOfMemberList")) {
@@ -201,6 +201,20 @@ class PageInfoRowMapperQuestionAdmin implements RowMapper<PageInfoDTO> {
 		data.setWriter(rs.getString("WRITER"));
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
+		return data;
+	}
+}
+
+class PageInfoRowMapperRankingAdmin implements RowMapper<PageInfoDTO> {
+
+	@Override
+	public PageInfoDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		PageInfoDTO data = new PageInfoDTO();
+		data.setLoginId(rs.getString("LOGIN_ID"));
+		data.setNickName(rs.getString("NICKNAME"));
+		data.setTotal(rs.getInt("TOTAL"));
+		data.setRanking(rs.getInt("RANKING"));
+		data.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 		return data;
 	}
 }
