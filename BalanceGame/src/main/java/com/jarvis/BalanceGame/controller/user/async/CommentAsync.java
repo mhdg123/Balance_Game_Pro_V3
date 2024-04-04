@@ -63,4 +63,46 @@ public class CommentAsync {
 		return gson.toJson(datas);
 
 	}
+	
+	
+	@PostMapping("/commentUserAsync")
+	public @ResponseBody String commentUserAsync(CommentDTO cDTO,PageInfoDTO pDTO, Model model, Gson gson, HttpSession session) {
+		String loginId = (String)session.getAttribute("loginId");
+		
+		if(pDTO.getCurrentPage() == 0) {
+			pDTO.setCurrentPage(1);
+		}
+		pDTO.setLoginId(loginId);
+		pDTO.setPasingnationSize(10);
+		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
+		pDTO.setSearchCondition("userComments");
+		List<PageInfoDTO> datas=pageInfoService.selectAll(pDTO);
+		cDTO.setLoginId(loginId);
+		cDTO.setSearchCondition("commentsCntMember");
+		cDTO = commentService.selectOne(cDTO);
+		System.out.println(cDTO);
+		pDTO.setTotalRows(cDTO.getCnt());
+		int totalPage = pageInfoService.calcTotalPages(pDTO);	// 총페이지 수
+		
+		
+		if(datas != null) {
+			model.addAttribute("commentDatas", datas);
+			datas.get(0).setCurrentPage(pDTO.getCurrentPage());
+			datas.get(0).setTotalPages(totalPage);
+		}else {
+			model.addAttribute("status", "fail");
+			model.addAttribute("msg", "등록된 문제가 없습니다.");
+			model.addAttribute("redirect", "");
+			return "alert";
+		}
+		String json =gson.toJson(datas);
+		if (datas.isEmpty()) {
+			System.out.println("실패");
+		}else {
+			System.out.println(json);
+		}
+		return gson.toJson(datas);
+
+	}
+	
 }

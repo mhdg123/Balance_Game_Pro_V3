@@ -119,7 +119,7 @@
 											<li class="item-element">
 												<div>
 													<img src="assets/img/comment/comment_3.png" alt=""> <span> &nbsp;&nbsp;${data.itemName} - ${data.memberItemCount}</span>
-													<button type="button" class="genric-btn primary radius change-ck-button f-right small" id="${data.itemId}">사용</button>
+													<a href="/user/아이템사용?itemId=${data.itemId}" class="genric-btn primary radius change-ck-button f-right small">사용</a>
 												</div>
 											</li>
 										
@@ -160,7 +160,7 @@
 										<div class="d-flex justify-content-between">
 											<div class="d-flex align-items-center"></div>
 											<div class="reply-btn">
-												<div class="btn-reply text-uppercase" style="display: inline-block;" onclick="commentWarning(${data.commentId},'${data.loginId}')">신고</div>
+												
 												<c:if test="${data.loginId==loginId }">
 													<div class="btn-reply text-uppercase" style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>
 												</c:if>
@@ -208,6 +208,15 @@
 	<%@ include file="../layout/footer-fix.jsp"%>
 	<!-- 푸터 고정 스크립트 공통 모음 -->
 	<script>
+	var currentPage = `${page}`;
+	var totalPage = `${totalPage}`;
+	var loginId = `${loginId}`;
+	$(document).ready(function() {
+		commentAll();
+				
+	});
+	
+	
     // 이름 & 이메일로 아이디 찾기
     async function changeInfo() {
         const { value: formValues } = await Swal.fire({
@@ -428,6 +437,10 @@
 	}
 
  	</script>
-
+ 	
+ 	<!-- 페이징 js -->
+	<script src="/resources/user/js/currentAsyncPage.js"></script>
+	<script src="/resources/user/js/commentUser.js"></script>
+	<!-- 페이징 js -->
 </body>
 </html>
