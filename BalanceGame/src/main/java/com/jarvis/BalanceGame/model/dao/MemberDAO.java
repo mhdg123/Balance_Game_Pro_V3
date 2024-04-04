@@ -85,6 +85,9 @@ public class MemberDAO {
 	// 임시비밀번호로 변경
 	private static final String TEMP_PW_UPDATE = "UPDATE MEMBER SET MEMBER_PASSWORD=? WHERE LOGIN_ID = ?";
 
+	// 멤버 광고상태 변경
+	private static final String AD_STATUS_UPDATE = "UPDATE MEMBER SET ADVERTISEMENT_STATUS = F WHERE LOGIN_ID = ?";
+
 	// 코인 추가
 	private static final String MY_COIN_INCREASE = "UPDATE MEMBER\r\n"
 			+ "SET coin = coin + (SELECT AMOUNT * 0.1 FROM PAYMENT WHERE LOGIN_ID = ? ORDER BY PAYMENT_DATE DESC LIMIT 1)\r\n"
@@ -200,7 +203,8 @@ public class MemberDAO {
 		else if (mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) {
 			Object[] args = { mDTO.getLoginId(), mDTO.getEmail() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW, args, new MemberRowMapperIsPwInfoCorrect());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW, args,
+						new MemberRowMapperIsPwInfoCorrect());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 			}
@@ -209,7 +213,8 @@ public class MemberDAO {
 		else if (mDTO.getSearchCondition().equals("isIdInfoCorrect")) {
 			Object[] args = { mDTO.getName(), mDTO.getEmail() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args, new MemberRowMapperIsIdInfoCorrect());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID, args,
+						new MemberRowMapperIsIdInfoCorrect());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
@@ -219,7 +224,8 @@ public class MemberDAO {
 		else if (mDTO.getSearchCondition().equals("isTempPwInfoCorrectCellPhone")) {
 			Object[] args = { mDTO.getLoginId(), mDTO.getCellPhone() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW_CELLPHONE, args, new MemberRowMapperIsPwInfoCorrectCellPhone());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_TEMP_PW_CELLPHONE, args,
+						new MemberRowMapperIsPwInfoCorrectCellPhone());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
@@ -229,7 +235,8 @@ public class MemberDAO {
 		else if (mDTO.getSearchCondition().equals("isIdInfoCorrectCellPhone")) {
 			Object[] args = { mDTO.getName(), mDTO.getCellPhone() };
 			try {
-				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID_CELLPHONE, args, new MemberRowMapperIsIdInfoCorrectCellPhone());
+				member = jdbcTemplate.queryForObject(IS_INFO_CORRECT_SEARCH_ID_CELLPHONE, args,
+						new MemberRowMapperIsIdInfoCorrectCellPhone());
 			} catch (Exception e) {
 				System.out.println("회원정보가 일치하지 않습니다");
 				e.printStackTrace();
@@ -271,7 +278,10 @@ public class MemberDAO {
 			result = jdbcTemplate.update(MY_COIN_DECREASE, mDTO.getItemId(), mDTO.getLoginId());
 		} else if (mDTO.getSearchCondition().equals("updateTempPw")) {
 			result = jdbcTemplate.update(TEMP_PW_UPDATE, mDTO.getMemberPassword(), mDTO.getLoginId());
+		} else if (mDTO.getSearchCondition().equals("updateAd")) {
+			result = jdbcTemplate.update(AD_STATUS_UPDATE, mDTO.getLoginId());
 		}
+
 		if (result <= 0) {
 			return false;
 		}
