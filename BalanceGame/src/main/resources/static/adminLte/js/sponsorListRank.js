@@ -8,8 +8,7 @@ $(document).ready(function() {
 			dataType: "json", //데이터를 받을 타입
 			success: function(datas) { //데이터 받기 성공
 			console.log("datas" + datas);
-				if (datas == "실패") {
-					console.log("실패")
+				if (datas == "false") {
 				} else {
 					// 세션 스토리지 이용
 					const userInfoObj = {
@@ -21,9 +20,9 @@ $(document).ready(function() {
 					var elem = "<tr>";
 					datas.forEach(supporter => {
 						elem += "<td>" + i + "</td>";
-						elem += "<td>" + supporter.loginId + "(" + supporter.name + ")" + "</td>";
+						elem += "<td>" + supporter.loginId + "(" + supporter.nickName + ")" + "</td>";
 						elem += "<td>" + supporter.total + "</td>";
-						elem += "<td>" + supporter.date + "</td>";
+						elem += "<td>" + supporter.paymentDate + "</td>";
 						elem += "</tr>";
 						i++;
 					});

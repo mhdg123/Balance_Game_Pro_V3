@@ -35,7 +35,7 @@ public class AdminPaymentManageRankAsync {
 		
 		System.out.println("rankDatas"+rankDatas);
 		if(rankDatas == null) {
-			return "실패";
+			return "false";
 		}
 		
 		pDTO.setSearchCondition("viewCnt"); // 총 결제금액한 수 

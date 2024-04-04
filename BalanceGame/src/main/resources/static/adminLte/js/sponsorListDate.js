@@ -7,8 +7,8 @@ $(document).ready(function(){
             url: "adminPaymentManageDateAsync",
             dataType:"json",
             success:function(datas){
-                if(datas == "실패"){
-                    console.log("실패");
+                if(datas == "false"){
+                    console.log("false");
                 } else {
                     const userInfoObj = {
                         id: '최신순',
@@ -20,9 +20,9 @@ $(document).ready(function(){
                     let elem = "<tr>";
                     datas.forEach(supporter => {
                         elem += "<td>" + i + "</td>";
-                        elem += "<td>" + supporter.loginId + "(" + supporter.name + ")" + "</td>";
-                        elem += "<td>" + supporter.amount + "</td>";
-                        elem += "<td>" + supporter.date + "</td>";
+                        elem += "<td>" + supporter.loginId + "(" + supporter.nickName + ")" + "</td>";
+                        elem += "<td>" + supporter.paymentAmount + "</td>";
+                        elem += "<td>" + supporter.paymentDate + "</td>";
                         elem += "</tr>";
                         i++;
                     });

@@ -53,4 +53,6 @@ public class PageInfoDTO {
 	
 	//payment----------------------------
 	private Date paymentDate;
+	private int paymentAmount;
+	
 }

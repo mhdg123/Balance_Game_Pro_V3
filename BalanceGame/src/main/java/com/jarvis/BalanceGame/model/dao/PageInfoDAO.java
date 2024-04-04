@@ -40,12 +40,19 @@ public class PageInfoDAO {
 			+ "END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID "
 			+ "HAVING TOTAL > 0 LIMIT ?,?";
 
-	// 회원 랭킹 (결제금액으로 조회)
+	// 회원 랭킹 (결제금액 후원순으로 조회)
 	private static final String SELECTALL_RANKING_ADMIN = "SELECT M.LOGIN_ID, M.NICKNAME, MAX(P.PAYMENT_DATE) AS PAYMENT_DATE, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, "
 			+ "CASE WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL "
 			+ "ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) "
 			+ "END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID "
 			+ "HAVING TOTAL > 0 LIMIT ?, ?";
+	
+	// 회원 랭킹 (결제금액 최신순으로 조회)
+	private static final String SELECTALL_LATEST_ADMIN ="SELECT M.LOGIN_ID, M.NICKNAME, P.PAYMENT_DATE, P.AMOUNT\r\n"
+			+ "FROM MEMBER M\r\n"
+			+ "LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID\r\n"
+			+ "WHERE P.AMOUNT > 0\r\n"
+			+ "ORDER BY P.PAYMENT_DATE DESC LIMIT ?, ?";
 	
 	// 회원 목록
 	private static final String SELECTALL_MEMBER_LIST = "SELECT M.LOGIN_ID, M.GENDER, M.AGE, M.ADDRESS, M.EMAIL, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL,\r\n"
@@ -113,6 +120,10 @@ public class PageInfoDAO {
 		else if (pDTO.getSearchCondition().equals("ranking")) {
 			Object[] args = { pDTO.getOffset(), pDTO.getPasingnationSize() };
 			datas = jdbcTemplate.query(SELECTALL_RANKING_ADMIN, args, new PageInfoRowMapperRankingAdmin());
+		}
+		else if (pDTO.getSearchCondition().equals("latest")) {
+			Object[] args = { pDTO.getOffset(), pDTO.getPasingnationSize() };
+			datas = jdbcTemplate.query(SELECTALL_LATEST_ADMIN, args, new PageInfoRowMapperLatestAdmin());
 		}
 		// 회원 리스트
 		else if (pDTO.getSearchCondition().equals("viewAllOfMemberList")) {
@@ -214,6 +225,19 @@ class PageInfoRowMapperRankingAdmin implements RowMapper<PageInfoDTO> {
 		data.setNickName(rs.getString("NICKNAME"));
 		data.setTotal(rs.getInt("TOTAL"));
 		data.setRanking(rs.getInt("RANKING"));
+		data.setPaymentDate(rs.getDate("PAYMENT_DATE"));
+		return data;
+	}
+}
+
+class PageInfoRowMapperLatestAdmin implements RowMapper<PageInfoDTO> {
+
+	@Override
+	public PageInfoDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		PageInfoDTO data = new PageInfoDTO();
+		data.setLoginId(rs.getString("LOGIN_ID"));
+		data.setNickName(rs.getString("NICKNAME"));
+		data.setPaymentAmount(rs.getInt("AMOUNT"));
 		data.setPaymentDate(rs.getDate("PAYMENT_DATE"));
 		return data;
 	}
