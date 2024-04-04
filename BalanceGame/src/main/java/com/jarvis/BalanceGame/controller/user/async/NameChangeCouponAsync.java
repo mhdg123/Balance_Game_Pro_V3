@@ -2,8 +2,8 @@ package com.jarvis.BalanceGame.controller.user.async;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +22,7 @@ public class NameChangeCouponAsync {
 	private MemberItemService memberItemService;
 	
 	@PostMapping("/nameChangeCouponAsync")
-	public @ResponseBody String nameChangeCouponAsync(MemberItemDTO miDTO, Gson gson, Model model, HttpSession session) {
+	public @ResponseBody String nameChangeCouponAsync(MemberItemDTO miDTO, Model model, HttpSession session) {
 		
 		  // 유저가 닉네임변경권 아이템을 가지고 있는지 확인을 함
 		// 아이템이 있을경우 아이템 하나를 사용해서 닉네임 변경할수 있게 만듬
