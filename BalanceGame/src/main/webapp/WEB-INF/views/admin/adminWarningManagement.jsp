@@ -94,6 +94,10 @@
 											</c:forEach> 
 										</tbody>
 									</table>
+									<nav class="blog-pagination justify-content-center d-flex">
+										<ul class="pagination">
+                           				</ul>
+									</nav>
 								</div>
 
 							</div>
@@ -164,5 +168,17 @@
 	<script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
 	<!-- 인공지능 -->
 	<script src="/resources/adminLte/dist/js/ai.js"></script>
+	<!-- 페이징 js -->
+	<script type="text/javascript">
+		var currentPage = ${page};
+		var totalPage = ${totalPage};
+		console.log(currentPage);
+		document.addEventListener('DOMContentLoaded', function() {
+			// 페이지 업데이트 실행
+			pageName = 'memberManagementPage';
+			updatePagination();
+		});
+	</script>
+	<script src="/resources/user/js/currentAdminPage.js"></script>
 </body>
 </html>
