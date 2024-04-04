@@ -1,121 +1,144 @@
 package com.jarvis.BalanceGame.controller.admin.action;
 
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFColor;
-import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import com.jarvis.BalanceGame.model.dto.TotalDTO;
+import com.jarvis.BalanceGame.service.TotalService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminExcelDownloadController {
 
-	@GetMapping("/download")
-    public void download(HttpServletResponse res) throws Exception {
-        /**
-         * excel sheet 생성
-         */
+    @Autowired
+    private TotalService totalService;
+
+    @GetMapping("/download")
+    public void download(HttpServletResponse res, TotalDTO totalDTO) throws IOException {
+        // Excel 워크북 및 시트 생성
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Sheet1"); // 엑셀 sheet 이름
-        sheet.setDefaultColumnWidth(28); // 디폴트 너비 설정
+        Sheet sheet = workbook.createSheet("Balance Game Data");
 
-        /**
-         * header font style
-         */
-        XSSFFont headerXSSFFont = (XSSFFont) workbook.createFont();
-        headerXSSFFont.setColor(new XSSFColor(new byte[]{(byte) 255, (byte) 255, (byte) 255}));
+        // 헤더 스타일 설정
+        CellStyle headerStyle = createHeaderStyle(workbook);
 
-        /**
-         * header cell style
-         */
-        XSSFCellStyle headerXssfCellStyle = (XSSFCellStyle) workbook.createCellStyle();
+        // 본문 스타일 설정
+        CellStyle bodyStyle = createBodyStyle(workbook);
 
-        // 테두리 설정
-        headerXssfCellStyle.setBorderLeft(BorderStyle.THIN);
-        headerXssfCellStyle.setBorderRight(BorderStyle.THIN);
-        headerXssfCellStyle.setBorderTop(BorderStyle.THIN);
-        headerXssfCellStyle.setBorderBottom(BorderStyle.THIN);
+        // 헤더 생성
+        createHeaderRow(sheet.createRow(0), headerStyle);
 
-        // 배경 설정
-        headerXssfCellStyle.setFillForegroundColor(new XSSFColor(new byte[]{(byte) 34, (byte) 37, (byte) 41}));
-        headerXssfCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerXssfCellStyle.setFont(headerXSSFFont);
-
-        /**
-         * body cell style
-         */
-        XSSFCellStyle bodyXssfCellStyle = (XSSFCellStyle) workbook.createCellStyle();
-
-        // 테두리 설정
-        bodyXssfCellStyle.setBorderLeft(BorderStyle.THIN);
-        bodyXssfCellStyle.setBorderRight(BorderStyle.THIN);
-        bodyXssfCellStyle.setBorderTop(BorderStyle.THIN);
-        bodyXssfCellStyle.setBorderBottom(BorderStyle.THIN);
-
-        /**
-         * header data
-         */
-        int rowCount = 0; // 데이터가 저장될 행
-        String headerNames[] = new String[]{"첫번째 헤더", "두번째 헤더", "세번째 헤더"};
-
-        Row headerRow = null;
-        Cell headerCell = null;
-
-        headerRow = sheet.createRow(rowCount++);
-        for(int i=0; i<headerNames.length; i++) {
-            headerCell = headerRow.createCell(i);
-            headerCell.setCellValue(headerNames[i]); // 데이터 추가
-            headerCell.setCellStyle(headerXssfCellStyle); // 스타일 추가
+        // 데이터 입력
+        int rowCount = 1;
+        for (int day = 1; day <= 31; day++) {
+            totalDTO.setSearchCondition("day");
+            totalDTO.setDay(day);
+            List<TotalDTO> datas = totalService.selectAll(totalDTO);
+            createDataRow(sheet.createRow(rowCount++), day, datas, bodyStyle);
         }
 
-        /**
-         * body data
-         */
-        String bodyDatass[][] = new String[][]{
-            {"첫번째 행 첫번째 데이터", "첫번째 행 두번째 데이터", "첫번째 행 세번째 데이터"},
-            {"두번째 행 첫번째 데이터", "두번째 행 두번째 데이터", "두번째 행 세번째 데이터"},
-            {"세번째 행 첫번째 데이터", "세번째 행 두번째 데이터", "세번째 행 세번째 데이터"},
-            {"네번째 행 첫번째 데이터", "네번째 행 두번째 데이터", "네번째 행 세번째 데이터"}
-        };
+        // 월별 총계 계산
+        calculateMonthlyTotal(sheet, rowCount, bodyStyle);
 
-        Row bodyRow = null;
-        Cell bodyCell = null;
-
-        for(String[] bodyDatas : bodyDatass) {
-            bodyRow = sheet.createRow(rowCount++);
-
-            for(int i=0; i<bodyDatas.length; i++) {
-                bodyCell = bodyRow.createCell(i);
-                bodyCell.setCellValue(bodyDatas[i]); // 데이터 추가
-                bodyCell.setCellStyle(bodyXssfCellStyle); // 스타일 추가
-            }
-        }
-
-        /**
-         * download
-         */
-        String fileName = "spring_excel_download";
-
+        // 다운로드 설정
         res.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        res.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
-        ServletOutputStream servletOutputStream = res.getOutputStream();
+        res.setHeader("Content-Disposition", "attachment;filename=BalanceGameData.xlsx");
 
-        workbook.write(servletOutputStream);
+        // Excel 파일 출력
+        ServletOutputStream outputStream = res.getOutputStream();
+        workbook.write(outputStream);
         workbook.close();
-        servletOutputStream.flush();
-        servletOutputStream.close();
+        outputStream.flush();
+        outputStream.close();
+    }
+
+    // 헤더 스타일 생성
+    private CellStyle createHeaderStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
+        style.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setBorderTop(BorderStyle.THIN);
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
+
+        Font font = workbook.createFont();
+        font.setBold(true);
+        font.setColor(IndexedColors.WHITE.getIndex());
+        style.setFont(font);
+
+        return style;
+    }
+
+    // 본문 스타일 생성
+    private CellStyle createBodyStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setBorderTop(BorderStyle.THIN);
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
+
+        return style;
+    }
+
+    // 헤더 행 생성
+    private void createHeaderRow(Row row, CellStyle style) {
+        String[] headers = {"일/월", "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월", "년 총계"};
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = row.createCell(i);
+            cell.setCellValue(headers[i]);
+            cell.setCellStyle(style);
+        }
+    }
+
+    // 데이터 행 생성
+    private void createDataRow(Row row,int day, List<TotalDTO> datas, CellStyle style) {
+    	int total=0;;
+        Cell cell = row.createCell(0);
+        cell.setCellValue(day+"일"); // 일/월 데이터 입력
+        cell.setCellStyle(style);
         
-        //return "redirect:/admin/adminChartManagementPage";
+        for (TotalDTO data : datas) {
+        	cell = row.createCell(data.getMonth());
+            cell.setCellValue(data.getTotalAmount()); // 월별 데이터 입력
+            total+=data.getTotalAmount();
+            cell.setCellStyle(style);
+	    }
+        
+
+
+        cell = row.createCell(13);
+        cell.setCellValue(total); // 년 총계 데이터 입력
+        cell.setCellStyle(style);
+    }
+    
+    // 월별 총계 계산 메서드
+    private void calculateMonthlyTotal(Sheet sheet, int rowCount, CellStyle style) {
+        Row row = sheet.createRow(rowCount);
+        row.createCell(0).setCellValue("월 총계");
+
+        for (int month = 1; month <= 12; month++) {
+            int total = 0;
+            for (int i = 1; i < rowCount; i++) {
+                Row currentRow = sheet.getRow(i);
+                Cell cell = currentRow.getCell(month);
+                if (cell != null && cell.getCellType() == CellType.NUMERIC) {
+                    total += (int) cell.getNumericCellValue();
+                }
+            }
+            row.createCell(month).setCellValue(total);
+        }
     }
 }

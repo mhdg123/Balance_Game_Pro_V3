@@ -17,6 +17,9 @@ public class TotalDTO {
 	  private Date totalDate;
 	  
 	  //------------------------
-	  private String month;
+	  private String year;
+	  private int month;
+	  private int day;
+	  private String searchCondition;
 	  
 }
