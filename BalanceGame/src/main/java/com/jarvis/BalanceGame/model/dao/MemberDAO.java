@@ -86,7 +86,7 @@ public class MemberDAO {
 	private static final String TEMP_PW_UPDATE = "UPDATE MEMBER SET MEMBER_PASSWORD=? WHERE LOGIN_ID = ?";
 
 	// 멤버 광고상태 변경
-	private static final String AD_STATUS_UPDATE = "UPDATE MEMBER SET ADVERTISEMENT_STATUS = F WHERE LOGIN_ID = ?";
+	private static final String AD_STATUS_UPDATE = "UPDATE MEMBER SET ADVERTISEMENT_STATUS = 'F' WHERE LOGIN_ID = ?";
 
 	// 코인 추가
 	private static final String MY_COIN_INCREASE = "UPDATE MEMBER\r\n"
@@ -452,3 +452,4 @@ class MemberRowMapperIsIdInfoCorrectCellPhone implements RowMapper<MemberDTO> {
 		return member;
 	}
 }
+
