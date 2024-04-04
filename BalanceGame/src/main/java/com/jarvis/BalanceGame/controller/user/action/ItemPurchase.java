@@ -75,7 +75,7 @@ public class ItemPurchase {
 				mDTO.setSearchCondition("viewOne");
 				mDTO = memberService.selectOne(mDTO);
 				
-				if(mDTO.getAdvertisementStatus()=="T") {
+				if(mDTO.getAdvertisementStatus().equals("T")) {
 					// 아이템 구매 가능한지 포인트 확인
 					// 포인트 있으면 바로 구매
 					// 구매후 바로 광고제거 해주기

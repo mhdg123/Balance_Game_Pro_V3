@@ -82,10 +82,11 @@
 							<br> <br>
 							<h4>[사용중인 아이템]</h4>
 							<ul>
+								<c:if test="${memberData.advertisementStatus =='F' }">
 								<li>
 									<p>광고제거</p> <span>&nbsp</span>
 								</li>
-
+								</c:if>
 							</ul>
 
 						</div>
@@ -114,12 +115,14 @@
 								<c:choose>
 									<c:when test="${fn:length(memberItemDatas) > 0}">
 										<c:forEach var="data" items="${memberItemDatas}">
+										
 											<li class="item-element">
 												<div>
 													<img src="assets/img/comment/comment_3.png" alt=""> <span> &nbsp;&nbsp;${data.itemName} - ${data.memberItemCount}</span>
 													<button type="button" class="genric-btn primary radius change-ck-button f-right small">사용</button>
 												</div>
 											</li>
+										
 										</c:forEach>
 									</c:when>
 									<c:otherwise>
@@ -359,11 +362,11 @@
 	                errorMsg("불일치", "비밀번호가 일치하지 않습니다.");
 	                return false;
 	            }
-	            if(!memberPassword.trim() || !passwordCheck.trim()) {
-	            	 errorMsg("공백", "모든값을 입력해주세요");
-	            	 return false;
-	            }
-
+                if(!memberPassword.trim() || !passwordCheck.trim()) {
+                    errorMsg("공백", "모든값을 입력해주세요");
+                    return false;
+                }
+                
 	            // jQuery AJAX를 사용하여 데이터 전송
 	            $.ajax({
 	                url: "/user/passwordChangeAsync",
