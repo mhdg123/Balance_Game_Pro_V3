@@ -15,20 +15,22 @@ import com.jarvis.BalanceGame.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/user")
-public class ResignAsync {
+public class PasswordChangeAsync {
 
 	@Autowired
 	private MemberService memberService;
 	
 
-	@PostMapping("/resignAsync")
+	@PostMapping("/passwordChangeAsync")
 	public @ResponseBody String resignAsync(MemberDTO mDTO) {
-		boolean flag = memberService.delete(mDTO);
+		System.out.println("파라미터 비밀번호 값" + mDTO );
+		mDTO.setSearchCondition("updateTempPw");
+		boolean flag = memberService.update(mDTO);
 		if (!flag) {
-			System.out.println("회원 탈퇴 실패");
+			System.out.println("비밀번호 변경 실패");
 			return "fail";
 		}
-		System.out.println("회원 탈퇴 성공");
+		System.out.println("비밀번호 변경완료");
 		return "success";
 
 	}
