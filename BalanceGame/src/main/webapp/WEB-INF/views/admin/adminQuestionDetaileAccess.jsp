@@ -127,7 +127,7 @@
 				</a></li>
 				<li class="nav-item d-none d-sm-inline-block nav-link">문제승인 페이지</li>
 				<li class="nav-item d-none d-sm-inline-block"><a
-					href="logout.do" class="nav-link">로그아웃</a></li>
+					href="/user/logout" class="nav-link">로그아웃</a></li>
 			</ul>
 
 			<!-- Right navbar links -->
@@ -188,7 +188,7 @@
 								</a></li>
 								<li class="nav-item"><a href="/admin/paymentManagementPage"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>후원관리</p>
+										<p>포인트 결제 관리</p>
 								</a></li>
 							</ul></li>
 					</ul>

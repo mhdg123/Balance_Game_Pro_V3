@@ -71,7 +71,7 @@ public class AdminAdvertisementUpdateController {
 		}
 
 		model.addAttribute("status", "success");
-		model.addAttribute("msg", "아이템 정보가 수정되었습니다.");
+		model.addAttribute("msg", "광고 정보가 수정되었습니다.");
 		model.addAttribute("redirect", "/admin/adminAdvertisementManagementPage");
 		return "alert";
 

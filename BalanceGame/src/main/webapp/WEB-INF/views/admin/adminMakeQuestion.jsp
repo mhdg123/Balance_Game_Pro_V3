@@ -88,7 +88,7 @@
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="adminPage.do" role="button"> <img src="images/123.png" alt="Menu" width="30" height="30">
 				</a></li>
 				<li class="nav-item d-none d-sm-inline-block nav-link">문제출제 페이지</li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="logout.do" class="nav-link">로그아웃</a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a href="/user/logout" class="nav-link">로그아웃</a></li>
 			</ul>
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
@@ -128,20 +128,29 @@
 								<li class="nav-item"><a href="/admin/adminPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
 										<p>메인</p>
 								</a></li>
-								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link "> <i class="far fa-circle nav-icon"></i>
+								<li class="nav-item"><a href="/admin/memberManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>유저관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/questionManagementPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
 										<p>문제관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>후원관리</p>
+										<p>포인트 결제 관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/adminItemManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>아이템관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/adminLetterListPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>건의사항관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/adminAdvertisementManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>광고관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/warningManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>신고관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/adminChartManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>통계관리</p>
 								</a></li>
 							</ul></li>
 					</ul>

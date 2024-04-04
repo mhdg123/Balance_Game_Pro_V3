@@ -123,7 +123,7 @@ th {
 										<p>문제관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/paymentManagementPage" class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>후원관리</p>
+										<p>포인트 결제 관리</p>
 								</a></li>
 								<li class="nav-item"><a href="/admin/adminItemManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>아이템관리</p>
