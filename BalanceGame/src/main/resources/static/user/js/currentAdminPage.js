@@ -10,7 +10,7 @@ function generatePagination() {
     var paginationHTML = '<nav class="blog-pagination justify-content-center d-flex"><ul class="pagination">';
 
     // 이전 페이지 링크 추가
-    paginationHTML += '<li class="page-item"><a onclick="beforeData();" class="page-link" aria-label="Previous">Previous</a></li>';
+    paginationHTML += '<li class="page-item"><a onclick="beforeData();" class="page-link" aria-label="Previous">이전</a></li>';
 
     // 페이지 번호 목록 추가
     for (var i = Math.max(1, Math.min(currentPage - Math.floor(paginationRange / 2), totalPage - paginationRange + 1)); i <= Math.min(totalPage, Math.max(currentPage + Math.floor(paginationRange / 2), paginationRange)); i++) {
@@ -22,7 +22,7 @@ function generatePagination() {
     }
 
     // 다음 페이지 링크 추가
-    paginationHTML += '<li class="page-item"><a onclick="nextData();" class="page-link" aria-label="Next">Next</a></li>';
+    paginationHTML += '<li class="page-item"><a onclick="nextData();" class="page-link" aria-label="Next">다음</a></li>';
 
     paginationHTML += '</ul></nav>';
 
