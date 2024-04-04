@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jarvis.BalanceGame.model.dto.LetterDTO;
+import com.jarvis.BalanceGame.model.dto.MemberDTO;
 import com.jarvis.BalanceGame.model.dto.PageInfoDTO;
 import com.jarvis.BalanceGame.model.dto.WarningDTO;
 import com.jarvis.BalanceGame.service.LetterService;
@@ -27,7 +28,7 @@ public class AdminWarningManagementPageController {
 	private PageInfoService pageInfoService;
 	
 	@GetMapping("/warningManagementPage")
-	public String adminAdvertisementManagementController(WarningDTO aDTO,PageInfoDTO pDTO, Model model, LetterDTO lDTO, HttpSession session) {
+	public String adminAdvertisementManagementController(WarningDTO aDTO,PageInfoDTO pDTO, MemberDTO mDTO, Model model, LetterDTO lDTO, HttpSession session) {
 		System.out.println("관리자 신고관리 페이지 이동");
 		String loginId = (String)session.getAttribute("loginId");
 		if(loginId == null) {
@@ -48,6 +49,7 @@ public class AdminWarningManagementPageController {
 		System.out.println("pDTO" + pDTO);
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
 		
+
 		lDTO.setLetterType("REPORT");
 		lDTO.setSearchCondition("messageCntAdmin");
 		lDTO = letterService.selectOne(lDTO);

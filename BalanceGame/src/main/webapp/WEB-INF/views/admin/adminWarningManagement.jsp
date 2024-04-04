@@ -75,8 +75,7 @@
 											<tr>
 											${ letterDatas}
 												<th>NO</th>
-												<th>신고자</th>
-												<th>제목</th>
+												<th>신고당한사람</th>
 												<th>신고 날짜</th>
 											</tr>
 										</thead>
@@ -87,9 +86,8 @@
 												</tr>
 											</c:if> 
 										<c:forEach var="data" items="${letterDatas}" varStatus="loop">
-												<tr onclick="location.href = '/admin/warningDetailPage?questionId=${data.letterId}'">
+												<tr onclick="location.href = '/admin/warningDetailPage?loginId=${data.title}'">
 													<td>${loop.index + 1}</td>
-													<td>${data.sender}</td>
 													<td>${data.title}</td>
 													<td>${data.letterDate}</td>
 												</tr>

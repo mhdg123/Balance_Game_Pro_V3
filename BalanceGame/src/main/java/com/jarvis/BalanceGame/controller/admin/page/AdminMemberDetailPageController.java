@@ -35,7 +35,7 @@ public class AdminMemberDetailPageController {
 	public String adminMemberDetailPageController(MemberDTO mDTO, PageInfoDTO pDTO, CommentDTO cDTO, Model model,
 			HttpSession session) {
 		System.out.println("관리자에서 유저 상세페이지 이동 ");
-		mDTO.setSearchCondition("viewOneMember");
+		mDTO.setSearchCondition("viewOne");
 		cDTO.setSearchCondition("userComments");
 		MemberDTO member = memberService.selectOne(mDTO);
 
