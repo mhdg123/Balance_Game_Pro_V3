@@ -219,6 +219,10 @@ th {
 											</c:forEach>
 										</tbody>
 									</table>
+									<nav class="blog-pagination justify-content-center d-flex">
+										<ul class="pagination">
+                           				</ul>
+									</nav>
 								</div>
 
 
@@ -309,5 +313,17 @@ th {
 			})
 		})
 	</script>
+			<!-- 페이징 js -->
+	<script type="text/javascript">
+		var currentPage = ${page};
+		var totalPage = ${totalPage};
+		console.log(currentPage);
+		document.addEventListener('DOMContentLoaded', function() {
+			// 페이지 업데이트 실행
+			pageName = 'paymentManagementPage';
+			updatePagination();
+		});
+	</script>
+	<script src="/resources/user/js/currentAdminPage.js"></script>
 </body>
 </html>
