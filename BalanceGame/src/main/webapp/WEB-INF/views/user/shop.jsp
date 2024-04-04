@@ -79,7 +79,7 @@ int totalPrice = 10;
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                            <div class="single-popular-items mb-50 text-center">
                               <div class="popular-img">
-                                 <img src="/resources/assets/img/gallery/popular1.png" alt="">
+                                 <img src="/resources/upload/${data.itemImg }" alt="아이템 이미지">
                                  <div class="img-cap">
                                     <a href="javascript:PointItemBuy('${data.itemId}')"><span>구매하기</span></a>
                                  </div>
