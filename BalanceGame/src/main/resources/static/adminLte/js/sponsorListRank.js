@@ -12,7 +12,7 @@ $(document).ready(function() {
 				} else {
 					// 세션 스토리지 이용
 					const userInfoObj = {
-						id: '후원순',
+						id: 'ranking',
 						datas: datas
 					};
 					sessionStorage.setItem('userInfoObj', JSON.stringify(userInfoObj));

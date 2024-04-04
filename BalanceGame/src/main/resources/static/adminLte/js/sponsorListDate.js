@@ -11,7 +11,7 @@ $(document).ready(function(){
                     console.log("false");
                 } else {
                     const userInfoObj = {
-                        id: '최신순',
+                        id: 'latest',
                         datas: datas
                     };
                     sessionStorage.setItem('userInfoObj', JSON.stringify(userInfoObj));
