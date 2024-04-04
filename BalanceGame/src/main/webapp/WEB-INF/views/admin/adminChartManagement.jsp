@@ -487,7 +487,7 @@ rotate
 		</aside>
 
 		<div class="content-wrapper">
-
+			
 			<div class="card card-success">
 				<div class="card-header">
 					<h3 class="card-title">월 포인트 통계</h3>
@@ -516,7 +516,7 @@ rotate
 
 			</div>
 			<!-- Main content -->
-
+			<a href="/admin/download"><button type="button" class="btn btn-block btn-success">다운로드</button></a>
 		</div>
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">
