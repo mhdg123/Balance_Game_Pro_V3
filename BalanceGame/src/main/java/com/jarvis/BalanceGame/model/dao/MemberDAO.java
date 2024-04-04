@@ -115,7 +115,7 @@ public class MemberDAO {
 	public MemberDTO selectOne(MemberDTO mDTO) {
 
 		MemberDTO member = null;
-		if (mDTO.getSearchCondition().equals("viewOneMember")) {
+		if (mDTO.getSearchCondition().equals("viewOne")) {
 			Object[] args = { mDTO.getLoginId() };
 			try {
 				member = jdbcTemplate.queryForObject(SELECTONE_USER, args, new MemberRowMapperDetail());
