@@ -25,6 +25,7 @@ public class AdminLetterSendAsync {
 		String loginId = (String)session.getAttribute("loginId");
 		String recipient = lDTO.getSender();
 		lDTO.setSender(loginId);
+		lDTO.setSearchCondition("writeLetterAdmin");
 		lDTO.setLoginId(recipient);
 		boolean flag = letterService.insert(lDTO);
 		if(!flag) {

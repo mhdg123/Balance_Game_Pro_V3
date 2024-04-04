@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/user")
 public class UserLetterController {
-
+	
 	@Autowired
 	private LetterService letterService;
 	
@@ -23,7 +23,8 @@ public class UserLetterController {
 	public String userSuggertionController(LetterDTO lDTO, Model model, HttpSession session) {
 		
 		String loginId = (String) session.getAttribute("loginId");
-		
+		lDTO.setLetterType("SUGGESTION");
+		lDTO.setSearchCondition("writeLetterMember");
 		lDTO.setSender(loginId); // 건의하는 유저 아이디
 		lDTO.setLoginId("ADMIN");
 		boolean flag = letterService.insert(lDTO);
