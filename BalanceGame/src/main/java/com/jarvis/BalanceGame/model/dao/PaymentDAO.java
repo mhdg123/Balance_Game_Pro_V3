@@ -21,6 +21,8 @@ public class PaymentDAO {
 	// 포인트 구매 
 	private static final String PURCHASE_POINT = "INSERT INTO PAYMENT (LOGIN_ID, AMOUNT) VALUES (?, ?)"; // INPUT : 로그인 아이디, 결제 금액 
 	private static final String SELECT_TOTAL = "SELECT SUM(AMOUNT) AS TOTAL_AMOUNT FROM PAYMENT";
+	private static final String SELECT_ONE_CNT = "SELECT COUNT(DISTINCT LOGIN_ID) AS CNT "
+			+ "FROM PAYMENT";
 	
 	public boolean insert(PaymentDTO pDTO) {
 		int result = 0;
@@ -36,21 +38,43 @@ public class PaymentDAO {
 
 	public PaymentDTO selectOne(PaymentDTO pDTO) {
 		PaymentDTO data = null;
-		try {
-			data = jdbcTemplate.queryForObject(SELECT_TOTAL, new PaymentRowMapperTotal());
-		} catch (Exception e) {
-			System.out.println("총 결제금액 조회 불가");
+		if(pDTO.getSearchCondition().equals("viewOnepaymentTotal")) {
+			try {
+				data = jdbcTemplate.queryForObject(SELECT_TOTAL, new PaymentRowMapperTotal());
+			} catch (Exception e) {
+				System.out.println("총 결제금액 조회 불가");
+			}
+		}
+		if(pDTO.getSearchCondition().equals("viewCnt")) {
+			try {
+				data = jdbcTemplate.queryForObject(SELECT_ONE_CNT, new PaymentRowMapperCnt());
+			} catch (Exception e) {
+				System.out.println("총 개수 조회 불가");
+				e.printStackTrace();
+			}
 		}
 		return data;
 	}
 	
-	class PaymentRowMapperTotal implements RowMapper<PaymentDTO> {
+}
 
-		@Override
-		public PaymentDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-			PaymentDTO data = new PaymentDTO();
-			data.setTotalAmount((rs.getInt("TOTAL_AMOUNT")));
-			return data;
-		}
+class PaymentRowMapperTotal implements RowMapper<PaymentDTO> {
+	
+	@Override
+	public PaymentDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		PaymentDTO data = new PaymentDTO();
+		data.setTotalAmount((rs.getInt("TOTAL_AMOUNT")));
+		return data;
 	}
+}
+
+class PaymentRowMapperCnt implements RowMapper<PaymentDTO>{
+
+	@Override
+	public PaymentDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		PaymentDTO data = new PaymentDTO();
+		data.setCnt(rs.getInt("CNT"));
+		return data;
+	}
+	
 }

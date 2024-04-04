@@ -18,4 +18,5 @@ public class PaymentDTO {
 	  //---------------------------------------
 	  private String searchCondition;
 	  private int totalAmount; // 총 결제금액 
+	  private int cnt;
 }

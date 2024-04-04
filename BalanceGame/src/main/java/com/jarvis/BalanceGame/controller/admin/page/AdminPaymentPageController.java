@@ -47,12 +47,13 @@ import jakarta.servlet.http.HttpSession;
 		System.out.println("pDTO" + pDTO);
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pIDTO);
   		
-		mDTO.setSearchCondition("memberCnt");
-		mDTO = memberService.selectOne(mDTO);
-		System.out.println(mDTO);
-		pIDTO.setTotalRows(mDTO.getMemberCount());
+		pDTO.setSearchCondition("viewCnt");
+		pDTO = paymentService.selectOne(pDTO);
+		System.out.println(pDTO);
+		pIDTO.setTotalRows(pDTO.getCnt());
 		int totalPage = pageInfoService.calcTotalPages(pIDTO);	// 총페이지 수
   		
+		pDTO.setSearchCondition("viewOnepaymentTotal");
 		PaymentDTO totalAmount = paymentService.selectOne(pDTO);
 		if(datas != null) {
 			model.addAttribute("memberDatas", datas);
