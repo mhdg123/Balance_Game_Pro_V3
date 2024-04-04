@@ -79,8 +79,9 @@ public class ItemPurchase {
 					// 아이템 구매 가능한지 포인트 확인
 					// 포인트 있으면 바로 구매
 					// 구매후 바로 광고제거 해주기
-					mDTO.setSearchCondition("updateAd");
-					memberService.update(mDTO);
+					mDTO.setAdvertisementStatus("F");
+//					mDTO.setSearchCondition("");<< 이걸 못함
+//					memberService.update(mDTO);
 					
 				}
 				else {
@@ -91,22 +92,9 @@ public class ItemPurchase {
 					model.addAttribute("redirect","/user/shopPage");
 					return "alert";
 				}
-				// 멤버 포인트 에서 아이템 포인트 차감하기
-				mDTO.setSearchCondition("decreaseMyCoin");
-				memberService.update(mDTO);
-				
-				// 맴버 업데이트 쿼리문 필요
-				itemLogService.insert(ilDTO);
-
-				mDTO.setSearchCondition("viewCoin");
-				mDTO = memberService.selectOne(mDTO);
-				session.setAttribute("coin", mDTO.getCoin());
-				model.addAttribute("status", "success");
-				model.addAttribute("msg", "구매 완료");
-				model.addAttribute("redirect", "/user/shopPage");
-				return "alert";
 				
 				
+				return "";
 			}
 			
 			
@@ -124,12 +112,9 @@ public class ItemPurchase {
 				mDTO.setSearchCondition("viewCoin");
 				mDTO = memberService.selectOne(mDTO);
 				session.setAttribute("coin", mDTO.getCoin());
-				model.addAttribute("status", "success");
-				model.addAttribute("msg", "구매 완료");
-				model.addAttribute("redirect", "/user/shopPage");
-				return "alert";
+
+				return "user/index";
 			}
-			
 			miDTO.setSearchCondition("additionalPurchaseItem");
 			memberItemService.update(miDTO);
 			itemLogService.insert(ilDTO);
@@ -145,11 +130,7 @@ public class ItemPurchase {
 			mDTO = memberService.selectOne(mDTO);
 			session.setAttribute("coin", mDTO.getCoin());
 			// 성공!
-			model.addAttribute("status", "success");
-			model.addAttribute("msg", "구매 완료");
-			model.addAttribute("redirect", "/user/shopPage");
-			return "alert";
-
+			return "user/shop";
 		}
 		model.addAttribute("status", "fail");
 		model.addAttribute("msg", "포인트가 부족합니다");
