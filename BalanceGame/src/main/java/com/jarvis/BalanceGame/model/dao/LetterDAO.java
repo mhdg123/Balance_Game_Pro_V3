@@ -113,8 +113,15 @@ public class LetterDAO {
 	}
 
 	public boolean insert(LetterDTO lDTO) {
-		int result = jdbcTemplate.update(INSERT, lDTO.getSender(), lDTO.getLoginId(), lDTO.getTitle(),
-				lDTO.getLetterContents());
+		int result =0;
+		// 관리자 쪽지 발송
+		if(lDTO.getSearchCondition().equals("writeLetterAdmin")) {
+			result = jdbcTemplate.update(INSERT, lDTO.getSender(), lDTO.getLoginId(), lDTO.getTitle(), lDTO.getLetterContents());
+		}
+		// 회원 쪽지 발송
+		else if(lDTO.getSearchCondition().equals("writeLetterMember")) {
+			result = jdbcTemplate.update(INSERT_SUGGESTION, lDTO.getSender(), lDTO.getLoginId(), lDTO.getTitle(), lDTO.getLetterContents());
+		}
 		if (result <= 0) {
 			return false;
 		}
