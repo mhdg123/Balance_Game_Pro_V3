@@ -359,6 +359,10 @@
 	                errorMsg("불일치", "비밀번호가 일치하지 않습니다.");
 	                return false;
 	            }
+	            if(!memberPassword.trim() || !passwordCheck.trim()) {
+	            	 errorMsg("공백", "모든값을 입력해주세요");
+	            	 return false;
+	            }
 
 	            // jQuery AJAX를 사용하여 데이터 전송
 	            $.ajax({
