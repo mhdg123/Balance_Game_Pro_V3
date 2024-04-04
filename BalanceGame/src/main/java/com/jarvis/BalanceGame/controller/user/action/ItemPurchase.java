@@ -74,9 +74,9 @@ public class ItemPurchase {
 			if(iDTO.getItemId() == 2) {
 				mDTO.setLoginId(loginId);
 				mDTO.setSearchCondition("viewOne");
-				mDTO = memberService.selectOne(mDTO);
 				
-				if(mDTO.getAdvertisementStatus().equals("T")) {
+				
+				if(memberService.selectOne(mDTO).getAdvertisementStatus().equals("T")) {
 					// 아이템 구매 가능한지 포인트 확인
 					// 포인트 있으면 바로 구매
 					// 구매후 바로 광고제거 해주기
@@ -93,6 +93,7 @@ public class ItemPurchase {
 					return "alert";
 				}
 				// 멤버 포인트 에서 아이템 포인트 차감하기
+				System.out.println("멤버 포인트 에서 아이템 포인트 차감하기");
 				mDTO.setSearchCondition("decreaseMyCoin");
 				memberService.update(mDTO);
 				
