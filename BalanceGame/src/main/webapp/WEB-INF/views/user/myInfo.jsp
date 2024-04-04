@@ -119,7 +119,7 @@
 											<li class="item-element">
 												<div>
 													<img src="assets/img/comment/comment_3.png" alt=""> <span> &nbsp;&nbsp;${data.itemName} - ${data.memberItemCount}</span>
-													<button type="button" class="genric-btn primary radius change-ck-button f-right small">사용</button>
+													<button type="button" class="genric-btn primary radius change-ck-button f-right small" id="${data.itemId}">사용</button>
 												</div>
 											</li>
 										
