@@ -49,7 +49,7 @@ public class MyPageUpdateController {
 		model.addAttribute("redirect", "/user/myInfoPage");
 
 		if (oldName != mDTO.getNickName()) {
-
+			miDTO.setItemId(1);
 			miDTO.setSearchCondition("useItem");
 			memberItemService.update(miDTO);
 			
