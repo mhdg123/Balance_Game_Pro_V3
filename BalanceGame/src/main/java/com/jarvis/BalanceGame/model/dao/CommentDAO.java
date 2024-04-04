@@ -37,9 +37,12 @@ public class CommentDAO {
 	// 댓글 수정
 	private static final String UPDATE = "UPDATE COMMENT SET COMMENTS = ? WHERE COMMENT_ID = ? AND LOGIN_ID =? ";
 
-	// 댓글 삭제
-	private static final String DELETE = "DELETE FROM COMMENT WHERE COMMENT_ID = ? AND LOGIN_ID= ?";
+	// 댓글 삭제 (회원)
+	private static final String DELETE_MEMBER = "DELETE FROM COMMENT WHERE COMMENT_ID = ? AND LOGIN_ID= ?";
 
+	// 댓글 삭제 (관리자)
+	private static final String DELETE_ADMIN = "DELETE FROM COMMENT WHERE COMMENT_ID = ?";
+	
 	// 댓글 전체 출력하기
 	private List<CommentDTO> selectAll(CommentDTO cDTO) {
 
@@ -94,7 +97,14 @@ public class CommentDAO {
 	}
 
 	public boolean delete(CommentDTO cDTO) {
-		int result = jdbcTemplate.update(DELETE, cDTO.getCommentId(), cDTO.getLoginId());
+		int result=0;
+		if(cDTO.getSearchCondition().equals("userCommentDelete")) {
+			result = jdbcTemplate.update(DELETE_MEMBER, cDTO.getCommentId(), cDTO.getLoginId());
+		}
+		else if(cDTO.getSearchCondition().equals("adminCommentDelete")) {
+			result = jdbcTemplate.update(DELETE_ADMIN, cDTO.getCommentId());
+		}
+		
 		if (result <= 0) {
 			return false;
 		}
