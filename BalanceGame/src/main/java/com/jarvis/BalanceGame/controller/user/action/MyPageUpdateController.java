@@ -28,7 +28,7 @@ public class MyPageUpdateController {
 	public String MyPageUpdateController(MemberDTO mDTO, MemberItemDTO miDTO, Model model, HttpSession session) {
 		String loginId = (String)session.getAttribute("loginId");
 		mDTO.setLoginId(loginId);
-		mDTO.setSearchCondition("viewOne");
+		mDTO.setSearchCondition("viewOneMember");
 		String oldName = memberService.selectOne(mDTO).getNickName();
 		
 		mDTO.setSearchCondition("modifyMyInfo");
@@ -53,7 +53,6 @@ public class MyPageUpdateController {
 			miDTO.setSearchCondition("useItem");
 			memberItemService.update(miDTO);
 			
-		return "alert";
 		}
 		return "alert";
 	}
