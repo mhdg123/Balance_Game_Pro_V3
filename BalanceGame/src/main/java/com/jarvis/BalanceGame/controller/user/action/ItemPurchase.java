@@ -71,7 +71,7 @@ public class ItemPurchase {
 			// 유저가 광고제거 아이템을 사용한적이 있는지 확인
 			// 있으면 구매가 안되게 만들어야함
 			
-			if(iDTO.getItemId() == 1) {
+			if(iDTO.getItemId() == 2) {
 				mDTO.setLoginId(loginId);
 				mDTO.setSearchCondition("viewOne");
 				mDTO = memberService.selectOne(mDTO);

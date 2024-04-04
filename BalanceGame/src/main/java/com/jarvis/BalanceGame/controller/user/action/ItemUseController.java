@@ -23,9 +23,9 @@ public class ItemUseController {
 	
 	@GetMapping("/itemUseController")
 	public String itemUseController(MemberItemDTO miDTO, MemberDTO mDTO, Model model, HttpSession session) {
-		if(miDTO.getItemId()==2) {
+		if(miDTO.getItemId()==1) {
 			//닉변권 사용 컨트롤러로 이동
-			return "/user/myInfo";
+			return "redirect:/user/myPageUpdatePageController";
 		}
 		
 		

@@ -28,7 +28,7 @@ public class MyPageUpdateController {
 	public String MyPageUpdateController(MemberDTO mDTO, MemberItemDTO miDTO, Model model, HttpSession session) {
 		String loginId = (String)session.getAttribute("loginId");
 		mDTO.setLoginId(loginId);
-		mDTO.setSearchCondition("viewOneMember");
+		mDTO.setSearchCondition("viewOne");
 		String oldName = memberService.selectOne(mDTO).getNickName();
 		
 		mDTO.setSearchCondition("modifyMyInfo");
