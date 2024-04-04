@@ -119,7 +119,7 @@
 											<li class="item-element">
 												<div>
 													<img src="assets/img/comment/comment_3.png" alt=""> <span> &nbsp;&nbsp;${data.itemName} - ${data.memberItemCount}</span>
-													<a href="/user/아이템사용?itemId=${data.itemId}" class="genric-btn primary radius change-ck-button f-right small">사용</a>
+													<a href="/user/itemUseController?itemId=${data.itemId}" class="genric-btn primary radius change-ck-button f-right small">사용</a>
 												</div>
 											</li>
 										
