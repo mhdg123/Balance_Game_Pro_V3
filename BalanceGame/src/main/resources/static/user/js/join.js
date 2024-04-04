@@ -407,11 +407,11 @@ console.log(myAuthStatus);
 
 
 	// 핸드폰 번호 유효성 검사
-	let phonePattern = /^01[016789]\d{8}$/; // 숫자로만 이루어진 11자리 번호
-	if (!phonePattern.test(cellPhone)) {
-		showError("핸드폰번호", "숫자만 입력 가능합니다.");
-		return false;
-	}
+	let phonePattern = /^(010|011|016|017|018|019)-?([0-9]{3,4})-?([0-9]{4})$/; // 010부터 019까지의 숫자로 시작하고, 옵션으로 하이픈(-)을 허용하는 패턴
+if (!phonePattern.test(cellPhone)) {
+    showError("핸드폰번호", "유효한 핸드폰 번호 형식이 아닙니다.");
+    return false;
+}
 
 
 	// 핸드폰 번호 입력 확인
