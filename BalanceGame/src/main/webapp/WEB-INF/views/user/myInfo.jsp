@@ -90,7 +90,7 @@
 
 						</div>
 
-						<a href="#" style="margin: 5px" onclick="test();" class="genric-btn primary radius change-ck-button f-right"> 회원 탈퇴</a> <a href="#" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 비밀번호 변경</a>
+						<a href="#" onclick="deleteMember();" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 회원 탈퇴</a> <a href="#" onclick="passwordChange();" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 비밀번호 변경</a>
 
 
 
@@ -252,7 +252,6 @@
 
 	<script type="text/javascript">
 	function commentDelete(commentId) {
-
 	$.ajax({
 			type: "POST",
 			url: "/user/deleteCommentAsync",
@@ -305,8 +304,8 @@
 
 	}
 	
-	
-	function test() {
+	// 회원삭제
+	function deleteMember() {
  	Swal.fire({
 	        title: "회원 탈퇴",
 	        text: "정말로 회원 탈퇴 하시겠습니까???",
@@ -328,25 +327,72 @@
 	                },
 	                success: function (response) {
 	                	if(response === "success") {
-	                		deleteToSuccessPage("회원탈퇴 되었습니다.");
+	                		successMsg("탈퇴 완료","회원탈퇴 되었습니다.");
 	                	}else {
-	                		deleteToErrorPage("관리자에게 문의해주세요.");
+	                		errrorMsg("에러","관리자에게 문의해주세요.");
 	                	}
 	                },
 	                error: function (xhr, status, error) {
 	                    console.error(error);
-	                	deleteToErrorPage("관리자에게 문의해주세요.");
+	                	errrorMsg("에러","관리자에게 문의해주세요.");
 	                }
 	            });
 	        }
 	    }); 
 	}
 	
+	
+	// 비밀번호 변경하기
+	function passwordChange() {
+	    Swal.fire({
+	        title: "비밀번호 변경",
+	        html: `
+	            <input id="swal-input1" class="swal2-input" placeholder="새 비밀번호">
+	            <input id="swal-input2" class="swal2-input" placeholder="새 비밀번호 확인">
+	        `,
+	        focusConfirm: false,
+	        preConfirm: function () {
+	            const memberPassword = $("#swal-input1").val();
+	            const passwordCheck = $("#swal-input2").val();
+
+	            if (memberPassword != passwordCheck) {
+	                errorMsg("불일치", "비밀번호가 일치하지 않습니다.");
+	                return false;
+	            }
+
+	            // jQuery AJAX를 사용하여 데이터 전송
+	            $.ajax({
+	                url: "/user/passwordChangeAsync",
+	                type: "POST",
+	                dataType : "text",
+	                data: {
+	                	loginId : `${loginId}`,
+	                	memberPassword : memberPassword
+	                },
+	                
+	                success: function (result) {
+	                    if (result === "success") {
+	                        location.href = "/user/logout";
+	                    } else {
+	                        errorMsg("오류", "관리자에게 문의해주세요");
+	                    }
+	                },
+	                error: function () {
+	                    errorMsg("오류", "관리자에게 문의해주세요");
+	                }
+	            });
+	        }
+	    });
+	}
+
+     
+	
+	
 	var decodedMsg; // 컨트롤러에 데이터넘길때 인코딩메세지를 디코딩 해줘야 함
-	function deleteToSuccessPage(msg) {
+	function successMsg(title ,msg) {
 		decodedMsg = decodeURIComponent(msg)
 		Swal.fire({
-			title: "회원탈퇴 성공!",
+			title: title,
 			text: msg,
 			imageWidth: 360,
 			imageHeight: 360,
@@ -359,10 +405,10 @@
 		});
 	}
 	
-	function deleteToErrorPage(msg) {
+	function errorMsg(title ,msg) {
 		decodedMsg = decodeURIComponent(msg)
 		Swal.fire({
-			title: "에러!",
+			title: title,
 			text: msg,
 			imageWidth: 360,
 			imageHeight: 360,
