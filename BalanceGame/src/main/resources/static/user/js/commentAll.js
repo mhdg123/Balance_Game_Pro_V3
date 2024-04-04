@@ -17,6 +17,7 @@ function commentAll() {
 		},
 		dataType: 'json',
 		success: function(data) {
+			if(data.length > 0) {
 			console.log('data 현재페이지'+data[0].currentPage);
 				console.log('data 총페이지'+data[0].totalPages);
 			currentPage=data[0].currentPage;
@@ -67,9 +68,14 @@ function commentAll() {
 			updatePagination();
 			$("#comment-box").html(elem);
 			//document.getElementById(".save").src="images/찜o.png";
+			}else {
+        // data가 비어있는 경우 처리
+        console.log('데이터가 비어있습니다.');
+    }
 		},
 		error: function(error) {
-
+var elem = "작성된 댓글이 없습니다";
+$("#comment-box").html(elem);
 			console.log('에러발생');
 			console.log('에러의 종류:' + error);
 		}
