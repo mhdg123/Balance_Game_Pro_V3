@@ -52,7 +52,7 @@ public class MyPageController {
 		
 		List<MemberItemDTO> midatas = memberItemService.selectAll(miDTO);
 		
-		
+		System.out.println("내 아이템 : "+midatas);
 		if(pDTO.getCurrentPage() == 0) {
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<");
 			pDTO.setCurrentPage(1);
