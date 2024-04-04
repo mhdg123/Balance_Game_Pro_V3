@@ -14,7 +14,6 @@
       INSERT INTO ITEM_LOG (ITEM_ID, ITEM_LOG_COUNT) VALUES (#{itemId}, #{itemLogCount})
    </insert>
    
-   
    <resultMap id="itemLogAll" type="com.jarvis.BalanceGame.model.dto.ItemLogDTO">
    <result column= "ITEM_NAME" property="itemName" jdbcType="VARCHAR" javaType="String"/>
    <result column= "ITEM_ID" property="itemId" jdbcType="INTEGER" javaType="int"/>
