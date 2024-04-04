@@ -106,7 +106,7 @@
 								<div class="icon">
 									<i class="ion ion-person-add"></i>
 								</div>
-								<a href="/admin/questionAccessPage" class="small-box-footer">유저목록페이지 <i class="fas fa-arrow-circle-right"></i></a>
+								<a href="/admin/memberManagementPage" class="small-box-footer">유저목록페이지 <i class="fas fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 						<!-- ./col -->

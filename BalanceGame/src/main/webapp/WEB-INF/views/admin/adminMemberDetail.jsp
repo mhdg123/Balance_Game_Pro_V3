@@ -278,6 +278,7 @@ th {
 									</tr>
 								</thead>
 								<tbody>
+								${commentDatas}
 									<c:if test="${empty commentDatas}">
 										<tr>
 											<td colspan="1">작성된 댓글이 없습니다.</td>
@@ -291,8 +292,7 @@ th {
 											<td>${data.comments}</td>
 
 											<td>
-												<input class="cId" type="hidden" value="${data.commentId}" />
-												<button type="button" class="commentDelete">삭제</button>
+												<button onclick="userCommentdelete(${data.commentId});" type="button" class="commentDelete">삭제</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -358,7 +358,63 @@ th {
 
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
-	<!-- 인공지능 -->
 	<script src="js/commentDelete.js"></script>
+	<script>
+	
+
+	function userCommentdelete(commentId) {
+		    $.ajax({
+               url: "/admin/deleteAdminCommentAsync",
+               type: "POST",
+               dataType : "text",
+               data: {
+               	commentId : commentId
+               },
+               success: function (result) {
+                   if (result === "success") {
+                	   successMsg("성공","댓글을 삭제하였습니다.");
+                   } else {
+                	   
+                   }
+               },
+               error: function () {
+            	   errorMsg("실패","관리자에게 문의해주세요.");
+               }
+           }); 
+	}
+	
+	var decodedMsg; // 컨트롤러에 데이터넘길때 인코딩메세지를 디코딩 해줘야 함
+	function successMsg(title ,msg) {
+		decodedMsg = decodeURIComponent(msg)
+		Swal.fire({
+			title: title,
+			text: msg,
+			imageWidth: 360,
+			imageHeight: 360,
+			imageAlt: "Custom image"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				location.reload(); //  메인 페이지 이동
+			}
+		});
+	}
+	
+	function errorMsg(title ,msg) {
+		decodedMsg = decodeURIComponent(msg)
+		Swal.fire({
+			title: title,
+			text: msg,
+			imageWidth: 360,
+			imageHeight: 360,
+			imageAlt: "Custom image"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				location.reload(); //  메인 페이지 이동
+			}
+		});
+	}
+	
+ 
+	</script>
 </body>
 </html>
