@@ -4,9 +4,10 @@ $(document).ready(function() {
 		console.log("[로그] sponsorListRank.js 진입");
 		$.ajax({
 			type: "POST", //데이터 요청타입
-			url: "adminSupportManageRankAsync", //비동기를 처리할 해당 주소
+			url: "adminPaymentManageRankAsync", //비동기를 처리할 해당 주소
 			dataType: "json", //데이터를 받을 타입
 			success: function(datas) { //데이터 받기 성공
+			console.log("datas" + datas);
 				if (datas == "실패") {
 					console.log("실패")
 				} else {

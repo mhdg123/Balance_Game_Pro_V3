@@ -18,7 +18,7 @@ public class MemberItemDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	// 해당 회원이 가지고 있는 모든 아이템
-	private static final String SELECTALL ="SELECT I.ITEM_NAME, MI.MEMBER_ITEM_COUNT FROM MEMBER_ITEM MI INNER JOIN ITEM I ON MI.ITEM_ID = I.ITEM_ID WHERE MI.LOGIN_ID = ?";
+	private static final String SELECTALL ="SELECT I.ITEM_ID, I.ITEM_NAME, MI.MEMBER_ITEM_COUNT FROM MEMBER_ITEM MI INNER JOIN ITEM I ON MI.ITEM_ID = I.ITEM_ID WHERE MI.LOGIN_ID = ?";
 	
 	// 해당 회원이 해당 아이템의 소유 유무
 	private static final String SELECTONE = "SELECT LOGIN_ID FROM MEMBER_ITEM WHERE LOGIN_ID = ? AND ITEM_ID = ?";
@@ -80,6 +80,7 @@ class MemberItemRowMapper implements RowMapper<MemberItemDTO>{
 	@Override
 	public MemberItemDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberItemDTO item = new MemberItemDTO();
+		item.setItemId(rs.getInt("ITEM_ID"));
 		item.setItemName(rs.getString("ITEM_NAME"));
 		item.setMemberItemCount(rs.getInt("MEMBER_ITEM_COUNT"));
 		return item;
