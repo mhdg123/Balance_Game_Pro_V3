@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,18 +7,21 @@
 <title>Watch shop | eCommers</title>
 <!-- css -->
 <style type="text/css">
-    .item-element {
-        height: 28px;
-    }
-    .item-element button {
-        display: none;
-    }
-    .item-element:hover {
-        background-color: #f2f2f2; /* 마우스 호버 시 회색 배경색 지정 */
-    }
-    .item-element:hover button {
-        display: block;
-    }
+.item-element {
+	height: 28px;
+}
+
+.item-element button {
+	display: none;
+}
+
+.item-element:hover {
+	background-color: #f2f2f2; /* 마우스 호버 시 회색 배경색 지정 */
+}
+
+.item-element:hover button {
+	display: block;
+}
 </style>
 </head>
 
@@ -49,9 +51,7 @@
 				<div class="row">
 					<div class="col-lg-6 col-lx-4">
 						<h4>회원 정보</h4>
-						<div
-							class="single_confirmation_details shadow p-3 mb-5 bg-body rounded"
-							style="overflow-y: auto; height: 400px;">
+						<div class="single_confirmation_details shadow p-3 mb-5 bg-body rounded" style="overflow-y: auto; height: 400px;">
 
 							<ul>
 								<li>
@@ -79,38 +79,27 @@
 									<p>가입일</p> <span> ${memberData.memberDate}</span>
 								</li>
 							</ul>
-							<br>
-							<br>
+							<br> <br>
 							<h4>[사용중인 아이템]</h4>
 							<ul>
 								<li>
 									<p>광고제거</p> <span>&nbsp</span>
 								</li>
-							
+
 							</ul>
 
 						</div>
-						
-						<a href="#"  style="margin: 5px"
-							class="genric-btn primary radius change-ck-button f-right">
-							회원 탈퇴</a>
-							
-						<a href="#" style="margin: 5px"
-							class="genric-btn primary radius change-ck-button f-right">
-							비밀번호 변경</a>
-							
-						
-						
+
+						<a href="#" style="margin: 5px" onclick="test();" class="genric-btn primary radius change-ck-button f-right"> 회원 탈퇴</a> <a href="#" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 비밀번호 변경</a>
+
+
+
 						<c:if test="${memberData.loginType == 'ORIGINAL'}">
-						<a href="javascript:changeInfo();"  style="margin: 5px"
-							class="genric-btn primary radius change-ck-button f-right">
-							정보 변경 </a>
+							<a href="javascript:changeInfo();" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 정보 변경 </a>
 						</c:if>
-						
+
 						<c:if test="${memberData.loginType == 'SOCIAL'}">
-						<a href="/user/myPageUpdatePageController"  style="margin: 5px"
-							class="genric-btn primary radius change-ck-button f-right">
-							정보 변경 </a>
+							<a href="/user/myPageUpdatePageController" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 정보 변경 </a>
 						</c:if>
 					</div>
 
@@ -120,16 +109,14 @@
 
 					<div class="col-lg-6 col-lx-4">
 						<h4>아이템</h4>
-						<div class="shadow p-3 mb-5 bg-body rounded"
-							style="overflow-y: auto; height: 400px;">
+						<div class="shadow p-3 mb-5 bg-body rounded" style="overflow-y: auto; height: 400px;">
 							<ul>
 								<c:choose>
 									<c:when test="${fn:length(memberItemDatas) > 0}">
 										<c:forEach var="data" items="${memberItemDatas}">
 											<li class="item-element">
-												<div >
-													<img src="assets/img/comment/comment_3.png" alt=""> <span>
-														&nbsp;&nbsp;${data.itemName}  -  ${data.memberItemCount}</span>
+												<div>
+													<img src="assets/img/comment/comment_3.png" alt=""> <span> &nbsp;&nbsp;${data.itemName} - ${data.memberItemCount}</span>
 													<button type="button" class="genric-btn primary radius change-ck-button f-right small">사용</button>
 												</div>
 											</li>
@@ -147,63 +134,58 @@
 		</section>
 		<!-- 해당 유저 댓글 -->
 		<div class="container">
-		<h4>댓글</h4>
-		<c:if test="${not empty commentDatas}">
-			<div class="comments-area">
-				<c:forEach var="data" items="${commentDatas}" varStatus="loop">
-					<div class="comment-list">
-						<div>
+			<h4>댓글</h4>
+			<c:if test="${not empty commentDatas}">
+				<div class="comments-area">
+					<c:forEach var="data" items="${commentDatas}" varStatus="loop">
+						<div class="comment-list">
 							<div>
-								<div class="desc">
-									<div class="d-flex">
-										<div class="d-flex align-items-center">
-											<h5>
-												<a href="#" style="color: black">${data.loginId}</a>
-											</h5>
-											<p class="date">${data.commentDate}</p>
+								<div>
+									<div class="desc">
+										<div class="d-flex">
+											<div class="d-flex align-items-center">
+												<h5>
+													<a href="#" style="color: black">${data.loginId}</a>
+												</h5>
+												<p class="date">${data.commentDate}</p>
+											</div>
 										</div>
-									</div>
-									<div>
-										<p class="comment">${data.comments}</p>
-									</div>
-									<!-- 이름 날짜 삭제 -->
-									<div class="d-flex justify-content-between">
-										<div class="d-flex align-items-center"></div>
-										<div class="reply-btn">
-											<div class="btn-reply text-uppercase"
-												style="display: inline-block;" onclick="commentWarning(${data.commentId},'${data.loginId}')">신고</div>
+										<div>
+											<p class="comment">${data.comments}</p>
+										</div>
+										<!-- 이름 날짜 삭제 -->
+										<div class="d-flex justify-content-between">
+											<div class="d-flex align-items-center"></div>
+											<div class="reply-btn">
+												<div class="btn-reply text-uppercase" style="display: inline-block;" onclick="commentWarning(${data.commentId},'${data.loginId}')">신고</div>
 												<c:if test="${data.loginId==loginId }">
-											<div class="btn-reply text-uppercase"
-												style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>
+													<div class="btn-reply text-uppercase" style="display: inline-block;" onclick="commentDelete(${data.commentId})">삭제</div>
 												</c:if>
+											</div>
 										</div>
 									</div>
+									<hr />
 								</div>
-								<hr />
 							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
 
 
-				<nav class="blog-pagination justify-content-center d-flex">
-					<ul class="pagination">
-						<li class="page-item"><a href="#" class="page-link"
-							aria-label="Previous"> <i class="ti-angle-left"></i>
-						</a></li>
-						<li class="page-item"><a href="#" class="page-link">1</a></li>
-						<li class="page-item active"><a href="#" class="page-link">2</a>
-						</li>
-						<li class="page-item"><a href="#" class="page-link"
-							aria-label="Next"> <i class="ti-angle-right"></i>
-						</a></li>
-					</ul>
-				</nav>
-			</div>
-			
+					<nav class="blog-pagination justify-content-center d-flex">
+						<ul class="pagination">
+							<li class="page-item"><a href="#" class="page-link" aria-label="Previous"> <i class="ti-angle-left"></i>
+							</a></li>
+							<li class="page-item"><a href="#" class="page-link">1</a></li>
+							<li class="page-item active"><a href="#" class="page-link">2</a></li>
+							<li class="page-item"><a href="#" class="page-link" aria-label="Next"> <i class="ti-angle-right"></i>
+							</a></li>
+						</ul>
+					</nav>
+				</div>
+
 			</c:if>
 			<c:if test="${empty commentDatas}">
-			<div>출력할 댓글이 없습니다</div>
+				<div>출력할 댓글이 없습니다</div>
 			</c:if>
 		</div>
 
@@ -267,7 +249,7 @@
 
 
     </script>
-	
+
 	<script type="text/javascript">
 	function commentDelete(commentId) {
 
@@ -322,7 +304,77 @@
 		});
 
 	}
-	</script>
+	
+	
+	function test() {
+ 	Swal.fire({
+	        title: "회원 탈퇴",
+	        text: "정말로 회원 탈퇴 하시겠습니까???",
+	        icon: "warning",
+	        showCancelButton: true,
+	        confirmButtonColor: "#3085d6",
+	        cancelButtonColor: "#d33",
+	        confirmButtonText: "회원탈퇴",
+	        cancelButtonText: "취소"
+	    }).then((result) => {
+	        if (result.isConfirmed) {
+	            // jQuery Ajax 요청
+	            $.ajax({
+	                url: '/user/resignAsync',
+	                method: 'POST',
+	                dataType: "text",
+	                data : {
+	                	loginId : `${loginId}`
+	                },
+	                success: function (response) {
+	                	if(response === "success") {
+	                		deleteToSuccessPage("회원탈퇴 되었습니다.");
+	                	}else {
+	                		deleteToErrorPage("관리자에게 문의해주세요.");
+	                	}
+	                },
+	                error: function (xhr, status, error) {
+	                    console.error(error);
+	                	deleteToErrorPage("관리자에게 문의해주세요.");
+	                }
+	            });
+	        }
+	    }); 
+	}
+	
+	var decodedMsg; // 컨트롤러에 데이터넘길때 인코딩메세지를 디코딩 해줘야 함
+	function deleteToSuccessPage(msg) {
+		decodedMsg = decodeURIComponent(msg)
+		Swal.fire({
+			title: "회원탈퇴 성공!",
+			text: msg,
+			imageWidth: 360,
+			imageHeight: 360,
+			imageAlt: "Custom image"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// location.href='/alert/' + decodedMsg + '/success/' + 'main' ; // 파라미터 포함 메인 페이지 이동
+				location.href = '/user/logout'; //  메인 페이지 이동
+			}
+		});
+	}
+	
+	function deleteToErrorPage(msg) {
+		decodedMsg = decodeURIComponent(msg)
+		Swal.fire({
+			title: "에러!",
+			text: msg,
+			imageWidth: 360,
+			imageHeight: 360,
+			imageAlt: "Custom image"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				location.href = location.href; // 새로고침
+			}
+		});
+	}
+
+ 	</script>
 
 </body>
 </html>

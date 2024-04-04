@@ -167,6 +167,12 @@ th {
 								<li class="nav-item"><a href="/admin/adminAdvertisementManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>광고관리</p>
 								</a></li>
+								<li class="nav-item"><a href="/admin/warningManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>신고관리</p>
+								</a></li>
+								<li class="nav-item"><a href="/admin/adminChartManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>통계관리</p>
+								</a></li>
 							</ul></li>
 					</ul>
 				</nav>

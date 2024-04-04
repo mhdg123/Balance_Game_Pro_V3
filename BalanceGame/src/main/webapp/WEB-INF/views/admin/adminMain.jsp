@@ -7,7 +7,7 @@
 		<%@ include file="../adminLayout/header.jsp"%>
 		<!-- 왼쪽 사이드 바 -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-			<a href="/admin/adminPage" class="brand-link"> <img src="images/logo.png" alt="자비스로고" class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-light">관리자</span>
+			<a href="/admin/adminPage" class="brand-link"> <img src="/resources/adminLte/images/logo.png" alt="자비스로고" class="brand-image img-circle elevation-3" style="opacity: .8"> <span class="brand-text font-weight-light">관리자</span>
 			</a>
 
 			<div class="sidebar">
