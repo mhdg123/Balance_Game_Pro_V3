@@ -128,6 +128,10 @@ ${letterDatas}
 										</tbody>
 										</tbody>
 									</table>
+									<nav class="blog-pagination justify-content-center d-flex">
+										<ul class="pagination">
+                           				</ul>
+									</nav>
 								</div>
 
 							</div>
@@ -141,6 +145,18 @@ ${letterDatas}
 	<!-- 푸터 -->
 	<%@ include file="../adminLayout/footer.jsp"%>
 	<!-- 스크립트 모음 -->
+	<!-- 페이징 js -->
+	<script type="text/javascript">
+		var currentPage = ${page};
+		var totalPage = ${totalPage};
+		console.log(currentPage);
+		document.addEventListener('DOMContentLoaded', function() {
+			// 페이지 업데이트 실행
+			pageName = 'memberManagementPage';
+			updatePagination();
+		});
+	</script>
+	<script src="/resources/user/js/currentAdminPage.js"></script>
 	<%@ include file="../adminLayout/footer-fix.jsp"%>
 
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
