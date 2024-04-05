@@ -91,16 +91,17 @@
 
 						</div>
 
-						<a href="#" onclick="deleteMember();" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 회원 탈퇴</a> <a href="#" onclick="passwordChange();" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 비밀번호 변경</a>
+						<a href="#" onclick="deleteMember();" style="margin: 5px; min-width: 90px;" class="genric-btn primary radius change-ck-button f-right"> 회원 탈퇴</a> 
+						<a href="#" onclick="passwordChange();" style="margin: 5px;min-width: 90px;" class="genric-btn primary radius change-ck-button f-right"> 비밀번호 변경</a>
 
 
 
 						<c:if test="${memberData.loginType == 'ORIGINAL'}">
-							<a href="javascript:changeInfo();" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 정보 변경 </a>
+							<a href="javascript:changeInfo();" style="margin: 5px;min-width: 90px;" class="genric-btn primary radius change-ck-button f-right"> 정보 변경 </a>
 						</c:if>
 
 						<c:if test="${memberData.loginType == 'SOCIAL'}">
-							<a href="/user/myPageUpdatePageController" style="margin: 5px" class="genric-btn primary radius change-ck-button f-right"> 정보 변경 </a>
+							<a href="/user/myPageUpdatePageController" style="margin: 5px;min-width: 90px;" class="genric-btn primary radius change-ck-button f-right"> 정보 변경 </a>
 						</c:if>
 					</div>
 
@@ -222,7 +223,7 @@
         const { value: formValues } = await Swal.fire({
     title: "2차 인증",
     html: `
-      <input id="swal-input1" class="swal2-input" placeholder="비밀번호">
+    	<input id="swal-input1" class="swal2-input" type="password" placeholder="비밀번호">
     `,
     focusConfirm: false,
     preConfirm: async () => {
@@ -359,8 +360,8 @@
 	    Swal.fire({
 	        title: "비밀번호 변경",
 	        html: `
-	            <input id="swal-input1" class="swal2-input" placeholder="새 비밀번호">
-	            <input id="swal-input2" class="swal2-input" placeholder="새 비밀번호 확인">
+	            <input id="swal-input1" class="swal2-input" type="password" placeholder="새 비밀번호">
+	            <input id="swal-input2" class="swal2-input" type="password" placeholder="새 비밀번호 확인">
 	        `,
 	        focusConfirm: false,
 	        preConfirm: function () {

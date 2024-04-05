@@ -40,7 +40,7 @@
 
 				<div class="comments-area">
 					<div class="row">
-						<div style="width: 50%; margin: 0 auto;">
+						<div style="width: 50%; min-width:360px;  margin: 0 auto;">
 							<h2>변경</h2>
 							<form class="row contact_form" action="/user/myInfoChangePage"
 								method="post" onsubmit="return myjoinFormAction();"
@@ -87,12 +87,11 @@
 								<div id="certificationDiv"
 									class="col-md-12 form-group1 p_star input-button-container"
 									style="display: none;">
-									<input type="text" class="form-control input-field"
+									<input type="text" class="form-control"
 										id="certification" name="certification" placeholder="인증번호 입력"
 										required />
 									<button type="button" onclick="myAuthNumCheck()" 
-										class="genric-btn primary radius change-ck-button">인증번호
-										확인</button>
+										class="genric-btn primary radius change-ck-button">인증번호 확인</button>
 								</div>
 
 								<!----------------------------------------폰번호 입력창---------------------------------------->
@@ -115,12 +114,11 @@
 								<div id="emailCheckDiv"
 									class="col-md-12 form-group1 p_star input-button-container"
 									style="display: none;">
-									<input type="text" class="form-control input-field"
+									<input type="text" class="form-control"
 										id="emailCheck" required name="emailCheck"
 										placeholder="인증번호 입력" />
 									<button type="button" onclick="emailCodeCheck()"
-										class="genric-btn primary radius change-ck-button">인증번호
-										확인</button>
+										class="genric-btn primary radius change-ck-button">인증번호확인</button>
 								</div>
 
 								<!----------------------------------------이메일 입력창---------------------------------------->
