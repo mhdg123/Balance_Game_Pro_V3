@@ -21,7 +21,7 @@ public class MemberDAO {
 	private static final String SELECT_LOGIN_ID = "SELECT LOGIN_ID FROM MEMBER WHERE LOGIN_ID = ? ";
 
 	// 로그인 SQL
-	private static final String LOGIN = "SELECT LOGIN_ID, ROLE, COIN, NICKNAME FROM MEMBER WHERE LOGIN_ID = ? AND MEMBER_PASSWORD = ? ";
+	private static final String LOGIN = "SELECT LOGIN_ID, ROLE, COIN, NICKNAME, COMMENT_STATUS FROM MEMBER WHERE LOGIN_ID = ? AND MEMBER_PASSWORD = ? ";
 
 	// 유저 수 조회
 	private static final String SELECT_CNT = "SELECT COUNT(1) AS MEMBER_CNT FROM MEMBER";
@@ -34,7 +34,7 @@ public class MemberDAO {
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
 
 	// 소셜 로그인
-	private static final String SOCIAL_LOGIN = "SELECT LOGIN_ID, COIN, NICKNAME FROM MEMBER WHERE LOGIN_ID=?";
+	private static final String SOCIAL_LOGIN = "SELECT LOGIN_ID, COIN, NICKNAME, COMMENT_STATUS FROM MEMBER WHERE LOGIN_ID=?";
 
 	// 마이페이지 조회 SQL
 	private static final String MY_INFO = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, LOGIN_TYPE, MEMBER_DATE "
@@ -333,6 +333,7 @@ class MemberRowMapperLogin implements RowMapper<MemberDTO> {
 		member.setRole(rs.getString("ROLE"));
 		member.setCoin(rs.getInt("COIN"));
 		member.setNickName(rs.getString("NICKNAME"));
+		member.setWriteStatus(rs.getString("COMMENT_STATUS"));
 		return member;
 	}
 }
@@ -399,6 +400,7 @@ class MemberRowMapperSocialLogin implements RowMapper<MemberDTO> {
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setNickName(rs.getString("NICKNAME"));
 		member.setCoin(rs.getInt("COIN"));
+		member.setWriteStatus(rs.getString("COMMENT_STATUS"));
 		return member;
 	}
 }
