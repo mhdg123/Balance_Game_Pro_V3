@@ -126,19 +126,29 @@ public class AdminExcelDownloadController {
     
     // 월별 총계 계산 메서드
     private void calculateMonthlyTotal(Sheet sheet, int rowCount, CellStyle style) {
+    	Cell cell = null;
         Row row = sheet.createRow(rowCount);
-        row.createCell(0).setCellValue("월 총계");
-
+        cell=row.createCell(0);
+        cell.setCellValue("월 총계");
+        cell.setCellStyle(style);
+        int yearTotal=0;
         for (int month = 1; month <= 12; month++) {
             int total = 0;
             for (int i = 1; i < rowCount; i++) {
                 Row currentRow = sheet.getRow(i);
-                Cell cell = currentRow.getCell(month);
+                cell = currentRow.getCell(month);
                 if (cell != null && cell.getCellType() == CellType.NUMERIC) {
                     total += (int) cell.getNumericCellValue();
                 }
             }
-            row.createCell(month).setCellValue(total);
+            
+            yearTotal+=total;
+            cell=row.createCell(month);
+            cell.setCellValue(total);
+            cell.setCellStyle(style);
         }
+        cell = row.createCell(13);
+        cell.setCellValue(yearTotal); // 년 총계 데이터 입력
+        cell.setCellStyle(style);
     }
 }
