@@ -30,7 +30,7 @@ public class MemberDAO {
 	private static final String SELECT_COIN = "SELECT COIN FROM MEMBER WHERE LOGIN_ID =?";
 
 	// 유저 상세 조회
-	private static final String SELECTONE_USER = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, COIN, ADVERTISEMENT_STATUS, LOGIN_TYPE "
+	private static final String SELECTONE_USER = "SELECT LOGIN_ID, NAME, NICKNAME, CELL_PHONE, EMAIL, ADDRESS, GENDER, AGE, GRADE, WRITE_STATUS, COIN, ADVERTISEMENT_STATUS, LOGIN_TYPE "
 			+ "FROM MEMBER WHERE LOGIN_ID = ?";
 
 	// 소셜 로그인
@@ -364,6 +364,7 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 		member.setAdvertisementStatus(rs.getString("ADVERTISEMENT_STATUS"));
 		member.setLoginType(rs.getString("LOGIN_TYPE"));
 		member.setCoin(rs.getInt("COIN"));
+		member.setWriteStatus("WRITE_STATUS");
 		member.setGrade(rs.getInt("GRADE"));
 		return member;
 	}
