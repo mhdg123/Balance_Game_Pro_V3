@@ -45,13 +45,13 @@
 								style="margin-right: 12px;">문제 제출</a>
 							</c:if>
 							
-							<div class="switch-wrap d-flex align-items-center">
+							<!-- <div class="switch-wrap d-flex align-items-center">
 								<p style="margin-right: 6px; margin-bottom: 0;">내 찜보기</p>
 								<div class="primary-switch">
 									<input type="checkbox" id="default-switch" /> <label
 										for="default-switch"></label>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 

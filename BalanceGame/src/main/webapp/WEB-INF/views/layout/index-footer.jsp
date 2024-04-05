@@ -44,7 +44,7 @@
                   <h4>Cooperation</h4>
                   <ul>
                     <li>
-                      <a href="#" 
+                      <a href="https://fossil-slug-98e.notion.site/c809dc42b3db4657859f7e1ae7500978?pvs=4" target="_blank"
                         ><img
                           src="/resources/assets/img/jarvis/notion_logo.png"
                           style="width: 5%"

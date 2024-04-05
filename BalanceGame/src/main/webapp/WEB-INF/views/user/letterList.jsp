@@ -56,13 +56,15 @@ cursor: pointer;
 										<th style="width: 5%"><input type="checkbox" id="check-all"></th>
 										<th  class="letterFilterButton">읽음</th>
 										<th  class="letterFilterButton" onclick="letterDelete()">삭제</th>
-										<th style="text-align: right;width:70%">읽지 않은 메일</th>
+										<th style="text-align: right;width:70%"></th>
+										<th>
+										<!-- <th style="text-align: right;width:70%">읽지 않은 메일</th>
 										<th>
 											<div class="primary-switch">
 												<input type="checkbox" id="default-switch" /> <label
 													for="default-switch"></label>
 											</div>
-										</th>
+										</th> -->
 									</tr>
 								</table>
 								<table class="table" style="width: 100%">
