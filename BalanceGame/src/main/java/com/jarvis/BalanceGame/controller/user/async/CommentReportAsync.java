@@ -60,6 +60,7 @@ public class CommentReportAsync {
 			wDTO.setCommentWriter(originCommentWriter);
 			System.out.println("데이터 다시 셋1 : " + wDTO.getCommentId());
 			System.out.println("데이터 다시 셋2 : " + wDTO.getRepoter());
+			wDTO.setSearchCondition("reportedComments");
 			List<WarningDTO> datas = warningService.selectAll(wDTO); // 신고횟수 조회하기
 			System.out.println("신고 됨");
 			if (warningService.insert(wDTO)) {
