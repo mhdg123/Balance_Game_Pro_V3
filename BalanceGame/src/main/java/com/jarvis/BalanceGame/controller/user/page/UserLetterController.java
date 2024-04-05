@@ -3,7 +3,6 @@ package com.jarvis.BalanceGame.controller.user.page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,9 +34,10 @@ public class UserLetterController {
 			return "alert";
 		}
 		
-		model.addAttribute("status", "close");
+		model.addAttribute("status", "success");
 		model.addAttribute("msg", "건의사항이 발송되었습니다.");
-		return "user/index";
+		model.addAttribute("redirect", "/");
+		return "alert";
 	}
 }
 

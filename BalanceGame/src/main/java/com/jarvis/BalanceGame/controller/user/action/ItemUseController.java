@@ -37,8 +37,6 @@ public class ItemUseController {
 			return "redirect:/user/myPageUpdatePageController";
 		}
 		if(miDTO.getItemId()==3) {
-			System.out.println("ddddddddddddddddddddddd"+mDTO+"ddddddddddddddddddddddd");
-			System.out.println(mDTO.getWriteStatus()+"<<<<<<<<<<<mDTO.getWriteStatus()");
 			if(mDTO.getWriteStatus().equals("T")) {
 				model.addAttribute("status", "fail");
 				model.addAttribute("msg", "댓글 사용이 가능합니다");
