@@ -25,7 +25,7 @@ public class AdminExcelDownloadController {
     public void download(HttpServletResponse res, TotalDTO totalDTO) throws IOException {
         // Excel 워크북 및 시트 생성
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Balance Game Data");
+        Sheet sheet = workbook.createSheet("Balance Game 2024 Data");//년도의 따른 이름 생성 가능
 
         // 헤더 스타일 설정
         CellStyle headerStyle = createHeaderStyle(workbook);
@@ -40,6 +40,7 @@ public class AdminExcelDownloadController {
         int rowCount = 1;
         for (int day = 1; day <= 31; day++) {
             totalDTO.setSearchCondition("day");
+            totalDTO.setYear("2024");//년도를 받아온다면 그 년도도 받아볼 수 있음
             totalDTO.setDay(day);
             List<TotalDTO> datas = totalService.selectAll(totalDTO);
             createDataRow(sheet.createRow(rowCount++), day, datas, bodyStyle);
