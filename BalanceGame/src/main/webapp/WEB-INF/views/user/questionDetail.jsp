@@ -229,6 +229,15 @@
 				});
 				return;
 			}	
+			
+			if(`${commentStatus}`=='F'){
+				Swal.fire({
+					title: "정지",
+					text: "아이템 구매 후 사용가능합니다.",
+					icon: "info"
+				});
+				return;
+			}
 			if (!blankSpace()) {
 				console.log('댓글 공백');
 				$('#comment').val("");
