@@ -148,7 +148,7 @@
 										</div>
 										<div class="form-group">
 											<label for="exampleInputPassword1">가격</label>
-											<input type="number" class="form-control" id="itemPrice" name="itemPrice" placeholder="가격" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+											<input type="number" class="form-control" id="itemPrice" name="itemPrice" placeholder="가격" oninput="this.value = Math.max(0, parseInt(this.value)) || '';">
 										</div>
 										<div class="form-group">
 											<label for="exampleInputFile">아이템 이미지</label>
