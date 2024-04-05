@@ -104,35 +104,35 @@ public class AdminExcelDownloadController {
         }
     }
 
-    // 데이터 행 생성
-    private void createDataRow(Row row,int day, List<TotalDTO> datas, CellStyle style) {
-    	int total=0;;
+ // 데이터 행 생성
+    private void createDataRow(Row row, int day, List<TotalDTO> datas, CellStyle style) {
+        int total = 0;
         Cell cell = row.createCell(0);
-        cell.setCellValue(day+"일"); // 일/월 데이터 입력
+        cell.setCellValue(day + "일"); // 일/월 데이터 입력
         cell.setCellStyle(style);
-        
-        for (TotalDTO data : datas) {
-        	cell = row.createCell(data.getMonth());
-            cell.setCellValue(data.getTotalAmount()); // 월별 데이터 입력
-            total+=data.getTotalAmount();
-            cell.setCellStyle(style);
-	    }
-        
 
+        for (TotalDTO data : datas) {
+            cell = row.createCell(data.getMonth());
+            // data.getTotalAmount()에 콤마 추가
+            cell.setCellValue(String.format("%,d", data.getTotalAmount())); // 월별 데이터 입력
+            total += data.getTotalAmount();
+            cell.setCellStyle(style);
+        }
 
         cell = row.createCell(13);
-        cell.setCellValue(total); // 년 총계 데이터 입력
+        // total에 콤마 추가
+        cell.setCellValue(String.format("%,d", total)); // 년 총계 데이터 입력
         cell.setCellStyle(style);
     }
-    
+
     // 월별 총계 계산 메서드
     private void calculateMonthlyTotal(Sheet sheet, int rowCount, CellStyle style) {
-    	Cell cell = null;
+        Cell cell = null;
         Row row = sheet.createRow(rowCount);
-        cell=row.createCell(0);
+        cell = row.createCell(0);
         cell.setCellValue("월 총계");
         cell.setCellStyle(style);
-        int yearTotal=0;
+        int yearTotal = 0;
         for (int month = 1; month <= 12; month++) {
             int total = 0;
             for (int i = 1; i < rowCount; i++) {
@@ -142,14 +142,16 @@ public class AdminExcelDownloadController {
                     total += (int) cell.getNumericCellValue();
                 }
             }
-            
-            yearTotal+=total;
-            cell=row.createCell(month);
-            cell.setCellValue(total);
+
+            yearTotal += total;
+            cell = row.createCell(month);
+            // total에 콤마 추가
+            cell.setCellValue(String.format("%,d", total));
             cell.setCellStyle(style);
         }
+        // yearTotal에 콤마 추가
         cell = row.createCell(13);
-        cell.setCellValue(yearTotal); // 년 총계 데이터 입력
+        cell.setCellValue(String.format("%,d", yearTotal)); // 년 총계 데이터 입력
         cell.setCellStyle(style);
     }
 }
