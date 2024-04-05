@@ -25,7 +25,7 @@ public class AdminLetterListPageController {
 	@Autowired
 	private PageInfoService pageInfoService;
 	
-	@GetMapping("/letterListPage")
+	@GetMapping("/adminLetterListPage")
 	public String adminLetterListPageController(LetterDTO lDTO,PageInfoDTO pDTO, Model model,HttpSession session) {
 		
 		String loginId = (String)session.getAttribute("loginId");
