@@ -237,7 +237,7 @@ class QuestionRowMapperList implements RowMapper<QuestionDTO> {
 		data.setTitle(rs.getString("TITLE"));
 		data.setLikeCount(rs.getInt("LIKE_COUNT"));
 		data.setWishId(rs.getInt("LIKE_ID"));
-		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
+		data.setQuestionDate(rs.getTimestamp("QUESTION_DATE"));
 		return data;
 	}
 }
@@ -251,7 +251,7 @@ class QuestionRowMapper implements RowMapper<QuestionDTO> {
 		data.setTitle(rs.getString("TITLE"));
 		data.setWriter(rs.getString("WRITER"));
 		data.setExplanation(rs.getString("EXPLANATION"));
-		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
+		data.setQuestionDate(rs.getTimestamp("QUESTION_DATE"));
 		return data;
 	}
 }
@@ -272,7 +272,7 @@ class QuestionRowMapperDetail implements RowMapper<QuestionDTO> {
 		data.setAnswerACount(rs.getInt("COUNT_A"));
 		data.setAnswerBCount(rs.getInt("COUNT_B"));
 		data.setWishId(rs.getInt("LIKE_ID"));
-		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
+		data.setQuestionDate(rs.getTimestamp("QUESTION_DATE"));
 		return data;
 	}
 }
@@ -291,7 +291,7 @@ class QuestionRowMapperShowToUser implements RowMapper<QuestionDTO> {
 		data.setAnswerBImg(rs.getString("ANSWER_B_IMG"));
 		data.setExplanation(rs.getString("EXPLANATION"));
 		data.setWishId(rs.getInt("LIKE_ID"));
-		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
+		data.setQuestionDate(rs.getTimestamp("QUESTION_DATE"));
 		return data;
 	}
 }
@@ -319,7 +319,7 @@ class QuestionRowMapperAdminDetail implements RowMapper<QuestionDTO>{
 		data.setAnswerB(rs.getString("ANSWER_B"));
 		data.setAnswerBImg(rs.getString("ANSWER_B_IMG"));
 		data.setExplanation(rs.getString("EXPLANATION"));
-		data.setQuestionDate(rs.getDate("QUESTION_DATE"));
+		data.setQuestionDate(rs.getTimestamp("QUESTION_DATE"));
 		data.setQuestionAccess(rs.getString("QUESTION_ACCESS"));
 		return data;
 	}

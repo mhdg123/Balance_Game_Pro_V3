@@ -257,17 +257,22 @@ th {
 													<td colspan="1">출제문제가 없습니다</td>
 												</tr>
 											</c:if>
-
-											<c:forEach var="data" items="${questionDatas_f}">
+											<c:set var="startIndex" value="${(page-1)*10}" />
+											<c:forEach var="data" items="${questionDatas_f}" varStatus="loop">
 												<tr onclick="location.href = '/admin/questionDetaileAccessPage?questionId=${data.questionId}'">
+													<td>${startIndex+loop.index + 1}</td>
 													<td>${data.questionId}</td>
 													<td>${data.writer}</td>
 													<td>${data.title}</td>
-													<td><script>document.write(formatCreateTime('${data.questionDate}'));</script></td>
+													<td>${data.questionDate}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
+									<nav class="blog-pagination justify-content-center d-flex">
+										<ul class="pagination">
+                           								</ul>
+									</nav>
 								</div>
 
 							</div>
@@ -301,6 +306,18 @@ th {
 		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
+		<!-- 페이징 js -->
+	<script type="text/javascript">
+		var currentPage = ${page};
+		var totalPage = ${totalPage};
+		console.log(currentPage);
+		document.addEventListener('DOMContentLoaded', function() {
+			// 페이지 업데이트 실행
+			pageName = 'questionManagementPage';
+			updatePagination();
+		});
+	</script>
+	<script src="/resources/user/js/currentAdminPage.js"></script>
 
 	<!-- jQuery -->
 	<script src="/resources/adminLte/plugins/jquery/jquery.min.js"></script>

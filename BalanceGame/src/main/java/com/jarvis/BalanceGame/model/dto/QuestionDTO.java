@@ -1,6 +1,7 @@
 package com.jarvis.BalanceGame.model.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class QuestionDTO {
     @NotNull
     private String questionAccess; // 문제 승인여부
     @NotNull
-    private Date questionDate; // 질문 등록시간
+    private Timestamp questionDate; // 질문 등록시간
     
     //---------------------------------------
     private String searchCondition;
