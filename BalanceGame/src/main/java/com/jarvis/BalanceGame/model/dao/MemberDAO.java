@@ -89,10 +89,10 @@ public class MemberDAO {
 	private static final String AD_STATUS_UPDATE = "UPDATE MEMBER SET ADVERTISEMENT_STATUS = 'F' WHERE LOGIN_ID = ?";
 
 	// 멤버 댓글 상태 변경(F)
-	private static final String COMMENT_STATUS_UPDATE_F = "UPDATE MEMBER SET COMMENT_STATUS = 'F' WHERE LOGIN_ID =? ";
+	private static final String COMMENT_STATUS_UPDATE_F = "UPDATE MEMBER SET WRITE_STATUS = 'F' WHERE LOGIN_ID =? ";
 	
 	// 멤버 댓글 상태 변경(T)
-	private static final String COMMENT_STATUS_UPDATE_T = "UPDATE MEMBER SET COMMENT_STATUS = 'T' WHERE LOGIN_ID =?";
+	private static final String COMMENT_STATUS_UPDATE_T = "UPDATE MEMBER SET WRITE_STATUS = 'T' WHERE LOGIN_ID =?";
 	
 	// 코인 추가
 	private static final String MY_COIN_INCREASE = "UPDATE MEMBER\r\n"
