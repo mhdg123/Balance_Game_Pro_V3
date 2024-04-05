@@ -212,18 +212,12 @@ th {
 							<div class="card-footer">
 								<div class="row">
 									<div class="col">
-										<c:if test="${letterDatas.letterStatus == 'F' }">
+										
 											<form action="/admin/adminLetterCheck" method="post">
 												<input type="hidden" name="letterId" value="${letterDatas.letterId}">
-												<button type="submit" class="btn btn-block btn-success">읽지 않음</button>
+												<button type="submit" class="btn btn-block btn-success">읽지않음</button>
 											</form>
-										</c:if>
-										<c:if test="${letterDatas.letterStatus == 'T' }">
-											<form action="/admin/adminLetterCheck" method="post">
-												<input type="hidden" name="letterId" value="${letterDatas.letterId}">
-												<button type="submit" class="btn btn-block btn-success">읽음</button>
-											</form>
-										</c:if>
+										
 									</div>
 									<div class="col">
 										<!-- 답변하기 -->

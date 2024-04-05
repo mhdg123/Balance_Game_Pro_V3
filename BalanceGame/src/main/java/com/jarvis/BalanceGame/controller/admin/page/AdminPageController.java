@@ -72,7 +72,7 @@ public class AdminPageController {
 		
 		piDTO.setOffset(pageInfoService.calculateOffset(piDTO));
 		System.out.println(piDTO.getOffset());
-		piDTO.setSearchCondition("viewAllSuggestionMessageAdmin");
+		piDTO.setSearchCondition("unReadMessageAdmin");
 		System.out.println("pDTO" + piDTO);
 		List<PageInfoDTO> datas = pageInfoService.selectAll(piDTO);
 		System.out.println("datas"+datas);

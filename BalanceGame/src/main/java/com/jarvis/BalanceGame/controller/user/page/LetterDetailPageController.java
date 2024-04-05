@@ -18,7 +18,7 @@ public class LetterDetailPageController {
 	
 	@GetMapping("/letterDetailPage")
 	public String letterDetailPageController(LetterDTO lDTO, Model model) {
-		lDTO.setSearchCondition("updateReadStatus");
+		lDTO.setSearchCondition("updateAllRead");
 		letterService.update(lDTO);
 		lDTO.setSearchCondition("viewOneMessage");
 		lDTO = letterService.selectOne(lDTO);
