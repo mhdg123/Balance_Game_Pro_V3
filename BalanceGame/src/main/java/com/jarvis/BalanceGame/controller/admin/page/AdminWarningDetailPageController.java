@@ -34,12 +34,12 @@ public class AdminWarningDetailPageController {
 	public String adminAdvertisementManagementController(WarningDTO wDTO,MemberDTO mDTO, CommentDTO cDTO, Model model, HttpSession session) {
 		System.out.println("관리자 신고 상세페이지 이동");
 		System.out.println(mDTO.getLoginId()+"<<<<<<<<<<<<<<<<<<<<<");
-		String loginId = (String)session.getAttribute("loginId");
 		mDTO.setSearchCondition("viewOne");
 		System.out.println(mDTO+"<<<<<<<<<!!!!!!!!!!!!!!!!");
 		mDTO = memberService.selectOne(mDTO);
 		System.out.println(mDTO+"<<<<<<<<<!!!!!!!!!!!!!!!!");
 		//신고 당한 댓글 출력
+		String loginId = mDTO.getLoginId();
 		wDTO.setCommentWriter(loginId);
 		wDTO.setSearchCondition("reportedComments");
 		List<WarningDTO> datas = warningService.selectAll(wDTO);
