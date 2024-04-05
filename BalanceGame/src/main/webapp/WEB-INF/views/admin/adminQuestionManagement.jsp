@@ -106,11 +106,12 @@
 													<td colspan="1">출제된 문제가 없습니다.</td>
 												</tr>
 											</c:if>
+											<c:set var="startIndex" value="${(page-1)*10}" />
 											<c:forEach var="data" items="${questionDatas}"
 												varStatus="loop">
 												<tr
 													onclick="location.href = '/admin/questionDetailPage?questionId=${data.questionId}'">
-													<td>${loop.index + 1}</td>
+													<td>${startIndex+loop.index + 1}</td>
 													<td>${data.writer}</td>
 													<td>${data.title}</td>
 													<td>${data.explanation}</td>
