@@ -85,7 +85,7 @@ $("#comment-box").html(elem);
 }
 
 function commentDelete(commentId) {
-	console.log(loginId+" "+questionId+" "+commentId);
+	
 $.ajax({
 		type: "POST",
 		url: "/user/deleteCommentAsync",
@@ -97,7 +97,7 @@ $.ajax({
 			console.log("성공 실패 : "+data);
 			if(data=="1"){
 				console.log("댓글 다시 받아오기");
-			commentAll(questionId);
+				commentAll();
 			}
 		},
 		error: function(error) {

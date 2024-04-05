@@ -23,6 +23,7 @@ public class DeleteCommentAsync {
 		String loginId = (String)session.getAttribute("loginId");
 		cDTO.setLoginId(loginId);
 		System.out.println(cDTO.getCommentId());
+		cDTO.setSearchCondition("userCommentDelete");
 		boolean flag = commentService.delete(cDTO);
 
 		if (!flag) {

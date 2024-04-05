@@ -141,6 +141,7 @@
 			<h4>댓글</h4>
 			<c:if test="${not empty commentDatas}">
 				<div class="comments-area">
+				<div id="comment-box">
 					<c:forEach var="data" items="${commentDatas}" varStatus="loop">
 						<div class="comment-list">
 							<div>
@@ -173,7 +174,7 @@
 							</div>
 						</div>
 					</c:forEach>
-
+</div>
 
 					<nav class="blog-pagination justify-content-center d-flex">
 						<ul class="pagination">
