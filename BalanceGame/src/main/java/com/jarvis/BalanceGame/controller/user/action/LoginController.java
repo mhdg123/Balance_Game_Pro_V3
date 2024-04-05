@@ -26,7 +26,6 @@ public class LoginController {
 		System.out.println("로그인 기능 실행");
 		mDTO.setSearchCondition("login");
 		mDTO = memberService.selectOne(mDTO);
-		session.setAttribute("commentStatus", mDTO.getWriteStatus());
 		if (mDTO != null) {
 			if ("ADMIN".equals(mDTO.getRole())) {
 				session.setAttribute("loginId", mDTO.getLoginId());
@@ -39,6 +38,9 @@ public class LoginController {
 				// 로그인 성공
 				session.setAttribute("loginId", mDTO.getLoginId());
 				String loginId = (String)session.getAttribute("loginId");
+				String commentStatus = (String)session.getAttribute("commentStatus");
+				session.setAttribute("commentStatus", mDTO.getWriteStatus());
+				
 				mDTO.setLoginId(loginId);
 				model.addAttribute("status", "success");
 				model.addAttribute("msg", mDTO.getNickName() + "님 로그인 하셨습니다.");
