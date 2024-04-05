@@ -21,6 +21,7 @@ public class AdminDeleteCommentAsync {
 	@Autowired
 	private WarningService warningService;
 	
+	// 회원상세페이지 댓글 삭제
 	@PostMapping("/deleteAdminCommentAsync")
 	public @ResponseBody String deleteAdminCommentAsync(CommentDTO cDTO) {
 		System.out.println("관리자 댓글 삭제 파라미터 데이터 : " + cDTO);
@@ -32,7 +33,7 @@ public class AdminDeleteCommentAsync {
 		return "success";
 
 	}
-	
+	// 신고에서 댓글작세
 	@PostMapping("/warningDeleteCommentAsync")
 	public @ResponseBody String warningDeleteCommentAsync(CommentDTO cDTO, WarningDTO wDTO) {
 		System.out.println("관리자 댓글 삭제 파라미터 데이터 : " + cDTO);

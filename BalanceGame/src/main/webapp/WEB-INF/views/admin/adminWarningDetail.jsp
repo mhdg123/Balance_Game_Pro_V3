@@ -274,7 +274,7 @@ th {
 											<td>${data.warningDate }</td>
 											<td>
 												<input class="cId" type="hidden" value="${data.commentId}" />
-												<button type="button" class="commentDelete">삭제</button>
+												<button type="button" class="commentDelete" onclick="adminCommentDelete(${data.commentId});">삭제</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -377,6 +377,30 @@ th {
 						console.log("수정 완료");
 					} else {
 						console.log("수정 실패");
+					}
+				},
+				error : function(error) {
+					console.log(error);
+				}
+			});
+		}
+		
+		
+		function adminCommentDelete(commentId ) {
+			alert("댓글 pk" + commentId )
+			$.ajax({
+				type : "POST",
+				url : "/admin/warningDeleteCommentAsync",
+				data : {
+					"commentId" : commentId
+				},
+				dataType : "text",
+				success : function(result) {
+					if (result == "success") {
+						location.reload();
+					} else {
+						console.log("댓글 실패");
+						location.reload();
 					}
 				},
 				error : function(error) {
