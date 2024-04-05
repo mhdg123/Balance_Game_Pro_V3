@@ -19,7 +19,9 @@ public class WarningDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private static final String SELECTALL = "SELECT COMMENT_WRITER FROM WARNING WHERE COMMENT_WRITER = ?" ;
+	private static final String SELECTALL = "SELECT WARNING_ID, REPORTER, COMMENT_WRITER, COMMENT_ID, WARNING_DATE "
+			+ "FROM WARNING "
+			+ "WHERE COMMENT_WRITER = ? ";
 	
 	private static final String SELECTONE = "SELECT COMMENT_ID FROM WARNING WHERE REPORTER = ? AND COMMENT_ID = ?";
 	
@@ -31,11 +33,11 @@ public class WarningDAO {
 	
 	
 	public List<WarningDTO> selectAll(WarningDTO wDTO) {
-
 		List<WarningDTO> datas = null;
-		Object[] args = { wDTO.getCommentWriter() };
+		if(wDTO.getSearchCondition().equals("reportedComments")) {
+			Object[] args = { wDTO.getCommentWriter() };
 			datas = jdbcTemplate.query(SELECTALL, args, new WarningRowMapperUser());
-		
+		}
 		return datas;
 	}
 	

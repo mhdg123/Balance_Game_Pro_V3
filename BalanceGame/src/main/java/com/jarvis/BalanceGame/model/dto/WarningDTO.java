@@ -16,4 +16,6 @@ public class WarningDTO {
 	 private String commentWriter; // 신고당한 ID FK
 	 private int commentId; // 신고당한 댓글ID FK
 	 private Date warningDate; // 댓글 신고시간
+	 //-------------------------
+	 private String searchCondition;
 }
