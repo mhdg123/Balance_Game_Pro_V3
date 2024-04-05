@@ -37,13 +37,18 @@ public class AdminWarningDetailPageController {
 		mDTO.setSearchCondition("viewOne");
 		System.out.println(mDTO+"<<<<<<<<<!!!!!!!!!!!!!!!!");
 		mDTO = memberService.selectOne(mDTO);
-		System.out.println(mDTO+"<<<<<<<<<!!!!!!!!!!!!!!!!");
+		System.out.println("신고당한 유저 아이디  : " + mDTO);
+		   if(mDTO == null) { 
+	            model.addAttribute("status", "fail");
+	            model.addAttribute("msg", "탈퇴한 회원입니다.");
+	            model.addAttribute("redirect", "/admin/warningManagementPage");
+	            return "alert";
+	        }
 		//신고 당한 댓글 출력
 		String loginId = mDTO.getLoginId();
 		wDTO.setCommentWriter(loginId);
 		wDTO.setSearchCondition("reportedComments");
 		List<WarningDTO> datas = warningService.selectAll(wDTO);
-		
 		model.addAttribute("memberData", mDTO);
 		model.addAttribute("commentDatas", datas);
 		

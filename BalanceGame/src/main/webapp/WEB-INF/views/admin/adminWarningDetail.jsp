@@ -82,8 +82,7 @@ table {
 th, td {
 	border: 1px solid #ddd;
 	padding: 8px;
-	width
-	text-align: left;
+	width text-align: left;
 }
 
 th {
@@ -202,7 +201,13 @@ th {
 									<table border="1">
 										<tr>
 											<th style="width: 78px;">ID</th>
+											<input type="hidden" id="writeStatus" value="${memberData.writeStatus }">
 											<td>${memberData.loginId}</td>
+											<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+												<input type="checkbox" class="custom-control-input" id="customSwitch${loop.index}">
+												<label class="custom-control-label" for="customSwitch${loop.index}">댓글작성 / 댓글제한</label>
+											</div>
+
 										</tr>
 										<tr>
 											<th>Login ID</th>
@@ -226,24 +231,6 @@ th {
 										</tr>
 									</table>
 
-									<%-- <div class="card-body">
-										<div class="form-group">
-											<label for="name">이름:</label>
-											<input class="form-control" type="text" name="name" value="${member.name}">
-										</div>
-										<div class="form-group">
-											<label for="email">이메일:</label>
-											<input class="form-control" type="text" name="email" value="${member.email}">
-										</div>
-										<div class="form-group">
-											<label for="address">주소:</label>
-											<input class="form-control" type="text" name="address" value="${member.address}">
-										</div>
-										<div class="form-group">
-											<label for="age">나이:</label>
-											<input class="form-control" type="text" name="age" value="${member.age}">
-										</div>
-									</div> --%>
 								</c:when>
 								<c:otherwise>
 									<p>회원 정보가 없습니다.</p>
@@ -251,13 +238,13 @@ th {
 							</c:choose>
 
 							<div class="card-footer">
-								<div class="float-left">
-									<form action="/admin/adminMemberDelete" method="post">
-										<input type="hidden" name="loginId" value="${memberData.loginId}">
-										<button type="submit" class="btn btn-block btn-danger">회원삭제</button>
-									</form>
-								</div>
+								<div class="float-left"></div>
 							</div>
+							<input id="memberLoginId" type="hidden" name="loginId" value="${memberData.loginId}">
+							<form action="/admin/adminMemberDelete" method="post">
+								<button type="submit" class="btn btn-sm btn-danger">회원삭제</button>
+							</form>
+
 						</div>
 					</div>
 
@@ -272,30 +259,25 @@ th {
 							<table class="table table-hover text-nowrap">
 								<thead>
 									<tr>
-										<th>아이디</th>
+										<th>번호</th>
+										<th>신고자</th>
 										<th>댓글내용</th>
-										<th>상태</th>
+										<th>날짜</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:if test="${empty commentDatas}">
+									<c:forEach var="data" items="${commentDatas}" varStatus="loop">
 										<tr>
-											<td colspan="1">작성된 댓글이 없습니다.</td>
-										</tr>
-									</c:if>
-
-									<%-- <c:forEach var="data" items="${commentDatas}" varStatus="loop"> --%>
-										<tr>
-											<td>1</td>
-											<td>sadfadsf</td>
-											<td>asdfsdafsdf</td>
-
+											<td>${loop.index + 1}</td>
+											<td>${data.repoter }</td>
+											<td>${data.comments }</td>
+											<td>${data.warningDate }</td>
 											<td>
 												<input class="cId" type="hidden" value="${data.commentId}" />
 												<button type="button" class="commentDelete">삭제</button>
 											</td>
 										</tr>
-							<%-- 		</c:forEach> --%>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -358,7 +340,50 @@ th {
 
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script src="/resources/adminLte/dist/js/pages/dashboard.js"></script>
-	<!-- 인공지능 -->
-	<script src="js/commentDelete.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			// 페이지 로드 시 advertisementStatus 값에 따라 체크박스 상태 설정 (광고 노출 상태 값)
+			var memberLoginId = $("#memberLoginId").val();
+			var writeStatus = $("#writeStatus").val();
+			if (writeStatus === "T") {
+				$('#customSwitch').prop('checked', true);
+			} else {
+				$('#customSwitch').prop('checked', false);
+			}
+
+			// 체크 상태 변화 감지 및 알림 함수
+			$('#customSwitch').change(function() {
+				if ($(this).is(':checked')) {
+					limitShowAndHide(memberLoginId, writeStatus)
+				} else {
+					limitShowAndHide(memberLoginId, writeStatus)
+				}
+			});
+		});
+
+		function limitShowAndHide(memberLoginId, writeStatus) {
+			alert("비동기 함수")
+			$.ajax({
+				type : "POST",
+				url : "/admin/adminCommentStopAsync",
+				data : {
+					"loginId" : memberLoginId,
+					"writeStatus" : writeStatus
+				},
+				dataType : "text",
+				success : function(result) {
+					if (result == "success") {
+						console.log("수정 완료");
+					} else {
+						console.log("수정 실패");
+					}
+				},
+				error : function(error) {
+					console.log(error);
+				}
+			});
+		}
+	</script>
 </body>
 </html>

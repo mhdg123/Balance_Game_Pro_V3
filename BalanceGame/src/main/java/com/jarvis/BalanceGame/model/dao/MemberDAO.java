@@ -364,7 +364,7 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 		member.setAdvertisementStatus(rs.getString("ADVERTISEMENT_STATUS"));
 		member.setLoginType(rs.getString("LOGIN_TYPE"));
 		member.setCoin(rs.getInt("COIN"));
-		member.setWriteStatus("WRITE_STATUS");
+		member.setWriteStatus(rs.getString("WRITE_STATUS"));
 		member.setGrade(rs.getInt("GRADE"));
 		return member;
 	}

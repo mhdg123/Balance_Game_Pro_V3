@@ -100,7 +100,6 @@
 												<th>읽음 상태</th>
 												<th>날짜</th>
 											</tr>
-${letterDatas}
 										</thead>
 										<tbody>
 											<c:if test="${empty letterDatas}">
