@@ -21,7 +21,6 @@ function itemBuy(itemId, itemName, itemPrice) { // 결제할 포인트 아이템
 
 	}, function(rsp) {
 		console.log(rsp)
-		alert(rsp)
 		if (rsp.success) {
 			jQuery.ajax({
 				url: "/user/coinpurchase",	
@@ -78,6 +77,12 @@ function itemBuy(itemId, itemName, itemPrice) { // 결제할 포인트 아이템
 
 // 아이템 구매 함수
 function PointItemBuy(itemId) {
+	
+	var loginId = $('#loginId').val(); // 로그인 아이디
+	if( loginId == "") {
+		showNeedLogin("로그인후 이용해주세요")
+		return;
+	}
 	let form = document.createElement('form');
 
 	let obj;

@@ -35,8 +35,16 @@
 					<div class="table-responsive">
 						<div class="d-flex align-items-center justify-content-between">
 							<!-- 내 찜보기 필터 토글 버튼 -->
+							<c:if test="${loginId != null }">
 							<a href="/user/makeQuestionPage" class="genric-btn info radius"
 								style="margin-right: 12px;">문제 제출</a>
+							</c:if>
+							
+							<c:if test="${loginId == null }">
+							<a href="/user/loginPage" class="genric-btn info radius"
+								style="margin-right: 12px;">문제 제출</a>
+							</c:if>
+							
 							<div class="switch-wrap d-flex align-items-center">
 								<p style="margin-right: 6px; margin-bottom: 0;">내 찜보기</p>
 								<div class="primary-switch">

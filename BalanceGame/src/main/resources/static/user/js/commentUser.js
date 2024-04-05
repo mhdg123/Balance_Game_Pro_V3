@@ -113,7 +113,14 @@ $.ajax({
 
 function commentWarning(commentId,commentWriter) {
 	var loginId = $("#loginId").val();
-	alert(loginId)
+	if( loginId == "") {
+		Swal.fire({
+					title: "로그인 필요",
+					text: "로그인 후 사용가능합니다.",
+					icon: "info"
+				});
+		return;
+	}
 	$.ajax({
 		type: "POST",
 		url: "/user/commentReportAsync",

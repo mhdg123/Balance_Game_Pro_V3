@@ -303,6 +303,15 @@ playElement.innerHTML = `
 	<script type="text/javascript">
 		$("#write").on("click", function() {
 			var comments = $('#comment').val().trim();
+			if (loginId == "") {
+				console.log("[로그]로그인 x");
+				Swal.fire({
+					title: "로그인 필요",
+					text: "로그인 후 사용가능합니다.",
+					icon: "info"
+				});
+				return;
+			}		
 			
 			if(!blankSpace()){
 				console.log('댓글 공백');

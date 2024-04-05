@@ -71,10 +71,10 @@
 											placeholder="패스워드">
 									</div>
 									<div class="col-md-12 form-group">
-										<div class="creat_account d-flex align-items-center">
+										<!-- <div class="creat_account d-flex align-items-center">
 											<input type="checkbox" id="f-option" name="selector">
 											<label for="f-option">아이디 저장</label>
-										</div>
+										</div> -->
 										<button type="submit" value="submit" class="btn_3">log
 											in</button>
 										<a href="/user/searchMyInfoPage" class="lost_pass"
