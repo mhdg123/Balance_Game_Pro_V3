@@ -77,6 +77,10 @@ class WarningRowMapperUser implements RowMapper<WarningDTO> {
 	@Override
 	public WarningDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		WarningDTO data = new WarningDTO();
+		data.setRepoter(rs.getString("REPORTER"));
+		data.setWarningId(rs.getInt("WARNING_ID"));
+		data.setCommentId(rs.getInt("COMMENT_ID"));
+		data.setWarningDate(rs.getDate("WARNING_DATE"));
 		data.setRepoter(rs.getString("COMMENT_WRITER"));
 		return data;
 	}
