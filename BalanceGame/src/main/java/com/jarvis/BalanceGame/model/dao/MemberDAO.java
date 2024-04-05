@@ -79,7 +79,7 @@ public class MemberDAO {
 	// 회원가입 SQL
 	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE, LOGIN_TYPE) VALUES(?,?,?,?,?,?,?,?,?,?)";
 
-	// 내정보 변경하기 SQL
+	// 내정보 변경하기 SQL 
 	private static final String MY_INFO_UPDATE = "UPDATE MEMBER SET CELL_PHONE = ?, EMAIL = ?, ADDRESS = ?, NICKNAME = ? WHERE LOGIN_ID = ? ";
 
 	// 임시비밀번호로 변경
@@ -88,6 +88,12 @@ public class MemberDAO {
 	// 멤버 광고상태 변경
 	private static final String AD_STATUS_UPDATE = "UPDATE MEMBER SET ADVERTISEMENT_STATUS = 'F' WHERE LOGIN_ID = ?";
 
+	// 멤버 댓글 상태 변경(F)
+	private static final String COMMENT_STATUS_UPDATE_F = "UPDATE MEMBER SET COMMENT_STATUS = 'F' WHERE LOGIN_ID =? ";
+	
+	// 멤버 댓글 상태 변경(T)
+	private static final String COMMENT_STATUS_UPDATE_T = "UPDATE MEMBER SET COMMENT_STATUS = 'T' WHERE LOGIN_ID =?";
+	
 	// 코인 추가
 	private static final String MY_COIN_INCREASE = "UPDATE MEMBER\r\n"
 			+ "SET coin = coin + (SELECT AMOUNT * 0.1 FROM PAYMENT WHERE LOGIN_ID = ? ORDER BY PAYMENT_DATE DESC LIMIT 1)\r\n"
@@ -280,6 +286,10 @@ public class MemberDAO {
 			result = jdbcTemplate.update(TEMP_PW_UPDATE, mDTO.getMemberPassword(), mDTO.getLoginId());
 		} else if (mDTO.getSearchCondition().equals("updateAd")) {
 			result = jdbcTemplate.update(AD_STATUS_UPDATE, mDTO.getLoginId());
+		} else if(mDTO.getSearchCondition().equals("updateCommentStatusT")) {
+			result = jdbcTemplate.update(COMMENT_STATUS_UPDATE_T, mDTO.getLoginId());
+		} else if(mDTO.getSearchCondition().equals("updateCommentStatusF")) {
+			result = jdbcTemplate.update(COMMENT_STATUS_UPDATE_F, mDTO.getLoginId());
 		}
 
 		if (result <= 0) {

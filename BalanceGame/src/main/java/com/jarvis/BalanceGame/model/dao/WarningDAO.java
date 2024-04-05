@@ -19,9 +19,10 @@ public class WarningDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private static final String SELECTALL = "SELECT REPORTER, COMMENT_WRITER, COMMENT_ID, WARNING_DATE "
-			+ "FROM WARNING "
-			+ "WHERE COMMENT_WRITER = ? ";
+	private static final String SELECTALL = "SELECT W.REPORTER, W.COMMENT_WRITER, W.COMMENT_ID,W.WARNING_DATE, C.COMMENTS\r\n"
+			+ "FROM WARNING W "
+			+ "JOIN COMMENT C ON W.COMMENT_ID = C.COMMENT_ID "
+			+ "WHERE W.COMMENT_WRITER = ?";
 	
 	private static final String SELECTONE = "SELECT COMMENT_ID FROM WARNING WHERE REPORTER = ? AND COMMENT_ID = ?";
 	
@@ -81,6 +82,7 @@ class WarningRowMapperUser implements RowMapper<WarningDTO> {
 		data.setCommentId(rs.getInt("COMMENT_ID"));
 		data.setWarningDate(rs.getDate("WARNING_DATE"));
 		data.setRepoter(rs.getString("COMMENT_WRITER"));
+		data.setComments(rs.getString("COMMENTS"));
 		return data;
 	}
 }

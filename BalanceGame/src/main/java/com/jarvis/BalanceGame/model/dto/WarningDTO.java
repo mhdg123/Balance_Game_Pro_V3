@@ -18,4 +18,5 @@ public class WarningDTO {
 	 private Date warningDate; // 댓글 신고시간
 	 //-------------------------
 	 private String searchCondition;
+	 private String comments;
 }
