@@ -26,6 +26,7 @@ public class LoginController {
 		System.out.println("로그인 기능 실행");
 		mDTO.setSearchCondition("login");
 		mDTO = memberService.selectOne(mDTO);
+		session.setAttribute("commentStatus", mDTO.getWriteStatus());
 		if (mDTO != null) {
 			if ("ADMIN".equals(mDTO.getRole())) {
 				session.setAttribute("loginId", mDTO.getLoginId());
@@ -47,7 +48,7 @@ public class LoginController {
 				mDTO = memberService.selectOne(mDTO);
 				
 				session.setAttribute("coin", mDTO.getCoin());
-				session.setAttribute("commentStatus", mDTO.getWriteStatus());
+				
 				return "alert";
 			}
 		}
