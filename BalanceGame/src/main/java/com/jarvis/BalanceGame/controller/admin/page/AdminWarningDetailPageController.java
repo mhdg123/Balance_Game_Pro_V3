@@ -1,5 +1,7 @@
 package com.jarvis.BalanceGame.controller.admin.page;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,8 @@ import com.jarvis.BalanceGame.model.dto.WarningDTO;
 import com.jarvis.BalanceGame.service.CommentService;
 import com.jarvis.BalanceGame.service.MemberService;
 import com.jarvis.BalanceGame.service.WarningService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,17 +31,21 @@ public class AdminWarningDetailPageController {
 	private CommentService commentService;
 	
 	@GetMapping("/warningDetailPage")
-	public String adminAdvertisementManagementController(WarningDTO aDTO,MemberDTO mDTO, CommentDTO cDTO, Model model) {
+	public String adminAdvertisementManagementController(WarningDTO wDTO,MemberDTO mDTO, CommentDTO cDTO, Model model, HttpSession session) {
 		System.out.println("관리자 신고 상세페이지 이동");
 		System.out.println(mDTO.getLoginId()+"<<<<<<<<<<<<<<<<<<<<<");
-		
+		String loginId = (String)session.getAttribute("loginId");
 		mDTO.setSearchCondition("viewOne");
 		System.out.println(mDTO+"<<<<<<<<<!!!!!!!!!!!!!!!!");
 		mDTO = memberService.selectOne(mDTO);
 		System.out.println(mDTO+"<<<<<<<<<!!!!!!!!!!!!!!!!");
 		//신고 당한 댓글 출력
+		wDTO.setCommentWriter(loginId);
+		wDTO.setSearchCondition("reportedComments");
+		List<WarningDTO> datas = warningService.selectAll(wDTO);
 		
 		model.addAttribute("memberData", mDTO);
+		model.addAttribute("commentDatas", datas);
 		
 		return "admin/adminWarningDetail";
 	}
