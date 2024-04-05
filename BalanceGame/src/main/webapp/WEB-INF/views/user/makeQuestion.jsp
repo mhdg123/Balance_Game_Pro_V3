@@ -103,7 +103,26 @@
 	
 	<!-- input 태그 사진 넣는 js  -->
     <script src="/resources/user/js/image.js"></script>                    
-	
+	<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('form').addEventListener('submit', function(event) {
+        // 폼의 submit 이벤트가 발생했을 때 실행되는 함수
+        
+        // 각 필드의 값 가져오기
+        var title = document.getElementById('title').value.trim();
+        var answerA = document.getElementById('answerA').value.trim();
+        var answerB = document.getElementById('answerB').value.trim();
+        var explanation = document.getElementById('explanation').value.trim();
+        
+        // 필수 입력 필드가 비어 있는지 확인
+        if (title === '' || answerA === '' || answerB === '' || explanation === '') {
+            // 하나라도 비어 있다면
+            alert('모든 필드를 입력해주세요.');
+            event.preventDefault(); // 폼 제출 막기
+        }
+    });
+});
+</script>
 	
 	
 </body>

@@ -89,5 +89,23 @@
         language: "ko",
       });
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('form').addEventListener('submit', function(event) {
+        // 폼의 submit 이벤트가 발생했을 때 실행되는 함수
+        
+        // 제목과 내용 가져오기
+        var title = document.getElementById('title').value.trim();
+        var contents = CKEDITOR.instances['editor'].getData().trim();
+        
+        // 제목이나 내용이 비어 있는지 확인
+        if (title === '' || contents === '') {
+            // 하나라도 비어 있다면
+            alert('제목과 내용을 모두 입력해주세요.');
+            event.preventDefault(); // 폼 제출 막기
+        }
+    });
+});
+</script>
   </body>
 </html>
