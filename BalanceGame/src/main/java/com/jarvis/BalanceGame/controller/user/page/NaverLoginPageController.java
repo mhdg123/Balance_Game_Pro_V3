@@ -124,6 +124,7 @@ public class NaverLoginPageController {
 		// 로그인 성공
 		session.setAttribute("coin", memberData.getCoin());
 		session.setAttribute("loginId", mDTO.getLoginId());
+		session.setAttribute("commentStatus", mDTO.getWriteStatus());
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", mDTO.getName() + "님 로그인 하셨습니다.");
 		model.addAttribute("redirect", "/");

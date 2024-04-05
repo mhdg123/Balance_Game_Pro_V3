@@ -122,6 +122,7 @@ public class KaKaoLoginController {
 		System.out.println("로그인 시 세션에 저장 될 닉네임 : " + mDTO.getNickName());
 		session.setAttribute("loginId", mDTO.getLoginId());
 		session.setAttribute("coin", mDTO.getCoin());
+		session.setAttribute("commentStatus", mDTO.getWriteStatus());
 		session.setAttribute("nickName", mDTO.getNickName());
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", mDTO.getNickName() + "님 로그인 하셨습니다.");

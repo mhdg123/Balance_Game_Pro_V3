@@ -27,6 +27,11 @@ public class ItemUseController {
 			//닉변권 사용 컨트롤러로 이동
 			return "redirect:/user/myPageUpdatePageController";
 		}
+		if(miDTO.getItemId()==3) {
+			mDTO.setWriteStatus("T");
+			session.setAttribute("commentStatus", mDTO.getWriteStatus());
+			return "redirect:/user/myInfoPage";
+		}
 		
 		
 		return "/user/index";

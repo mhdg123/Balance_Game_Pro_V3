@@ -47,7 +47,7 @@ public class LoginController {
 				mDTO = memberService.selectOne(mDTO);
 				
 				session.setAttribute("coin", mDTO.getCoin());
-				
+				session.setAttribute("commentStatus", mDTO.getWriteStatus());
 				return "alert";
 			}
 		}
