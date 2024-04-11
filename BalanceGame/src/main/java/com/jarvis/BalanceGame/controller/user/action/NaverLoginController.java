@@ -39,10 +39,12 @@ public class NaverLoginController {
 		// 로그인 callback
 		String LoginToken = naverLoginService.getToken(code, state);
 
+		//회원정보 데이터
 		mDTO=naverLoginService.processNaverLogin(LoginToken,mDTO);
 
-
+		//회원 가입 유무 판단
 		MemberDTO memberData= memberService.selectOne(mDTO);
+		
 		//회원가입 페이지 이동
 		if(memberData == null) {
 			model.addAttribute("memberData", mDTO);
