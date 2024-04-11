@@ -29,6 +29,8 @@ public class NaverLoginController {
 	@Value("${encrypted.clientId}")
     private String naverClientId;
 	
+	
+	//네이버 로그인
 	@GetMapping("/naverLogin")
 	public String naverLoginController(MemberDTO mDTO, @RequestParam("code") String code,
 			@RequestParam("state") String state, Model model, HttpSession session) throws UnsupportedEncodingException {
