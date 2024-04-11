@@ -85,21 +85,12 @@ public class CommentAsync {
 		int totalPage = pageInfoService.calcTotalPages(pDTO);	// 총페이지 수
 		
 		
-		if(datas != null) {
-			model.addAttribute("commentDatas", datas);
-			datas.get(0).setCurrentPage(pDTO.getCurrentPage());
-			datas.get(0).setTotalPages(totalPage);
-		}else {
-			model.addAttribute("status", "fail");
-			model.addAttribute("msg", "등록된 문제가 없습니다.");
-			model.addAttribute("redirect", "");
-			return "alert";
-		}
-		String json =gson.toJson(datas);
+
 		if (datas.isEmpty()) {
 			System.out.println("실패");
 		}else {
-			System.out.println(json);
+			datas.get(0).setCurrentPage(pDTO.getCurrentPage());
+			datas.get(0).setTotalPages(totalPage);
 		}
 		return gson.toJson(datas);
 

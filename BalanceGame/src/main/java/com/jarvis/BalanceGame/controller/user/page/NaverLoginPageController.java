@@ -39,7 +39,7 @@ public class NaverLoginPageController {
 	@Value("${encrypted.clientSecret}")
 	private String clientSecret;// 애플리케이션 클라이언트 시크릿값";
 	
-	@GetMapping("/naverLogin")
+	//@GetMapping("/naverLogin")
 	public String naverLoginPageController(MemberDTO mDTO,@RequestParam("code") String code,@RequestParam("state") String state,Model model,HttpSession session) throws UnsupportedEncodingException {
 
 		
@@ -136,7 +136,7 @@ public class NaverLoginPageController {
 	
 	
 	
-	@PostMapping("/naver/join")
+	//@PostMapping("/naver/join")
 	public String naverJoinPageController(MemberDTO mDTO,Model model) throws UnsupportedEncodingException {
 		System.out.println("회원가입하러 들어옴 : "+mDTO);
 		mDTO.setSearchCondition("socialLogin");
