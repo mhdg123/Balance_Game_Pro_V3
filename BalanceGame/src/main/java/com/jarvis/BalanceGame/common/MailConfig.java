@@ -2,6 +2,7 @@ package com.jarvis.BalanceGame.common;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,13 +11,18 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class MailConfig {
 
+	@Value("${encrypted.emailId}")
+	private String adminId;
+	@Value("${encrypted.emailPw}")
+	private String adminPw;
+	
 	@Bean
 	public JavaMailSender javaMailService() {
 		JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
 		javaMailSender.setHost("smtp.naver.com");
-		javaMailSender.setUsername("qkrgusrngus");
-		javaMailSender.setPassword("pwcsong.11");
+		javaMailSender.setUsername(adminId);
+		javaMailSender.setPassword(adminPw);
 
 		javaMailSender.setPort(465);
 
