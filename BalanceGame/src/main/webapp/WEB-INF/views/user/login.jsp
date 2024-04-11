@@ -83,10 +83,7 @@
 									</div>
 								</form>
 								<!-- 네이버로그인 시작 -->
-
-
-								<!-- 네이버 로그인 버튼 노출 영역 -->
-								<!--     <div id="naver_id_login">네이버 로그인</div>
+								<%--     <div id="naver_id_login">네이버 로그인</div>
     //네이버 로그인 버튼 노출 영역
   <script type="text/javascript">
         var naver_id_login = new naver_id_login("5nji9jWWSPZCvKt4pNf7", "http://localhost:8088/naverLogin");
@@ -96,11 +93,14 @@
         naver_id_login.setState(state);
         naver_id_login.setPopup();
         naver_id_login.init_naver_id_login();
-    </script> -->
+    </script> --%>
 
 
-
-								<%
+<!-- 네이버 로그인 버튼 -->
+<a id="naver-login-btn">
+    <img src="/resources/assets/img/jarvis/naver_button.png" height="50" alt="네이버 로그인" />
+</a>
+<%-- 								<%
 								String clientId = "5nji9jWWSPZCvKt4pNf7";//애플리케이션 클라이언트 아이디값";
 								String redirectURI = URLEncoder.encode("http://localhost:8088/naverLogin", "UTF-8");
 								SecureRandom random = new SecureRandom();
@@ -115,7 +115,7 @@
 									src="/resources/assets/img/jarvis/naver_button.png" /></a>
 
 
-								<!-- 네이버로그인 끝 -->
+								<!-- 네이버로그인 끝 --> --%>
 								<a id="kakao-login-btn"></a>
 							</div>
 						</div>
@@ -231,6 +231,44 @@ document.getElementById("searchLoginPw").addEventListener("click", async () => {
 			return true;
 		}
 	</script>
+
+<!-- 네이버 로그인 스크립트 -->
+<script type="text/javascript">
+    document.getElementById('naver-login-btn').addEventListener('click', function() {
+    	 $.ajax({
+             type: "GET",
+             url: "/getNaverClientId",
+             success: function(response) {
+                 var naverClientId = response;
+                 var redirectURI = encodeURIComponent("http://localhost:8088/naverLogin");
+                 var state = generateState(); // 랜덤한 상태 토큰 생성
+                 var apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+                 apiURL += "&client_id=" + naverClientId;
+                 apiURL += "&redirect_uri=" + redirectURI;
+                 apiURL += "&state=" + state;
+
+                 // 네이버 로그인 페이지로 이동
+                 window.location.href = apiURL;
+             }
+         });
+    	
+    	
+
+    });
+
+    // 랜덤한 상태 토큰 생성 함수
+    function generateState() {
+        var state = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < 10; i++) {
+            state += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return state;
+    }
+</script>
+<!-- 네이버 로그인 스크립트 -->
+
 
 	<!-- 푸터 고정 스크립트 공통 모음 -->
 	<%@ include file="../layout/footer-fix.jsp"%>

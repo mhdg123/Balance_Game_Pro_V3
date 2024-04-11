@@ -2,13 +2,14 @@ package com.jarvis.BalanceGame.controller.user.action;
 
 import java.io.UnsupportedEncodingException;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jarvis.BalanceGame.model.dto.MemberDTO;
 import com.jarvis.BalanceGame.service.MemberService;
@@ -25,6 +26,9 @@ public class NaverLoginController {
 	@Autowired
 	MemberService memberService;
 
+	@Value("${encrypted.clientId}")
+    private String naverClientId;
+	
 	@GetMapping("/naverLogin")
 	public String naverLoginController(MemberDTO mDTO, @RequestParam("code") String code,
 			@RequestParam("state") String state, Model model, HttpSession session) throws UnsupportedEncodingException {
@@ -55,6 +59,7 @@ public class NaverLoginController {
 		
 	}
 	
+	//회원가입 이동
 	@PostMapping("/naver/join")
 	public String naverJoinPageController(MemberDTO mDTO,Model model) throws UnsupportedEncodingException {
 		System.out.println("회원가입하러 들어옴 : "+mDTO);
@@ -64,4 +69,11 @@ public class NaverLoginController {
 		
 		return "user/join";
 	}
+	
+	//클라이언트 아이디
+	 @GetMapping("/getNaverClientId")
+	 public @ResponseBody String getNaverClientId() {
+	     return naverClientId;
+	 }
+	
 }
