@@ -21,22 +21,24 @@ public class AdminDeleteCommentAsync {
 	@Autowired
 	private WarningService warningService;
 	
-	// 회원상세페이지 댓글 삭제
+	// 관리자가 댓글을 비동기적으로 삭제
 	@PostMapping("/deleteAdminCommentAsync")
 	public @ResponseBody String deleteAdminCommentAsync(CommentDTO cDTO) {
 		System.out.println("관리자 댓글 삭제 파라미터 데이터 : " + cDTO);
+		// 검색 조건을 설정하여 해당 댓글을 삭제
 		cDTO.setSearchCondition("adminCommentDelete");
 		boolean flag = commentService.delete(cDTO);
 		if (!flag) {
 			return "fail";
 		}
 		return "success";
-
+		
 	}
-	// 신고에서 댓글작세
+	// 경고를 받은 댓글을 관리자가 비동기적으로 삭제
 	@PostMapping("/warningDeleteCommentAsync")
 	public @ResponseBody String warningDeleteCommentAsync(CommentDTO cDTO, WarningDTO wDTO) {
 		System.out.println("관리자 댓글 삭제 파라미터 데이터 : " + cDTO);
+		// 검색 조건을 설정하여 해당 댓글을 삭제
 		cDTO.setSearchCondition("adminCommentDelete");
 		commentService.delete(cDTO);
 		int cId = cDTO.getCommentId();

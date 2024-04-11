@@ -23,6 +23,7 @@ public class AdminPaymentManageDateAsync {
 	@Autowired
 	private PageInfoService pageInfoService;
 	
+	// 관리자가 결제 관리 페이지에서 날짜별로 결제 데이터를 비동기적으로 조회
 	@RequestMapping("/adminPaymentManageDateAsync")
 	public @ResponseBody String adminPaymentManageDateAsync(PaymentDTO pDTO, Gson gson, PageInfoDTO piDTO) {
 		

@@ -22,15 +22,19 @@ public class AdminCommentStopController {
 		System.out.println("qlesadfasdfasdfsdafsda");
 		System.out.println("댓글 권한 데이터 : " + mDTO.getWriteStatus());
 		System.out.println("댓글 권한 유저 데이터 : " + mDTO.getLoginId());
+		// 회원 조회
 		mDTO.setSearchCondition("viewOne");
 		MemberDTO data =  memberService.selectOne(mDTO);
 		System.out.println("데이터 1111111111 :  " + data.getWriteStatus());
+		// 댓글 권한 변경
 		if (mDTO.getWriteStatus().equals("T")) {
 			System.out.println("F로 바뀜");
 			mDTO.setSearchCondition("updateCommentStatusF");
 			memberService.update(mDTO);
 			return "F";
-		} else if (mDTO.getWriteStatus().equals("F")) {
+		}
+		// 댓글 권한 변경
+		else if (mDTO.getWriteStatus().equals("F")) {
 			System.out.println("T로 바뀜");
 			mDTO.setSearchCondition("updateCommentStatusT");
 			memberService.update(mDTO);

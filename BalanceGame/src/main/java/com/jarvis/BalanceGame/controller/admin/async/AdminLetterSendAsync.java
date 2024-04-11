@@ -19,10 +19,12 @@ public class AdminLetterSendAsync {
 	@Autowired
 	private LetterService letterService;
 	
+	// 관리자가 편지를 유저에게 보내는 기능
 	@PostMapping("/adminLetterSendAsync")
 	public @ResponseBody String adminLetterSendAsync(LetterDTO lDTO, HttpSession session) {
 		System.out.println("답변보내기 기능 ");
 		String loginId = (String)session.getAttribute("loginId");
+		// 수신자를 설정하고, 검색 조건을 설정하여 편지를 작성
 		String recipient = lDTO.getSender();
 		lDTO.setSender(loginId);
 		lDTO.setSearchCondition("writeLetterAdmin");
