@@ -98,7 +98,7 @@
 
 <!-- 네이버 로그인 버튼 -->
 <a id="naver-login-btn">
-    <img src="/resources/assets/img/jarvis/naver_button.png" height="50" alt="네이버 로그인" />
+    <img src="http://static.nid.naver.com/oauth/small_g_in.PNG" height="50" alt="네이버 로그인" />
 </a>
 <%-- 								<%
 								String clientId = "5nji9jWWSPZCvKt4pNf7";//애플리케이션 클라이언트 아이디값";
