@@ -158,26 +158,22 @@
         headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
       });
 
-      if (response.ok) {
-	      const result = await response.json();
-	      if(result){
-	      	Swal.fire("아이디를 이메일로 전송했습니다 다시 로그인해주세요");
-	      	var form = document.createElement("form");
-	      	form.method = "GET";
-	      	form.action = "/user/loginPage";
-	      	document.body.appendChild(form);
-	      	form.submit();
-	      }
-	      else{
-	      	Swal.fire("회원정보가 일치하지 않습니다 다시 시도해주세요");
-	      }
-      }
-      else{
-      	return "서버 전송 실패";
-      }
-    }
-  });
-}
+        if (response.ok) {
+   	      const result = await response.text(); // 응답받은 데이터 >> text() 가져오기 
+   	      if(result === "success"){
+   	    	redirectToSuccessPage("아이디를 회원번호로 전송했습니다."); // 로그인 페이지 이동
+   	      }else if(result === "social") {
+   	    	  redirectToErrorPage("소셜 회원 입니다. 다시 한번 확인해주세요"); // 새로고침
+   	      }
+   	      else{
+   	    	  redirectToErrorPage("회원정보가 일치하지 않습니다 다시 시도해주세요"); // 새로고침
+   	      }
+         }else{
+         	return "서버 전송 실패";
+         }
+       }
+     });
+   }
   
 
 
@@ -234,29 +230,29 @@ async function passwordSearchEmail() {
       const loginId = document.getElementById("swal-input1").value;
       const email = document.getElementById("swal-input2").value;
 
-      // 서버에 데이터 전송 (fetch API 사용) (실제 API 엔드포인트로 변경)
+      // 서버에 데이터 전송 (fetch API 사용)
       const response = await fetch("/user/isTempPwInfoCorrect", {
         method: "POST",
         body: JSON.stringify({loginId, email}),
-        headers: { "Content-Type": "application/json" } // 콘텐츠 유형 헤더 설정
+        headers: { "Content-Type": "application/json" }
       });
 
       if (response.ok) {
-        const result = await response.json();
-		if(result){
-			Swal.fire("임시비밀번호를 이메일로 전송했습니다 다시 로그인해주세요");
-			window.location.href = "/user/loginPage"; // 로그인 페이지 경로로 변경
-		}
-		else{
-			Swal.fire("회원 정보가 일치하지 않거나 소셜로그인 사용자입니다 다시 시도해주세요");
-		}
-      }
-      else{
-      	return "서버 전송 에러";
-      }	
+   	    const result = await response.text();  
+   	    if(result === "success"){
+   	   		redirectToSuccessPage("아이디를 회원번호로 전송했습니다."); 
+   	    }else if(result === "social") {
+   	    	redirectToErrorPage("소셜 회원 입니다. 다시 한번 확인해주세요"); 
+   	    }
+   	    else{
+   	    	redirectToErrorPage("회원정보가 일치하지 않습니다 다시 시도해주세요"); 
+   	    }
+       }else{
+       	  return "서버 전송 실패";
+       }
      }
-  });
-}
+   });
+ }
 
 //아이디 & 전화번호 패스워드 찾기 지훈
 async function passwordSearchCellPhone() {

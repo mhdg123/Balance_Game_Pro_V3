@@ -10,7 +10,7 @@
    </select>
    
    
-   <insert id="insert" parameterType="com.jarvis.BalanceGame.model.dao.IItemLogDAO">
+   <insert id="insert" parameterType="com.jarvis.BalanceGame.model.dto.ItemLogDTO">
       INSERT INTO ITEM_LOG (ITEM_ID, ITEM_LOG_COUNT) VALUES (#{itemId}, #{itemLogCount})
    </insert>
    

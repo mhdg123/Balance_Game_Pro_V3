@@ -28,11 +28,15 @@ public class SendTempPwAsync {
 	private SendTempPwService tempPwService;
 
 	@PostMapping("/isTempPwInfoCorrect")
-	public @ResponseBody boolean sendTempPwAsync(@RequestBody MemberDTO mDTO) {
+	public @ResponseBody String sendTempPwAsync(@RequestBody MemberDTO mDTO) {
 		
 		mDTO.setSearchCondition("isTempPwInfoCorrectCellPhone");
 		
 		System.out.println(mDTO);
+		mDTO = memberService.selectOne(mDTO);
+		if (mDTO.getLoginType().equals("SOCIAL")) {
+			return "social";
+		}
 		if (memberService.selectOne(mDTO) != null) {
 			System.out.println(mDTO);
 			String code = tempPwService.sendEmail(mDTO);
@@ -41,10 +45,10 @@ public class SendTempPwAsync {
 			mDTO.setSearchCondition("updateTempPw");
 			boolean flag = memberService.update(mDTO);
 			if (flag) {
-				return true;
+				return "success";
 			}
 		}
-		return false;
+		return "false";
 	}
 
 	
