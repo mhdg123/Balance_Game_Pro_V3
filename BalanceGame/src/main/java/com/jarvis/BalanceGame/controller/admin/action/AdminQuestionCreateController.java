@@ -34,6 +34,7 @@ public class AdminQuestionCreateController {
 	@Autowired
 	private SavePictures savePictures;
 
+	// 관리자가 문제를 생성하는 기능
 	@PostMapping("/titleCreate")
 	public String adminTitleCreateController(QuestionDTO qDTO, Model model, HttpSession session,
 			@RequestParam("file") List<MultipartFile> files, HttpServletRequest request) throws IOException {
@@ -55,7 +56,7 @@ public class AdminQuestionCreateController {
 			qDTO.setSearchCondition("createQuestionAdmin");
 			qDTO.setWriter((String) session.getAttribute("loginId")); // 로그인 아이디
 
-			// 문제 출제 성공
+			// 실패 처리
 			if (!questionService.insert(qDTO)) {
 				model.addAttribute("status", "fail");
 				model.addAttribute("msg", "문제출제 실패");
@@ -63,7 +64,7 @@ public class AdminQuestionCreateController {
 				return "alert";
 
 			}
-
+			// 성공 처리
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "문제출제 성공");
 			model.addAttribute("redirect", "/admin/questionManagementPage");

@@ -20,14 +20,18 @@ public class AdminLetterCheckController {
 	@Autowired
 	private LetterService letterService;
 	
+	// 관리자가 건의사항을 확인하는 기능
 	@PostMapping("/adminLetterCheck")
 	public String adminLetterCheckController(LetterDTO lDTO, Model model, HttpSession session) {
 		System.out.println("관리자페이지에서" +lDTO.getLetterId()+ " 번째 건의사항을 읽음");
-		System.out.println("여기 들어온다1");
+		
+		// 건의사항 읽음 상태 업데이트를 위해 검색 조건 설정
 		lDTO.setSearchCondition("updateReadStatus");
 		boolean flag = letterService.update(lDTO);
+		
 		System.out.println(lDTO.getLetterId());
 		System.out.println(flag);
+		// 실패 처리
 		if(!flag) {
 			model.addAttribute("status" ,"fail");
 			model.addAttribute("msg" ,"오류가 발생했습니다. 관리자에게 문의해주세요");
@@ -35,7 +39,7 @@ public class AdminLetterCheckController {
 			System.out.println("여기 들어온다12");
 			return "alert";
 		}
-		
+		// 성공 처리
 		System.out.println("여기 들어온다13");
 		System.out.println("관리자가 건의사항 읽음 처리 완료");
 		model.addAttribute("status" ,"success");

@@ -28,26 +28,31 @@ public class AdminItemCreateController {
 	@Autowired
 	private ItemService itemService;
 
+	// 아이템 생성 기능
 	@PostMapping("/adminItemCreate")
 	public String adminItemCreateController(ItemDTO iDTO, Model model, @RequestParam("file") List<MultipartFile> files,
 			HttpServletRequest request) {
 		System.out.println("관리자 아이템 등록 데이터 : " + iDTO);
 
 		try {
+			// 업로드된 파일들을 서버에 저장하고 파일명들을 반환
 			List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
 
 			// 이미지 파일명을 DTO에 설정
 			System.out.println(fileNames.get(0));
 			iDTO.setItemImg(fileNames.get(0));
+			
+			// 아이템을 데이터베이스에 저장
 			boolean flag = itemService.insert(iDTO);
 
+			// 실패 처리
 			if (!flag) {
 				model.addAttribute("status", "fail");
 				model.addAttribute("msg", "아이템추가 실패했습니다");
 				model.addAttribute("redirect", "/admin/adminItemManagementPage");
 				return "alert";
 			}
-
+			// 성공 처리
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "성공");
 			model.addAttribute("redirect", "/admin/adminItemManagementPage");

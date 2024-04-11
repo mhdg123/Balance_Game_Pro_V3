@@ -28,6 +28,7 @@ public class AdminQuestionAccessController {
 	@Autowired
 	private QuestionService questionService;
 
+	// 관리자가 문제를 승인하는 기능
 	@PostMapping("/questionAccess")
 	public String adminTitleAccessController(QuestionDTO qDTO, Model model,
 			@RequestParam("file") List<MultipartFile> files, HttpServletRequest request,
@@ -36,11 +37,12 @@ public class AdminQuestionAccessController {
 		
 		
 		try {
+			// 업로드된 파일들을 서버에 저장하고 파일명들을 반환
 			List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
 			
 			// 이미지 파일명을 DTO에 설정
 			if (retouch.get(0).equals("T")) {
-				//저장된 파일 삭제
+				//저장된 파일 삭제 >> 새 이미지 대체
 				savePictures.deleteImage(qDTO.getAnswerAImg(),request.getServletContext().getRealPath("/"));
 				System.out.println("원래 파일 A" + qDTO.getAnswerAImg());
 				System.out.println("변경파일 A" +fileNames.get(0));
@@ -49,8 +51,8 @@ public class AdminQuestionAccessController {
 	        }
 			// 이미지 파일명을 DTO에 설정
 			if (retouch.get(1).equals("T")) {
-				//저장된 파일 삭제
 				System.out.println("원래 파일 B" + qDTO.getAnswerBImg());
+				//저장된 파일 삭제 >> 새 이미지 대체
 				savePictures.deleteImage(qDTO.getAnswerBImg(),request.getServletContext().getRealPath("/"));
 				System.out.println("변경파일 B" +fileNames.get(1));
 				qDTO.setAnswerBImg(fileNames.get(1));
@@ -62,7 +64,7 @@ public class AdminQuestionAccessController {
 			System.out.println(qDTO.getAnswerB());
 			System.out.println(qDTO.getAnswerBImg());
 			
-			
+			// 문제 승인 처리를 위해 DTO 설정
 			qDTO.setQuestionAccess("T");
 			
 			qDTO.setSearchCondition("updateQuestion");
@@ -70,6 +72,7 @@ public class AdminQuestionAccessController {
 			
 			
 			System.out.println("문제 승인 한 결과 데이터 : " + qDTO);
+			// 실패 처리
 			if (!flag) {
 				model.addAttribute("status", "fail");
 				model.addAttribute("msg", "실패했습니다");
@@ -77,6 +80,7 @@ public class AdminQuestionAccessController {
 				return "alert";
 
 			}
+			// 성공 처리
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "성공했습니다");
 			model.addAttribute("redirect", "/admin/questionManagementPage");

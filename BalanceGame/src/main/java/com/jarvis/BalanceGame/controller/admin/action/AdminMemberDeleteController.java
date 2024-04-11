@@ -22,12 +22,15 @@ public class AdminMemberDeleteController {
 	@Autowired
 	private MemberService memberService;
 	
+	// 관리자가 건의사항을 삭제하는 기능
 	@PostMapping("/adminMemberDelete")
 	public String adminMemberDeleteController(MemberDTO mDTO, Model model, HttpSession session) {
 		System.out.println(mDTO);
 		
+		// 건의사항 삭제 수행
 		boolean flag = memberService.delete(mDTO);
 		
+		// 실패 처리
 		if (!flag) {
 		      System.out.println("삭제 실패");
 		      model.addAttribute("status", "fail");
@@ -35,6 +38,7 @@ public class AdminMemberDeleteController {
 		      model.addAttribute("redirect", "/admin/memberManagementPage");
 		      return "alert";
 		   }
+		// 성공 처리
 		   System.out.println("삭제 성공");
 		   model.addAttribute("status", "success");
 		   model.addAttribute("msg", "삭제되었습니다");

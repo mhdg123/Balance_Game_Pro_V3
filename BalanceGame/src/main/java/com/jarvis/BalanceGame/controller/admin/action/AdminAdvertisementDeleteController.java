@@ -16,17 +16,20 @@ public class AdminAdvertisementDeleteController {
 	@Autowired
 	private AdvertisementService advertisementService;
 	
+	// 광고 삭제 기능
 	@PostMapping("/adminAdvertisementDelete")
 	public String adminAdvertisementDeleteController(AdvertisementDTO aDTO, Model model) {
 		System.out.println("광고 삭제 시도 :"+aDTO.getAdvertisementId());
 		boolean flag = 	advertisementService.delete(aDTO);
 
+		// 실패 처리
 		if (!flag) {
 			model.addAttribute("status", "fail");
 			model.addAttribute("msg", "광고삭제 실패했습니다");
 			model.addAttribute("redirect", "/admin/adminPage");
 			return "alert";
 		}
+		// 성공 처리
 		model.addAttribute("status", "success");
 		model.addAttribute("msg", "광고삭제 성공했습니다");
 		model.addAttribute("redirect", "/admin/adminPage");

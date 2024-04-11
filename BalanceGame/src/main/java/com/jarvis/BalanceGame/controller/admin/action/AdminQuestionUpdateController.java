@@ -27,6 +27,7 @@ public class AdminQuestionUpdateController {
 	@Autowired
 	private SavePictures savePictures;
 	
+	// 관리자가 문제를 수정하는 기능
 	@PostMapping("/questionUpdate")
 	public String adminTitleUpdateController(QuestionDTO qDTO, Model model,
 			@RequestParam("file") List<MultipartFile> files, HttpServletRequest request,
@@ -40,6 +41,7 @@ public class AdminQuestionUpdateController {
 		System.out.println("관리자 문제 출제 유무 파라미터 : " + qDTO.getQuestionAccess());
 		
 		try {
+			// 업로드된 파일들을 서버에 저장하고 파일명들을 반환
 			List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
 			
 			// 이미지 파일명을 DTO에 설정
@@ -68,12 +70,13 @@ public class AdminQuestionUpdateController {
 			
 			
 			
-			
+			// 문제 업데이트 실행
 			qDTO.setSearchCondition("updateQuestion");
 			boolean flag = questionService.update(qDTO);
 			
 			
 			System.out.println("문제 업데이트 한 결과 데이터 : " + qDTO);
+			// 실패 처리
 			if (!flag) {
 				model.addAttribute("status", "fail");
 				model.addAttribute("msg", "실패했습니다");
@@ -81,6 +84,7 @@ public class AdminQuestionUpdateController {
 				return "alert";
 
 			}
+			// 성공 처리
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "성공했습니다");
 			model.addAttribute("redirect", "/admin/questionManagementPage");

@@ -27,25 +27,30 @@ public class AdminAdvertisementCreateController {
 	@Autowired
 	private AdvertisementService advertisementService;
 	
+	// 광고 추가 기능
 	@PostMapping("/adminAdvertisementCreate")
 	public String adminAdvertisementCreateController(AdvertisementDTO aDTO, Model model, @RequestParam("file") List<MultipartFile> files,
 			HttpServletRequest request) {
 		
 		try {
+			// 업로드된 파일들의 파일명을 리스트에 저장
 			List<String> fileNames = savePictures.storeImages(files, request.getServletContext().getRealPath("/"));
 
-			// 이미지 파일명을 DTO에 설정
+			// DTO에 첫 번째 이미지 파일명 설정
 			System.out.println(fileNames.get(0));
 			aDTO.setAdvertisementImg(fileNames.get(0));
+			
+			// 광고를 데이터베이스에 추가
 			boolean flag = 	advertisementService.insert(aDTO);
 		
+			// 실패 처리
 			if (!flag) {
 				model.addAttribute("status", "fail");
 				model.addAttribute("msg", "광고추가 실패했습니다");
 				model.addAttribute("redirect", "/admin/adminPage");
 				return "alert";
 			}
-			
+			// 성공 처리
 			model.addAttribute("status", "success");
 			model.addAttribute("msg", "광고추가 성공했습니다");
 			model.addAttribute("redirect", "/admin/adminPage");
