@@ -15,7 +15,7 @@ public class AdminLetterDetailPageController {
 
 	@Autowired
 	private LetterService letterService;
-
+	// 건의사항 상세 페이지로 이동
 	@GetMapping("/letterDetailPage")
 	public String adminSuggestionDetailPageController(LetterDTO lDTO, Model model) {
 		System.out.println("편지 PK id값 : " + lDTO.getLetterId());

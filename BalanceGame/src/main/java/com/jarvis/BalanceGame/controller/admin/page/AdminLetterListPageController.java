@@ -24,7 +24,7 @@ public class AdminLetterListPageController {
 	
 	@Autowired
 	private PageInfoService pageInfoService;
-	
+	// 건의사항 관리 페이지로 이동
 	@GetMapping("/adminLetterListPage")
 	public String adminLetterListPageController(LetterDTO lDTO,PageInfoDTO pDTO, Model model,HttpSession session) {
 		
@@ -38,11 +38,13 @@ public class AdminLetterListPageController {
 		
 		pDTO.setOffset(pageInfoService.calculateOffset(pDTO));
 		System.out.println(pDTO.getOffset());
+		// 건의사항 전체조회
 		pDTO.setSearchCondition("viewAllSuggestionMessageAdmin");
 		System.out.println("pDTO" + pDTO);
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
 		System.out.println("datas"+datas);
 		
+		// 건의사항 갯수
 		lDTO.setLetterType("suggestion");
 		lDTO.setSearchCondition("messageCntAdmin");
 		lDTO = letterService.selectOne(lDTO);

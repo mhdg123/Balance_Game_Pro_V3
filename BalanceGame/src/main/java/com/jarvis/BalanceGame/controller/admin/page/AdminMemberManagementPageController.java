@@ -24,7 +24,7 @@ public class AdminMemberManagementPageController {
 	
 	@Autowired
 	private PageInfoService pageInfoService;
-	
+	// 회원 관리 페이지로 이동
 	@GetMapping("/memberManagementPage")
 	public String adminMemberManagementPageController(MemberDTO mDTO, PageInfoDTO pDTO, Model model, HttpSession session) {
 		
@@ -45,7 +45,7 @@ public class AdminMemberManagementPageController {
 		List<PageInfoDTO> datas = pageInfoService.selectAll(pDTO);
 		
 		
-		
+		// 회원 수 세기
 		mDTO.setSearchCondition("memberCnt");
 		mDTO = memberService.selectOne(mDTO);
 		System.out.println(mDTO);

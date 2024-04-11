@@ -16,6 +16,7 @@ public class AdminItemDetailPageController {
 	@Autowired
 	private ItemService itemService;
 
+	// 아이템 상세 페이지로 이동
 	@GetMapping("/itemDetailPage")
 	public String adminItemDetailPageController(ItemDTO iDTO, Model model) {
 		System.out.println("관리자 아이템 상세페이지 파라미터 데이터 :  " + iDTO);

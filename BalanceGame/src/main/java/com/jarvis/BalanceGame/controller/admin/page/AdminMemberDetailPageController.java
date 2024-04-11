@@ -31,6 +31,7 @@ public class AdminMemberDetailPageController {
 	@Autowired
 	private PageInfoService pageInfoService;
 
+	// 회원 관리 상세 페이지로 이동
 	@GetMapping("/adminMemberDetailPage")
 	public String adminMemberDetailPageController(MemberDTO mDTO, PageInfoDTO pDTO, CommentDTO cDTO, Model model,
 			HttpSession session) {

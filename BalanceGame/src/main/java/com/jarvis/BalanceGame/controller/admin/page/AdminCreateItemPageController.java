@@ -16,6 +16,7 @@ public class AdminCreateItemPageController {
 	@Autowired
 	private ItemService itemService;
 
+	// 아이템 생성 페이지로 이동
 	@GetMapping("/adminCreateItemPage")
 	public String adminCreateTitlePageController(ItemDTO iDTO, Model model) {
 		System.out.println("관리자 아이템 생성 페이지 이동");

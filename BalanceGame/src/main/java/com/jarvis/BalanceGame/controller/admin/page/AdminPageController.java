@@ -37,24 +37,24 @@ public class AdminPageController {
 	@Autowired
 	private PageInfoService pageInfoService;
 	
-	
+	// 관리자 메인 페이지로 이동
 	@GetMapping("/adminPage")
 	public String adminPageController(LetterDTO lDTO, QuestionDTO qDTO, PageInfoDTO piDTO, MemberDTO mDTO, PaymentDTO pDTO, Model model, HttpSession session) {
-		
+		// 질문 승인 갯수
 		qDTO.setSearchCondition("questionCount");
 		qDTO.setQuestionAccess("F");
 		QuestionDTO qDTOApproveCnt = questionService.selectOne(qDTO);
 		System.out.println(qDTOApproveCnt);
-		
+		// 질문 전체 갯수
 		qDTO.setSearchCondition("questionCount");
 		qDTO.setQuestionAccess("T");
 		QuestionDTO qDTOTotalCnt = questionService.selectOne(qDTO);
 		System.out.println(qDTOTotalCnt);
-		
+		// 회원 수
 		mDTO.setSearchCondition("memberCount");
 		mDTO = memberService.selectOne(mDTO);
 		System.out.println(mDTO);
-		
+		// 결제 금액
 		pDTO.setSearchCondition("viewOnepaymentTotal");
 		pDTO = paymentService.selectOne(pDTO);
 		System.out.println(pDTO);

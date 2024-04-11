@@ -28,6 +28,7 @@ import jakarta.servlet.http.HttpSession;
   	@Autowired
   	private PageInfoService pageInfoService;
   	
+  	// 관리자 결제 관리 페이지로 이동
   	@GetMapping("/paymentManagementPage")
   	public String adminSupportPageController(PaymentDTO pDTO, PageInfoDTO pIDTO,MemberDTO mDTO, Model model, HttpSession session) {
   		String loginId = (String)session.getAttribute("loginId");

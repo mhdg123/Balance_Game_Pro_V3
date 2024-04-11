@@ -16,6 +16,7 @@ public class AdminChartManagementPageController {
 	@Autowired
 	private PaymentService paymentService;
 
+	// 통계차트 관리 페이지로 이동
 	@GetMapping("/adminChartManagementPage")
 	public String adminCreateTitlePageController(PaymentDTO pDTO, Model model) {
 		System.out.println("관리자 통계차트 관리 페이지 이동");

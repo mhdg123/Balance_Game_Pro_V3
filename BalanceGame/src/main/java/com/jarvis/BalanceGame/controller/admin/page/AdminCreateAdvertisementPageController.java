@@ -16,6 +16,7 @@ public class AdminCreateAdvertisementPageController {
 	@Autowired
 	private AdvertisementService advertisementService;
 	
+	// 광고 생성 페이지로 이동
 	@GetMapping("/adminCreateAdvertisementPage")
 	public String adminCreateTitlePageController(AdvertisementDTO aDTO, Model model) {
 		System.out.println("관리자 광고 생성 페이지 이동");
