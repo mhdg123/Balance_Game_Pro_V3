@@ -46,10 +46,11 @@ public class SendMemberIdAsync {
 		System.out.println("전화번호로 아이디 찾기 이름 데이터 : " + mDTO.getName());
 		System.out.println("전화번호로 아이디 찾기 전화번호 데이터 : " + mDTO.getCellPhone());
 		System.out.println("문자 인증 기능 실행");
-
+		System.out.println("mDTO>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+mDTO);
 		mDTO.setSearchCondition("isIdInfoCorrectCellPhone");
 		mDTO = memberService.selectOne(mDTO);
-
+		System.out.println("mDTO>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+mDTO);
+		
 		if (mDTO == null) { // 찾는 회원정보가 없을때
 			return "fail";
 		}

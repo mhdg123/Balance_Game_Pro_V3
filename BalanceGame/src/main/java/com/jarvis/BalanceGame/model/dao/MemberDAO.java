@@ -54,7 +54,7 @@ public class MemberDAO {
 	private static final String IS_INFO_CORRECT_TEMP_PW_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, LOGIN_TYPE FROM MEMBER WHERE LOGIN_ID=? AND CELL_PHONE=?";
 
 	// 아이디 찾기에서 회원정보가 맞는 지 확인(전화번호)
-	private static final String IS_INFO_CORRECT_SEARCH_ID_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, NICKNAME, LOGIN_TYPE FROM MEMBER WHERE NAME=? AND CELL_PHONE=?";
+	private static final String IS_INFO_CORRECT_SEARCH_ID_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, NAME, LOGIN_TYPE FROM MEMBER WHERE NAME=? AND CELL_PHONE=?";
 
 	// 유저 전체 조회
 //	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
@@ -435,7 +435,7 @@ class MemberRowMapperIsIdInfoCorrect implements RowMapper<MemberDTO> {
 		MemberDTO member = new MemberDTO();
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setEmail(rs.getString("EMAIL"));
-		member.setNickName(rs.getString("NICKNAME"));
+		member.setName(rs.getString("NAME"));
 		member.setLoginType(rs.getString("LOGIN_TYPE"));
 		return member;
 	}
@@ -460,7 +460,7 @@ class MemberRowMapperIsIdInfoCorrectCellPhone implements RowMapper<MemberDTO> {
 		MemberDTO member = new MemberDTO();
 		member.setLoginId(rs.getString("LOGIN_ID"));
 		member.setCellPhone(rs.getString("CELL_PHONE"));
-		member.setNickName(rs.getString("NICKNAME"));
+		member.setName(rs.getString("NAME"));
 		member.setLoginType(rs.getString("LOGIN_TYPE"));
 		return member;
 	}
