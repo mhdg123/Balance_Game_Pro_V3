@@ -5,13 +5,42 @@
 <%@ include file="../adminLayout/header-fix.jsp"%>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
-		<jsp:include page="../adminLayout/header.jsp" />
+				<!-- Preloader -->
+		<div class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" src="/resources/adminLte/images/logo.png" alt="AdminLTELogo" height="60" width="60">
+		</div>
+
+		<!-- Navbar -->
+		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+			<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="/admin/adminPage" role="button"> <img src="/resources/adminLte/images/123.png" alt="Menu" width="30" height="30">
+				</a></li>
+				<li class="nav-item d-none d-sm-inline-block nav-link">문제관리</li>
+				<li class="nav-item d-none d-sm-inline-block"><a href="/user/logout" class="nav-link">로그아웃</a></li>
+			</ul>
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+
+				<!-- Messages Dropdown Menu -->
+				<li class="nav-item dropdown">
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+						<div class="dropdown-divider"></div>
+						<div class="dropdown-divider"></div>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+					</div>
+				</li>
+				<!-- Notifications Dropdown Menu -->
+				<li class="nav-item dropdown"></li>
+
+			</ul>
+		</nav>
 		<!-- 왼쪽 사이드 바 -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-			<a href="/admin/adminPage" class="brand-link"> <img
-				src="images/logo.png" alt="자비스로고"
-				class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">관리자</span>
+			<a href="/admin/adminPage" class="brand-link"> 
+			<img src="/resources/adminLte/images/logo.png" alt="자비스로고" class="brand-image img-circle elevation-3" style="opacity: .8"> 
+			<span class="brand-text font-weight-light">관리자</span>
 			</a>
 
 			<div class="sidebar">
@@ -56,6 +85,7 @@
 								<li class="nav-item"><a href="/admin/adminChartManagementPage" class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>통계관리</p>
 								</a></li>
+								</ul></li>
 					</ul>
 				</nav>
 			</div>
@@ -149,19 +179,7 @@
 			</section>
 			<!-- /.content -->
 		</div>
-		<!-- /.content-wrapper -->
-		<footer class="main-footer">
-			<strong>자비스(주) &copy; 1234-5678 </strong> All rights reserved.
-			<div class="float-right d-none d-sm-inline-block">
-				<b>Version</b> 3.2.0
-			</div>
-		</footer>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
+	<%@ include file="../adminLayout/footer.jsp"%>
 	</div>
 
 	<!-- 페이징 js -->

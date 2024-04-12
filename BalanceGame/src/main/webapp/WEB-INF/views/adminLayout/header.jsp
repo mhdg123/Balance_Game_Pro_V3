@@ -5,12 +5,10 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
 	<!-- Left navbar links -->
 	<ul class="navbar-nav">
-		<li class="nav-item"><a class="nav-link" data-widget="pushmenu"  role="button"> <img src="images/123.png" alt="메뉴로고" width="30" height="30">
+		<li class="nav-item"><a class="nav-link" data-widget="pushmenu"  role="button"> <img src="/resources/adminLte/images/123.png" alt="메뉴로고" width="30" height="30">
 		</a></li>
-		<a href="/"><li class="nav-item d-none d-sm-inline-block nav-link">메인 페이지</li></a>
-		<c:if test="${loginId != null }">
+		<li class="nav-item d-none d-sm-inline-block nav-link">메인 페이지</li>
 			<li class="nav-item d-none d-sm-inline-block"><a href="/user/logout" class="nav-link">로그아웃</a></li>
-		</c:if>
 	</ul>
 	<ul class="navbar-nav ml-auto">
 		<li class="nav-item dropdown">
