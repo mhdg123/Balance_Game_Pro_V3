@@ -5,7 +5,7 @@
 <html lang="zxx">
 <!-- css -->
 <%@ include file="../layout/header-fix.jsp"%>
-<title>Watch shop | eCommers</title>
+<title>BalanceGame | Jarvis</title>
 <!-- css -->
 <body>
 
@@ -210,7 +210,7 @@
 
 	</script>
 <!-- 페이징 js -->
-	<script type="text/javascript">
+<script type="text/javascript">
 	var currentPage = ${page};
 	var totalPage = ${totalPage};
 	document.addEventListener('DOMContentLoaded', function() {
@@ -218,9 +218,9 @@
 	    pageName='questionListPage';
 	    updatePagination();
 	});
-	</script>
-	<script src="/resources/user/js/currentPage.js"></script>
-	<!-- 페이징 js -->
+</script>
+<script src="/resources/user/js/currentPage.js"></script>
+<!-- 페이징 js -->
 </body>
 
 </html>
