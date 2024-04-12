@@ -20,24 +20,6 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public boolean update(PaymentDTO pDTO) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(PaymentDTO pDTO) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<PaymentDTO> selectAll(PaymentDTO pDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public PaymentDTO selectOne(PaymentDTO pDTO) {
 		return paymentDAO.selectOne(pDTO);
 	}

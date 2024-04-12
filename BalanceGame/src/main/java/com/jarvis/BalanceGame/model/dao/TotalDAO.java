@@ -81,6 +81,7 @@ class TotalRowMapper implements RowMapper<TotalDTO>{
 	@Override
 	public TotalDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		TotalDTO data = new TotalDTO();
+		data.setYear(rs.getString("Year"));
 		data.setMonth(rs.getInt("Month"));
 		data.setTotalAmount(rs.getInt("TotalAmount"));
 		return data;

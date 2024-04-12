@@ -157,19 +157,6 @@ class LetterRowMapperViewOne implements RowMapper<LetterDTO> {
 	}
 }
 
-class LetterRowMapperReport implements RowMapper<LetterDTO>{
-
-	@Override
-	public LetterDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		LetterDTO data = new LetterDTO();
-		data.setLetterId(rs.getInt("LETTER_ID")); // 추가 필요
-		data.setTitle(rs.getString("TITLE"));
-		data.setLetterDate(rs.getDate("LETTER_DATE"));
-		data.setLetterStatus(rs.getString("LETTER_STATUS"));
-		return data;
-	}
-}
-
 class LetterRowMapperCnt implements RowMapper<LetterDTO>{
 
 	@Override

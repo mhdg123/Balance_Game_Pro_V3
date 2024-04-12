@@ -20,11 +20,6 @@ public class WishServiceImpl implements WishService{
 	}
 
 	@Override
-	public boolean update(WishDTO wDTO) {
-		return false;
-	}
-
-	@Override
 	public boolean delete(WishDTO wDTO) {
 		return wishDAO.delete(wDTO);
 	}

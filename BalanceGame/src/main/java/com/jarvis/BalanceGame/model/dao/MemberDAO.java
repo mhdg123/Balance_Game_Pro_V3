@@ -274,22 +274,6 @@ public class MemberDAO {
 	}
 }
 
-class MemberRowMapper implements RowMapper<MemberDTO> {
-
-	@Override
-	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		MemberDTO member = new MemberDTO();
-		member.setLoginId(rs.getString("LOGIN_ID"));
-		member.setAge(rs.getString("AGE"));
-		member.setGender(rs.getString("GENDER"));
-		member.setTotal(rs.getInt("TOTAL"));
-		member.setRanking(rs.getInt("RANKING"));
-		member.setAddress(rs.getString("ADDRESS"));
-		member.setEmail(rs.getString("EMAIL"));
-		return member;
-	}
-}
-
 class MemberRowMapperLogin implements RowMapper<MemberDTO> {
 
 	@Override
@@ -332,19 +316,6 @@ class MemberRowMapperDetail implements RowMapper<MemberDTO> {
 		member.setCoin(rs.getInt("COIN"));
 		member.setWriteStatus(rs.getString("WRITE_STATUS"));
 		member.setGrade(rs.getInt("GRADE"));
-		return member;
-	}
-}
-
-class MemberRowMapperRank implements RowMapper<MemberDTO> {
-
-	@Override
-	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		MemberDTO member = new MemberDTO();
-		member.setLoginId(rs.getString("LOGIN_ID"));
-		member.setNickName(rs.getString("NICKNAME"));
-		member.setTotal(rs.getInt("TOTAL"));
-		member.setRanking(rs.getInt("RANKING"));
 		return member;
 	}
 }

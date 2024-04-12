@@ -208,19 +208,6 @@ public class QuestionDAO {
 	}
 }
 
-class QuestionRowMapperList implements RowMapper<QuestionDTO> {
-	@Override
-	public QuestionDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		QuestionDTO data = new QuestionDTO();
-		data.setQuestionId(rs.getInt("QUESTION_ID"));
-		data.setTitle(rs.getString("TITLE"));
-		data.setLikeCount(rs.getInt("LIKE_COUNT"));
-		data.setWishId(rs.getInt("LIKE_ID"));
-		data.setQuestionDate(rs.getTimestamp("QUESTION_DATE"));
-		return data;
-	}
-}
-
 class QuestionRowMapper implements RowMapper<QuestionDTO> {
 
 	@Override

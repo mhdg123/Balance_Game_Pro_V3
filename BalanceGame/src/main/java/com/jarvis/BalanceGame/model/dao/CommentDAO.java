@@ -87,22 +87,6 @@ public class CommentDAO {
 	}
 }
 
-class CommentRowMapper implements RowMapper<CommentDTO> {
-
-	@Override
-	public CommentDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		CommentDTO data = new CommentDTO();
-		data.setQuestionId(rs.getInt("QUESTION_ID"));
-		data.setCommentId(rs.getInt("COMMENT_ID"));
-		data.setLoginId(rs.getString("LOGIN_ID"));
-		data.setComments(rs.getString("COMMENTS"));
-		data.setMemberGrade(rs.getInt("GRADE"));
-		data.setCommentDate(rs.getDate("COMMENT_DATE"));
-		return data;
-	}
-}
-
-
 class CommentRowMapperCnt implements RowMapper<CommentDTO> {
 
 	@Override
