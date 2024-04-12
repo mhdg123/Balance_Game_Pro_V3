@@ -37,7 +37,7 @@ public class NameChangeCouponAsync {
 		if(miDTO == null) {
 			return "fail";
 		}
-		if(miDTO.getMemberItemCount()<0) {
+		if(miDTO.getMemberItemCount()==0) {
 			return "fail";
 		}
 		
