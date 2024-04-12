@@ -31,6 +31,12 @@
     <link rel="stylesheet" href="/resources/assets/css/nice-select.css" />
     <link rel="stylesheet" href="/resources/assets/css/style.css" />
     
+   <!--  코인 css -->
+    <style type="text/css">
+#coin:hover{
+	cursor:default;
+}
+</style>
 <!-- 우편함 css -->
    <style type="text/css">
 
