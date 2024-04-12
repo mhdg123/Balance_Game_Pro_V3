@@ -42,19 +42,19 @@
 									<!----------------------------------------이름 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;이름</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="name" name="name" placeholder="이름 입력해주세요" value="테스트" />
+										<input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력해주세요" />
 									</div>
 									<!----------------------------------------이름 입력창---------------------------------------->
 									<!----------------------------------------나이 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;생년월일</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="date" class="form-control" id="age" name="age" placeholder="나이 입력해주세요" />
+										<input type="date" class="form-control" id="age" name="age" placeholder="나이를 입력해주세요" />
 									</div>
 									<!----------------------------------------나이 입력창---------------------------------------->
 									<!----------------------------------------아이디 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;아이디</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="loginId" name="loginId" placeholder="아이디 입력" value="testId" />
+										<input type="text" class="form-control" id="loginId" name="loginId" placeholder="아이디를 입력해주세요" />
 										<div>
 											<font id="id_feedback" size="2"></font>
 										</div>
@@ -63,33 +63,33 @@
 									<!----------------------------------------닉네임 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;닉네임</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉에미 입력" value="자비스" />
+										<input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임을 입력해주세요" />
 									</div>
 									<!----------------------------------------닉네임 입력창---------------------------------------->
 									<!----------------------------------------비밀번호 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;비밀번호</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호 입력" value="test1234" onkeyup="checkPassword();" />
+										<input type="password" class="form-control" id="memberPassword" name="memberPassword" placeholder="비밀번호를 입력해주세요" onkeyup="checkPassword();" />
 									</div>
 									<!----------------------------------------비밀번호 입력창---------------------------------------->
 									<!----------------------------------------비밀번호 확인 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 확인&nbsp;&nbsp;&nbsp;</div>
 									<div id="passwordError"></div>
 									<div class="col-md-12 form-group p_star">
-										<input type="password" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인 입력" value="test1234" onkeyup="checkPassword();" />
+										<input type="password" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인" onkeyup="checkPassword();" />
 									</div>
 
 									<!----------------------------------------비밀번호 확인 입력창---------------------------------------->
 									<!----------------------------------------폰번호 입력창---------------------------------------->
 									<span>&nbsp;&nbsp;&nbsp;휴대폰 번호</span>
 									<div class="col-md-12 form-group1 p_star">
-										<input type="tel" class="form-control" id="cellPhone" name="cellPhone" placeholder="폰번호 입력" value="01012345678" />
+										<input type="tel" class="form-control" id="cellPhone" name="cellPhone" placeholder="휴대폰 번호를 입력해주세요"  />
 									</div>
 									<!----------------------------------------폰번호 입력창---------------------------------------->
 									<!----------------------------------------인증번호 입력창---------------------------------------->
 									<div class="col-md-6 form-group p_star">
 										<br />
-										<input type="text" class="form-control" id="certification" name="certification" placeholder="인증번호 입력" value="1234" />
+										<input type="text" class="form-control" id="certification" name="certification" placeholder="인증번호를 입력해주세요"/>
 									</div>
 									<!----------------------------------------인증번호 입력창---------------------------------------->
 									<!----------------------------------------인증번호 발송버튼---------------------------------------->
@@ -110,7 +110,7 @@
 										<div>
 											<br />이메일
 										</div>
-										<input type="email" class="form-control" id="email" name="email" placeholder="이메일 입력해주세요" value="test@naver.com" />
+										<input type="email" class="form-control" id="email" name="email" placeholder="이메일 입력해주세요" />
 									</div>
 									<!----------------------------------------이메일 입력창---------------------------------------->
 									<!----------------------------------------성별 선택---------------------------------------->
@@ -125,7 +125,7 @@
 									<!----------------------------------------주소 입력---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;주소</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="address" name="address" placeholder="주소" value="서울특별시 강남구 역삼동 736-7" />
+										<input type="text" class="form-control" id="address" name="address" placeholder="주소를 입력해주세요" />
 									</div>
 									<div>
 										&nbsp;&nbsp;&nbsp;<a class="genric-btn info circle" onClick="addressSearch();">주소 찾기</a>
@@ -184,14 +184,14 @@
 									<!----------------------------------------닉네임 입력창---------------------------------------->
 									<div>&nbsp;&nbsp;&nbsp;닉네임</div>
 									<div class="col-md-12 form-group p_star">
-										<input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉에미 입력" value=${memberData.nickName } readonly />
+										<input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임 입력" value=${memberData.nickName } readonly />
 									</div>
 									<!----------------------------------------닉네임 입력창---------------------------------------->
 
 									<!----------------------------------------폰번호 입력창---------------------------------------->
 									<span>&nbsp;&nbsp;&nbsp;휴대폰 번호</span>
 									<div class="col-md-12 form-group1 p_star">
-										<input type="tel" class="form-control" id="cellPhone" name="cellPhone" placeholder="폰번호 입력" value=${memberData.cellPhone } readonly />
+										<input type="tel" class="form-control" id="cellPhone" name="cellPhone" placeholder="휴대폰 번호 입력" value=${memberData.cellPhone } readonly />
 									</div>
 									<!----------------------------------------폰번호 입력창---------------------------------------->
 
