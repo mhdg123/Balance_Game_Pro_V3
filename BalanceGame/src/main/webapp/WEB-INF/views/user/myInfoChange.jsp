@@ -5,7 +5,7 @@
 <head>
 <!-- css -->
 <%@ include file="../layout/header-fix.jsp"%>
-<title>Watch shop | eCommers</title>
+<title>BalanceGame | Jarvis</title>
 <!-- css -->
 <!-- SweetAlert2 CSS -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10"> -->

@@ -4,7 +4,7 @@
 <head>
 <!-- css -->
 <%@ include file="../layout/header-fix.jsp"%>
-<title>회원가입</title>
+<title>BalanceGame | Jarvis</title>
 <!-- css -->
 </head>
 

@@ -5,7 +5,7 @@
   <head>
  <!-- css -->
     <%@ include file="../layout/header-fix.jsp"%>
-    <title>Watch shop | eCommers</title>
+   <title>BalanceGame | Jarvis</title>
 <!-- css -->
     <style>
       .ck-editor__editable {

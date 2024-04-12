@@ -5,7 +5,7 @@
 <html lang="zxx">
 <!-- css -->
 <%@ include file="../layout/header-fix.jsp"%>
-<title>Watch shop | eCommers</title>
+<title>BalanceGame | Jarvis</title>
 <style>
 .letterFilterButton{
 width: 6%;

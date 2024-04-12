@@ -18,7 +18,7 @@ int totalPrice = 10;
 <script type="text/javascript"
    src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-<title>Watch shop | eCommers</title>
+<title>BalanceGame | Jarvis</title>
 <!-- css -->
 
 </head>
