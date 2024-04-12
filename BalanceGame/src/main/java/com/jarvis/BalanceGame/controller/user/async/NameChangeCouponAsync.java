@@ -33,10 +33,11 @@ public class NameChangeCouponAsync {
 		
 		// 유저가 아이템 있는지 유무 확인
 		miDTO = memberItemService.selectOne(miDTO);
-		
+		miDTO.getMemberItemId();
 		if(miDTO == null) {
-			
-			
+			return "fail";
+		}
+		if(miDTO.getMemberItemCount()<0) {
 			return "fail";
 		}
 		
