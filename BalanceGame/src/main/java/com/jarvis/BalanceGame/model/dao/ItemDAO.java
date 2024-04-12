@@ -18,14 +18,21 @@ public class ItemDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	// 아이템 전체 조회
 	private static final String SELECTALL_ITEM_TYPE = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE FROM ITEM WHERE ITEM_TYPE = 'item' "
 			+ "ORDER BY ITEM_ID DESC ";
+	// 포인트 전체 조회 
 	private static final String SELECTALL_POINT_TYPE = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE FROM ITEM WHERE ITEM_TYPE = 'point' "
 			+ "ORDER BY ITEM_ID DESC";
+	// 아이템 상세조회
 	private static final String SELECTONE = "SELECT ITEM_ID, ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE FROM ITEM WHERE ITEM_ID =?";
+	// 아이템 추가 시 다음 PK 조회
 	private static final String SELECTONE_NEXT_ID = "SELECT MAX(ITEM_ID)+1 AS NEXT_ITEM_ID FROM ITEM";
+	// 아이템 추가하기
 	private static final String INSERT = "INSERT INTO ITEM (ITEM_NAME, ITEM_PRICE, ITEM_IMAGE, ITEM_TYPE) VALUES (?,?,?,?)";
+	// 아이템 수정하기 
 	private static final String UPDATE = "UPDATE ITEM SET ITEM_NAME = ?, ITEM_PRICE = ?, ITEM_IMAGE = ? WHERE ITEM_ID = ?";
+	// 아이템 삭제하기
 	private static final String DELETE = "DELETE FROM ITEM WHERE ITEM_ID = ?";
 
 	public List<ItemDTO> selectAll(ItemDTO iDTO) {

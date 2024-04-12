@@ -17,6 +17,7 @@ public class TotalDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	// 월별로 포인트 구매 금액 총 조회 
 	private static final String SELECT_ALL_TOTAL_MONTH = "SELECT \r\n"
 			+ "    YEAR(CURRENT_TIMESTAMP) AS Year,\r\n"
 			+ "    months.month AS Month,\r\n"
@@ -38,7 +39,7 @@ public class TotalDAO {
 			+ "LEFT JOIN TOTAL total ON MONTH(total.TOTAL_DATE) = months.month AND YEAR(total.TOTAL_DATE) = YEAR(CURRENT_TIMESTAMP)\r\n"
 			+ "GROUP BY Year, months.month";
 	
-	
+	// 일별로 포인트 구매 금액 총 조회
 	private static final String SELECT_ALL_TOTAL_DAY="SELECT \r\n"
 			+ "    months.Month AS Month, \r\n"
 			+ "    COALESCE(SUM(TOTAL.TOTAL_AMOUNT), 0) AS TotalAmount \r\n"

@@ -56,26 +56,6 @@ public class MemberDAO {
 	// 아이디 찾기에서 회원정보가 맞는 지 확인(전화번호)
 	private static final String IS_INFO_CORRECT_SEARCH_ID_CELLPHONE = "SELECT LOGIN_ID, CELL_PHONE, NAME, LOGIN_TYPE FROM MEMBER WHERE NAME=? AND CELL_PHONE=?";
 
-	// 유저 전체 조회
-//	private static final String SELECTALL_USER = "SELECT \r\n" + "    M.LOGIN_ID, \r\n" + "    M.GENDER, \r\n"
-//			+ "    M.AGE," + "    M.ADDRESS, \r\n" + "    M.EMAIL, " + "    IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, \r\n"
-//			+ "    CASE \r\n" + "        WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL \r\n"
-//			+ "        ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
-//			+ "    END AS RANKING \r\n" + "FROM \r\n" + "    MEMBER M \r\n" + "LEFT JOIN \r\n"
-//			+ "    PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID \r\n" + "GROUP BY \r\n" + "    M.LOGIN_ID, \r\n"
-//			+ "    M.GENDER, \r\n" + "    M.AGE," + "    M.ADDRESS," + "	   M.EMAIL";
-
-	// 유저 랭킹 조회(관리자)
-//	private static final String SELECTALL_RANKING_ADMIN = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(SUM(P.AMOUNT), 0) AS TOTAL, "
-//			+ " CASE WHEN IFNULL(SUM(P.AMOUNT), 0) = 0 THEN NULL "
-//			+ " ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) "
-//			+ " END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID";
-
-	// 유저 포인트 조회(회원)
-//	private static final String SELECTALL_RANKING_MEMBER = "SELECT M.LOGIN_ID, M.NICKNAME, IFNULL(TRUNCATE(SUM(P.AMOUNT/10), 1),0) AS TOTAL, CASE WHEN IFNULL(SUM(P.AMOUNT/10), 0) = 0 THEN NULL \r\n"
-//			+ "ELSE CAST(RANK() OVER (ORDER BY IFNULL(SUM(P.AMOUNT/10), 0) DESC, MIN(P.PAYMENT_DATE)) AS CHAR) \r\n"
-//			+ "END AS RANKING FROM MEMBER M LEFT JOIN PAYMENT P ON M.LOGIN_ID = P.LOGIN_ID GROUP BY M.NICKNAME, M.LOGIN_ID";
-
 	// 회원가입 SQL
 	private static final String INSERT = "INSERT INTO MEMBER (LOGIN_ID, MEMBER_PASSWORD, NAME, NICKNAME, EMAIL, ADDRESS, GENDER, CELL_PHONE, AGE, LOGIN_TYPE) VALUES(?,?,?,?,?,?,?,?,?,?)";
 
@@ -105,20 +85,6 @@ public class MemberDAO {
 
 	// 유저 삭제
 	private static final String DELETE = "DELETE FROM MEMBER WHERE LOGIN_ID = ?";
-
-	// 회원 전체 검색
-	private List<MemberDTO> selectAll(MemberDTO mDTO) {
-		List<MemberDTO> members = null;
-//		if (mDTO.getSearchCondition().equals("viewAll")) {
-//			members = jdbcTemplate.query(SELECTALL_USER, new MemberRowMapper());
-//		} else if (mDTO.getSearchCondition().equals("ranking")) {
-//			members = jdbcTemplate.query(SELECTALL_RANKING_ADMIN, new MemberRowMapperRank());
-//		}
-//		else if(mDTO.getSearchCondition().equals("rankingPoint")) {
-//			members = jdbcTemplate.query(SELECTALL_RANKING_MEMBER, new MemberRowMapperRank());
-//		}
-		return members;
-	}
 
 	// 회원 단일 검색
 	public MemberDTO selectOne(MemberDTO mDTO) {

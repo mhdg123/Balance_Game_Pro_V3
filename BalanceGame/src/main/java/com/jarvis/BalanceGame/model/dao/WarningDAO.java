@@ -19,17 +19,21 @@ public class WarningDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	private static final String SELECTALL = "SELECT W.REPORTER, W.COMMENT_WRITER, W.COMMENT_ID,W.WARNING_DATE, C.COMMENTS\r\n"
+	// 신고 당한사람의 총 댓글 조회
+	private static final String SELECTALL = "SELECT W.REPORTER, W.COMMENT_WRITER, W.COMMENT_ID, W.WARNING_DATE, C.COMMENTS\r\n"
 			+ "FROM WARNING W "
 			+ "JOIN COMMENT C ON W.COMMENT_ID = C.COMMENT_ID "
 			+ "WHERE W.COMMENT_WRITER = ?";
 	
+	// 신고 중복 방지(기존 신고자 조회)
 	private static final String SELECTONE = "SELECT COMMENT_ID FROM WARNING WHERE REPORTER = ? AND COMMENT_ID = ?";
 	
+	// 신고하기
 	private static final String INSERT = "INSERT INTO WARNING (COMMENT_WRITER,REPORTER, COMMENT_ID) VALUES (?, ?, ?)";
 	
 	private static final String UPDATE = null;
 	
+	// 신고 해제하기 
 	private static final String DELETE = "DELETE FROM WARNING WHERE COMMENT_ID = ?";
 	
 	
@@ -44,13 +48,11 @@ public class WarningDAO {
 	
 	public WarningDTO selectOne(WarningDTO wDTO) {
 		WarningDTO data = null;
-		WarningDTO reSet = new WarningDTO();
 		Object[] args = {wDTO.getRepoter(), wDTO.getCommentId()};
 		try {
 			data = jdbcTemplate.queryForObject(SELECTONE, args, new WarningRowMapperIsData());
 		} catch (Exception e) {
 			System.out.println("경고테이블에 맞는 데이터가 없습니다");
-			return reSet;
 		}
 		return data;
 	}

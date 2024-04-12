@@ -20,7 +20,9 @@ public class PaymentDAO {
 	
 	// 포인트 구매 
 	private static final String PURCHASE_POINT = "INSERT INTO PAYMENT (LOGIN_ID, AMOUNT) VALUES (?, ?)"; // INPUT : 로그인 아이디, 결제 금액 
+	// 총 포인트 금액 조회
 	private static final String SELECT_TOTAL = "SELECT SUM(AMOUNT) AS TOTAL_AMOUNT FROM PAYMENT";
+	// 총 개수 조회 
 	private static final String SELECT_ONE_CNT = "SELECT COUNT(DISTINCT LOGIN_ID) AS CNT "
 			+ "FROM PAYMENT";
 	

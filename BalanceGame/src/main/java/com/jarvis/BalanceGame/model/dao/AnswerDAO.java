@@ -14,7 +14,7 @@ public class AnswerDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	// 해당 문제에 대한 질문 저장 
+	// 해당 회원이 푼 답변을 해당 문제에 저장 
 	private static final String INSERT = "INSERT INTO ANSWER (QUESTION_ID, LOGIN_ID, ANSWER) VALUES (?,?,?)";
 
 	private ArrayList<AnswerDTO> selectAll(AnswerDTO aDTO) {
