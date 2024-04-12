@@ -37,14 +37,14 @@ public class ItemUseController {
 			return "redirect:/user/myPageUpdatePageController";
 		}
 		if(miDTO.getItemId()==3) {
-			if(mDTO.getWriteStatus().equals("T")) {
+			if(mDTO.getWriteStatus().equals("F")) {
 				model.addAttribute("status", "fail");
 				model.addAttribute("msg", "댓글 사용이 가능합니다");
 				model.addAttribute("redirect", "/user/myInfoPage");
 				System.out.println("검사하고 여기들어온거야");
 				return "alert";
 			}
-			mDTO.setSearchCondition("updateCommentStatusT");
+			mDTO.setSearchCondition("updateCommentStatusF");
 			memberService.update(mDTO);
 			session.setAttribute("commentStatus", mDTO.getWriteStatus());
 			miDTO.setSearchCondition("useItem");
