@@ -32,8 +32,8 @@ public class SendTempPwAsync {
 		
 		mDTO.setSearchCondition("isTempPwInfoCorrect");
 		
-		System.out.println(mDTO);
 		mDTO = memberService.selectOne(mDTO);
+		System.out.println(mDTO);
 		if (mDTO.getLoginType().equals("SOCIAL")) {
 			return "social";
 		}
