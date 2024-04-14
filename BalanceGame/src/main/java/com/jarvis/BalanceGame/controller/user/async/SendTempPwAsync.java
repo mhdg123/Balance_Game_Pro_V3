@@ -30,7 +30,7 @@ public class SendTempPwAsync {
 	@PostMapping("/isTempPwInfoCorrect")
 	public @ResponseBody String sendTempPwAsync(@RequestBody MemberDTO mDTO) {
 		
-		mDTO.setSearchCondition("isTempPwInfoCorrectCellPhone");
+		mDTO.setSearchCondition("isTempPwInfoCorrect");
 		
 		System.out.println(mDTO);
 		mDTO = memberService.selectOne(mDTO);
