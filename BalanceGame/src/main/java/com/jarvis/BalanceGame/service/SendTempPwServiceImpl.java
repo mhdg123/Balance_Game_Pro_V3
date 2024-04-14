@@ -50,7 +50,12 @@ public class SendTempPwServiceImpl implements SendTempPwService {
 		try {
 			message.setFrom(new InternetAddress("qkrgusrngus@naver.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mDTO.getEmail()));
+            //if(mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) {
 			message.setSubject("임시 비밀번호입니다 - BLALANCE GAME");
+//            }
+//            else if(mDTO.getSearchCondition().equals("isEmailCodeCorrect")) {
+//                message.setSubject("코드 입니다 - BLALANCE GAME");
+//            }
 			message.setText(msg, "UTF-8", "html");
 		} catch (Exception e) {
 			e.printStackTrace();
