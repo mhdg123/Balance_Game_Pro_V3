@@ -37,7 +37,7 @@ public class SendTempPwAsync {
 		if (mDTO.getLoginType().equals("SOCIAL")) {
 			return "social";
 		}
-		if (memberService.selectOne(mDTO) != null) {
+		if (mDTO != null) {
 			System.out.println(mDTO);
 			String code = tempPwService.sendEmail(mDTO);
 			// 해당 코드로 회원 비밀번호 설정
