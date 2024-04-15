@@ -48,13 +48,20 @@ public class CommentReportAsync {
 		System.out.println("신고한 유저 데이터 : " + wDTO.getRepoter());
 		System.out.println("댓글 PK : " + wDTO.getCommentId());
 		
-		
+		System.out.println(wDTO+"1111111111111111");
 		wDTO = warningService.selectOne(wDTO); // 처음 신고는 빈 객체를 wDTO저장
+		System.out.println(wDTO+"22222222222222");
 		System.out.println("신고를 한적이 있는지 데이터 :  " + wDTO);
-		if (wDTO.getCommentId() <= 0) {
+		
+		if (wDTO== null) {
 			// 데이터가 없으면 추가
 			System.out.println("처음으로 신고");
 			System.out.println("신고 데이터 : " + wDTO);
+			
+			System.out.println(originCommentId);
+			System.out.println(originReporter);
+			System.out.println(originCommentWriter);
+			wDTO = new WarningDTO();
 			wDTO.setCommentId(originCommentId);
 			wDTO.setRepoter(originReporter);
 			wDTO.setCommentWriter(originCommentWriter);
@@ -88,6 +95,7 @@ public class CommentReportAsync {
 				lDTO.setLoginId("admin");
 				// 건의사항 타입 : 신고하기
 				lDTO.setLetterType("REPORT");
+				lDTO.setSearchCondition("writeLetterAdmin");
 				boolean flag = letterService.insert(lDTO);
 				if (flag) {
 					System.out.println("신고 3번당해서 관리자에게 건의사항으로 메세지 보냄");
