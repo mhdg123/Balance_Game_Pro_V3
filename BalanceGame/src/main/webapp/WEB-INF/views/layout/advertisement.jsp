@@ -3,7 +3,7 @@
 <!-- 광고 이미지 -->
 <c:if test="${advertisementData.advertisementStatus == 'T' }">
 	<div class="text-center" style="margin-top: 1%; margin-bottom: 2%">
-		<a href="${advertisementData.advertisementUrl }" target="_blank"> <img src="/resources/upload/${advertisementData.advertisementImg }" alt="광고 이미지" class="img-fluid" style="max-width: 10%; height: 10%;">
+		<a href="${advertisementData.advertisementUrl }" target="_blank"> <img src="/resources/upload/${advertisementData.advertisementImg }" alt="광고 이미지" class="img-fluid" style="max-width: 100%; height: 20%;">
 		</a>
 	</div>
 </c:if>
