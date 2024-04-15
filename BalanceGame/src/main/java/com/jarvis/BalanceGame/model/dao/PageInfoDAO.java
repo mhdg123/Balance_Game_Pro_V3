@@ -185,6 +185,9 @@ public class PageInfoDAO {
 
 	// 페이지 번호에 따른 offset 계산
 	public int calculateOffset(PageInfoDTO pDTO) {
+		//(현재 페이지 -1) * 몇개씩 자를 건지 
+		//ex) (1 -1)*10 = 0 - 0~9
+		//(2-1)*10 = 10 - 10~19 
 		pDTO.setOffset((pDTO.getCurrentPage() - 1) * pDTO.getPasingnationSize());
 		return pDTO.getOffset();
 	}
