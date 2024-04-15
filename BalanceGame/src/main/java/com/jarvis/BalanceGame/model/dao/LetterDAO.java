@@ -24,7 +24,7 @@ public class LetterDAO {
 	private static final String SELECTONE_CNT_ADMIN = "SELECT COUNT(1) AS CNT FROM LETTER WHERE LETTER_TYPE=? ";
 
 	// 안읽은 총 편지 수(관리자)
-	private static final String SELECTONE_CNT_ADMIN_UNREAD = "SELECT COUNT(1) AS CNT FROM LETTER WHERE LETTER_TYPE=? AND LETTER_STATUS=?";
+	private static final String SELECTONE_CNT_ADMIN_UNREAD = "SELECT COUNT(1) AS CNT FROM LETTER WHERE LETTER_TYPE=? AND LETTER_STATUS=? AND LOGIN_ID=?";
 
 	// 총 편지 수 (회원)
 	private static final String SELECTONE_CNT_MEMBER = "SELECT COUNT(1) AS CNT FROM LETTER";
@@ -46,10 +46,10 @@ public class LetterDAO {
 
 	// 메세지 읽음 처리
 	private static final String UPDATE_ALL_READ = "UPDATE LETTER SET LETTER_STATUS = 'T' WHERE LETTER_ID = ?";
-
+	
 	// 메세지 안읽음 처리
 	private static final String UPDATE_ALL_UNREAD = "UPDATE LETTER SET LETTER_STATUS = 'F' WHERE LETTER_ID =?";
-
+	
 	// 메세지 삭제
 	private static final String DELETE = "DELETE FROM LETTER WHERE LETTER_ID = ?";
 
@@ -82,7 +82,7 @@ public class LetterDAO {
 			// 안읽은 총 메세지 수(관리자)
 			else if (lDTO.getSearchCondition().equals("messageCntAdminUnRead")) {
 				System.out.println(lDTO+"<<<<<<<<<<<여기 확인이요DAO");
-				Object[] args = { lDTO.getLetterType(),lDTO.getLetterStatus()};
+				Object[] args = { lDTO.getLetterType(),lDTO.getLetterStatus(),lDTO.getLoginId()};
 				data = jdbcTemplate.queryForObject(SELECTONE_CNT_ADMIN_UNREAD, args, new LetterRowMapperCnt());
 			}
 

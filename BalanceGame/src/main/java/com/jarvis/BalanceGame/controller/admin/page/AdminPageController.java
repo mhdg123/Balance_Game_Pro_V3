@@ -80,6 +80,7 @@ public class AdminPageController {
 		
 		lDTO.setLetterType("suggestion");
 		lDTO.setSearchCondition("messageCntAdminUnRead");
+		lDTO.setLoginId("ADMIN");
 		lDTO.setLetterStatus("F");
 		lDTO = letterService.selectOne(lDTO);
 		System.out.println(lDTO.getCnt()+"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
