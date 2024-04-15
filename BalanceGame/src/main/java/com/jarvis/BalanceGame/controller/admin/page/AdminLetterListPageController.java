@@ -47,6 +47,7 @@ public class AdminLetterListPageController {
 		// 건의사항 갯수
 		lDTO.setLetterType("suggestion");
 		lDTO.setSearchCondition("messageCntAdmin");
+		lDTO.setLoginId("ADMIN");
 		lDTO = letterService.selectOne(lDTO);
 		System.out.println(lDTO);
 		pDTO.setTotalRows(lDTO.getCnt());

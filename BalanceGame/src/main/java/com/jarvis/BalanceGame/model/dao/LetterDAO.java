@@ -21,7 +21,7 @@ public class LetterDAO {
 	private static final String SELECTALL_UNREAD = "SELECT LETTER_ID, TITLE, SENDER, LETTER_STATUS, LETTER_DATE FROM LETTER WHERE LETTER_STATUS = 'F' AND LOGIN_ID=?";
 
 	// 총 편지 수 (관리자)
-	private static final String SELECTONE_CNT_ADMIN = "SELECT COUNT(1) AS CNT FROM LETTER WHERE LETTER_TYPE=? ";
+	private static final String SELECTONE_CNT_ADMIN = "SELECT COUNT(1) AS CNT FROM LETTER WHERE LETTER_TYPE=? AND LOGIN_ID=?";
 
 	// 안읽은 총 편지 수(관리자)
 	private static final String SELECTONE_CNT_ADMIN_UNREAD = "SELECT COUNT(1) AS CNT FROM LETTER WHERE LETTER_TYPE=? AND LETTER_STATUS=? AND LOGIN_ID=?";
@@ -76,7 +76,7 @@ public class LetterDAO {
 			}
 			// 총 메세지 수(관리자)
 			else if (lDTO.getSearchCondition().equals("messageCntAdmin")) {
-				Object[] args = { lDTO.getLetterType() };
+				Object[] args = { lDTO.getLetterType(),lDTO.getLoginId() };
 				data = jdbcTemplate.queryForObject(SELECTONE_CNT_ADMIN, args, new LetterRowMapperCnt());
 			}
 			// 안읽은 총 메세지 수(관리자)
