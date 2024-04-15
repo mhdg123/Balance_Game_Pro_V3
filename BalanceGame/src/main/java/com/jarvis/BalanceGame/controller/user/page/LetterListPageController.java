@@ -61,9 +61,11 @@ public class LetterListPageController {
 		
 		
 		//총패이지 수를 가져오기 위해 메세지 총 개수 를 가져옴
-		lDTO.setSearchCondition("messageCntMember");
+		lDTO.setLoginId(loginId);
+		lDTO.setSearchCondition("messageCntMemberOne");
+		System.out.println(lDTO+"<<<<<<<<<<<<<<<<<<<<<호이");
 		lDTO = letterService.selectOne(lDTO);
-		System.out.println(lDTO);
+		System.out.println(lDTO+"<<<<<<<<<<<<<<<<,여기");
 		//가져온 우편 개수
 		pDTO.setTotalRows(lDTO.getCnt());
 		int totalPage = pageInfoService.calcTotalPages(pDTO);	// 총페이지 수

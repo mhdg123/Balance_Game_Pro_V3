@@ -26,6 +26,9 @@ public class LetterDAO {
 	// 총 편지 수 (회원)
 	private static final String SELECTONE_CNT_MEMBER = "SELECT COUNT(1) AS CNT FROM LETTER";
 	
+	// 해당 회원 총 편지 수
+	private static final String SELECTONE_CNT_MEMBERONE = "SELECT COUNT(1) AS CNT FROM LETTER WHERE LOGIN_ID = ?";
+	
 	// 해당 메세지 조회
 	private static final String SELECTONE = "SELECT LETTER_ID,SENDER,LOGIN_ID  ,TITLE, LETTER_CONTENTS, LETTER_DATE, LETTER_STATUS FROM LETTER WHERE LETTER_ID = ?";
 
@@ -77,6 +80,12 @@ public class LetterDAO {
 			else if(lDTO.getSearchCondition().equals("messageCntMember")) {
 				data = jdbcTemplate.queryForObject(SELECTONE_CNT_MEMBER, new LetterRowMapperCnt());
 			}
+			else if(lDTO.getSearchCondition().equals("messageCntMemberOne")) {
+				System.out.println(lDTO+"<<<<<<<<<,DAO");
+				Object[] args = {lDTO.getLoginId()};
+				data = jdbcTemplate.queryForObject(SELECTONE_CNT_MEMBERONE,args, new LetterRowMapperCnt());
+			}
+			
 		} catch (Exception e) {
 			System.out.println("해당 편지 데이터가 없습니다");
 		}
