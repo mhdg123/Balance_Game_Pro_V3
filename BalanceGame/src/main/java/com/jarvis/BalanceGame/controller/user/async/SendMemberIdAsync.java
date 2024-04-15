@@ -27,17 +27,23 @@ public class SendMemberIdAsync {
 	private SendMemberIdService sendMemberIdService;
 
 	@PostMapping("/isIdInfoCorrect")
-	public @ResponseBody boolean sendMemberIdAsync(@RequestBody MemberDTO mDTO) {
+	public @ResponseBody String sendMemberIdAsync(@RequestBody MemberDTO mDTO) {
 
 		System.out.println(mDTO);
 
 		mDTO.setSearchCondition("isIdInfoCorrect");
 		mDTO = memberService.selectOne(mDTO);
+		if(mDTO==null) {
+			return "false";
+		}
+		if(mDTO.getLoginType().equals("SOCIAL")) {
+			return "social";
+		}
 		if (mDTO != null) {
 			sendMemberIdService.sendMessage(mDTO);
-			return true;
+			return "success";
 		}
-		return false;
+		return "false";
 	}
 
 	@PostMapping("/sendMemberIdNumberAsync")

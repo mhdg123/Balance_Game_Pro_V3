@@ -28,20 +28,20 @@ public class SendTempPwServiceImpl implements SendTempPwService {
 		msg += "<h1>BALANCE GAME 입니다</h1>";
 		msg += "<h2>"+mDTO.getLoginId()+"님, 안녕하세요<h2>";
 		msg += "<br>";
-		/* if(mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) { */
+		if(mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) { 
 		msg += "<h2>임시 비밀번호를 보내드립니다</h2>";
 		msg += "<br>";
 		msg += "<br>";
 		msg += "<div align='center' style='border:1px solid black'>";
 		msg += "<h3 style='color:blue'>해당 아래 임시비밀번호로 로그인 후 다른 비밀번호로 바꾸길 권장드립니다</h3>";
-       /* }
+      }
         else if(mDTO.getSearchCondition().equals("isEmailCodeCorrect")) {
             msg += "<h2>임시 코드를 보내드립니다</h2>";
             msg += "<br>";
             msg += "<br>";
             msg += "<div align='center' style='border:1px solid black'>";
             msg += "<h3 style='color:blue'>해당 아래 코드를 입력 해주세요</h3>";
-        }*/
+        }
 		msg += "<div style='font-size:130%'><strong>";
 		msg += tempPassword + "</strong></div><br/>";
 		msg += "</div>";
@@ -50,12 +50,12 @@ public class SendTempPwServiceImpl implements SendTempPwService {
 		try {
 			message.setFrom(new InternetAddress("qkrgusrngus@naver.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mDTO.getEmail()));
-            //if(mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) {
+            if(mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) {
 			message.setSubject("임시 비밀번호입니다 - BLALANCE GAME");
-//            }
-//            else if(mDTO.getSearchCondition().equals("isEmailCodeCorrect")) {
-//                message.setSubject("코드 입니다 - BLALANCE GAME");
-//            }
+            }
+            else if(mDTO.getSearchCondition().equals("isEmailCodeCorrect")) {
+               message.setSubject("코드 입니다 - BLALANCE GAME");
+            }
 			message.setText(msg, "UTF-8", "html");
 		} catch (Exception e) {
 			e.printStackTrace();

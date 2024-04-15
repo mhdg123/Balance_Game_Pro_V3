@@ -30,15 +30,20 @@ public class SendTempPwAsync {
 	@PostMapping("/isTempPwInfoCorrect")
 	public @ResponseBody String sendTempPwAsync(@RequestBody MemberDTO mDTO) {
 		
+		
 		mDTO.setSearchCondition("isTempPwInfoCorrect");
 		
 		mDTO = memberService.selectOne(mDTO);
 		System.out.println(mDTO);
+		if(mDTO==null) {
+			return "false";
+		}
 		if (mDTO.getLoginType().equals("SOCIAL")) {
 			return "social";
 		}
 		if (mDTO != null) {
 			System.out.println(mDTO);
+			mDTO.setSearchCondition("isTempPwInfoCorrect");
 			String code = tempPwService.sendEmail(mDTO);
 			// 해당 코드로 회원 비밀번호 설정
 			mDTO.setMemberPassword(code);
