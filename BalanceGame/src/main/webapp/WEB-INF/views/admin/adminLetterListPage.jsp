@@ -182,7 +182,7 @@
 		console.log(currentPage);
 		document.addEventListener('DOMContentLoaded', function() {
 			// 페이지 업데이트 실행
-			pageName = 'letterManagementPage';
+			pageName = 'adminLetterListPage';
 			updatePagination();
 		});
 	</script>
