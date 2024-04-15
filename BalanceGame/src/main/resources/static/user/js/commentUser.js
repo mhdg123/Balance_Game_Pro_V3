@@ -62,14 +62,18 @@ function commentAll() {
 					</div>`;
 				
 			});
-
-			pageName='commentPage';
+pageName='commentPage';
 			updatePagination();
 			$("#comment-box").html(elem);
+			
 			//document.getElementById(".save").src="images/찜o.png";
 			}else {
         // data가 비어있는 경우 처리
+        elem=`<div>출력할 댓글이 없습니다</div>`;
         console.log('데이터가 비어있습니다.');
+        pageName='commentPage';
+			updatePagination();
+			$("#comment-box").html(elem);
     }
 		},
 		error: function(error) {

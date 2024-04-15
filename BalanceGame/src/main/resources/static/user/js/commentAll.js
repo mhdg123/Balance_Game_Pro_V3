@@ -70,6 +70,10 @@ function commentAll() {
 			//document.getElementById(".save").src="images/찜o.png";
 			}else {
         // data가 비어있는 경우 처리
+        elem=`<div>출력할 댓글이 없습니다</div>`;
+        pageName='commentPage';
+			updatePagination();
+			$("#comment-box").html(elem);
         console.log('데이터가 비어있습니다.');
     }
 		},

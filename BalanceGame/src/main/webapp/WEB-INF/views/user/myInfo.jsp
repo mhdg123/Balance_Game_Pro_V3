@@ -265,7 +265,7 @@
     </script>
 
 	<script type="text/javascript">
-	function commentDelete(commentId) {
+/* 	function commentDelete(commentId) {
 	$.ajax({
 			type: "POST",
 			url: "/user/deleteCommentAsync",
@@ -287,7 +287,7 @@
 
 		});
 
-	}	
+	}	 */
 	function commentWarning(commentId,commentWriter) {
 		console.log(loginId+" "+questionId+" "+commentId);
 		$.ajax({
