@@ -230,7 +230,7 @@
 				return;
 			}	
 			
-			if(`${commentStatus}`=='T'){
+			if(`${commentStatus}`!='T'){
 				Swal.fire({
 					title: "댓글 정지",
 					text: "아이템 구매 후 사용가능합니다.",
