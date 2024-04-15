@@ -79,9 +79,11 @@ public class AdminPageController {
 		
 		
 		lDTO.setLetterType("suggestion");
-		lDTO.setSearchCondition("messageCntAdmin");
+		lDTO.setSearchCondition("messageCntAdminUnRead");
+		lDTO.setLetterStatus("F");
 		lDTO = letterService.selectOne(lDTO);
-		System.out.println(lDTO);
+		System.out.println(lDTO.getCnt()+"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+		System.out.println(lDTO+"건의사항 출력 한다!!!!!!!!!!!!!!1");
 		piDTO.setTotalRows(lDTO.getCnt());
 		int totalPage = pageInfoService.calcTotalPages(piDTO);	// 총페이지 수
 		
