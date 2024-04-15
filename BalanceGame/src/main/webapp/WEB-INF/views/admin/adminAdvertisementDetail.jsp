@@ -660,7 +660,6 @@ rotate
 	    // 체크 상태 변화 감지 및 알림 함수
 	    $('#customSwitch').change(function(){
 	        if($(this).is(':checked')) {
-	            /* alert('광고 보임.'); */
 	            adShowAndHide(advertisementId, advertisementStatus)
 	            showSuccess("상태","광고 보임");
 	        } else {

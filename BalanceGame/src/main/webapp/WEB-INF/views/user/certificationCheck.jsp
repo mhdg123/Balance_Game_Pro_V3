@@ -114,10 +114,6 @@
     <!-- 푸터 고정 스크립트 공통 모음 -->    
     <%@ include file="../layout/footer-fix.jsp"%>
     <!-- 푸터 고정 스크립트 공통 모음 -->  
-    <script>
-        function pointBuy() {
-            alert("카카오페이 결제");
-        }
-    </script>
+  
 </body>
 </html>

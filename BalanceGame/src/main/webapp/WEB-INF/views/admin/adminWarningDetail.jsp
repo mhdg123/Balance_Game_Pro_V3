@@ -350,7 +350,6 @@ th {
 		});
 
 		function limitShowAndHide(memberLoginId, writeStatus) {
-			alert("비동기 함수")
 			$.ajax({
 				type : "POST",
 				url : "/admin/adminCommentStopAsync",
@@ -374,7 +373,6 @@ th {
 		
 		
 		function adminCommentDelete(commentId ) {
-			alert("댓글 pk" + commentId )
 			$.ajax({
 				type : "POST",
 				url : "/admin/warningDeleteCommentAsync",
