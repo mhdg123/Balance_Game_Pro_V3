@@ -22,7 +22,7 @@ public class MemberItemDAO {
 			+ "AND MI.MEMBER_ITEM_COUNT > 0";
 	
 	// 해당 회원이 해당 아이템의 소유 유무
-	private static final String SELECTONE = "SELECT LOGIN_ID FROM MEMBER_ITEM WHERE LOGIN_ID = ? AND ITEM_ID = ?";
+	private static final String SELECTONE = "SELECT LOGIN_ID, MEMBER_ITEM_COUNT,ITEM_ID FROM MEMBER_ITEM WHERE LOGIN_ID = ? AND ITEM_ID = ?";
 	
 	// 해당 회원이 처음 아이템을 구매
 	private static final String INSERT = "INSERT INTO MEMBER_ITEM (LOGIN_ID, ITEM_ID, MEMBER_ITEM_COUNT) VALUES (?, ?, ?)";
@@ -94,6 +94,7 @@ class MemberItemRowMapperitemIsOwned implements RowMapper<MemberItemDTO>{
 	public MemberItemDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberItemDTO item = new MemberItemDTO();
 		item.setLoginId(rs.getString("LOGIN_ID"));
+		item.setMemberItemCount(rs.getInt("MEMBER_ITEM_COUNT"));
 		return item;
 	}
 	
