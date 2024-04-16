@@ -35,7 +35,7 @@ public class MailServiceImpl implements MailService {
 		msg += "</div>";
 
 		try {
-			message.setFrom(new InternetAddress("qkrgusrngus@naver.com"));
+			message.setFrom(new InternetAddress("jarvis1121@naver.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(qDTO.getEmail()));
 			message.setSubject("문제를 출제해주셔서 감사합니다");
 			message.setText(msg, "UTF-8", "html");

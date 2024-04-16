@@ -25,7 +25,7 @@ public class SendMemberIdServiceImpl implements SendMemberIdService {
 		String msg = "";
 		msg += "<h1>BALANCE GAME 입니다</h1>";
 		msg += "<br>";
-		msg += "<h2>" + mDTO.getNickName() + "님, 안녕하세요</h2>";
+		msg += "<h2>" + mDTO.getName() + "님, 안녕하세요</h2>";
 		msg += "<br>";
 		msg += "<br>";
 		msg += "<div align='center' style='border:1px solid black'>";
@@ -36,7 +36,7 @@ public class SendMemberIdServiceImpl implements SendMemberIdService {
 
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
-			message.setFrom(new InternetAddress("qkrgusrngus@naver.com"));
+			message.setFrom(new InternetAddress("jarvis1121@naver.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mDTO.getEmail()));
 			message.setSubject("회원 아이디를 보내드립니다 - BLALANCE GAME");
 			message.setText(msg, "UTF-8", "html");

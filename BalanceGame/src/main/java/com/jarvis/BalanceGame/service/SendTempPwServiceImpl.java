@@ -48,7 +48,7 @@ public class SendTempPwServiceImpl implements SendTempPwService {
 
 		MimeMessage message = emailSender.createMimeMessage();
 		try {
-			message.setFrom(new InternetAddress("qkrgusrngus@naver.com"));
+			message.setFrom(new InternetAddress("jarvis1121@naver.com"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mDTO.getEmail()));
             if(mDTO.getSearchCondition().equals("isTempPwInfoCorrect")) {
 			message.setSubject("임시 비밀번호입니다 - BLALANCE GAME");
