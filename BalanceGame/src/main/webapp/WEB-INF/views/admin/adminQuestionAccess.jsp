@@ -260,7 +260,6 @@ th {
 											<c:forEach var="data" items="${questionDatas_f}" varStatus="loop">
 												<tr onclick="location.href = '/admin/questionDetaileAccessPage?questionId=${data.questionId}'">
 													<td>${startIndex+loop.index + 1}</td>
-													<td>${data.questionId}</td>
 													<td>${data.writer}</td>
 													<td>${data.title}</td>
 													<td>${data.questionDate}</td>
