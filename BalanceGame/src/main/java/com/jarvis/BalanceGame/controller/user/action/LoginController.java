@@ -40,7 +40,8 @@ public class LoginController {
 				String loginId = (String)session.getAttribute("loginId");
 				String commentStatus = (String)session.getAttribute("commentStatus");
 				session.setAttribute("commentStatus", mDTO.getWriteStatus());
-				
+				session.setAttribute("advertisementStatus", mDTO.getAdvertisementStatus());
+				System.out.println(mDTO.getAdvertisementStatus()+"<<<<<<<<<<<<<<<<<");
 				mDTO.setLoginId(loginId);
 				model.addAttribute("status", "success");
 				model.addAttribute("msg", mDTO.getNickName() + "님 로그인 하셨습니다.");

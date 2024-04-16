@@ -103,6 +103,7 @@ public class ItemPurchase {
 				mDTO.setSearchCondition("viewCoin");
 				mDTO = memberService.selectOne(mDTO);
 				session.setAttribute("coin", mDTO.getCoin());
+				session.setAttribute("advertisementStatus", mDTO.getAdvertisementStatus());
 				model.addAttribute("status", "success");
 				model.addAttribute("msg", "구매 완료");
 				model.addAttribute("redirect", "/user/shopPage");

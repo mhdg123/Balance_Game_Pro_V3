@@ -122,6 +122,7 @@ public class NaverLoginPageController {
 		}
 		
 		// 로그인 성공
+		session.setAttribute("advertisementStatus", mDTO.getAdvertisementStatus());
 		session.setAttribute("coin", memberData.getCoin());
 		session.setAttribute("loginId", mDTO.getLoginId());
 		session.setAttribute("commentStatus", mDTO.getWriteStatus());
