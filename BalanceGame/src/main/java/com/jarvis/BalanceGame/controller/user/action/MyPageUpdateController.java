@@ -48,7 +48,7 @@ public class MyPageUpdateController {
 		model.addAttribute("msg", "정보변경 성공");
 		model.addAttribute("redirect", "/user/myInfoPage");
 
-		if (oldName != mDTO.getNickName()) {
+		if (!oldName.equals(mDTO.getNickName())) {
 			miDTO.setItemId(1);
 			miDTO.setSearchCondition("useItem");
 			memberItemService.update(miDTO);

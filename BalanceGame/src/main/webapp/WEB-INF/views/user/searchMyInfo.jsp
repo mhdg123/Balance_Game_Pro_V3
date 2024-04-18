@@ -161,7 +161,7 @@
         if (response.ok) {
    	      const result = await response.text(); // 응답받은 데이터 >> text() 가져오기 
    	      if(result === "success"){
-   	    	redirectToSuccessPage("아이디를 회원번호로 전송했습니다."); // 로그인 페이지 이동
+   	    	redirectToSuccessPage("아이디를 이메일로 전송했습니다."); // 로그인 페이지 이동
    	      }else if(result === "social") {
    	    	  redirectToErrorPage("소셜 회원 입니다. 다시 한번 확인해주세요"); // 새로고침
    	      }
@@ -240,7 +240,7 @@ async function passwordSearchEmail() {
       if (response.ok) {
    	    const result = await response.text();  
    	    if(result === "success"){
-   	   		redirectToSuccessPage("아이디를 회원번호로 전송했습니다."); 
+   	   		redirectToSuccessPage("비밀번호를 이메일로 전송했습니다."); 
    	    }else if(result === "social") {
    	    	redirectToErrorPage("소셜 회원 입니다. 다시 한번 확인해주세요"); 
    	    }
