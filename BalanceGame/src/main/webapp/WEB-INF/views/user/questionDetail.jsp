@@ -42,14 +42,7 @@
 					<div style="display: flex; justify-content: space-between; align-items: center;">
 						<a href="/user/questionListPage"><p>< 문제목록</p></a>
 						<div class="row f-right" style="display: flex; align-items: center; gap: 10px;">
-							<div>필터</div>
-							<div class="default-select col-md-3" id="default-select">
-								<select>
-									<option value="1">전체</option>
-									<option value="2">남자</option>
-									<option value="3">여자</option>
-								</select>
-							</div>
+							
 						</div>
 					</div>
 
