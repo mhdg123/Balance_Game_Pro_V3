@@ -176,9 +176,9 @@ public class PageInfoDAO {
 		if (pDTO.getTotalRows() <= 0) { // 데이터가 없다면
 			pDTO.setTotalPages(0); // 토탈페이지는 0
 		}
-		pDTO.setTotalPages(pDTO.getTotalRows() / pDTO.getPasingnationSize()); // 토탈 페이지 개수
-		if (pDTO.getTotalRows() % pDTO.getPasingnationSize() > 0) { // 토탈 페이지 계산했을 때 나머지가 0보다 크다면
-			pDTO.setTotalPages(pDTO.getTotalPages() + 1); // 페이지 개수 1 증가
+		pDTO.setTotalPages(pDTO.getTotalRows() / pDTO.getPasingnationSize()); 
+		if (pDTO.getTotalRows()>10 && pDTO.getTotalRows() % pDTO.getPasingnationSize() > 0) {
+			pDTO.setTotalPages(pDTO.getTotalPages() + 1); 
 		}
 		return pDTO.getTotalPages();
 	}

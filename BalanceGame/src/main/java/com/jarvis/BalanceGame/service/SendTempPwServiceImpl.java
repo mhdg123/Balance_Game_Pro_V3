@@ -12,7 +12,7 @@ import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-@Service
+@Service("sendTempPwService")
 public class SendTempPwServiceImpl implements SendTempPwService {
 
 	@Autowired
